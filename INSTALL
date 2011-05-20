@@ -1,0 +1,16 @@
+
+1. Create shadow build directory.
+
+2. Go into shadow build directory.
+
+3. Ensure the correct DESTDIR is set in .pro file. This is the directory to which you want to install.
+
+4. Run (assuming path to project is ../QMentat/):
+qmake ../QMentat/QMentat.pro -r -spec linux-g++ CONFIG+=release
+
+5. Run make
+
+6. Run lrelease ../QMentat/QMentat.pro to generate .qm translation files.
+
+6. Run make install
+

@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>applications_education.png</normaloff>applications_education.png</iconset>
+    <normaloff>QMentat.png</normaloff>QMentat.png</iconset>
   </property>
   <property name="layoutDirection">
    <enum>Qt::LeftToRight</enum>

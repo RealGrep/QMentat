@@ -9,11 +9,22 @@ QT       += core gui webkit sql
 TARGET = QMentat
 TEMPLATE = app
 
-QMAKE_CXXFLAGS_DEBUG=-std=c++0x
+QMAKE_CXXFLAGS += -std=c++0x
 
 include(/home/michel/qtmmlwidget-2.4_1-opensource/src/qtmmlwidget.pri)
 
+#INCLUDEPATH
 #LIBS += -lrandom
+#DESTDIR
+#DEFINES
+#DEPENDPATH
+#PKGCONFIG +=
+#CONFIG += debug
+#CONFIG(debug, debug|release) {
+#    message("Debug mode")
+#}
+
+DESTDIR = ../QMentat-install
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -67,14 +78,33 @@ FORMS    += mainwindow.ui \
     mathdisplayform.ui
 
 OTHER_FILES += \
-    SubtractionIcon16x16.png \
-    RootsIcon16x16.png \
-    PowersIcon16x16.png \
-    MultiplicationIcon16x16.png \
-    DivisionIcon16x16.png \
-    AdditionIcon16x16.png \
-    applications_education.png
+    exit.png \
+    QMentat.png \
+    Subtraction_32x32.png \
+    Roots_32x32.png \
+    Powers_32x32.png \
+    Multiplication_32x32.png \
+    Division_32x32.png \
+    Addition_32x32.png \
+    Doxyfile \
+    qmentat_fr.ts \
+    qmentat_es.ts \
+    INSTALL
 
 TRANSLATIONS += \
-   qmentat_fr.ts \
-   qmentat_es.ts
+    qmentat_fr.ts \
+    qmentat_es.ts
+
+# INSTALLATION
+target.path = $$DESTDIR
+
+images.path = $$DESTDIR
+images.files = *.png
+
+translates.path = $$DESTDIR
+translates.files = *.qm
+
+INSTALLS = \
+    target \
+    images \
+    translates
