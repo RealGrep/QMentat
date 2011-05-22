@@ -15,14 +15,15 @@
 AdditionModule::AdditionModule(MainWindow *mw)
 {
    // Init sane defaults
-   this->firstMin = 2;
-   this->firstMax = 100;
-   this->lastMin = 2;
-   this->lastMax = 100;
-   this->largestNumberFirst = false;
-   this->firstNumber = 0;
-   this->lastNumber = 0;
-   this->answer = 0;
+   decimalPlaces = 0;
+   firstMin = 2;
+   firstMax = 100;
+   lastMin = 2;
+   lastMax = 100;
+   largestNumberFirst = false;
+   firstNumber = 0;
+   lastNumber = 0;
+   answer = 0;
 
    genFirst = 0;
    genLast = 0;
@@ -33,11 +34,13 @@ AdditionModule::AdditionModule(MainWindow *mw)
    // Make config frame
    configFrame = new AdditionConfigFrame();
    configFrame->setModule(this);
-   configFrame->setFirstMinimum(this->firstMin);
-   configFrame->setFirstMaximum(this->firstMax);
-   configFrame->setLastMinimum(this->lastMin);
-   configFrame->setLastMaximum(this->lastMax);
-   configFrame->setLargestNumberFirst(this->largestNumberFirst);
+   configFrame->setDecimalPlaces(decimalPlaces);
+   configFrame->setFirstMinimum(firstMin);
+   configFrame->setFirstMaximum(firstMax);
+   configFrame->setLastMinimum(lastMin);
+   configFrame->setLastMaximum(lastMax);
+   configFrame->setLargestNumberFirst(largestNumberFirst);
+
 
    // Make display frame
    displayFrame = (QuestionDisplay*)(new QuestionDisplayForm());
@@ -92,25 +95,45 @@ QString AdditionModule::question()
    assert(genFirst != 0);
    assert(genLast != 0);
 
-   this->firstNumber = (*genFirst)();
-   this->lastNumber = (*genLast)();
-   if (this->largestNumberFirst && (this->lastNumber > this->firstNumber))
+   firstNumber = (*genFirst)();
+   lastNumber = (*genLast)();
+   if (largestNumberFirst && (lastNumber > firstNumber))
    {
-      int tmp = this->firstNumber;
-      this->firstNumber = this->lastNumber;
-      this->lastNumber = tmp;
+      int tmp = firstNumber;
+      firstNumber = lastNumber;
+      lastNumber = tmp;
    }
-   this->answer = this->firstNumber + this->lastNumber;
+   answer = firstNumber + lastNumber;
 
-   QString q;
-   q = QString("%L1\n + %L2").arg(this->firstNumber).arg(this->lastNumber);
+   QString q = QString("%1\n + %2")
+               .arg(decimalize(firstNumber, decimalPlaces))
+               .arg(decimalize(lastNumber, decimalPlaces));
+   //q = QString("%L1\n + %L2").arg(firstNumber).arg(lastNumber);
 
    return q;
 }
 
 bool AdditionModule::isCorrect(QString& answerGiven)
 {
-   unsigned long answerNum = answerGiven.toULong();
+   // Figure out how many decimal places we're "missing" and get them back
+   // so the comparison works right
+   int decimalPos = answerGiven.indexOf(QChar('.'));
+   int missingDecimals = 0;
+   quint64 answerNum = 0;
+   if (decimalPos >= 0)
+   {
+      missingDecimals = decimalPlaces - answerGiven.size() - 1
+                        - decimalPos;
+      answerNum = answerGiven.remove(QChar('.')).toULongLong();
+      if (missingDecimals > 0)
+      {
+         answerNum *= static_cast<quint64>(pow(10, missingDecimals));
+      }
+   } else {
+      answerNum = answerGiven.toULongLong();
+   }
+
+   //qDebug() << "isCorrect: answerGiven = " << answerNum << "; answer = " << answer;
    if (answerNum == this->answer)
    {
       return true;
@@ -121,10 +144,10 @@ bool AdditionModule::isCorrect(QString& answerGiven)
 
 QString AdditionModule::getAnswerString()
 {
-   return QString("%L1 + %L2 = %L3")
-         .arg(this->firstNumber)
-         .arg(this->lastNumber)
-         .arg(this->answer);
+   return QString("%1 + %2 = %3")
+         .arg(decimalize(firstNumber, decimalPlaces))
+         .arg(decimalize(lastNumber, decimalPlaces))
+         .arg(decimalize(answer, decimalPlaces));
 }
 
 void AdditionModule::firstRangeUpdated()
@@ -137,7 +160,9 @@ void AdditionModule::firstRangeUpdated()
    }
 
    // Make new generator
-   genFirst = new RandomInt<quint64>(this->firstMin, this->firstMax);
+   quint64 min = firstMin * static_cast<quint64>(pow(10, decimalPlaces));
+   quint64 max = firstMax * static_cast<quint64>(pow(10, decimalPlaces));
+   genFirst = new RandomInt<quint64>(min, max);
 }
 
 void AdditionModule::lastRangeUpdated()
@@ -150,7 +175,11 @@ void AdditionModule::lastRangeUpdated()
    }
 
    // Make new generator
-   genLast = new RandomInt<quint64>(this->lastMin, this->lastMax);
+   quint64 min = lastMin * static_cast<quint64>(pow(10, decimalPlaces));
+   quint64 max = lastMax * static_cast<quint64>(pow(10, decimalPlaces));
+   //qDebug() << "Decimals: " << decimalPlaces << "; randMin = " << min
+   //      << "; randMax = " << max << endl;
+   genLast = new RandomInt<quint64>(min, max);
 }
 
 void AdditionModule::setFirstMaximum(quint64 newMax)
@@ -206,6 +235,17 @@ void AdditionModule::setLargestNumberFirst(bool b)
    if (this->largestNumberFirst != b)
    {
       this->largestNumberFirst = b;
+      mainWindow->newQuestion();
+   }
+}
+
+void AdditionModule::setDecimalPlaces(quint32 newDecimals)
+{
+   if (decimalPlaces != newDecimals) {
+      decimalPlaces = newDecimals;
+      firstRangeUpdated();
+      lastRangeUpdated();
+      qDebug() << "New decimal places: " << decimalPlaces;
       mainWindow->newQuestion();
    }
 }

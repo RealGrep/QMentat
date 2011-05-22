@@ -24,6 +24,7 @@ public:
     void setLastMinimum(quint64 min);
     void setLastMaximum(quint64 max);
     void setLargestNumberFirst(bool b);
+    void setDecimalPlaces(quint32 decimalPlaces);
 
     AdditionModule *module;
 
@@ -31,6 +32,7 @@ private:
     Ui::AdditionConfigFrame *ui;
 
 private slots:
+    void on_decimalPlacesLineEdit_editingFinished();
     void on_largestNumberFirstCheckBox_stateChanged(int );
     void on_secondMaxLineEdit_editingFinished();
     void on_secondMinLineEdit_editingFinished();

@@ -25,11 +25,14 @@ public:
     QuestionDisplay *getDisplayFrame();
     QString getAnswerString();
 
+    //QString decimalize(quint64 num, quint32 decimals);
+
     void setFirstMaximum(quint64 newMax);
     void setFirstMinimum(quint64 newMin);
     void setLastMaximum(quint64 newMax);
     void setLastMinimum(quint64 newMin);
     void setLargestNumberFirst(bool b);
+    void setDecimalPlaces(quint32 newDecimals);
 
 private:
     MainWindow *mainWindow;
@@ -42,6 +45,7 @@ private:
     quint64 lastNumber;
     quint64 answer;
     bool largestNumberFirst;
+    quint32 decimalPlaces;
 
     RandomInt<quint64> *genFirst;
     RandomInt<quint64> *genLast;

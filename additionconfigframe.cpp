@@ -52,6 +52,11 @@ void AdditionConfigFrame::setLargestNumberFirst(bool b)
    ui->largestNumberFirstCheckBox->setChecked(b);
 }
 
+void AdditionConfigFrame::setDecimalPlaces(quint32 decimalPlaces)
+{
+   ui->decimalPlacesLineEdit->setText(QString("%1").arg(decimalPlaces));
+}
+
 void AdditionConfigFrame::on_minNumberLineEdit_editingFinished()
 {
    quint64 newMin = ui->minNumberLineEdit->text().toULongLong();
@@ -89,4 +94,10 @@ void AdditionConfigFrame::on_largestNumberFirstCheckBox_stateChanged(int state)
    } else {
       this->module->setLargestNumberFirst(false);
    }
+}
+
+void AdditionConfigFrame::on_decimalPlacesLineEdit_editingFinished()
+{
+    quint32 newDecimals = ui->decimalPlacesLineEdit->text().toUInt();
+    this->module->setDecimalPlaces(newDecimals);
 }
