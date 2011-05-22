@@ -11,7 +11,7 @@ TEMPLATE = app
 
 QMAKE_CXXFLAGS += -std=c++0x
 
-include(/home/michel/qtmmlwidget-2.4_1-opensource/src/qtmmlwidget.pri)
+include(/home/michel/code/QMentat/qtmmlwidget-2.4_1-opensource/src/qtmmlwidget.pri)
 
 #INCLUDEPATH
 #LIBS += -lrandom

@@ -1,5 +1,4 @@
 #include "additionmodule.h"
-#include "mainwindow.h"
 
 #include <QtGui>
 #include <QString>
@@ -44,10 +43,6 @@ AdditionModule::AdditionModule(MainWindow *mw)
 
    // Make display frame
    displayFrame = (QuestionDisplay*)(new QuestionDisplayForm());
-
-   // Seed random numbers
-   //QTime midnight(0, 0, 0);
-   //qsrand(midnight.secsTo(QTime::currentTime()));
 
    firstRangeUpdated();
    lastRangeUpdated();
@@ -105,10 +100,9 @@ QString AdditionModule::question()
    }
    answer = firstNumber + lastNumber;
 
-   QString q = QString("%1\n + %2")
+   QString q = QString("%1\n+ %2")
                .arg(decimalize(firstNumber, decimalPlaces))
                .arg(decimalize(lastNumber, decimalPlaces));
-   //q = QString("%L1\n + %L2").arg(firstNumber).arg(lastNumber);
 
    return q;
 }
@@ -117,14 +111,13 @@ bool AdditionModule::isCorrect(QString& answerGiven)
 {
    // Figure out how many decimal places we're "missing" and get them back
    // so the comparison works right
-   int decimalPos = answerGiven.indexOf(QChar('.'));
-   int missingDecimals = 0;
+   int decimalPos = answerGiven.indexOf(QLocale::system().decimalPoint());
    quint64 answerNum = 0;
    if (decimalPos >= 0)
    {
-      missingDecimals = decimalPlaces - answerGiven.size() - 1
+      int missingDecimals = decimalPlaces - answerGiven.size() - 1
                         - decimalPos;
-      answerNum = answerGiven.remove(QChar('.')).toULongLong();
+      answerNum = answerGiven.remove(QLocale::system().decimalPoint()).toULongLong();
       if (missingDecimals > 0)
       {
          answerNum *= static_cast<quint64>(pow(10, missingDecimals));
@@ -162,6 +155,7 @@ void AdditionModule::firstRangeUpdated()
    // Make new generator
    quint64 min = firstMin * static_cast<quint64>(pow(10, decimalPlaces));
    quint64 max = firstMax * static_cast<quint64>(pow(10, decimalPlaces));
+
    genFirst = new RandomInt<quint64>(min, max);
 }
 
@@ -177,20 +171,19 @@ void AdditionModule::lastRangeUpdated()
    // Make new generator
    quint64 min = lastMin * static_cast<quint64>(pow(10, decimalPlaces));
    quint64 max = lastMax * static_cast<quint64>(pow(10, decimalPlaces));
-   //qDebug() << "Decimals: " << decimalPlaces << "; randMin = " << min
-   //      << "; randMax = " << max << endl;
+
    genLast = new RandomInt<quint64>(min, max);
 }
 
 void AdditionModule::setFirstMaximum(quint64 newMax)
 {
-   if (this->firstMax != newMax) {
-      if (std::numeric_limits<quint64>::max() - this->lastMax <= newMax)
+   if (firstMax != newMax) {
+      if (std::numeric_limits<quint64>::max() - lastMax <= newMax)
       {
          qDebug() << "OVERFLOW POSSIBLE!" << endl;
 
       } else {
-         this->firstMax = newMax;
+         firstMax = newMax;
          firstRangeUpdated();
          mainWindow->newQuestion();
       }
@@ -199,8 +192,8 @@ void AdditionModule::setFirstMaximum(quint64 newMax)
 
 void AdditionModule::setFirstMinimum(quint64 newMin)
 {
-   if (this->firstMin != newMin) {
-      this->firstMin = newMin;
+   if (firstMin != newMin) {
+      firstMin = newMin;
       firstRangeUpdated();
       mainWindow->newQuestion();
    }
@@ -208,13 +201,13 @@ void AdditionModule::setFirstMinimum(quint64 newMin)
 
 void AdditionModule::setLastMaximum(quint64 newMax)
 {
-   if (this->lastMax != newMax) {
-      if (std::numeric_limits<quint64>::max() - newMax <= this->firstMax)
+   if (lastMax != newMax) {
+      if (std::numeric_limits<quint64>::max() - newMax <= firstMax)
       {
          qDebug() << "OVERFLOW POSSIBLE!" << endl;
 
       } else {
-         this->lastMax = newMax;
+         lastMax = newMax;
          lastRangeUpdated();
          mainWindow->newQuestion();
       }
@@ -223,8 +216,8 @@ void AdditionModule::setLastMaximum(quint64 newMax)
 
 void AdditionModule::setLastMinimum(quint64 newMin)
 {
-   if (this->lastMin != newMin) {
-      this->lastMin = newMin;
+   if (lastMin != newMin) {
+      lastMin = newMin;
       lastRangeUpdated();
       mainWindow->newQuestion();
    }
@@ -232,9 +225,9 @@ void AdditionModule::setLastMinimum(quint64 newMin)
 
 void AdditionModule::setLargestNumberFirst(bool b)
 {
-   if (this->largestNumberFirst != b)
+   if (largestNumberFirst != b)
    {
-      this->largestNumberFirst = b;
+      largestNumberFirst = b;
       mainWindow->newQuestion();
    }
 }
@@ -243,9 +236,10 @@ void AdditionModule::setDecimalPlaces(quint32 newDecimals)
 {
    if (decimalPlaces != newDecimals) {
       decimalPlaces = newDecimals;
+
       firstRangeUpdated();
       lastRangeUpdated();
-      qDebug() << "New decimal places: " << decimalPlaces;
+
       mainWindow->newQuestion();
    }
 }

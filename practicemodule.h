@@ -29,9 +29,10 @@ public:
           //qDebug() << "integer = " << integerPart;
           //qDebug() << "fract = " << fractionalPart;
 
-          str = QString("%L1.%L2")
+          str = QString("%L1%2%L3")
                 .arg(integerPart)
-                .arg(fractionalPart, decimals, 10, QChar('0'));
+                .arg(QLocale::system().decimalPoint())
+                .arg(fractionalPart, decimals, 10, QLocale::system().zeroDigit());
        }
 
        return str;
