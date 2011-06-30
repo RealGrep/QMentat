@@ -36,7 +36,6 @@ private:
     void readSettings();
     void writeSettings();
 
-
 private slots:
     void on_actionStatistics_triggered();
     void moduleChange(PracticeModule *module);

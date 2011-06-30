@@ -19,6 +19,9 @@
 // MMD TEST
 #include "FixedPoint.h"
 
+#include "statisticsdialog.h"
+
+
 /*! \class MainWindow
  * \brief The MainWindow of the entire application.
  * \param parent The parent QWidget.
@@ -308,5 +311,7 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::on_actionStatistics_triggered()
 {
-
+    StatisticsDialog stats;
+    stats.set(totalCorrect, totalWrong);
+    stats.exec();
 }

@@ -45,7 +45,9 @@ SOURCES += main.cpp\
     rootsconfigframe.cpp \
     questiondisplay.cpp \
     mathdisplayform.cpp \
-    qulonglongvalidator.cpp
+    qulonglongvalidator.cpp \
+    pieview.cpp \
+    statisticsdialog.cpp
 
 HEADERS  += mainwindow.h \
     additionmodule.h \
@@ -66,7 +68,9 @@ HEADERS  += mainwindow.h \
     mathdisplayform.h \
     random.h \
     qulonglongvalidator.h \
-    FixedPoint.h
+    FixedPoint.h \
+    pieview.h \
+    statisticsdialog.h
 
 FORMS    += mainwindow.ui \
     additionconfigframe.ui \
@@ -76,7 +80,8 @@ FORMS    += mainwindow.ui \
     questiondisplayform.ui \
     powersconfigframe.ui \
     rootsconfigframe.ui \
-    mathdisplayform.ui
+    mathdisplayform.ui \
+    statisticsdialog.ui
 
 OTHER_FILES += \
     exit.png \
