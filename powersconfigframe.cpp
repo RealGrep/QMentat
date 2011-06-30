@@ -21,22 +21,22 @@ void PowersConfigFrame::setModule(PowersModule *mod)
     this->module = mod;
 }
 
-void PowersConfigFrame::setMinimum(int min)
+void PowersConfigFrame::setMinimum(quint64 min)
 {
     ui->minNumberLineEdit->setText(QString("%1").arg(min));
 }
 
-void PowersConfigFrame::setMaximum(int max)
+void PowersConfigFrame::setMaximum(quint64 max)
 {
     ui->maxNumberLineEdit->setText(QString("%1").arg(max));
 }
 
-void PowersConfigFrame::setPowerMinimum(int min)
+void PowersConfigFrame::setPowerMinimum(quint32 min)
 {
     ui->minPowerLineEdit->setText(QString("%1").arg(min));
 }
 
-void PowersConfigFrame::setPowerMaximum(int max)
+void PowersConfigFrame::setPowerMaximum(quint32 max)
 {
     ui->maxPowerLineEdit->setText(QString("%1").arg(max));
 }

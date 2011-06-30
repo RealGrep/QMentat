@@ -1,32 +1,23 @@
 #ifndef DIVISIONMODULE_H
 #define DIVISIONMODULE_H
 
-#include "mainwindow.h"
 #include "practicemodule.h"
-#include "divisionconfigframe.h"
-#include "questiondisplay.h"
 
 #include <vector>
 
+// Forward declarations
+template <class inttype> class RandomInt;
 class DivisionConfigFrame;
 class MainWindow;
+class QuestionDisplay;
+class QString;
+class QFrame;
 
 class DivisionModule : public PracticeModule
 {
 public:
     DivisionModule(MainWindow *mw);
     ~DivisionModule();
-
-    MainWindow *mainWindow;
-
-    int firstMin;
-    int firstMax;
-    int lastMin;
-    int lastMax;
-    int firstNumber;
-    int lastNumber;
-    int answer;
-    bool largestNumberFirst;
 
     QString question();
     bool isCorrect(QString& answerGiven);
@@ -36,16 +27,36 @@ public:
     QuestionDisplay* getDisplayFrame();
     QString getAnswerString();
 
+    void setFirstMaximum(quint64 newMax);
+    void setFirstMinimum(quint64 newMin);
+    void setLastMaximum(quint64 newMax);
+    void setLastMinimum(quint64 newMin);
+    void setLargestNumberFirst(bool b);
+    void setDecimalPlaces(quint32 newDecimals);
+
+private:
+    MainWindow *mainWindow;
+
+    quint64 firstMin;
+    quint64 firstMax;
+    quint64 lastMin;
+    quint64 lastMax;
+    quint64 firstNumber;
+    quint64 lastNumber;
+    quint64 answer;
+    bool largestNumberFirst;
+    quint32 decimalPlaces;
+
+    RandomInt<quint64> *genFirst;
+    RandomInt<quint64> *genLast;
+
+    void firstRangeUpdated();
+    void lastRangeUpdated();
+
     bool isRangeOk(int firstMin, int firstMax, int lastMin, int lastMax);
     std::vector<unsigned long> *getDivisors(unsigned long num,
                                             unsigned long min,
                                             unsigned long max);
-
-    void setFirstMaximum(int newMax);
-    void setFirstMinimum(int newMin);
-    void setLastMaximum(int newMax);
-    void setLastMinimum(int newMin);
-    void setLargestNumberFirst(bool b);
 };
 
 #endif // DIVISIONMODULE_H

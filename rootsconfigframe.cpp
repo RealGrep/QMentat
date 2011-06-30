@@ -21,22 +21,22 @@ void RootsConfigFrame::setModule(RootsModule *mod)
     this->module = mod;
 }
 
-void RootsConfigFrame::setMinimum(int min)
+void RootsConfigFrame::setMinimum(quint64 min)
 {
     ui->minNumberLineEdit->setText(QString("%1").arg(min));
 }
 
-void RootsConfigFrame::setMaximum(int max)
+void RootsConfigFrame::setMaximum(quint64 max)
 {
     ui->maxNumberLineEdit->setText(QString("%1").arg(max));
 }
 
-void RootsConfigFrame::setRootMinimum(int min)
+void RootsConfigFrame::setRootMinimum(quint32 min)
 {
     ui->minRootLineEdit->setText(QString("%1").arg(min));
 }
 
-void RootsConfigFrame::setRootMaximum(int max)
+void RootsConfigFrame::setRootMaximum(quint32 max)
 {
     ui->maxRootLineEdit->setText(QString("%1").arg(max));
 }

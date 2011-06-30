@@ -1,30 +1,21 @@
 #ifndef ROOTSMODULE_H
 #define ROOTSMODULE_H
 
-#include "rootsconfigframe.h"
 #include "practicemodule.h"
-#include <QString>
-#include <QFrame>
-#include "questiondisplay.h"
 
+// Forward declarations
+template <class inttype> class RandomInt;
 class RootsConfigFrame;
 class MainWindow;
+class QuestionDisplay;
+class QString;
+class QFrame;
 
 class RootsModule : public PracticeModule
 {
 public:
     RootsModule(MainWindow *mw);
     ~RootsModule();
-
-    MainWindow *mainWindow;
-
-    int min;
-    int max;
-    int rootMin;
-    int rootMax;
-    int firstNumber;
-    int root;
-    int answer;
 
     QString question();
     bool isCorrect(QString& answerGiven);
@@ -34,10 +25,29 @@ public:
     QuestionDisplay* getDisplayFrame();
     QString getAnswerString();
 
-    void setMaximum(int newMax);
-    void setMinimum(int newMin);
-    void setRootMaximum(int newMax);
-    void setRootMinimum(int newMin);
+    void setMaximum(quint64 newMax);
+    void setMinimum(quint64 newMin);
+    void setRootMaximum(quint32 newMax);
+    void setRootMinimum(quint32 newMin);
+    void setDecimalPlaces(quint32 newDecimals);
+
+private:
+    MainWindow *mainWindow;
+
+    quint64 min;
+    quint64 max;
+    quint32 rootMin;
+    quint32 rootMax;
+    quint64 firstNumber;
+    quint32 root;
+    quint64 answer;
+    quint32 decimalPlaces;
+
+    RandomInt<quint64> *genFirst;
+    RandomInt<quint64> *genRoot;
+
+    void firstRangeUpdated();
+    void rootRangeUpdated();
 };
 
 #endif // ROOTSMODULE_H

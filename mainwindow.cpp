@@ -56,11 +56,23 @@ MainWindow::MainWindow(QWidget *parent) :
     this->ui->lineEdit->setFocus();
 
     // TEST MMD
+    /*
     FixedPoint<quint64> fixed1(123456, 3);
     FixedPoint<quint64> fixed2(234567, 4);
     FixedPoint<quint64> result = fixed1 + fixed2;
     qDebug() << "Result val: " << result.getValue();
     qDebug() << "Result decimals: " << result.getDecimalPlaces();
+    */
+}
+
+MainWindow::~MainWindow()
+{
+    writeSettings();
+
+    delete module;
+    module = 0;
+
+    delete ui;
 }
 
 void MainWindow::testSQL()
@@ -178,17 +190,6 @@ void MainWindow::newQuestion()
     this->ui->lineEdit->clear();
 
     //this->ui->lineEdit->setFocus();
-}
-
-MainWindow::~MainWindow()
-{
-    writeSettings();
-    if (this->module != 0)
-    {
-        delete module;
-        module = 0;
-    }
-    delete ui;
 }
 
 void MainWindow::on_lineEdit_editingFinished()

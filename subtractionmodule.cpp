@@ -59,16 +59,11 @@ SubtractionModule::~SubtractionModule()
     assert(configFrame != 0);
     assert(displayFrame != 0);
 
-    if (genFirst != 0)
-    {
-        delete genFirst;
-        genFirst = 0;
-    }
-    if (genLast != 0)
-    {
-        delete genLast;
-        genLast = 0;
-    }
+    delete genFirst;
+    genFirst = 0;
+
+    delete genLast;
+    genLast = 0;
 
     this->mainWindow->layout()->removeWidget(configFrame);
     configFrame->close();
@@ -155,11 +150,8 @@ QString SubtractionModule::getAnswerString()
 void SubtractionModule::firstRangeUpdated()
 {
     // Get rid of previous generators
-    if (genFirst != 0)
-    {
-        delete genFirst;
-        genFirst = 0;
-    }
+    delete genFirst;
+    genFirst = 0;
 
     // Make new generator
     quint64 min = firstMin * static_cast<quint64>(pow(10, decimalPlaces));
@@ -173,11 +165,8 @@ void SubtractionModule::firstRangeUpdated()
 void SubtractionModule::lastRangeUpdated()
 {
     // Get rid of previous generator
-    if (genLast != 0)
-    {
-        delete genLast;
-        genLast = 0;
-    }
+    delete genLast;
+    genLast = 0;
 
     // Make new generator
     quint64 min = lastMin * static_cast<quint64>(pow(10, decimalPlaces));

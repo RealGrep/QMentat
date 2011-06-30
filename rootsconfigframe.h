@@ -19,10 +19,11 @@ public:
     ~RootsConfigFrame();
 
     void setModule(RootsModule *mod);
-    void setMinimum(int min);
-    void setMaximum(int max);
-    void setRootMinimum(int min);
-    void setRootMaximum(int max);
+    void setMinimum(quint64 min);
+    void setMaximum(quint64 max);
+    void setRootMinimum(quint32 min);
+    void setRootMaximum(quint32 max);
+    //void setDecimalPlaces(quint32 newDecimals);
 
     RootsModule *module;
 

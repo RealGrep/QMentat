@@ -22,22 +22,22 @@ void MultiplicationConfigFrame::setModule(MultiplicationModule *mod)
     this->module = mod;
 }
 
-void MultiplicationConfigFrame::setFirstMinimum(int min)
+void MultiplicationConfigFrame::setFirstMinimum(quint64 min)
 {
     ui->minNumberLineEdit->setText(QString("%1").arg(min));
 }
 
-void MultiplicationConfigFrame::setFirstMaximum(int max)
+void MultiplicationConfigFrame::setFirstMaximum(quint64 max)
 {
     ui->maxNumberLineEdit->setText(QString("%1").arg(max));
 }
 
-void MultiplicationConfigFrame::setLastMinimum(int max)
+void MultiplicationConfigFrame::setLastMinimum(quint64 max)
 {
     ui->secondMinLineEdit->setText(QString("%1").arg(max));
 }
 
-void MultiplicationConfigFrame::setLastMaximum(int max)
+void MultiplicationConfigFrame::setLastMaximum(quint64 max)
 {
     ui->secondMaxLineEdit->setText(QString("%1").arg(max));
 }
@@ -45,6 +45,11 @@ void MultiplicationConfigFrame::setLastMaximum(int max)
 void MultiplicationConfigFrame::setLargestNumberFirst(bool b)
 {
     ui->largestNumberFirstCheckBox->setChecked(b);
+}
+
+void MultiplicationConfigFrame::setDecimalPlaces(quint32 decimalPlaces)
+{
+    ui->decimalPlacesLineEdit->setText(QString("%1").arg(decimalPlaces));
 }
 
 void MultiplicationConfigFrame::on_minNumberLineEdit_editingFinished()
@@ -79,4 +84,10 @@ void MultiplicationConfigFrame::on_largestNumberFirstCheckBox_stateChanged(int s
     } else {
         this->module->setLargestNumberFirst(false);
     }
+}
+
+void MultiplicationConfigFrame::on_decimalPlacesLineEdit_editingFinished()
+{
+    quint32 newDecimals = ui->decimalPlacesLineEdit->text().toUInt();
+    this->module->setDecimalPlaces(newDecimals);
 }

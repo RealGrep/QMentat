@@ -17,10 +17,11 @@ public:
     ~PowersConfigFrame();
 
     void setModule(PowersModule *mod);
-    void setMinimum(int min);
-    void setMaximum(int max);
-    void setPowerMinimum(int min);
-    void setPowerMaximum(int max);
+    void setMinimum(quint64 min);
+    void setMaximum(quint64 max);
+    void setPowerMinimum(quint32 min);
+    void setPowerMaximum(quint32 max);
+    //void setDecimalPlaces(quint32 newDecimals);
 
     PowersModule *module;
 

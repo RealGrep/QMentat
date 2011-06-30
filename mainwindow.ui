@@ -97,6 +97,7 @@ p, li { white-space: pre-wrap; }
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="actionStatistics"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuModules">
@@ -235,6 +236,11 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionStatistics">
+   <property name="text">
+    <string>Statistics</string>
    </property>
   </action>
  </widget>

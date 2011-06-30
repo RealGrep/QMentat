@@ -2,6 +2,7 @@
 
 #include "mainwindow.h"
 #include <iostream>
+#include <cassert>
 #include <QtGui>
 #include <string>
 #include <QString>
@@ -9,16 +10,20 @@
 #include "mainwindow.h"
 #include "practicemodule.h"
 #include "questiondisplayform.h"
+#include "random.h"
 
 MultiplicationModule::MultiplicationModule(MainWindow *mw)
 {
     // Keep a copy for callbacks
-    this->mainWindow = mw;
+    mainWindow = mw;
 
     // Init sane defaults
-    this->firstNumber = 0;
-    this->lastNumber = 0;
-    this->answer = 0;
+    firstNumber = 0;
+    lastNumber = 0;
+    answer = 0;
+
+    genFirst = 0;
+    genLast = 0;
 
     // Read config
     QSettings settings;
@@ -28,31 +33,44 @@ MultiplicationModule::MultiplicationModule(MainWindow *mw)
     lastMin = settings.value("lastmin", 2).toULongLong();
     lastMax = settings.value("lastmax", 10).toULongLong();
     largestNumberFirst = settings.value("largestNumberFirst", false).toBool();
-    //decimalPlaces = settings.value("decimalplaces", 0).toUInt();
+    decimalPlaces = settings.value("decimalplaces", 0).toUInt();
     settings.endGroup();
 
     // Make config frame
     configFrame = new MultiplicationConfigFrame();
     configFrame->setModule(this);
-    configFrame->setFirstMinimum(this->firstMin);
-    configFrame->setFirstMaximum(this->firstMax);
-    configFrame->setLastMinimum(this->lastMin);
-    configFrame->setLastMaximum(this->lastMax);
-    configFrame->setLargestNumberFirst(this->largestNumberFirst);
+    configFrame->setFirstMinimum(firstMin);
+    configFrame->setFirstMaximum(firstMax);
+    configFrame->setLastMinimum(lastMin);
+    configFrame->setLastMaximum(lastMax);
+    configFrame->setLargestNumberFirst(largestNumberFirst);
+    configFrame->setDecimalPlaces(decimalPlaces);
 
     // Make display frame
     displayFrame = (QuestionDisplay*)(new QuestionDisplayForm());
 
-    // Seed random numbers
-    QTime midnight(0, 0, 0);
-    qsrand(midnight.secsTo(QTime::currentTime()));
+    firstRangeUpdated();
+    lastRangeUpdated();
 }
 
 MultiplicationModule::~MultiplicationModule()
 {
+    assert(configFrame != 0);
+    assert(displayFrame != 0);
+
+    delete genFirst;
+    genFirst = 0;
+
+    delete genLast;
+    genLast = 0;
+
     this->mainWindow->layout()->removeWidget(configFrame);
     configFrame->close();
     delete configFrame;
+    configFrame = 0;
+
+    delete displayFrame;
+    displayFrame = 0;
 }
 
 QFrame* MultiplicationModule::getConfigFrame()
@@ -73,26 +91,47 @@ QString MultiplicationModule::question()
     //          // The multiplcation would overflow.  Reject immediately.
     //          continue;
     //        }
+    assert(genFirst != 0);
+    assert(genLast != 0);
 
-    this->firstNumber = (qrand() % (this->firstMax - this->firstMin + 1)) + this->firstMin;
-    this->lastNumber = (qrand() % (this->lastMax - this->lastMin + 1)) + this->lastMin;
-    if (this->largestNumberFirst && (this->lastNumber > this->firstNumber))
+    firstNumber = (*genFirst)();
+    lastNumber = (*genLast)();
+    if (largestNumberFirst && (lastNumber > firstNumber))
     {
-        int tmp = this->firstNumber;
-        this->firstNumber = this->lastNumber;
-        this->lastNumber = tmp;
+        int tmp = firstNumber;
+        firstNumber = lastNumber;
+        lastNumber = tmp;
     }
-    this->answer = this->firstNumber * this->lastNumber;
+    answer = static_cast<qint64>(firstNumber) * static_cast<qint64>(lastNumber);
 
-    QString q;
-    q = QString::number(this->firstNumber) + "\nx " + QString::number(this->lastNumber);
+    QString q = QString("%1\nx %2")
+                .arg(decimalize(firstNumber, decimalPlaces))
+                .arg(decimalize(lastNumber, decimalPlaces));
 
     return q;
 }
 
 bool MultiplicationModule::isCorrect(QString& answerGiven)
 {
-    unsigned long answerNum = answerGiven.toULong();
+    // Figure out how many decimal places we're "missing" and get them back
+    // so the comparison works right
+    int decimalPos = answerGiven.indexOf(QLocale::system().decimalPoint());
+    quint64 answerNum = 0;
+    if (decimalPos >= 0)
+    {
+        int missingDecimals = decimalPlaces*2 - (answerGiven.size() - 1
+                              - decimalPos);
+        answerNum = answerGiven.remove(QLocale::system().decimalPoint())
+                    .remove(QLocale::system().groupSeparator()).toULongLong();
+        if (missingDecimals > 0)
+        {
+            answerNum *= static_cast<qint64>(pow(10, missingDecimals));
+        }
+    } else {
+        answerNum = answerGiven.toLongLong();
+    }
+
+    //qDebug() << "isCorrect: answerGiven = " << answerNum << "; answer = " << answer;
     if (answerNum == this->answer)
     {
         return true;
@@ -103,53 +142,88 @@ bool MultiplicationModule::isCorrect(QString& answerGiven)
 
 QString MultiplicationModule::getAnswerString()
 {
-    QString ans;
-    ans = QString::number(this->firstNumber) + " x "
-          + QString::number(this->lastNumber) + " = "
-          + QString::number(this->answer);
-    return ans;
+    return QString("%1 x %2 = %3")
+            .arg(decimalize(firstNumber, decimalPlaces))
+            .arg(decimalize(lastNumber, decimalPlaces))
+            .arg(decimalize(answer, decimalPlaces*2));
 }
 
-void MultiplicationModule::setFirstMaximum(int newMax)
+/*! Range of first number updated, so make a new PRG for it.
+ * \todo Perhaps this should be generalized so the lastRangeUpdated function
+ * doesn't just do the same with different data.
+ */
+void MultiplicationModule::firstRangeUpdated()
+{
+    // Get rid of previous generators
+    delete genFirst;
+    genFirst = 0;
+
+    // Make new generator
+    quint64 min = firstMin * static_cast<quint64>(pow(10, decimalPlaces));
+    quint64 max = firstMax * static_cast<quint64>(pow(10, decimalPlaces));
+
+    genFirst = new RandomInt<quint64>(min, max);
+}
+
+/*! Range of last number updated, so make a new PRG for it.
+ */
+void MultiplicationModule::lastRangeUpdated()
+{
+    // Get rid of previous generator
+    delete genLast;
+    genLast = 0;
+
+    // Make new generator
+    quint64 min = lastMin * static_cast<quint64>(pow(10, decimalPlaces));
+    quint64 max = lastMax * static_cast<quint64>(pow(10, decimalPlaces));
+
+    genLast = new RandomInt<quint64>(min, max);
+}
+
+void MultiplicationModule::setFirstMaximum(quint64 newMax)
 {
     if (this->firstMax != newMax) {
         this->firstMax = newMax;
         QSettings settings;
         settings.setValue("multiplicationmodule/firstmax", firstMax);
 
+        firstRangeUpdated();
         mainWindow->newQuestion();
     }
 }
 
-void MultiplicationModule::setFirstMinimum(int newMin)
+void MultiplicationModule::setFirstMinimum(quint64 newMin)
 {
     if (this->firstMin != newMin) {
         this->firstMin = newMin;
         QSettings settings;
         settings.setValue("multiplicationmodule/firstmin", firstMin);
 
+        firstRangeUpdated();
         mainWindow->newQuestion();
     }
 }
 
-void MultiplicationModule::setLastMaximum(int newMax)
+void MultiplicationModule::setLastMaximum(quint64 newMax)
 {
     if (this->lastMax != newMax) {
         this->lastMax = newMax;
         QSettings settings;
         settings.setValue("multiplicationmodule/lastmax", lastMax);
 
+        lastRangeUpdated();
         mainWindow->newQuestion();
     }
 }
 
-void MultiplicationModule::setLastMinimum(int newMin)
+void MultiplicationModule::setLastMinimum(quint64 newMin)
 {
     if (this->lastMin != newMin) {
         this->lastMin = newMin;
         QSettings settings;
         settings.setValue("multiplicationmodule/lastmin", lastMin);
 
+        lastRangeUpdated();
         mainWindow->newQuestion();
     }
 }
@@ -163,6 +237,21 @@ void MultiplicationModule::setLargestNumberFirst(bool b)
         settings.setValue("multiplicationmodule/largestNumberFirst",
                           largestNumberFirst);
 
+        firstRangeUpdated();
+        lastRangeUpdated();
+        mainWindow->newQuestion();
+    }
+}
+
+void MultiplicationModule::setDecimalPlaces(quint32 newDecimals)
+{
+    if (decimalPlaces != newDecimals) {
+        decimalPlaces = newDecimals;
+        QSettings settings;
+        settings.setValue("multiplicationmodule/decimalplaces", decimalPlaces);
+
+        firstRangeUpdated();
+        lastRangeUpdated();
         mainWindow->newQuestion();
     }
 }
