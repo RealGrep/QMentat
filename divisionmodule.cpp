@@ -17,55 +17,61 @@
  */
 DivisionModule::DivisionModule(MainWindow *mw)
 {
-   // Init sane defaults
-   this->firstMin = 2;
-   this->firstMax = 100;
-   this->lastMin = 2;
-   this->lastMax = 100;
-   this->largestNumberFirst = false;
-   this->firstNumber = 0;
-   this->lastNumber = 0;
-   this->answer = 0;
+    // Keep a copy for callbacks
+    this->mainWindow = mw;
 
-   // Keep a copy for callbacks
-   this->mainWindow = mw;
+    // Init sane defaults
+    this->firstNumber = 0;
+    this->lastNumber = 0;
+    this->answer = 0;
 
-   // Make config frame
-   configFrame = new DivisionConfigFrame();
-   configFrame->setModule(this);
-   configFrame->setFirstMinimum(this->firstMin);
-   configFrame->setFirstMaximum(this->firstMax);
-   configFrame->setLastMinimum(this->lastMin);
-   configFrame->setLastMaximum(this->lastMax);
-   configFrame->setLargestNumberFirst(this->largestNumberFirst);
+    // Read config
+    QSettings settings;
+    settings.beginGroup("additionmodule");
+    firstMin = settings.value("firstmin", 2).toULongLong();
+    firstMax = settings.value("firstmax", 100).toULongLong();
+    lastMin = settings.value("lastmin", 2).toULongLong();
+    lastMax = settings.value("lastmax", 100).toULongLong();
+    largestNumberFirst = settings.value("largestNumberFirst", false).toBool();
+    //decimalPlaces = settings.value("decimalplaces", 0).toUInt();
+    settings.endGroup();
 
-   // Make display frame
-   displayFrame = (QuestionDisplay*)(new MathDisplayForm());
+    // Make config frame
+    configFrame = new DivisionConfigFrame();
+    configFrame->setModule(this);
+    configFrame->setFirstMinimum(this->firstMin);
+    configFrame->setFirstMaximum(this->firstMax);
+    configFrame->setLastMinimum(this->lastMin);
+    configFrame->setLastMaximum(this->lastMax);
+    configFrame->setLargestNumberFirst(this->largestNumberFirst);
 
-   // Seed random numbers
-   QTime midnight(0, 0, 0);
-   qsrand(midnight.secsTo(QTime::currentTime()));
+    // Make display frame
+    displayFrame = (QuestionDisplay*)(new MathDisplayForm());
+
+    // Seed random numbers
+    QTime midnight(0, 0, 0);
+    qsrand(midnight.secsTo(QTime::currentTime()));
 }
 
 DivisionModule::~DivisionModule()
 {
-   this->mainWindow->layout()->removeWidget(configFrame);
-   configFrame->close();
-   delete configFrame;
+    this->mainWindow->layout()->removeWidget(configFrame);
+    configFrame->close();
+    delete configFrame;
 }
 
 /*! Return config frame.
  */
 QFrame* DivisionModule::getConfigFrame()
 {
-   return configFrame;
+    return configFrame;
 }
 
 /*! Return display frame.
  */
 QuestionDisplay* DivisionModule::getDisplayFrame()
 {
-   return displayFrame;
+    return displayFrame;
 }
 
 /*! Tests to see if any divisors divide any of the possible dividends.
@@ -79,25 +85,25 @@ QuestionDisplay* DivisionModule::getDisplayFrame()
 bool DivisionModule::isRangeOk(int firstMin, int firstMax,
                                int lastMin, int lastMax)
 {
-   bool isOk = false;
+    bool isOk = false;
 
-   // We ignore firstMax because we don't care if it's only divisible by itself
-   for (int i = firstMax-1; i >= firstMin; --i)
-   {
-      for (int j = lastMin; j < lastMax; ++j)
-      {
-         //std::cout << "[" << i << "/" << j << "]" << std::endl;
-         if (((i % j) == 0) && (i != j))
-         {
-            isOk = true;
+    // We ignore firstMax because we don't care if it's only divisible by itself
+    for (int i = firstMax-1; i >= firstMin; --i)
+    {
+        for (int j = lastMin; j < lastMax; ++j)
+        {
+            //std::cout << "[" << i << "/" << j << "]" << std::endl;
+            if (((i % j) == 0) && (i != j))
+            {
+                isOk = true;
+                break;
+            }
+        }
+        if (isOk)
             break;
-         }
-      }
-      if (isOk)
-         break;
-   }
+    }
 
-   return isOk;
+    return isOk;
 }
 
 /*! Finds divisors in a certain range for a number.
@@ -110,53 +116,53 @@ std::vector<unsigned long> *DivisionModule::getDivisors(unsigned long num,
                                                         unsigned long min,
                                                         unsigned long max)
 {
-   std::vector<unsigned long> *divisors = new std::vector<unsigned long>();
-   //std::cout << num << " is divisible by ";
-   // No use going past num/2
-   unsigned long last = std::min(num/2, max) + 1;
-   //std::cout << "[" << min << "->" << last << "] ";
-   for (unsigned long i = min; i < last; ++i)
-   {
-      if ((num % i) == 0)
-      {
-         //isOk = true;
-         //std::cout << i << " ";
-         divisors->push_back(i);
-      }
-   }
-   //std::cout << std::endl;
+    std::vector<unsigned long> *divisors = new std::vector<unsigned long>();
+    //std::cout << num << " is divisible by ";
+    // No use going past num/2
+    unsigned long last = std::min(num/2, max) + 1;
+    //std::cout << "[" << min << "->" << last << "] ";
+    for (unsigned long i = min; i < last; ++i)
+    {
+        if ((num % i) == 0)
+        {
+            //isOk = true;
+            //std::cout << i << " ";
+            divisors->push_back(i);
+        }
+    }
+    //std::cout << std::endl;
 
-   return divisors;
+    return divisors;
 }
 
 /*! \returns QString containing new question in MathML format.
  */
 QString DivisionModule::question()
 {
-   //bool bIntegerResults = true;
-   //bool trivial = false;
-   //int attempts = 0;
+    //bool bIntegerResults = true;
+    //bool trivial = false;
+    //int attempts = 0;
 
-   // Check range
-   // TODO: Fix it so it can never happen
-   bool rangeOk = isRangeOk(this->firstMin, this->firstMax,
-                            this->lastMin, this->lastMax);
-   /*if (rangeOk) {
+    // Check range
+    // TODO: Fix it so it can never happen
+    bool rangeOk = isRangeOk(this->firstMin, this->firstMax,
+                             this->lastMin, this->lastMax);
+    /*if (rangeOk) {
       std::cout << "Range OK" << std::endl;
    } else {
       std::cout << "RANGE ERROR!" << std::endl;
    }*/
-   if (!rangeOk) return "<math>ERR</math>";
+    if (!rangeOk) return "<math>ERR</math>";
 
-   // Ensure we don't get a division by 0
-   do {
-      // Generate the numbers
-      this->firstNumber = (qrand() % (this->firstMax - this->firstMin + 1))
-                          + this->firstMin;
+    // Ensure we don't get a division by 0
+    do {
+        // Generate the numbers
+        this->firstNumber = (qrand() % (this->firstMax - this->firstMin + 1))
+                            + this->firstMin;
 
-      std::vector<unsigned long> *divisors = getDivisors(this->firstNumber,
-                                                   this->lastMin, this->lastMax);
-      /*
+        std::vector<unsigned long> *divisors = getDivisors(this->firstNumber,
+                                                           this->lastMin, this->lastMax);
+        /*
       std::cout << "Divisors for " << this->firstNumber << ": ";
       for (auto it = divisors->begin(); it != divisors->end(); ++it)
       {
@@ -164,19 +170,19 @@ QString DivisionModule::question()
       }
       std::cout << std::endl;
 */
-      if (divisors->empty()) {
-         // No divisors, try again
-         //std::cout << "No divisors!" << std::endl;
-         this->lastNumber = 0;
-         delete divisors;
-         continue;
-      } else {
-         int random = qrand() % divisors->size();
-         this->lastNumber = (int)(*divisors)[random];
-         delete divisors;
-      }
+        if (divisors->empty()) {
+            // No divisors, try again
+            //std::cout << "No divisors!" << std::endl;
+            this->lastNumber = 0;
+            delete divisors;
+            continue;
+        } else {
+            int random = qrand() % divisors->size();
+            this->lastNumber = (int)(*divisors)[random];
+            delete divisors;
+        }
 
-      /*
+        /*
       this->lastNumber = (qrand() % (this->lastMax - this->lastMin + 1)) + this->lastMin;
       if (this->largestNumberFirst && (this->lastNumber > this->firstNumber))
       {
@@ -185,22 +191,22 @@ QString DivisionModule::question()
          this->lastNumber = tmp;
       }
       */
-      this->answer = this->firstNumber / this->lastNumber;
+        this->answer = this->firstNumber / this->lastNumber;
 
-      /*
+        /*
       trivial = false;
       if (this->firstNumber == this->lastNumber) {
          trivial = true;
       }
       ++attempts;
       */
-   } while (this->lastNumber == 0);
+    } while (this->lastNumber == 0);
 
-   QString q;
-   //q = QString::number(this->firstNumber) + "\n÷ " + QString::number(this->lastNumber);
-   q = "<math><mfrac><mi>" + QString::number(this->firstNumber) + "</mi><mn>" + QString::number(this->lastNumber) + "</mn></mfrac></math>\n";
+    QString q;
+    //q = QString::number(this->firstNumber) + "\n÷ " + QString::number(this->lastNumber);
+    q = "<math><mfrac><mi>" + QString::number(this->firstNumber) + "</mi><mn>" + QString::number(this->lastNumber) + "</mn></mfrac></math>\n";
 
-   return q;
+    return q;
 }
 
 /*! Tells if the supplied answer is correct.
@@ -208,13 +214,13 @@ QString DivisionModule::question()
  */
 bool DivisionModule::isCorrect(QString& answerGiven)
 {
-   unsigned long answerNum = answerGiven.toULong();
-   if (answerNum == this->answer)
-   {
-      return true;
-   } else {
-      return false;
-   }
+    unsigned long answerNum = answerGiven.toULong();
+    if (answerNum == this->answer)
+    {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 /*! Produces answer string for current question.
@@ -222,11 +228,11 @@ bool DivisionModule::isCorrect(QString& answerGiven)
  */
 QString DivisionModule::getAnswerString()
 {
-   QString ans;
-   ans = QString::number(this->firstNumber) + " / "
-         + QString::number(this->lastNumber) + " = "
-         + QString::number(this->answer);
-   return ans;
+    QString ans;
+    ans = QString::number(this->firstNumber) + " / "
+          + QString::number(this->lastNumber) + " = "
+          + QString::number(this->answer);
+    return ans;
 }
 
 /*! Set maximum for the dividend.
@@ -234,10 +240,13 @@ QString DivisionModule::getAnswerString()
  */
 void DivisionModule::setFirstMaximum(int newMax)
 {
-   if (this->firstMax != newMax) {
-      this->firstMax = newMax;
-      mainWindow->newQuestion();
-   }
+    if (this->firstMax != newMax) {
+        this->firstMax = newMax;
+        QSettings settings;
+        settings.setValue("divisionmodule/firstmax", firstMax);
+
+        mainWindow->newQuestion();
+    }
 }
 
 /*! Set minimum for the dividend.
@@ -245,10 +254,13 @@ void DivisionModule::setFirstMaximum(int newMax)
  */
 void DivisionModule::setFirstMinimum(int newMin)
 {
-   if (this->firstMin != newMin) {
-      this->firstMin = newMin;
-      mainWindow->newQuestion();
-   }
+    if (this->firstMin != newMin) {
+        this->firstMin = newMin;
+        QSettings settings;
+        settings.setValue("divisionmodule/firstmin", firstMin);
+
+        mainWindow->newQuestion();
+    }
 }
 
 /*! Set maximum for the divisor.
@@ -256,10 +268,13 @@ void DivisionModule::setFirstMinimum(int newMin)
  */
 void DivisionModule::setLastMaximum(int newMax)
 {
-   if (this->lastMax != newMax) {
-      this->lastMax = newMax;
-      mainWindow->newQuestion();
-   }
+    if (this->lastMax != newMax) {
+        this->lastMax = newMax;
+        QSettings settings;
+        settings.setValue("divisionmodule/lastmax", lastMax);
+
+        mainWindow->newQuestion();
+    }
 }
 
 /*! Set minimum for the divisor.
@@ -267,17 +282,23 @@ void DivisionModule::setLastMaximum(int newMax)
  */
 void DivisionModule::setLastMinimum(int newMin)
 {
-   if (this->lastMin != newMin) {
-      this->lastMin = newMin;
-      mainWindow->newQuestion();
-   }
+    if (this->lastMin != newMin) {
+        this->lastMin = newMin;
+        QSettings settings;
+        settings.setValue("divisionmodule/lastmin", lastMin);
+
+        mainWindow->newQuestion();
+    }
 }
 
 void DivisionModule::setLargestNumberFirst(bool b)
 {
-   if (this->largestNumberFirst != b)
-   {
-      this->largestNumberFirst = b;
-      mainWindow->newQuestion();
-   }
+    if (this->largestNumberFirst != b)
+    {
+        this->largestNumberFirst = b;
+        QSettings settings;
+        settings.setValue("divisionmodule/largestNumberFirst", largestNumberFirst);
+
+        mainWindow->newQuestion();
+    }
 }

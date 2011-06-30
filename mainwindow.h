@@ -9,45 +9,46 @@
 class PracticeModule;
 
 namespace Ui {
-   class MainWindow;
+    class MainWindow;
 }
 
 class MainWindow : public QMainWindow
 {
-   Q_OBJECT
+    Q_OBJECT
 
 public:
-   explicit MainWindow(QWidget *parent = 0);
-   ~MainWindow();
-   void newQuestion();
-   //! \todo Test method, remove when done
-   void testSQL();
+    explicit MainWindow(QWidget *parent = 0);
+    ~MainWindow();
+    void newQuestion();
+    //! \todo Test method, remove when done
+    void testSQL();
 
 protected:
-   int answerGiven;
-   int totalQuestions;
-   int totalCorrect;
-   int totalWrong;
+    int answerGiven;
+    int totalQuestions;
+    int totalCorrect;
+    int totalWrong;
 
-   PracticeModule* module;
+    PracticeModule* module;
 private:
-   Ui::MainWindow *ui;
+    Ui::MainWindow *ui;
 
-   void readSettings();
-   void writeSettings();
+    void readSettings();
+    void writeSettings();
 
 
 private slots:
-   void moduleChange(PracticeModule *module);
-   void on_actionRoots_triggered();
-   void on_actionPowers_triggered();
-   void on_actionAbout_triggered();
-   void on_actionDivision_triggered();
-   void on_actionSubtraction_triggered();
-   void on_actionMultiplication_triggered();
-   void on_actionAddition_triggered();
-   void on_lineEdit_returnPressed();
-   void on_lineEdit_editingFinished();
+    void on_actionStatistics_triggered();
+    void moduleChange(PracticeModule *module);
+    void on_actionRoots_triggered();
+    void on_actionPowers_triggered();
+    void on_actionAbout_triggered();
+    void on_actionDivision_triggered();
+    void on_actionSubtraction_triggered();
+    void on_actionMultiplication_triggered();
+    void on_actionAddition_triggered();
+    void on_lineEdit_returnPressed();
+    void on_lineEdit_editingFinished();
 };
 
 #endif // MAINWINDOW_H

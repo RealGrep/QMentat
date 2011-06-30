@@ -12,8 +12,8 @@
  * with no special formatting. It draws a bar under the text.
  */
 QuestionDisplayForm::QuestionDisplayForm(QWidget *parent) :
-    QuestionDisplay(parent),
-    ui(new Ui::QuestionDisplayForm)
+        QuestionDisplay(parent),
+        ui(new Ui::QuestionDisplayForm)
 {
     ui->setupUi(this);
     //std::cerr << "QuestionDisplayForm" << std::endl;
@@ -32,30 +32,30 @@ QuestionDisplayForm::~QuestionDisplayForm()
  */
 void QuestionDisplayForm::setText(QString text)
 {
-   this->text = text;
-   //this->setText(text);
-   this->repaint();
+    this->text = text;
+    //this->setText(text);
+    this->repaint();
 }
 
 /*! Handles paint even by rendering formula to widget
  */
 void QuestionDisplayForm::paintEvent(QPaintEvent *)
- {
-     QPainter painter(this);
+{
+    QPainter painter(this);
 
-     painter.setPen(Qt::black);
-     painter.setFont(QFont("Arial", 30));
+    painter.setPen(Qt::black);
+    painter.setFont(QFont("Arial", 30));
 
-     // Figure out how wide the text will be when drawn
-     QRect textRect = painter.fontMetrics().boundingRect(rect(), Qt::AlignRight, this->text);
-     int textWidth = textRect.width();
+    // Figure out how wide the text will be when drawn
+    QRect textRect = painter.fontMetrics().boundingRect(rect(), Qt::AlignRight, this->text);
+    int textWidth = textRect.width();
 
-     // Draw the text
-     painter.drawText(rect(), Qt::AlignRight, this->text);
+    // Draw the text
+    painter.drawText(rect(), Qt::AlignRight, this->text);
 
-     // Draw a line under all the text, of the right length
-     painter.setPen(Qt::black);
-     QPen pen(Qt::black, 3, Qt::SolidLine, Qt::SquareCap, Qt::RoundJoin);
-     painter.setPen(pen);
-     painter.drawLine(this->width() - textWidth, this->height() - 10, this->width(), this->height() - 10);
- }
+    // Draw a line under all the text, of the right length
+    painter.setPen(Qt::black);
+    QPen pen(Qt::black, 3, Qt::SolidLine, Qt::SquareCap, Qt::RoundJoin);
+    painter.setPen(pen);
+    painter.drawLine(this->width() - textWidth, this->height() - 10, this->width(), this->height() - 10);
+}

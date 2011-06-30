@@ -11,7 +11,7 @@ public:
     virtual ~QuestionDisplay() = 0;
     virtual void setText(QString text) = 0;
 
- protected:
+protected:
     QString text;
 
 

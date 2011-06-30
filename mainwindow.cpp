@@ -16,6 +16,9 @@
 #include <QDebug>
 #include <QtMmlWidget>
 
+// MMD TEST
+#include "FixedPoint.h"
+
 /*! \class MainWindow
  * \brief The MainWindow of the entire application.
  * \param parent The parent QWidget.
@@ -23,35 +26,46 @@
  * \author Mike Dusseault <mike.dusseault@gmail.com>
  */
 MainWindow::MainWindow(QWidget *parent) :
-      QMainWindow(parent),
-      ui(new Ui::MainWindow)
+        QMainWindow(parent),
+        ui(new Ui::MainWindow)
 {
-   ui->setupUi(this);
+    QCoreApplication::setOrganizationName("mike.dusseault");
+    //QCoreApplication::setOrganizationDomain("mysoft.com");
+    QCoreApplication::setApplicationName("QMentat");
 
-   // Initialize sane values
-   this->answerGiven = 0;
-   this->totalQuestions = 0;
-   this->totalCorrect = 0;
-   this->totalWrong = 0;
+    ui->setupUi(this);
 
-   // Load up the default module
-   //! \todo Save/restore currently active module at app exit/load
-   this->module = 0;
-   moduleChange(new AdditionModule(this));
+    // Initialize sane values
+    this->answerGiven = 0;
+    this->totalQuestions = 0;
+    this->totalCorrect = 0;
+    this->totalWrong = 0;
 
-   ui->centralWidget->layout()->addWidget(this->module->getConfigFrame());
+    // Load up the default module
+    //! \todo Save/restore currently active module at app exit/load
+    this->module = 0;
+    moduleChange(new AdditionModule(this));
 
-   // Restore saved settings
-   readSettings();
+    ui->centralWidget->layout()->addWidget(this->module->getConfigFrame());
 
-   // Kick off first question
-   newQuestion();
-   this->ui->lineEdit->setFocus();
+    // Restore saved settings
+    readSettings();
+
+    // Kick off first question
+    newQuestion();
+    this->ui->lineEdit->setFocus();
+
+    // TEST MMD
+    FixedPoint<quint64> fixed1(123456, 3);
+    FixedPoint<quint64> fixed2(234567, 4);
+    FixedPoint<quint64> result = fixed1 + fixed2;
+    qDebug() << "Result val: " << result.getValue();
+    qDebug() << "Result decimals: " << result.getDecimalPlaces();
 }
 
 void MainWindow::testSQL()
 {
-   /*
+    /*
       QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
       db.setHostName("localhost");
       db.setDatabaseName("qmentat_data.sqlite");
@@ -129,23 +143,27 @@ void MainWindow::testSQL()
 /*! Reads the saved Qt settings and restores to saved state.
  */
 void MainWindow::readSettings() {
-   QSettings settings("mike.dusseault", "QMentat");
-   QPoint pos = settings.value("pos", this->pos()).toPoint();
-   QSize size = settings.value("size", this->sizeHint()).toSize();
-   QByteArray state = settings.value("state", QByteArray()).toByteArray();
-   restoreState(state);
-   resize(size);
-   move(pos);
+
+    //QSettings settings("mike.dusseault", "QMentat");
+    QSettings settings;
+    qDebug() << "Settings file: " << settings.fileName() << endl;
+    QPoint pos = settings.value("pos", this->pos()).toPoint();
+    QSize size = settings.value("size", this->sizeHint()).toSize();
+    QByteArray state = settings.value("state", QByteArray()).toByteArray();
+    restoreState(state);
+    resize(size);
+    move(pos);
 }
 
 /*! Writes current Qt settings and saves them.
  */
 void MainWindow::writeSettings() {
-   // Save postion/size of main window
-   QSettings settings("mike.dusseault", "QMentat");
-   settings.setValue("pos", pos());
-   settings.setValue("size", size());
-   settings.setValue("state", saveState());
+    // Save postion/size of main window
+    //QSettings settings("mike.dusseault", "QMentat");
+    QSettings settings;
+    settings.setValue("pos", pos());
+    settings.setValue("size", size());
+    settings.setValue("state", saveState());
 }
 
 
@@ -153,56 +171,58 @@ void MainWindow::writeSettings() {
  */
 void MainWindow::newQuestion()
 {
-   assert(module != 0);
-   QString q = module->question();
+    assert(module != 0);
+    QString q = module->question();
 
-   this->module->getDisplayFrame()->setText(q);
-   this->ui->lineEdit->clear();
+    this->module->getDisplayFrame()->setText(q);
+    this->ui->lineEdit->clear();
 
-   //this->ui->lineEdit->setFocus();
+    //this->ui->lineEdit->setFocus();
 }
 
 MainWindow::~MainWindow()
 {
-   writeSettings();
-   if (this->module != 0)
-   {
-      delete this->module;
-   }
-   delete ui;
+    writeSettings();
+    if (this->module != 0)
+    {
+        delete module;
+        module = 0;
+    }
+    delete ui;
 }
 
 void MainWindow::on_lineEdit_editingFinished()
 {
-   //std::cerr << "Answer given: " << ui->lineEdit->text().toInt() << std::endl;
+    //std::cerr << "Answer given: " << ui->lineEdit->text().toInt() << std::endl;
 }
 
 /*! Return pressed, so verify the answer given and display result.
  */
 void MainWindow::on_lineEdit_returnPressed()
 {
-   assert(module != 0);
+    assert(module != 0);
 
-   // Answer as integer
-   QString answerGiven = ui->lineEdit->text();
+    // Answer as integer
+    QString answerGiven = ui->lineEdit->text();
 
-   // Handle correct or not
-   if (module->isCorrect(answerGiven)) {
-      ui->textEdit->setText(tr("Correct!"));
-      this->totalCorrect++;
-   } else {
-      ui->textEdit->setText(tr("Wrong! %1").arg(module->getAnswerString()));
-      this->totalWrong++;
-   }
-   this->totalQuestions++;
-   statusBar()->showMessage(tr( "Total: %1  Correct/Wrong: %2/%3  %4% success rate" )
-                            .arg(this->totalQuestions )
-                            .arg(this->totalCorrect)
-                            .arg(this->totalWrong)
-                            .arg(((double)totalCorrect / (double)totalQuestions) * 100.0, 0, 'f', 2));
+    // Handle correct or not
+    if (module->isCorrect(answerGiven)) {
+        ui->textEdit->setText(tr("Correct!"));
+        this->totalCorrect++;
+    } else {
+        ui->textEdit->setText(tr("Wrong! %1").arg(module->getAnswerString()));
+        this->totalWrong++;
+    }
+    this->totalQuestions++;
+    statusBar()->showMessage(tr( "Total: %1  Correct/Wrong: %2/%3  %4%5 success rate" )
+                             .arg(this->totalQuestions )
+                             .arg(this->totalCorrect)
+                             .arg(this->totalWrong)
+                             .arg(((double)totalCorrect / (double)totalQuestions) * 100.0, 0, 'f', 2)
+                             .arg(QLocale::system().percent()));
 
-   newQuestion();
-   this->ui->lineEdit->setFocus();
+    newQuestion();
+    this->ui->lineEdit->setFocus();
 }
 
 /*! Method to change the currently active module to another module (addition,
@@ -211,70 +231,70 @@ void MainWindow::on_lineEdit_returnPressed()
  *    the old one.
  */
 void MainWindow::moduleChange(PracticeModule *module) {
-   assert(module != 0);
+    assert(module != 0);
 
-   // Load the config and display frames
-   if (this->module != 0) {
-      ui->centralWidget->layout()->removeWidget(this->module->getConfigFrame());
-      this->module->getConfigFrame()->close();
+    // Load the config and display frames
+    if (this->module != 0) {
+        ui->centralWidget->layout()->removeWidget(this->module->getConfigFrame());
+        this->module->getConfigFrame()->close();
 
-      ui->displayPane->layout()->removeWidget(this->module->getDisplayFrame());
-      this->module->getDisplayFrame()->close();
+        ui->displayPane->layout()->removeWidget(this->module->getDisplayFrame());
+        this->module->getDisplayFrame()->close();
 
-      delete this->module;
-      this->module = 0;
-   }
+        delete this->module;
+        this->module = 0;
+    }
 
-   // Grab new module and get new config and display frames
-   this->module = module;
-   ui->centralWidget->layout()->addWidget(this->module->getConfigFrame());
-   ui->displayPane->layout()->addWidget(this->module->getDisplayFrame());
+    // Grab new module and get new config and display frames
+    this->module = module;
+    ui->centralWidget->layout()->addWidget(this->module->getConfigFrame());
+    ui->displayPane->layout()->addWidget(this->module->getDisplayFrame());
 
-   assert(this->module != 0);
+    assert(this->module != 0);
 
-   newQuestion();
+    newQuestion();
 }
 
 /*! Swap to addition practice.
  */
 void MainWindow::on_actionAddition_triggered()
 {
-   moduleChange(new AdditionModule(this));
+    moduleChange(new AdditionModule(this));
 }
 
 /*! Swap to multiplication practice.
  */
 void MainWindow::on_actionMultiplication_triggered()
 {
-   moduleChange(new MultiplicationModule(this));
+    moduleChange(new MultiplicationModule(this));
 }
 
 /*! Swap to subtraction practice.
  */
 void MainWindow::on_actionSubtraction_triggered()
 {
-   moduleChange(new SubtractionModule(this));
+    moduleChange(new SubtractionModule(this));
 }
 
 /*! Swap to division practice.
  */
 void MainWindow::on_actionDivision_triggered()
 {
-   moduleChange(new DivisionModule(this));
+    moduleChange(new DivisionModule(this));
 }
 
 /*! Swap to powers practice.
  */
 void MainWindow::on_actionPowers_triggered()
 {
-   moduleChange(new PowersModule(this));
+    moduleChange(new PowersModule(this));
 }
 
 /*! Swap to roots practice.
  */
 void MainWindow::on_actionRoots_triggered()
 {
-   moduleChange(new RootsModule(this));
+    moduleChange(new RootsModule(this));
 }
 
 /*! The About box.
@@ -282,5 +302,10 @@ void MainWindow::on_actionRoots_triggered()
  */
 void MainWindow::on_actionAbout_triggered()
 {
-   QMessageBox::about(this, tr("About QMentat"), tr("QMentat\n\nWritten by Mike Dusseault\nCopyright 2011 Mike Dusseault.\nAll Rights Reserved."));
+    QMessageBox::about(this, tr("About QMentat"), tr("QMentat\n\nWritten by Mike Dusseault\nCopyright 2011 Mike Dusseault.\nAll Rights Reserved."));
+}
+
+void MainWindow::on_actionStatistics_triggered()
+{
+
 }

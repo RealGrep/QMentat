@@ -2,8 +2,8 @@
 #include "ui_powersconfigframe.h"
 
 PowersConfigFrame::PowersConfigFrame(QWidget *parent) :
-    QFrame(parent),
-    ui(new Ui::PowersConfigFrame)
+        QFrame(parent),
+        ui(new Ui::PowersConfigFrame)
 {
     ui->setupUi(this);
     //ui->minNumberLineEdit->setText(tr("2"));
@@ -18,49 +18,49 @@ PowersConfigFrame::~PowersConfigFrame()
 
 void PowersConfigFrame::setModule(PowersModule *mod)
 {
-   this->module = mod;
+    this->module = mod;
 }
 
 void PowersConfigFrame::setMinimum(int min)
 {
-   ui->minNumberLineEdit->setText(QString("%1").arg(min));
+    ui->minNumberLineEdit->setText(QString("%1").arg(min));
 }
 
 void PowersConfigFrame::setMaximum(int max)
 {
-   ui->maxNumberLineEdit->setText(QString("%1").arg(max));
+    ui->maxNumberLineEdit->setText(QString("%1").arg(max));
 }
 
 void PowersConfigFrame::setPowerMinimum(int min)
 {
-   ui->minPowerLineEdit->setText(QString("%1").arg(min));
+    ui->minPowerLineEdit->setText(QString("%1").arg(min));
 }
 
 void PowersConfigFrame::setPowerMaximum(int max)
 {
-   ui->maxPowerLineEdit->setText(QString("%1").arg(max));
+    ui->maxPowerLineEdit->setText(QString("%1").arg(max));
 }
 
 void PowersConfigFrame::on_minNumberLineEdit_editingFinished()
 {
-   int newMin = ui->minNumberLineEdit->text().toInt();
-   this->module->setMinimum(newMin);
+    int newMin = ui->minNumberLineEdit->text().toInt();
+    this->module->setMinimum(newMin);
 }
 
 void PowersConfigFrame::on_maxNumberLineEdit_editingFinished()
 {
-   int newMax = ui->maxNumberLineEdit->text().toInt();
-   this->module->setMaximum(newMax);
+    int newMax = ui->maxNumberLineEdit->text().toInt();
+    this->module->setMaximum(newMax);
 }
 
 void PowersConfigFrame::on_minPowerLineEdit_editingFinished()
 {
-   int newMin = ui->minPowerLineEdit->text().toInt();
-   this->module->setPowerMinimum(newMin);
+    int newMin = ui->minPowerLineEdit->text().toInt();
+    this->module->setPowerMinimum(newMin);
 }
 
 void PowersConfigFrame::on_maxPowerLineEdit_editingFinished()
 {
-   int newMax = ui->maxPowerLineEdit->text().toInt();
-   this->module->setPowerMaximum(newMax);
+    int newMax = ui->maxPowerLineEdit->text().toInt();
+    this->module->setPowerMaximum(newMax);
 }

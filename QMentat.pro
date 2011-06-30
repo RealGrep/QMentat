@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui webkit sql
+QT       += core gui webkit sql qwt
 
 TARGET = QMentat
 TEMPLATE = app
@@ -65,7 +65,8 @@ HEADERS  += mainwindow.h \
     questiondisplay.h \
     mathdisplayform.h \
     random.h \
-    qulonglongvalidator.h
+    qulonglongvalidator.h \
+    FixedPoint.h
 
 FORMS    += mainwindow.ui \
     additionconfigframe.ui \

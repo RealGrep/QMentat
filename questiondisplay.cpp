@@ -4,7 +4,7 @@
 //#include <iostream>
 
 QuestionDisplay::QuestionDisplay(QWidget *parent) :
-    QWidget(parent)
+        QWidget(parent)
 {
     //this->setMinimumHeight(100);
     //this->setMaximumHeight(100);

@@ -22,6 +22,7 @@ public:
     void setLastMinimum(int min);
     void setLastMaximum(int max);
     void setLargestNumberFirst(bool b);
+    void setDecimalPlaces(quint32 decimalPlaces);
 
     SubtractionModule *module;
 
@@ -29,6 +30,7 @@ private:
     Ui::SubtractionConfigFrame *ui;
 
 private slots:
+    void on_decimalPlacesLineEdit_editingFinished();
     void on_largestNumberFirstCheckBox_stateChanged(int );
     void on_secondMaxLineEdit_editingFinished();
     void on_secondMinLineEdit_editingFinished();
