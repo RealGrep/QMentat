@@ -27,7 +27,6 @@ public:
         return decimalPlaces;
     }
 
-    void test();
     void scale(int decimals);
 
     static QString decimalize(mpz_class num, qint32 decimals);

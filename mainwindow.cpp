@@ -93,8 +93,6 @@ MainWindow::MainWindow(QWidget *parent) :
     bres = bfp5 / bfp3;
     std::cout << bfp5 << " / " << bfp3 << " = " << bres << std::endl;
 
-    bres.test();
-
     BigFixedPoint bfp4("2345670", 5);
     if (bfp1 != bfp2)
     {
