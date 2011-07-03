@@ -77,6 +77,9 @@ MainWindow::MainWindow(QWidget *parent) :
         std::cout << BigFixedPoint::random(BigFixedPoint("99.00"), BigFixedPoint("100.00")) << " ";
     }
     std::cout << std::endl;
+
+    std::cout << "0.0000001 => " << BigFixedPoint("0.0000001") << std::endl;
+
     BigFixedPoint bfp1("123456", 3);
     BigFixedPoint bfp2("234567", 4);
     BigFixedPoint bfp3("7000", 3);

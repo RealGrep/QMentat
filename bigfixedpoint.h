@@ -54,10 +54,11 @@ public:
     BigFixedPoint& operator/=(const BigFixedPoint& y);
     const BigFixedPoint operator/(const BigFixedPoint& y) const;
 
+    QString toString() const;
     friend std::ostream&
             operator<< (std::ostream &os, const BigFixedPoint &x)
     {
-        os << decimalize(x.number, x.decimalPlaces).toStdString();
+        os << x.toString().toStdString();
         return os;
     }
 

@@ -236,27 +236,38 @@ BigFixedPoint BigFixedPoint::random(const BigFixedPoint& n)
     return BigFixedPoint(num, n.getDecimalPlaces());
 }
 
-QString BigFixedPoint::decimalize(mpz_class num, qint32 decimals)
+QString BigFixedPoint::toString() const
 {
     // Handle this better. Need to handle it mostly in the division
     // code, where this can occur if we end up with a scaling factor
     // of 10^x where x < 0. Maybe here we should assume 0, since it
     // sort of "underflowed". If we have adaptive precision in division
     // we can get around the loss of precision in the first place.
-    assert(decimals >= 0);
+    assert(decimalPlaces >= 0);
+
+    //! \todo Add a single 0 if there's no digits before decimal
 
     QString str;
-    if (decimals == 0)
+    if (decimalPlaces == 0)
     {
-        str = QString(num.get_str().c_str());
+        str = QString(number.get_str().c_str());
     } else {
-        QString numStr = QString(num.get_str().c_str());
-        int decimalLoc = numStr.size() - decimals;
+        QString numStr = QString(number.get_str().c_str());
+
+        // Add back leading 0's
+        if (numStr.size() < (decimalPlaces+1))
+        {
+            int addNum = decimalPlaces + 1 - numStr.size();
+            //std::cout << "Adding " << addNum << " leading 0s." << std::endl;
+            for (int i = 0; i < addNum; ++i)
+            {
+                numStr.insert(0, QLocale::system().zeroDigit().toAscii());
+            }
+        }
+
+        int decimalLoc = numStr.size() - decimalPlaces;
         QString integerPart = numStr.left(decimalLoc);
-        QString fractionalPart = numStr.right(decimals);
-        //std::cout << "numStr = " << numStr.toStdString() << std::endl;
-        //std::cout << "integer = " << integerPart.toStdString() << std::endl;
-        //std::cout << "fract = " << fractionalPart.toStdString() << std::endl;
+        QString fractionalPart = numStr.right(decimalPlaces);
 
         // Insert decimal separator into the integer part
         int partSize = integerPart.size();
@@ -273,7 +284,7 @@ QString BigFixedPoint::decimalize(mpz_class num, qint32 decimals)
 
         // Insert decimal separator into the fractional part
         if (fractionalPart.size() > 4) {
-            for (int i = 0; i < decimals; ++i)
+            for (int i = 0; i < decimalPlaces; ++i)
             {
                 int pos = i + (i/3)-1;
                 //std::cout << "i = " << i << "; pos = " << pos << std::endl;
