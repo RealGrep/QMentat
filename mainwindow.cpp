@@ -18,6 +18,7 @@
 
 // MMD TEST
 #include "FixedPoint.h"
+#include "bigfixedpoint.h"
 
 #include "statisticsdialog.h"
 
@@ -59,13 +60,94 @@ MainWindow::MainWindow(QWidget *parent) :
     this->ui->lineEdit->setFocus();
 
     // TEST MMD
-    /*
+    //BigFixedPoint bfp1;
+    std::cout << "=== BigFixedPoint ===" << std::endl;
+    std::cout << "Test of a big one: " << BigFixedPoint("1254221242353463323789853445356423453464", 13) << std::endl;
+    std::cout << " with string ctor: " << BigFixedPoint("125,422,124,235,346,332,378,985,344.535,642,345,346,4") << std::endl;
+
+    std::cout << "Random 0.00->100.00 = ";
+    for (int i = 0; i < 10; ++i)
+    {
+        std::cout << BigFixedPoint::random(BigFixedPoint("100.00")) << " ";
+    }
+    std::cout << std::endl;
+    std::cout << "Random 99.00->100.00 = ";
+    for (int i = 0; i < 10; ++i)
+    {
+        std::cout << BigFixedPoint::random(BigFixedPoint("99.00"), BigFixedPoint("100.00")) << " ";
+    }
+    std::cout << std::endl;
+    BigFixedPoint bfp1("123456", 3);
+    BigFixedPoint bfp2("234567", 4);
+    BigFixedPoint bfp3("7000", 3);
+    BigFixedPoint bfp5("420000", 4);
+    BigFixedPoint bres = bfp1 + bfp2;
+    std::cout << bfp1 << " + " << bfp2 << " = " << bres << std::endl;
+
+    bres = bfp1 - bfp2;
+    std::cout << bfp1 << " - " << bfp2 << " = " << bres << std::endl;
+
+    bres = bfp1 * bfp2;
+    std::cout << bfp1 << " * " << bfp2 << " = " << bres << std::endl;
+
+    bres = bfp5 / bfp3;
+    std::cout << bfp5 << " / " << bfp3 << " = " << bres << std::endl;
+
+    bres.test();
+
+    BigFixedPoint bfp4("2345670", 5);
+    if (bfp1 != bfp2)
+    {
+        std::cout << "SUCCESS: " << bfp1 << " != " << bfp2 << std::endl;
+    } else {
+        std::cout << "ERROR: " << bfp1 << " == " << bfp2 << "!" << std::endl;
+    }
+    if (bfp2 == bfp4)
+    {
+        std::cout << "SUCCESS: " << bfp2 << " == " << bfp4 << std::endl;
+    } else {
+        std::cout << "ERROR: " << bfp2 << " != " << bfp4 << "!" << std::endl;
+    }
+
+    if (bfp1 > bfp2)
+    {
+        std::cout << "SUCCESS: " << bfp1 << " > " << bfp2 << std::endl;
+    } else {
+        std::cout << "ERROR: " << bfp1 << " NOT > " << bfp2 << "!" << std::endl;
+    }
+
+    if (bfp2 < bfp1)
+    {
+        std::cout << "SUCCESS: " << bfp2 << " < " << bfp1 << std::endl;
+    } else {
+        std::cout << "ERROR: " << bfp2 << " NOT < " << bfp1 << "!" << std::endl;
+    }
+
+    std::cout << std::endl << "=== FixedPoint ===" << std::endl;
     FixedPoint<quint64> fixed1(123456, 3);
     FixedPoint<quint64> fixed2(234567, 4);
+
+    std::cout << fixed1 << std::endl;
+    std::cout << "123.456 scaled to 2 = " << fixed1.scale(2) << std::endl;
+    std::cout << "123.456 scaled to 4 = " << fixed1.scale(4) << std::endl;
+
     FixedPoint<quint64> result = fixed1 + fixed2;
-    qDebug() << "Result val: " << result.getValue();
-    qDebug() << "Result decimals: " << result.getDecimalPlaces();
-    */
+    qDebug() << "123.456 + 23.4567 = " << PracticeModule::decimalize(result.getValue(), result.getDecimalPlaces());
+    qDebug() << "Result (decimals): " << result.getValue() << " (" << result.getDecimalPlaces() << ")";
+
+    result = fixed1 - fixed2;
+    qDebug() << "123.456 - 23.4567 = " << PracticeModule::decimalize(result.getValue(), result.getDecimalPlaces());
+    qDebug() << "Result (decimals): " << result.getValue() << " (" << result.getDecimalPlaces() << ")";
+
+    result = fixed1 * fixed2;
+    qDebug() << "123.456 * 23.4567 = " << PracticeModule::decimalize(result.getValue(), result.getDecimalPlaces());
+    qDebug() << "Result (decimals): " << result.getValue() << " (" << result.getDecimalPlaces() << ")";
+
+    result = fixed1 / fixed2;
+    qDebug() << "123.456 / 23.4567 = ";// << PracticeModule::decimalize(result.getValue(), result.getDecimalPlaces());
+    qDebug() << "Result (decimals): " << result.getValue() << " (" << result.getDecimalPlaces() << ")";
+
+    qDebug() << "exp10(2) = " << exp10(2);
 }
 
 MainWindow::~MainWindow()

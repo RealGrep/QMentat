@@ -10,7 +10,8 @@ TARGET = QMentat
 TEMPLATE = app
 
 QMAKE_CXXFLAGS += -std=c++0x
-
+#QMAKE_CXXLDFLAGS += -lgmpxx -lgmp
+LIBS += -lgmpxx -lgmp
 include(/home/michel/code/QMentat/qtmmlwidget-2.4_1-opensource/src/qtmmlwidget.pri)
 
 #INCLUDEPATH
@@ -47,7 +48,8 @@ SOURCES += main.cpp\
     mathdisplayform.cpp \
     qulonglongvalidator.cpp \
     pieview.cpp \
-    statisticsdialog.cpp
+    statisticsdialog.cpp \
+    bigfixedpoint.cpp
 
 HEADERS  += mainwindow.h \
     additionmodule.h \
@@ -70,7 +72,8 @@ HEADERS  += mainwindow.h \
     qulonglongvalidator.h \
     FixedPoint.h \
     pieview.h \
-    statisticsdialog.h
+    statisticsdialog.h \
+    bigfixedpoint.h
 
 FORMS    += mainwindow.ui \
     additionconfigframe.ui \
