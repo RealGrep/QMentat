@@ -236,6 +236,9 @@ BigFixedPoint BigFixedPoint::random(const BigFixedPoint& n)
     return BigFixedPoint(num, n.getDecimalPlaces());
 }
 
+/*! \todo Might be leading/trailing spaces we want to remove to make this
+ *  more robust.
+ */
 QString BigFixedPoint::toString() const
 {
     // Handle this better. Need to handle it mostly in the division
@@ -243,31 +246,46 @@ QString BigFixedPoint::toString() const
     // of 10^x where x < 0. Maybe here we should assume 0, since it
     // sort of "underflowed". If we have adaptive precision in division
     // we can get around the loss of precision in the first place.
-    assert(decimalPlaces >= 0);
 
-    //! \todo Add a single 0 if there's no digits before decimal
+    //! \todo Handle by adding trailing 0s perhaps?
+    assert(decimalPlaces >= 0);
 
     QString str;
     if (decimalPlaces == 0)
     {
         str = QString(number.get_str().c_str());
     } else {
-        QString numStr = QString(number.get_str().c_str());
+        QString numStr = QString::fromStdString(number.get_str());
+
+        // Handle - sign
+        bool negative = number < 0;
+        if (negative)
+        {
+            int negPos = numStr.indexOf(QLocale::system().negativeSign());
+            if (negPos >= 0)
+            {
+                numStr.remove(negPos, 1);
+            }
+        }
 
         // Add back leading 0's
         if (numStr.size() < (decimalPlaces+1))
         {
             int addNum = decimalPlaces + 1 - numStr.size();
-            //std::cout << "Adding " << addNum << " leading 0s." << std::endl;
             for (int i = 0; i < addNum; ++i)
             {
-                numStr.insert(0, QLocale::system().zeroDigit().toAscii());
+                numStr.insert(0, QLocale::system().zeroDigit());
             }
         }
 
         int decimalLoc = numStr.size() - decimalPlaces;
         QString integerPart = numStr.left(decimalLoc);
         QString fractionalPart = numStr.right(decimalPlaces);
+
+        if (negative)
+        {
+            integerPart.prepend(QLocale::system().negativeSign());
+        }
 
         // Insert decimal separator into the integer part
         int partSize = integerPart.size();
@@ -276,9 +294,7 @@ QString BigFixedPoint::toString() const
             if ((i > 0) && ((i % 3) == 0))
             {
                 int pos = (partSize) - i;
-                //std::cout << "i = " << i << "; pos = " << pos << "; len = " << integerPart.size() << std::endl;
                 integerPart.insert(pos, QLocale::system().groupSeparator());
-                //std::cout << integerPart.toStdString() << std::endl;
             }
         }
 
@@ -287,10 +303,8 @@ QString BigFixedPoint::toString() const
             for (int i = 0; i < decimalPlaces; ++i)
             {
                 int pos = i + (i/3)-1;
-                //std::cout << "i = " << i << "; pos = " << pos << std::endl;
                 if ((i > 0) && ((i % 3) == 0))
                 {
-                    //std::cout << "Inserting separator" << std::endl;
                     fractionalPart.insert(pos, QLocale::system().groupSeparator());
                 }
             }

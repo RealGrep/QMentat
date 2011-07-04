@@ -16,10 +16,6 @@
 #include <QDebug>
 #include <QtMmlWidget>
 
-// MMD TEST
-#include "FixedPoint.h"
-#include "bigfixedpoint.h"
-
 #include "statisticsdialog.h"
 
 
@@ -34,7 +30,6 @@ MainWindow::MainWindow(QWidget *parent) :
         ui(new Ui::MainWindow)
 {
     QCoreApplication::setOrganizationName("mike.dusseault");
-    //QCoreApplication::setOrganizationDomain("mysoft.com");
     QCoreApplication::setApplicationName("QMentat");
 
     ui->setupUi(this);
@@ -59,71 +54,7 @@ MainWindow::MainWindow(QWidget *parent) :
     newQuestion();
     this->ui->lineEdit->setFocus();
 
-    // TEST MMD
-    //BigFixedPoint bfp1;
-    std::cout << "=== BigFixedPoint ===" << std::endl;
-    std::cout << "Test of a big one: " << BigFixedPoint("1254221242353463323789853445356423453464", 13) << std::endl;
-    std::cout << " with string ctor: " << BigFixedPoint("125,422,124,235,346,332,378,985,344.535,642,345,346,4") << std::endl;
-
-    std::cout << "Random 0.00->100.00 = ";
-    for (int i = 0; i < 10; ++i)
-    {
-        std::cout << BigFixedPoint::random(BigFixedPoint("100.00")) << " ";
-    }
-    std::cout << std::endl;
-    std::cout << "Random 99.00->100.00 = ";
-    for (int i = 0; i < 10; ++i)
-    {
-        std::cout << BigFixedPoint::random(BigFixedPoint("99.00"), BigFixedPoint("100.00")) << " ";
-    }
-    std::cout << std::endl;
-
-    std::cout << "0.0000001 => " << BigFixedPoint("0.0000001") << std::endl;
-
-    BigFixedPoint bfp1("123456", 3);
-    BigFixedPoint bfp2("234567", 4);
-    BigFixedPoint bfp3("7000", 3);
-    BigFixedPoint bfp5("420000", 4);
-    BigFixedPoint bres = bfp1 + bfp2;
-    std::cout << bfp1 << " + " << bfp2 << " = " << bres << std::endl;
-
-    bres = bfp1 - bfp2;
-    std::cout << bfp1 << " - " << bfp2 << " = " << bres << std::endl;
-
-    bres = bfp1 * bfp2;
-    std::cout << bfp1 << " * " << bfp2 << " = " << bres << std::endl;
-
-    bres = bfp5 / bfp3;
-    std::cout << bfp5 << " / " << bfp3 << " = " << bres << std::endl;
-
-    BigFixedPoint bfp4("2345670", 5);
-    if (bfp1 != bfp2)
-    {
-        std::cout << "SUCCESS: " << bfp1 << " != " << bfp2 << std::endl;
-    } else {
-        std::cout << "ERROR: " << bfp1 << " == " << bfp2 << "!" << std::endl;
-    }
-    if (bfp2 == bfp4)
-    {
-        std::cout << "SUCCESS: " << bfp2 << " == " << bfp4 << std::endl;
-    } else {
-        std::cout << "ERROR: " << bfp2 << " != " << bfp4 << "!" << std::endl;
-    }
-
-    if (bfp1 > bfp2)
-    {
-        std::cout << "SUCCESS: " << bfp1 << " > " << bfp2 << std::endl;
-    } else {
-        std::cout << "ERROR: " << bfp1 << " NOT > " << bfp2 << "!" << std::endl;
-    }
-
-    if (bfp2 < bfp1)
-    {
-        std::cout << "SUCCESS: " << bfp2 << " < " << bfp1 << std::endl;
-    } else {
-        std::cout << "ERROR: " << bfp2 << " NOT < " << bfp1 << "!" << std::endl;
-    }
-
+    /*
     std::cout << std::endl << "=== FixedPoint ===" << std::endl;
     FixedPoint<quint64> fixed1(123456, 3);
     FixedPoint<quint64> fixed2(234567, 4);
@@ -149,6 +80,7 @@ MainWindow::MainWindow(QWidget *parent) :
     qDebug() << "Result (decimals): " << result.getValue() << " (" << result.getDecimalPlaces() << ")";
 
     qDebug() << "exp10(2) = " << exp10(2);
+    */
 }
 
 MainWindow::~MainWindow()
@@ -241,8 +173,6 @@ void MainWindow::testSQL()
 /*! Reads the saved Qt settings and restores to saved state.
  */
 void MainWindow::readSettings() {
-
-    //QSettings settings("mike.dusseault", "QMentat");
     QSettings settings;
     qDebug() << "Settings file: " << settings.fileName() << endl;
     QPoint pos = settings.value("pos", this->pos()).toPoint();
@@ -257,7 +187,6 @@ void MainWindow::readSettings() {
  */
 void MainWindow::writeSettings() {
     // Save postion/size of main window
-    //QSettings settings("mike.dusseault", "QMentat");
     QSettings settings;
     settings.setValue("pos", pos());
     settings.setValue("size", size());
@@ -265,7 +194,7 @@ void MainWindow::writeSettings() {
 }
 
 
-/*! Gets a new question, displays it and sets focus to answer text edit.
+/*! Gets a new question and displays it.
  */
 void MainWindow::newQuestion()
 {
