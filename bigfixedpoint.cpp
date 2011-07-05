@@ -4,6 +4,12 @@
 #include <iostream>
 #include <string>
 
+BigFixedPoint::BigFixedPoint()
+{
+    number = 0;
+    decimalPlaces = 0;
+}
+
 BigFixedPoint::BigFixedPoint(const BigFixedPoint& bfp)
 {
     if (this == &bfp)
@@ -22,6 +28,31 @@ BigFixedPoint::BigFixedPoint(mpz_class num, int decimals)
     : number(num), decimalPlaces(decimals)
 {
     // Empty
+}
+
+BigFixedPoint::BigFixedPoint(QString num)
+{
+    // Strip separators out
+    for (int i = 0; i < num.size(); ++i)
+    {
+        if (num[i] == QLocale::system().groupSeparator())
+        {
+            num.remove(i, 1);
+        }
+    }
+
+    // Where's the decimal point?
+    int decimalLoc = num.indexOf(QLocale::system().decimalPoint());
+    if (decimalLoc <= 0)
+    {
+        decimalPlaces = 0;
+    } else {
+        decimalPlaces = num.size()-1 - decimalLoc;
+        num.remove(decimalLoc, 1);
+    }
+
+    // The number string is clean
+    number = num.toStdString();
 }
 
 BigFixedPoint::BigFixedPoint(std::string num)
@@ -75,6 +106,12 @@ BigFixedPoint& BigFixedPoint::operator=(const BigFixedPoint &rhs)
     return *this;
 }
 
+BigFixedPoint& BigFixedPoint::operator=(int num)
+{
+    number = num;
+    decimalPlaces = 0;
+    return *this;
+}
 
 bool BigFixedPoint::operator==(const BigFixedPoint &rhs) const {
     BigFixedPoint lhsScaled = *this;
@@ -225,12 +262,13 @@ const BigFixedPoint BigFixedPoint::operator/(const BigFixedPoint& y) const
 BigFixedPoint BigFixedPoint::random(const BigFixedPoint& min, const BigFixedPoint& max)
 {
     BigFixedPoint range = max - min;
+    range.decimalPlaces = std::max(min.decimalPlaces, max.decimalPlaces);
     return BigFixedPoint::random(range) + min;
 }
 
 BigFixedPoint BigFixedPoint::random(const BigFixedPoint& n)
 {
-    gmp_randclass r(gmp_randinit_default);;
+    gmp_randclass r(gmp_randinit_default);
     r.seed(QTime::currentTime().msec());
     mpz_class num = r.get_z_range(n.number);
     return BigFixedPoint(num, n.getDecimalPlaces());
@@ -251,51 +289,70 @@ QString BigFixedPoint::toString() const
     assert(decimalPlaces >= 0);
 
     QString str;
+    QString numStr = QString::fromStdString(number.get_str());
+
+    // Handle - sign
+    bool negative = number < 0;
+    if (negative)
+    {
+        int negPos = numStr.indexOf(QLocale::system().negativeSign());
+        if (negPos >= 0)
+        {
+            numStr.remove(negPos, 1);
+        }
+    }
+
+    // Add back leading 0's
+    if (numStr.size() < (decimalPlaces+1))
+    {
+        int addNum = decimalPlaces + 1 - numStr.size();
+        for (int i = 0; i < addNum; ++i)
+        {
+            numStr.insert(0, QLocale::system().zeroDigit());
+        }
+    }
+
     if (decimalPlaces == 0)
     {
-        str = QString(number.get_str().c_str());
-    } else {
-        QString numStr = QString::fromStdString(number.get_str());
-
-        // Handle - sign
-        bool negative = number < 0;
-        if (negative)
-        {
-            int negPos = numStr.indexOf(QLocale::system().negativeSign());
-            if (negPos >= 0)
-            {
-                numStr.remove(negPos, 1);
-            }
-        }
-
-        // Add back leading 0's
-        if (numStr.size() < (decimalPlaces+1))
-        {
-            int addNum = decimalPlaces + 1 - numStr.size();
-            for (int i = 0; i < addNum; ++i)
-            {
-                numStr.insert(0, QLocale::system().zeroDigit());
-            }
-        }
-
-        int decimalLoc = numStr.size() - decimalPlaces;
-        QString integerPart = numStr.left(decimalLoc);
-        QString fractionalPart = numStr.right(decimalPlaces);
-
-        if (negative)
-        {
-            integerPart.prepend(QLocale::system().negativeSign());
-        }
-
         // Insert decimal separator into the integer part
-        int partSize = integerPart.size();
+        int partSize = numStr.size();
         for (int i = 0; i < partSize-1; ++i)
         {
             if ((i > 0) && ((i % 3) == 0))
             {
                 int pos = (partSize) - i;
-                integerPart.insert(pos, QLocale::system().groupSeparator());
+                numStr.insert(pos, QLocale::system().groupSeparator());
             }
+        }
+
+        if (negative)
+        {
+            numStr.prepend(QLocale::system().negativeSign());
+        }
+
+        str = numStr;
+    } else {
+        int decimalLoc = numStr.size() - decimalPlaces;
+        QString integerPart = numStr.left(decimalLoc);
+        QString fractionalPart = numStr.right(decimalPlaces);
+
+        // Insert decimal separator into the integer part
+        int partSize = integerPart.size();
+        if (partSize > 4)
+        {
+            for (int i = 0; i < partSize; ++i)
+            {
+                if ((i > 0) && ((i % 3) == 0))
+                {
+                    int pos = (partSize) - i;
+                    integerPart.insert(pos, QLocale::system().groupSeparator());
+                }
+            }
+        }
+
+        if (negative)
+        {
+            integerPart.prepend(QLocale::system().negativeSign());
         }
 
         // Insert decimal separator into the fractional part

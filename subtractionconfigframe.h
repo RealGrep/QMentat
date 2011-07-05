@@ -17,12 +17,11 @@ public:
     ~SubtractionConfigFrame();
 
     void setModule(SubtractionModule *mod);
-    void setFirstMinimum(int min);
-    void setFirstMaximum(int max);
-    void setLastMinimum(int min);
-    void setLastMaximum(int max);
+    void setFirstMinimum(QString min);
+    void setFirstMaximum(QString max);
+    void setLastMinimum(QString min);
+    void setLastMaximum(QString max);
     void setLargestNumberFirst(bool b);
-    void setDecimalPlaces(quint32 decimalPlaces);
 
     SubtractionModule *module;
 
@@ -30,7 +29,6 @@ private:
     Ui::SubtractionConfigFrame *ui;
 
 private slots:
-    void on_decimalPlacesLineEdit_editingFinished();
     void on_largestNumberFirstCheckBox_stateChanged(int );
     void on_secondMaxLineEdit_editingFinished();
     void on_secondMinLineEdit_editingFinished();

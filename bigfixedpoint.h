@@ -9,6 +9,8 @@
 
 class BigFixedPoint {
 public:
+    BigFixedPoint();
+    BigFixedPoint(QString num);
     BigFixedPoint(std::string num);
     BigFixedPoint(std::string num, int decimals);
     BigFixedPoint(mpz_class num, int decimals);
@@ -35,6 +37,7 @@ public:
 
     // Assignment operator
     BigFixedPoint& operator=(const BigFixedPoint &rhs);
+    BigFixedPoint& operator=(int num);
 
     // Comparison operators
     bool operator==(const BigFixedPoint &rhs) const;

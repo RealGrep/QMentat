@@ -10,11 +10,13 @@ AdditionConfigFrame::AdditionConfigFrame(QWidget *parent) :
     ui->setupUi(this);
     this->module = 0;
 
+    /*
     QULongLongValidator *validator = new QULongLongValidator(this);
     ui->minNumberLineEdit->setValidator(validator);
     ui->maxNumberLineEdit->setValidator(validator);
     ui->secondMinLineEdit->setValidator(validator);
     ui->secondMaxLineEdit->setValidator(validator);
+    */
 }
 
 AdditionConfigFrame::~AdditionConfigFrame()
@@ -27,24 +29,24 @@ void AdditionConfigFrame::setModule(AdditionModule *mod)
     this->module = mod;
 }
 
-void AdditionConfigFrame::setFirstMinimum(quint64 min)
+void AdditionConfigFrame::setFirstMinimum(QString min)
 {
-    ui->minNumberLineEdit->setText(QString("%1").arg(min));
+    ui->minNumberLineEdit->setText(min);
 }
 
-void AdditionConfigFrame::setFirstMaximum(quint64 max)
+void AdditionConfigFrame::setFirstMaximum(QString max)
 {
-    ui->maxNumberLineEdit->setText(QString("%1").arg(max));
+    ui->maxNumberLineEdit->setText(max);
 }
 
-void AdditionConfigFrame::setLastMinimum(quint64 max)
+void AdditionConfigFrame::setLastMinimum(QString min)
 {
-    ui->secondMinLineEdit->setText(QString("%1").arg(max));
+    ui->secondMinLineEdit->setText(min);
 }
 
-void AdditionConfigFrame::setLastMaximum(quint64 max)
+void AdditionConfigFrame::setLastMaximum(QString max)
 {
-    ui->secondMaxLineEdit->setText(QString("%1").arg(max));
+    ui->secondMaxLineEdit->setText(max);
 }
 
 void AdditionConfigFrame::setLargestNumberFirst(bool b)
@@ -52,37 +54,27 @@ void AdditionConfigFrame::setLargestNumberFirst(bool b)
     ui->largestNumberFirstCheckBox->setChecked(b);
 }
 
-void AdditionConfigFrame::setDecimalPlaces(quint32 decimalPlaces)
-{
-    ui->decimalPlacesLineEdit->setText(QString("%1").arg(decimalPlaces));
-}
-
 void AdditionConfigFrame::on_minNumberLineEdit_editingFinished()
 {
-    quint64 newMin = ui->minNumberLineEdit->text().toULongLong();
-    //! \todo Check for wraparound
+    BigFixedPoint newMin(ui->minNumberLineEdit->text());
     this->module->setFirstMinimum(newMin);
-
 }
 
 void AdditionConfigFrame::on_maxNumberLineEdit_editingFinished()
 {
-    quint64 newMax = ui->maxNumberLineEdit->text().toULongLong();
-    //! \todo Check for wraparound
+    BigFixedPoint newMax(ui->maxNumberLineEdit->text());
     this->module->setFirstMaximum(newMax);
 }
 
 void AdditionConfigFrame::on_secondMinLineEdit_editingFinished()
 {
-    quint64 newMin = ui->secondMinLineEdit->text().toULongLong();
-    //! \todo Check for wraparound
+    BigFixedPoint newMin(ui->secondMinLineEdit->text());
     this->module->setLastMinimum(newMin);
 }
 
 void AdditionConfigFrame::on_secondMaxLineEdit_editingFinished()
 {
-    quint64 newMax = ui->secondMaxLineEdit->text().toULongLong();
-    //! \todo Check for wraparound
+    BigFixedPoint newMax(ui->secondMaxLineEdit->text());
     this->module->setLastMaximum(newMax);
 }
 
@@ -96,8 +88,3 @@ void AdditionConfigFrame::on_largestNumberFirstCheckBox_stateChanged(int state)
     }
 }
 
-void AdditionConfigFrame::on_decimalPlacesLineEdit_editingFinished()
-{
-    quint32 newDecimals = ui->decimalPlacesLineEdit->text().toUInt();
-    this->module->setDecimalPlaces(newDecimals);
-}

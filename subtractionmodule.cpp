@@ -6,64 +6,45 @@
 
 #include <cassert>
 
-//#include <iostream>
+#include <iostream>
 #include "subtractionconfigframe.h"
 #include "mainwindow.h"
 #include "practicemodule.h"
 #include "questiondisplayform.h"
-#include "random.h"
+#include "bigfixedpoint.h"
 
 SubtractionModule::SubtractionModule(MainWindow *mw)
 {
     // Keep a copy for callbacks
     mainWindow = mw;
 
-    // Init sane defaults
-    firstNumber = 0;
-    lastNumber = 0;
-    answer = 0;
-
-    genFirst = 0;
-    genLast = 0;
-
     // Read config
     QSettings settings;
     settings.beginGroup("subtractionmodule");
-    firstMin = settings.value("firstmin", 2).toULongLong();
-    firstMax = settings.value("firstmax", 100).toULongLong();
-    lastMin = settings.value("lastmin", 2).toULongLong();
-    lastMax = settings.value("lastmax", 100).toULongLong();
+    firstMin = BigFixedPoint(settings.value("firstmin", 2).toString());
+    firstMax = BigFixedPoint(settings.value("firstmax", 100).toString());
+    lastMin = BigFixedPoint(settings.value("lastmin", 2).toString());
+    lastMax = BigFixedPoint(settings.value("lastmax", 100).toString());
     largestNumberFirst = settings.value("largestNumberFirst", true).toBool();
-    decimalPlaces = settings.value("decimalplaces", 0).toUInt();
     settings.endGroup();
 
     // Make config frame
     configFrame = new SubtractionConfigFrame();
     configFrame->setModule(this);
-    configFrame->setDecimalPlaces(decimalPlaces);
-    configFrame->setFirstMinimum(firstMin);
-    configFrame->setFirstMaximum(firstMax);
-    configFrame->setLastMinimum(lastMin);
-    configFrame->setLastMaximum(lastMax);
+    configFrame->setFirstMinimum(firstMin.toString());
+    configFrame->setFirstMaximum(firstMax.toString());
+    configFrame->setLastMinimum(lastMin.toString());
+    configFrame->setLastMaximum(lastMax.toString());
     configFrame->setLargestNumberFirst(largestNumberFirst);
 
     // Make display frame
     displayFrame = (QuestionDisplay*)(new QuestionDisplayForm());
-
-    firstRangeUpdated();
-    lastRangeUpdated();
 }
 
 SubtractionModule::~SubtractionModule()
 {
     assert(configFrame != 0);
     assert(displayFrame != 0);
-
-    delete genFirst;
-    genFirst = 0;
-
-    delete genLast;
-    genLast = 0;
 
     this->mainWindow->layout()->removeWidget(configFrame);
     configFrame->close();
@@ -86,48 +67,49 @@ QuestionDisplay* SubtractionModule::getDisplayFrame()
 
 QString SubtractionModule::question()
 {
-    assert(genFirst != 0);
-    assert(genLast != 0);
 
-    firstNumber = (*genFirst)();
-    lastNumber = (*genLast)();
+    firstNumber = BigFixedPoint::random(firstMin, firstMax);
+    lastNumber = BigFixedPoint::random(lastMin, lastMax);
+
+    // Scale to largest number of decimals
+    int maxDecimals = std::max(firstNumber.getDecimalPlaces(), lastNumber.getDecimalPlaces());
+    if (firstNumber.getDecimalPlaces() < maxDecimals)
+    {
+        firstNumber.scale(maxDecimals);
+    }
+    if (lastNumber.getDecimalPlaces() < maxDecimals)
+    {
+        lastNumber.scale(maxDecimals);
+    }
+
+    // Swap largest number first, if necessary and set to do so
     if (largestNumberFirst && (lastNumber > firstNumber))
     {
-        int tmp = firstNumber;
+        BigFixedPoint tmp = firstNumber;
         firstNumber = lastNumber;
         lastNumber = tmp;
     }
-    answer = static_cast<qint64>(firstNumber) - static_cast<qint64>(lastNumber);
 
+    // Calculate answer
+    answer = firstNumber - lastNumber;
+    //std::cout << "first = " << firstNumber.toString().toStdString() << std::endl;
+    //std::cout << "last = " << lastNumber.toString().toStdString() << std::endl;
+
+    // Build question string
     QString q = QString("%1\n- %2")
-                .arg(decimalize(firstNumber, decimalPlaces))
-                .arg(decimalize(lastNumber, decimalPlaces));
+                .arg(firstNumber.toString())
+                .arg(lastNumber.toString());
 
     return q;
 }
 
 bool SubtractionModule::isCorrect(QString& answerGiven)
 {
-    // Figure out how many decimal places we're "missing" and get them back
-    // so the comparison works right
-    int decimalPos = answerGiven.indexOf(QLocale::system().decimalPoint());
-    qint64 answerNum = 0;
-    if (decimalPos >= 0)
-    {
-        int missingDecimals = decimalPlaces - answerGiven.size() - 1
-                              - decimalPos;
-        answerNum = answerGiven.remove(QLocale::system().decimalPoint())
-                    .remove(QLocale::system().groupSeparator()).toULongLong();
-        if (missingDecimals > 0)
-        {
-            answerNum *= static_cast<qint64>(pow(10, missingDecimals));
-        }
-    } else {
-        answerNum = answerGiven.toLongLong();
-    }
+    BigFixedPoint answerNum(answerGiven);
+    answerNum.scale(answer.getDecimalPlaces());
 
-    //qDebug() << "isCorrect: answerGiven = " << answerNum << "; answer = " << answer;
-    if (answerNum == this->answer)
+    //qDebug() << "isCorrect: answerGiven = " << answerNum.toString() << "; answer = " << answer.toString();
+    if (answerNum == answer)
     {
         return true;
     } else {
@@ -138,87 +120,59 @@ bool SubtractionModule::isCorrect(QString& answerGiven)
 QString SubtractionModule::getAnswerString()
 {
     return QString("%1 - %2 = %3")
-            .arg(decimalize(firstNumber, decimalPlaces))
-            .arg(decimalize(lastNumber, decimalPlaces))
-            .arg(decimalize(answer, decimalPlaces));
+            .arg(firstNumber.toString())
+            .arg(lastNumber.toString())
+            .arg(answer.toString());
 }
 
-/*! Range of first number updated, so make a new PRG for it.
- * \todo Perhaps this should be generalized so the lastRangeUpdated function
- * doesn't just do the same with different data.
- */
-void SubtractionModule::firstRangeUpdated()
+void SubtractionModule::setFirstMaximum(BigFixedPoint newMax)
 {
-    // Get rid of previous generators
-    delete genFirst;
-    genFirst = 0;
-
-    // Make new generator
-    quint64 min = firstMin * static_cast<quint64>(pow(10, decimalPlaces));
-    quint64 max = firstMax * static_cast<quint64>(pow(10, decimalPlaces));
-
-    genFirst = new RandomInt<quint64>(min, max);
-}
-
-/*! Range of last number updated, so make a new PRG for it.
- */
-void SubtractionModule::lastRangeUpdated()
-{
-    // Get rid of previous generator
-    delete genLast;
-    genLast = 0;
-
-    // Make new generator
-    quint64 min = lastMin * static_cast<quint64>(pow(10, decimalPlaces));
-    quint64 max = lastMax * static_cast<quint64>(pow(10, decimalPlaces));
-
-    genLast = new RandomInt<quint64>(min, max);
-}
-
-void SubtractionModule::setFirstMaximum(quint64 newMax)
-{
-    if (firstMax != newMax) {
+    if ((firstMax != newMax)
+        || (firstMax.getDecimalPlaces() != newMax.getDecimalPlaces()))
+    {
         firstMax = newMax;
         QSettings settings;
-        settings.setValue("subtractionmodule/firstmax", firstMax);
+        settings.setValue("subtractionmodule/firstmax", firstMax.toString());
 
-        firstRangeUpdated();
         mainWindow->newQuestion();
     }
 }
 
-void SubtractionModule::setFirstMinimum(quint64 newMin)
+void SubtractionModule::setFirstMinimum(BigFixedPoint newMin)
 {
-    if (firstMin != newMin) {
+    if ((firstMin != newMin)
+        || (firstMin.getDecimalPlaces() != newMin.getDecimalPlaces()))
+    {
         firstMin = newMin;
         QSettings settings;
-        settings.setValue("subtractionmodule/firstmin", firstMin);
+        settings.setValue("subtractionmodule/firstmin", firstMin.toString());
 
-        firstRangeUpdated();
         mainWindow->newQuestion();
     }
 }
 
-void SubtractionModule::setLastMaximum(quint64 newMax)
+void SubtractionModule::setLastMaximum(BigFixedPoint newMax)
 {
-    if (lastMax != newMax) {
+    if ((lastMax != newMax)
+        || (lastMax.getDecimalPlaces() != newMax.getDecimalPlaces()))
+    {
         lastMax = newMax;
         QSettings settings;
-        settings.setValue("subtractionmodule/lastmax", lastMax);
+        settings.setValue("subtractionmodule/lastmax", lastMax.toString());
 
-        lastRangeUpdated();
         mainWindow->newQuestion();
     }
 }
 
-void SubtractionModule::setLastMinimum(quint64 newMin)
+void SubtractionModule::setLastMinimum(BigFixedPoint newMin)
 {
-    if (lastMin != newMin) {
+    if ((lastMin != newMin)
+        || (lastMin.getDecimalPlaces() != newMin.getDecimalPlaces()))
+    {
         lastMin = newMin;
         QSettings settings;
-        settings.setValue("subtractionmodule/lastmin", lastMin);
+        settings.setValue("subtractionmodule/lastmin", lastMin.toString());
 
-        lastRangeUpdated();
         mainWindow->newQuestion();
     }
 }
@@ -231,22 +185,6 @@ void SubtractionModule::setLargestNumberFirst(bool b)
         QSettings settings;
         settings.setValue("subtractionmodule/largestNumberFirst",
                           largestNumberFirst);
-
-        firstRangeUpdated();
-        lastRangeUpdated();
-        mainWindow->newQuestion();
-    }
-}
-
-void SubtractionModule::setDecimalPlaces(quint32 newDecimals)
-{
-    if (decimalPlaces != newDecimals) {
-        decimalPlaces = newDecimals;
-        QSettings settings;
-        settings.setValue("subtractionmodule/decimalplaces", decimalPlaces);
-
-        firstRangeUpdated();
-        lastRangeUpdated();
 
         mainWindow->newQuestion();
     }

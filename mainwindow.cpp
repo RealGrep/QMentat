@@ -220,6 +220,10 @@ void MainWindow::on_lineEdit_returnPressed()
 
     // Answer as integer
     QString answerGiven = ui->lineEdit->text();
+    if (answerGiven.size() == 0)
+    {
+        answerGiven = "0";
+    }
 
     // Handle correct or not
     if (module->isCorrect(answerGiven)) {

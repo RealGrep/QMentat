@@ -1,6 +1,7 @@
 #include "subtractionconfigframe.h"
 #include "ui_subtractionconfigframe.h"
 #include "subtractionmodule.h"
+#include "bigfixedpoint.h"
 
 SubtractionConfigFrame::SubtractionConfigFrame(QWidget *parent) :
         QFrame(parent),
@@ -20,24 +21,24 @@ void SubtractionConfigFrame::setModule(SubtractionModule *mod)
     this->module = mod;
 }
 
-void SubtractionConfigFrame::setFirstMinimum(int min)
+void SubtractionConfigFrame::setFirstMinimum(QString min)
 {
-    ui->minNumberLineEdit->setText(QString("%1").arg(min));
+    ui->minNumberLineEdit->setText(min);
 }
 
-void SubtractionConfigFrame::setFirstMaximum(int max)
+void SubtractionConfigFrame::setFirstMaximum(QString max)
 {
-    ui->maxNumberLineEdit->setText(QString("%1").arg(max));
+    ui->maxNumberLineEdit->setText(max);
 }
 
-void SubtractionConfigFrame::setLastMinimum(int max)
+void SubtractionConfigFrame::setLastMinimum(QString min)
 {
-    ui->secondMinLineEdit->setText(QString("%1").arg(max));
+    ui->secondMinLineEdit->setText(min);
 }
 
-void SubtractionConfigFrame::setLastMaximum(int max)
+void SubtractionConfigFrame::setLastMaximum(QString max)
 {
-    ui->secondMaxLineEdit->setText(QString("%1").arg(max));
+    ui->secondMaxLineEdit->setText(max);
 }
 
 void SubtractionConfigFrame::setLargestNumberFirst(bool b)
@@ -45,32 +46,27 @@ void SubtractionConfigFrame::setLargestNumberFirst(bool b)
     ui->largestNumberFirstCheckBox->setChecked(b);
 }
 
-void SubtractionConfigFrame::setDecimalPlaces(quint32 decimalPlaces)
-{
-    ui->decimalPlacesLineEdit->setText(QString("%1").arg(decimalPlaces));
-}
-
 void SubtractionConfigFrame::on_minNumberLineEdit_editingFinished()
 {
-    int newMin = ui->minNumberLineEdit->text().toInt();
+    BigFixedPoint newMin(ui->minNumberLineEdit->text());
     this->module->setFirstMinimum(newMin);
 }
 
 void SubtractionConfigFrame::on_maxNumberLineEdit_editingFinished()
 {
-    int newMax = ui->maxNumberLineEdit->text().toInt();
+    BigFixedPoint newMax(ui->maxNumberLineEdit->text());
     this->module->setFirstMaximum(newMax);
 }
 
 void SubtractionConfigFrame::on_secondMinLineEdit_editingFinished()
 {
-    int newMin = ui->secondMinLineEdit->text().toInt();
+    BigFixedPoint newMin(ui->secondMinLineEdit->text());
     this->module->setLastMinimum(newMin);
 }
 
 void SubtractionConfigFrame::on_secondMaxLineEdit_editingFinished()
 {
-    int newMax = ui->secondMaxLineEdit->text().toInt();
+    BigFixedPoint newMax(ui->secondMaxLineEdit->text());
     this->module->setLastMaximum(newMax);
 }
 
@@ -82,10 +78,4 @@ void SubtractionConfigFrame::on_largestNumberFirstCheckBox_stateChanged(int stat
     } else {
         this->module->setLargestNumberFirst(false);
     }
-}
-
-void SubtractionConfigFrame::on_decimalPlacesLineEdit_editingFinished()
-{
-    quint32 newDecimals = ui->decimalPlacesLineEdit->text().toUInt();
-    this->module->setDecimalPlaces(newDecimals);
 }

@@ -19,12 +19,11 @@ public:
     ~AdditionConfigFrame();
 
     void setModule(AdditionModule *mod);
-    void setFirstMinimum(quint64 min);
-    void setFirstMaximum(quint64 max);
-    void setLastMinimum(quint64 min);
-    void setLastMaximum(quint64 max);
+    void setFirstMinimum(QString min);
+    void setFirstMaximum(QString max);
+    void setLastMinimum(QString min);
+    void setLastMaximum(QString max);
     void setLargestNumberFirst(bool b);
-    void setDecimalPlaces(quint32 decimalPlaces);
 
     AdditionModule *module;
 
@@ -32,7 +31,6 @@ private:
     Ui::AdditionConfigFrame *ui;
 
 private slots:
-    void on_decimalPlacesLineEdit_editingFinished();
     void on_largestNumberFirstCheckBox_stateChanged(int );
     void on_secondMaxLineEdit_editingFinished();
     void on_secondMinLineEdit_editingFinished();
