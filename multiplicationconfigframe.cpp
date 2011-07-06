@@ -1,6 +1,7 @@
 #include "multiplicationconfigframe.h"
 #include "ui_multiplicationconfigframe.h"
 #include "multiplicationmodule.h"
+#include "bigfixedpoint.h"
 
 MultiplicationConfigFrame::MultiplicationConfigFrame(QWidget *parent) :
         QFrame(parent),
@@ -22,24 +23,24 @@ void MultiplicationConfigFrame::setModule(MultiplicationModule *mod)
     this->module = mod;
 }
 
-void MultiplicationConfigFrame::setFirstMinimum(quint64 min)
+void MultiplicationConfigFrame::setFirstMinimum(QString min)
 {
-    ui->minNumberLineEdit->setText(QString("%1").arg(min));
+    ui->minNumberLineEdit->setText(min);
 }
 
-void MultiplicationConfigFrame::setFirstMaximum(quint64 max)
+void MultiplicationConfigFrame::setFirstMaximum(QString max)
 {
-    ui->maxNumberLineEdit->setText(QString("%1").arg(max));
+    ui->maxNumberLineEdit->setText(max);
 }
 
-void MultiplicationConfigFrame::setLastMinimum(quint64 max)
+void MultiplicationConfigFrame::setLastMinimum(QString min)
 {
-    ui->secondMinLineEdit->setText(QString("%1").arg(max));
+    ui->secondMinLineEdit->setText(min);
 }
 
-void MultiplicationConfigFrame::setLastMaximum(quint64 max)
+void MultiplicationConfigFrame::setLastMaximum(QString max)
 {
-    ui->secondMaxLineEdit->setText(QString("%1").arg(max));
+    ui->secondMaxLineEdit->setText(max);
 }
 
 void MultiplicationConfigFrame::setLargestNumberFirst(bool b)
@@ -47,32 +48,32 @@ void MultiplicationConfigFrame::setLargestNumberFirst(bool b)
     ui->largestNumberFirstCheckBox->setChecked(b);
 }
 
-void MultiplicationConfigFrame::setDecimalPlaces(quint32 decimalPlaces)
+void MultiplicationConfigFrame::setDecimalPlaces(int decimalPlaces)
 {
     ui->decimalPlacesLineEdit->setText(QString("%1").arg(decimalPlaces));
 }
 
 void MultiplicationConfigFrame::on_minNumberLineEdit_editingFinished()
 {
-    int newMin = ui->minNumberLineEdit->text().toInt();
+    BigFixedPoint newMin(ui->minNumberLineEdit->text());
     this->module->setFirstMinimum(newMin);
 }
 
 void MultiplicationConfigFrame::on_maxNumberLineEdit_editingFinished()
 {
-    int newMax = ui->maxNumberLineEdit->text().toInt();
+    BigFixedPoint newMax(ui->maxNumberLineEdit->text());
     this->module->setFirstMaximum(newMax);
 }
 
 void MultiplicationConfigFrame::on_secondMinLineEdit_editingFinished()
 {
-    int newMin = ui->secondMinLineEdit->text().toInt();
+    BigFixedPoint newMin(ui->secondMinLineEdit->text());
     this->module->setLastMinimum(newMin);
 }
 
 void MultiplicationConfigFrame::on_secondMaxLineEdit_editingFinished()
 {
-    int newMax = ui->secondMaxLineEdit->text().toInt();
+    BigFixedPoint newMax(ui->secondMaxLineEdit->text());
     this->module->setLastMaximum(newMax);
 }
 
@@ -88,6 +89,6 @@ void MultiplicationConfigFrame::on_largestNumberFirstCheckBox_stateChanged(int s
 
 void MultiplicationConfigFrame::on_decimalPlacesLineEdit_editingFinished()
 {
-    quint32 newDecimals = ui->decimalPlacesLineEdit->text().toUInt();
+    int newDecimals = ui->decimalPlacesLineEdit->text().toInt();
     this->module->setDecimalPlaces(newDecimals);
 }

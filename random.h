@@ -23,7 +23,7 @@ public:
 protected:
     boost::mt19937 engine;
     boost::uniform_int<inttype> dist;
-    boost::variate_generator<boost::mt19937&, boost::uniform_int<quint64> > gen;
+    boost::variate_generator<boost::mt19937&, boost::uniform_int<inttype> > gen;
 
     static quint64 GetSeed()
     {

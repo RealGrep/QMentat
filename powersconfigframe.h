@@ -4,6 +4,8 @@
 #include <QFrame>
 #include "powersmodule.h"
 
+class QString;
+
 namespace Ui {
     class PowersConfigFrame;
 }
@@ -17,11 +19,11 @@ public:
     ~PowersConfigFrame();
 
     void setModule(PowersModule *mod);
-    void setMinimum(quint64 min);
-    void setMaximum(quint64 max);
-    void setPowerMinimum(quint32 min);
-    void setPowerMaximum(quint32 max);
-    //void setDecimalPlaces(quint32 newDecimals);
+    void setMinimum(QString min);
+    void setMaximum(QString max);
+    void setPowerMinimum(int min);
+    void setPowerMaximum(int max);
+    void setDecimalPlaces(int newDecimals);
 
     PowersModule *module;
 
@@ -29,6 +31,7 @@ private:
     Ui::PowersConfigFrame *ui;
 
 private slots:
+    void on_decimalPlacesLineEdit_editingFinished();
     void on_maxPowerLineEdit_editingFinished();
     void on_minPowerLineEdit_editingFinished();
     void on_maxNumberLineEdit_editingFinished();

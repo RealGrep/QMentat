@@ -2,6 +2,7 @@
 #define MULTIPLICATIONMODULE_H
 
 #include "practicemodule.h"
+#include "bigfixedpoint.h"
 
 // Forward declarations
 template <class inttype> class RandomInt;
@@ -25,31 +26,25 @@ public:
     QuestionDisplay* getDisplayFrame();
     QString getAnswerString();
 
-    void setFirstMaximum(quint64 newMax);
-    void setFirstMinimum(quint64 newMin);
-    void setLastMaximum(quint64 newMax);
-    void setLastMinimum(quint64 newMin);
+    void setFirstMaximum(BigFixedPoint newMax);
+    void setFirstMinimum(BigFixedPoint newMin);
+    void setLastMaximum(BigFixedPoint newMax);
+    void setLastMinimum(BigFixedPoint newMin);
     void setLargestNumberFirst(bool b);
-    void setDecimalPlaces(quint32 newDecimals);
+    void setDecimalPlaces(int newDecimals);
 
 private:
     MainWindow *mainWindow;
 
-    quint64 firstMin;
-    quint64 firstMax;
-    quint64 lastMin;
-    quint64 lastMax;
-    quint64 firstNumber;
-    quint64 lastNumber;
-    quint64 answer;
+    BigFixedPoint firstMin;
+    BigFixedPoint firstMax;
+    BigFixedPoint lastMin;
+    BigFixedPoint lastMax;
+    BigFixedPoint firstNumber;
+    BigFixedPoint lastNumber;
+    BigFixedPoint answer;
     bool largestNumberFirst;
-    quint32 decimalPlaces;
-
-    RandomInt<quint64> *genFirst;
-    RandomInt<quint64> *genLast;
-
-    void firstRangeUpdated();
-    void lastRangeUpdated();
+    int decimalPlaces;
 };
 
 #endif // MULTIPLICATIONMODULE_H

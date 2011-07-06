@@ -88,11 +88,44 @@ BigFixedPoint::~BigFixedPoint()
 void BigFixedPoint::scale(int decimals)
 {
     int adjustment = decimals - decimalPlaces;
-    mpz_class factor;
-    mpz_ui_pow_ui(factor.get_mpz_t(), 10, adjustment);
-    mpz_class adjusted = number * factor;
-    number = adjusted;
-    decimalPlaces = decimals;
+    if (adjustment > 0)
+    {
+        mpz_class factor;
+        mpz_ui_pow_ui(factor.get_mpz_t(), 10, adjustment);
+        mpz_class adjusted = number * factor;
+        number = adjusted;
+        decimalPlaces = decimals;
+    } else if (adjustment < 0) {
+        //! \todo ROUND
+        mpz_class factor;
+        mpz_ui_pow_ui(factor.get_mpz_t(), 10, abs(adjustment));
+        mpz_class adjusted = number / factor;
+        number = adjusted;
+        decimalPlaces = decimals;
+    } else {
+        // Scaled correctly, do nothing
+    }
+}
+
+BigFixedPoint BigFixedPoint::pow(int power) const
+{
+    mpz_class res;
+    mpz_pow_ui(res.get_mpz_t(), number.get_mpz_t(), power);
+    return BigFixedPoint(res, decimalPlaces*power);
+}
+
+BigFixedPoint BigFixedPoint::root(int root) const
+{
+    mpz_class res;
+    mpz_root(res.get_mpz_t(), number.get_mpz_t(), root);
+    return BigFixedPoint(res, decimalPlaces/root);
+}
+
+BigFixedPoint BigFixedPoint::sqrt() const
+{
+    mpz_class res;
+    mpz_sqrt(res.get_mpz_t(), number.get_mpz_t());
+    return BigFixedPoint(res, decimalPlaces/2);
 }
 
 BigFixedPoint& BigFixedPoint::operator=(const BigFixedPoint &rhs)

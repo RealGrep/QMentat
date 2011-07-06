@@ -9,42 +9,37 @@
 #include "practicemodule.h"
 #include "mathdisplayform.h"
 #include "random.h"
+#include "bigfixedpoint.h"
 
 PowersModule::PowersModule(MainWindow *mw)
 {
     // Keep a copy for callbacks
     mainWindow = mw;
 
-    // Init sane defaults
-    firstNumber = 0;
-    power = 0;
-    answer = 0;
-
-    genFirst = 0;
     genPower = 0;
 
     // Read config
     QSettings settings;
     settings.beginGroup("powersmodule");
-    min = settings.value("min", 2).toULongLong();
-    max = settings.value("max", 10).toULongLong();
-    powerMin = settings.value("powermin", 2).toULongLong();
-    powerMax = settings.value("powermax", 2).toULongLong();
-    decimalPlaces = settings.value("decimalplaces", 0).toUInt();
+    min = BigFixedPoint(settings.value("min", 2).toString());
+    max = BigFixedPoint(settings.value("max", 10).toString());
+    powerMin = settings.value("powermin", 2).toInt();
+    powerMax = settings.value("powermax", 2).toInt();
+    decimalPlaces = settings.value("decimalplaces", 0).toInt();
     settings.endGroup();
 
     // Make config frame
     configFrame = new PowersConfigFrame();
     configFrame->setModule(this);
-    configFrame->setMinimum(min);
-    configFrame->setMaximum(max);
+    configFrame->setMinimum(min.toString());
+    configFrame->setMaximum(max.toString());
     configFrame->setPowerMinimum(powerMin);
     configFrame->setPowerMaximum(powerMax);
+    configFrame->setDecimalPlaces(decimalPlaces);
 
     // Make display frame
     displayFrame = (QuestionDisplay*)(new MathDisplayForm());
 
-    firstRangeUpdated();
     powerRangeUpdated();
 }
 
@@ -52,9 +47,6 @@ PowersModule::~PowersModule()
 {
     assert(configFrame != 0);
     assert(displayFrame != 0);
-
-    delete genFirst;
-    genFirst = 0;
 
     delete genPower;
     genPower = 0;
@@ -80,25 +72,32 @@ QuestionDisplay* PowersModule::getDisplayFrame()
 
 QString PowersModule::question()
 {
-    assert(genFirst != 0);
     assert(genPower != 0);
 
-    firstNumber = (*genFirst)();
+    firstNumber = BigFixedPoint::random(min, max);
     power = (*genPower)();
-    answer = static_cast<qint64>(pow(firstNumber, power));
 
+    // Calculate answer
+    answer = firstNumber.pow(power);
+    answer.scale(decimalPlaces);
+
+    //std::cout << "first = " << firstNumber.toString().toStdString() << std::endl;
+
+    // Build question string
     QString q = QString("<math><msup><mi>%1</mi><mn>%2</mn></msup></math>\n")
-                .arg(decimalize(firstNumber, decimalPlaces))
-                .arg(decimalize((quint64)power, decimalPlaces));
+                .arg(firstNumber.toString())
+                .arg(power);
 
     return q;
 }
 
 bool PowersModule::isCorrect(QString& answerGiven)
 {
-    //! \todo Handle decimal places
-    quint64 answerNum = answerGiven.toULongLong();
-    if (answerNum == this->answer)
+    BigFixedPoint answerNum(answerGiven);
+    answerNum.scale(answer.getDecimalPlaces());
+
+    //qDebug() << "isCorrect: answerGiven = " << answerNum.toString() << "; answer = " << answer.toString();
+    if (answerNum == answer)
     {
         return true;
     } else {
@@ -109,26 +108,9 @@ bool PowersModule::isCorrect(QString& answerGiven)
 QString PowersModule::getAnswerString()
 {
     return QString("%1^%2 = %3")
-            .arg(decimalize(firstNumber, decimalPlaces))
-            .arg(decimalize(power, decimalPlaces))
-            .arg(decimalize(answer, decimalPlaces*2));
-}
-
-/*! Range of first number updated, so make a new PRG for it.
- * \todo Perhaps this should be generalized so the lastRangeUpdated function
- * doesn't just do the same with different data.
- */
-void PowersModule::firstRangeUpdated()
-{
-    // Get rid of previous generators
-    delete genFirst;
-    genFirst = 0;
-
-    // Make new generator
-    quint64 minGen = min * static_cast<quint64>(pow(10, decimalPlaces));
-    quint64 maxGen = max * static_cast<quint64>(pow(10, decimalPlaces));
-
-    genFirst = new RandomInt<quint64>(minGen, maxGen);
+            .arg(firstNumber.toString())
+            .arg(power)
+            .arg(answer.toString());
 }
 
 /*! Range of last number updated, so make a new PRG for it.
@@ -140,40 +122,43 @@ void PowersModule::powerRangeUpdated()
     genPower = 0;
 
     // Make new generator
-    quint64 minGen = powerMin * static_cast<quint64>(pow(10, decimalPlaces));
-    quint64 maxGen = powerMax * static_cast<quint64>(pow(10, decimalPlaces));
+    int minGen = powerMin;
+    int maxGen = powerMax;
 
-    genPower = new RandomInt<quint64>(minGen, maxGen);
+    genPower = new RandomInt<int>(minGen, maxGen);
 }
 
-void PowersModule::setMaximum(quint64 newMax)
+void PowersModule::setMaximum(BigFixedPoint newMax)
 {
-    if (this->max != newMax) {
-        this->max = newMax;
+    if ((max != newMax)
+        || (max.getDecimalPlaces() != newMax.getDecimalPlaces()))
+    {
+        max = newMax;
         QSettings settings;
-        settings.setValue("powersmodule/max", max);
+        settings.setValue("powersmodule/max", max.toString());
 
-        firstRangeUpdated();
         mainWindow->newQuestion();
     }
 }
 
-void PowersModule::setMinimum(quint64 newMin)
+void PowersModule::setMinimum(BigFixedPoint newMin)
 {
-    if (this->min != newMin) {
-        this->min = newMin;
+    if ((min != newMin)
+        || (min.getDecimalPlaces() != newMin.getDecimalPlaces()))
+    {
+        min = newMin;
         QSettings settings;
-        settings.setValue("powersmodule/min", min);
+        settings.setValue("powersmodule/min", min.toString());
 
-        firstRangeUpdated();
         mainWindow->newQuestion();
     }
 }
 
-void PowersModule::setPowerMaximum(quint32 newMax)
+void PowersModule::setPowerMaximum(int newMax)
 {
-    if (this->powerMax != newMax) {
-        this->powerMax = newMax;
+    if (powerMax != newMax)
+    {
+        powerMax = newMax;
         QSettings settings;
         settings.setValue("powersmodule/powermax", powerMax);
 
@@ -182,10 +167,11 @@ void PowersModule::setPowerMaximum(quint32 newMax)
     }
 }
 
-void PowersModule::setPowerMinimum(quint32 newMin)
+void PowersModule::setPowerMinimum(int newMin)
 {
-    if (this->powerMin != newMin) {
-        this->powerMin = newMin;
+    if (powerMin != newMin)
+    {
+        powerMin = newMin;
         QSettings settings;
         settings.setValue("powersmodule/powermin", powerMin);
 
@@ -194,15 +180,14 @@ void PowersModule::setPowerMinimum(quint32 newMin)
     }
 }
 
-void PowersModule::setDecimalPlaces(quint32 newDecimals)
+void PowersModule::setDecimalPlaces(int newDecimals)
 {
-    if (decimalPlaces != newDecimals) {
+    if (decimalPlaces != newDecimals)
+    {
         decimalPlaces = newDecimals;
         QSettings settings;
         settings.setValue("powersmodule/decimalplaces", decimalPlaces);
 
-        firstRangeUpdated();
-        powerRangeUpdated();
         mainWindow->newQuestion();
     }
 }

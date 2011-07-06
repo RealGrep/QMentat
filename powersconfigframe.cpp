@@ -1,13 +1,13 @@
 #include "powersconfigframe.h"
 #include "ui_powersconfigframe.h"
 
+#include "bigfixedpoint.h"
+
 PowersConfigFrame::PowersConfigFrame(QWidget *parent) :
         QFrame(parent),
         ui(new Ui::PowersConfigFrame)
 {
     ui->setupUi(this);
-    //ui->minNumberLineEdit->setText(tr("2"));
-    //ui->maxNumberLineEdit->setText(tr("100"));
     this->module = 0;
 }
 
@@ -21,35 +21,40 @@ void PowersConfigFrame::setModule(PowersModule *mod)
     this->module = mod;
 }
 
-void PowersConfigFrame::setMinimum(quint64 min)
+void PowersConfigFrame::setMinimum(QString min)
 {
-    ui->minNumberLineEdit->setText(QString("%1").arg(min));
+    ui->minNumberLineEdit->setText(min);
 }
 
-void PowersConfigFrame::setMaximum(quint64 max)
+void PowersConfigFrame::setMaximum(QString max)
 {
-    ui->maxNumberLineEdit->setText(QString("%1").arg(max));
+    ui->maxNumberLineEdit->setText(max);
 }
 
-void PowersConfigFrame::setPowerMinimum(quint32 min)
+void PowersConfigFrame::setPowerMinimum(int min)
 {
     ui->minPowerLineEdit->setText(QString("%1").arg(min));
 }
 
-void PowersConfigFrame::setPowerMaximum(quint32 max)
+void PowersConfigFrame::setPowerMaximum(int max)
 {
     ui->maxPowerLineEdit->setText(QString("%1").arg(max));
 }
 
+void PowersConfigFrame::setDecimalPlaces(int decimals)
+{
+    ui->decimalPlacesLineEdit->setText(QString("%1").arg(decimals));
+}
+
 void PowersConfigFrame::on_minNumberLineEdit_editingFinished()
 {
-    int newMin = ui->minNumberLineEdit->text().toInt();
+    BigFixedPoint newMin(ui->minNumberLineEdit->text());
     this->module->setMinimum(newMin);
 }
 
 void PowersConfigFrame::on_maxNumberLineEdit_editingFinished()
 {
-    int newMax = ui->maxNumberLineEdit->text().toInt();
+    BigFixedPoint newMax(ui->maxNumberLineEdit->text());
     this->module->setMaximum(newMax);
 }
 
@@ -63,4 +68,10 @@ void PowersConfigFrame::on_maxPowerLineEdit_editingFinished()
 {
     int newMax = ui->maxPowerLineEdit->text().toInt();
     this->module->setPowerMaximum(newMax);
+}
+
+void PowersConfigFrame::on_decimalPlacesLineEdit_editingFinished()
+{
+    int newDecimals = ui->decimalPlacesLineEdit->text().toInt();
+    this->module->setDecimalPlaces(newDecimals);
 }

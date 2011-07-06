@@ -3,6 +3,8 @@
 
 #include "practicemodule.h"
 
+#include "bigfixedpoint.h"
+
 // Forward declarations
 template <class inttype> class RandomInt;
 class PowersConfigFrame;
@@ -25,28 +27,26 @@ public:
     QuestionDisplay* getDisplayFrame();
     QString getAnswerString();
 
-    void setMaximum(quint64 newMax);
-    void setMinimum(quint64 newMin);
-    void setPowerMaximum(quint32 newMax);
-    void setPowerMinimum(quint32 newMin);
-    void setDecimalPlaces(quint32 newDecimals);
+    void setMaximum(BigFixedPoint newMax);
+    void setMinimum(BigFixedPoint newMin);
+    void setPowerMaximum(int newMax);
+    void setPowerMinimum(int newMin);
+    void setDecimalPlaces(int newDecimals);
 
 private:
     MainWindow *mainWindow;
 
-    quint64 min;
-    quint64 max;
-    quint32 powerMin;
-    quint32 powerMax;
-    quint64 firstNumber;
-    quint32 power;
-    quint64 answer;
-    quint32 decimalPlaces;
+    BigFixedPoint min;
+    BigFixedPoint max;
+    int powerMin;
+    int powerMax;
+    BigFixedPoint firstNumber;
+    int power;
+    BigFixedPoint answer;
+    int decimalPlaces;
 
-    RandomInt<quint64> *genFirst;
-    RandomInt<quint64> *genPower;
+    RandomInt<int> *genPower;
 
-    void firstRangeUpdated();
     void powerRangeUpdated();
 };
 

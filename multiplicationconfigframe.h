@@ -1,8 +1,10 @@
 #ifndef MULTIPLICATIONCONFIGFRAME_H
 #define MULTIPLICATIONCONFIGFRAME_H
 
-#include <QFrame>
 #include "multiplicationmodule.h"
+
+class QFrame;
+class QString;
 
 namespace Ui {
     class MultiplicationConfigFrame;
@@ -17,12 +19,12 @@ public:
     ~MultiplicationConfigFrame();
 
     void setModule(MultiplicationModule *mod);
-    void setFirstMinimum(quint64 min);
-    void setFirstMaximum(quint64 max);
-    void setLastMinimum(quint64 min);
-    void setLastMaximum(quint64 max);
+    void setFirstMinimum(QString min);
+    void setFirstMaximum(QString max);
+    void setLastMinimum(QString min);
+    void setLastMaximum(QString max);
     void setLargestNumberFirst(bool b);
-    void setDecimalPlaces(quint32 decimalPlaces);
+    void setDecimalPlaces(int decimalPlaces);
 
     MultiplicationModule *module;
 

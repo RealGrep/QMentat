@@ -35,6 +35,10 @@ public:
     static BigFixedPoint random(const BigFixedPoint& min, const BigFixedPoint& max);
     static BigFixedPoint random(const BigFixedPoint& n);
 
+    BigFixedPoint pow(int power) const;
+    BigFixedPoint root(int root) const;
+    BigFixedPoint sqrt() const;
+
     // Assignment operator
     BigFixedPoint& operator=(const BigFixedPoint &rhs);
     BigFixedPoint& operator=(int num);
