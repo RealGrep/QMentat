@@ -473,7 +473,6 @@ QString BigFixedPoint::toString() const
                 if ((i % 3) == 0)
                 {
                     int pos = partSize - i;
-                    qDebug() << "Inserting separator at " << pos;
                     integerPart.insert(pos, QLocale::system().groupSeparator());
                 }
             }

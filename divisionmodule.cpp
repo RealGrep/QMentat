@@ -185,7 +185,7 @@ QString DivisionModule::question()
             } else {
                 int random = qrand() % divisors->size();
                 lastNumber = *((*divisors)[random]);
-                for (int i = 0; i < divisors->size(); ++i)
+                for (size_t i = 0; i < divisors->size(); ++i)
                 {
                     delete (*divisors)[i];
                 }
@@ -233,8 +233,8 @@ QString DivisionModule::question()
 
         // Build question string
         QString q = QString("<math><mfrac><mi>%1</mi><mn>%2</mn></mfrac></math>\n")
-                    .arg(firstNumber.toString())
-                    .arg(lastNumber.toString());
+                    .arg(firstDisplay.toString())
+                    .arg(lastDisplay.toString());
 
         return q;
     }
@@ -340,9 +340,10 @@ QString DivisionModule::getAnswerString()
  */
 void DivisionModule::setFirstMaximum(BigFixedPoint newMax)
 {
-    if (this->firstMax != newMax)
+    if ((firstMax != newMax)
+     || (firstMax.getDecimalPlaces() != newMax.getDecimalPlaces()))
     {
-        this->firstMax = newMax;
+        firstMax = newMax;
         QSettings settings;
         settings.setValue("divisionmodule/firstmax", firstMax.toString());
 
@@ -355,9 +356,10 @@ void DivisionModule::setFirstMaximum(BigFixedPoint newMax)
  */
 void DivisionModule::setFirstMinimum(BigFixedPoint newMin)
 {
-    if (this->firstMin != newMin)
+    if ((firstMin != newMin)
+     || (firstMin.getDecimalPlaces() != newMin.getDecimalPlaces()))
     {
-        this->firstMin = newMin;
+        firstMin = newMin;
         QSettings settings;
         settings.setValue("divisionmodule/firstmin", firstMin.toString());
 
@@ -370,9 +372,10 @@ void DivisionModule::setFirstMinimum(BigFixedPoint newMin)
  */
 void DivisionModule::setLastMaximum(BigFixedPoint newMax)
 {
-    if (this->lastMax != newMax)
+    if ((lastMax != newMax)
+     || (lastMax.getDecimalPlaces() != newMax.getDecimalPlaces()))
     {
-        this->lastMax = newMax;
+        lastMax = newMax;
         QSettings settings;
         settings.setValue("divisionmodule/lastmax", lastMax.toString());
 
@@ -385,9 +388,10 @@ void DivisionModule::setLastMaximum(BigFixedPoint newMax)
  */
 void DivisionModule::setLastMinimum(BigFixedPoint newMin)
 {
-    if (this->lastMin != newMin)
+    if ((lastMin != newMin)
+     || (lastMin.getDecimalPlaces() != newMin.getDecimalPlaces()))
     {
-        this->lastMin = newMin;
+        lastMin = newMin;
         QSettings settings;
         settings.setValue("divisionmodule/lastmin", lastMin.toString());
 
