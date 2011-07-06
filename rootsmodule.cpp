@@ -8,9 +8,10 @@
 #include "rootsconfigframe.h"
 #include "mainwindow.h"
 #include "practicemodule.h"
-//#include "questiondisplayform.h"
+//#include "questiondisplayform.h"R
 #include "mathdisplayform.h"
 #include "random.h"
+#include "bigfixedpoint.h"
 
 RootsModule::RootsModule(MainWindow *mw)
 {
@@ -18,35 +19,34 @@ RootsModule::RootsModule(MainWindow *mw)
     mainWindow = mw;
 
     // Init sane defaults
-    firstNumber = 0;
     root = 0;
-    answer = 0;
 
-    genFirst = 0;
     genRoot = 0;
 
     // Read config
     QSettings settings;
     settings.beginGroup("rootsmodule");
-    min = settings.value("min", 2).toULongLong();
-    max = settings.value("max", 20).toULongLong();
-    rootMin = settings.value("rootmin", 2).toULongLong();
-    rootMax = settings.value("rootmax", 2).toULongLong();
-    decimalPlaces = settings.value("decimalplaces", 0).toUInt();
+    min = BigFixedPoint(settings.value("min", 2).toString());
+    max = BigFixedPoint(settings.value("max", 20).toString());
+    rootMin = settings.value("rootmin", 2).toInt();
+    rootMax = settings.value("rootmax", 2).toInt();
+    decimalPlaces = settings.value("decimalplaces", 0).toInt();
+    integersOnly = settings.value("integersonly", true).toBool();
     settings.endGroup();
 
     // Make config frame
     configFrame = new RootsConfigFrame();
     configFrame->setModule(this);
-    configFrame->setMinimum(this->min);
-    configFrame->setMaximum(this->max);
-    configFrame->setRootMinimum(this->rootMin);
-    configFrame->setRootMaximum(this->rootMax);
+    configFrame->setMinimum(min.toString());
+    configFrame->setMaximum(max.toString());
+    configFrame->setRootMinimum(rootMin);
+    configFrame->setRootMaximum(rootMax);
+    configFrame->setDecimalPlaces(decimalPlaces);
+    configFrame->setIntegersOnly(integersOnly);
 
     // Make display frame
     displayFrame = (QuestionDisplay*)(new MathDisplayForm());
 
-    firstRangeUpdated();
     rootRangeUpdated();
 }
 
@@ -54,9 +54,6 @@ RootsModule::~RootsModule()
 {
     assert(configFrame != 0);
     assert(displayFrame != 0);
-
-    delete genFirst;
-    genFirst = 0;
 
     delete genRoot;
     genRoot = 0;
@@ -82,35 +79,38 @@ QuestionDisplay* RootsModule::getDisplayFrame()
 
 QString RootsModule::question()
 {
-
-    assert(genFirst != 0);
     assert(genRoot != 0);
 
-    bool bIntegerResults = true;
-
-    firstNumber = (*genFirst)();
     root = (*genRoot)();
 
-    if (bIntegerResults) {
-        int maxNum = pow(max, 1.0f/(float)root);
-        int minNum = std::max(pow(min, 1.0f/(float)root), (double)min);
-        int desiredResult = (qrand() % (maxNum - minNum + 1)) + minNum;
-        this->firstNumber = pow(desiredResult, root);
+    if (integersOnly) {
+        BigFixedPoint maxNum = max.root(root);
+        BigFixedPoint minNum = BigFixedPoint::max(min.root(root), min);
+        BigFixedPoint desiredResult = BigFixedPoint::random(minNum, maxNum);
+
+        firstNumber = desiredResult.pow(root);
+        answer = desiredResult;
+        answer.scale(0);
+    } else {
+        firstNumber = BigFixedPoint::random(min, max);
+        BigFixedPoint firstNumberScaled = firstNumber;
+        firstNumberScaled.scale((decimalPlaces + firstNumber.getDecimalPlaces()) * root);
+        answer = firstNumberScaled.root(root);
+        answer.scale(decimalPlaces);
     }
 
-    answer = static_cast<qint64>(pow(firstNumber, 1.0f/(float)root) + 0.0000001);
-
     QString q = QString("<math><mroot><mi>%1</mi><mn>%2</mn></mroot></math>\n")
-                .arg(decimalize(firstNumber, decimalPlaces))
-                .arg(decimalize(root, decimalPlaces));
+                .arg(firstNumber.toString())
+                .arg(root);
 
     return q;
 }
 
 bool RootsModule::isCorrect(QString& answerGiven)
 {
-    //! \todo Handle decimal places
-    quint64 answerNum = answerGiven.toULongLong();
+    BigFixedPoint answerNum(answerGiven);
+    answerNum.scale(answer.getDecimalPlaces());
+
     if (answerNum == this->answer)
     {
         return true;
@@ -122,71 +122,56 @@ bool RootsModule::isCorrect(QString& answerGiven)
 QString RootsModule::getAnswerString()
 {
     return QString("%1^(1/%2) = %3")
-            .arg(decimalize(firstNumber, decimalPlaces))
-            .arg(decimalize(root, decimalPlaces))
-            .arg(decimalize(answer, decimalPlaces/2));
+            .arg(firstNumber.toString())
+            .arg(root)
+            .arg(answer.toString());
 }
 
-/*! Range of first number updated, so make a new PRG for it.
- * \todo Perhaps this should be generalized so the lastRangeUpdated function
- * doesn't just do the same with different data.
- */
-void RootsModule::firstRangeUpdated()
-{
-    // Get rid of previous generators
-    delete genFirst;
-    genFirst = 0;
-
-    // Make new generator
-    quint64 minGen = min * static_cast<quint64>(pow(10, decimalPlaces));
-    quint64 maxGen = max * static_cast<quint64>(pow(10, decimalPlaces));
-
-    genFirst = new RandomInt<quint64>(minGen, maxGen);
-}
-
-/*! Range of last number updated, so make a new PRG for it.
+/*! Range of root updated, so make a new PRG for it.
  */
 void RootsModule::rootRangeUpdated()
 {
+    assert(rootMin > 0);
+    assert(rootMax > 0);
+
     // Get rid of previous generator
     delete genRoot;
     genRoot = 0;
 
-    // Make new generator
-    quint64 minGen = rootMin * static_cast<quint64>(pow(10, decimalPlaces));
-    quint64 maxGen = rootMax * static_cast<quint64>(pow(10, decimalPlaces));
-
-    genRoot = new RandomInt<quint64>(minGen, maxGen);
+    genRoot = new RandomInt<int>(rootMin, rootMax);
 }
 
-void RootsModule::setMaximum(quint64 newMax)
+void RootsModule::setMaximum(BigFixedPoint newMax)
 {
-    if (this->max != newMax) {
-        this->max = newMax;
+    if ((max != newMax)
+        || (max.getDecimalPlaces() != newMax.getDecimalPlaces()))
+    {
+        max = newMax;
         QSettings settings;
-        settings.setValue("rootsmodule/max", max);
+        settings.setValue("rootsmodule/max", max.toString());
 
-        firstRangeUpdated();
         mainWindow->newQuestion();
     }
 }
 
-void RootsModule::setMinimum(quint64 newMin)
+void RootsModule::setMinimum(BigFixedPoint newMin)
 {
-    if (this->min != newMin) {
-        this->min = newMin;
+    if ((min != newMin)
+        || (min.getDecimalPlaces() != newMin.getDecimalPlaces()))
+    {
+        min = newMin;
         QSettings settings;
-        settings.setValue("rootsmodule/min", min);
+        settings.setValue("rootsmodule/min", min.toString());
 
-        firstRangeUpdated();
         mainWindow->newQuestion();
     }
 }
 
-void RootsModule::setRootMaximum(quint32 newMax)
+void RootsModule::setRootMaximum(int newMax)
 {
-    if (this->rootMax != newMax) {
-        this->rootMax = newMax;
+    if (this->rootMax != newMax)
+    {
+        rootMax = newMax;
         QSettings settings;
         settings.setValue("rootsmodule/rootmax", rootMax);
 
@@ -195,9 +180,10 @@ void RootsModule::setRootMaximum(quint32 newMax)
     }
 }
 
-void RootsModule::setRootMinimum(quint32 newMin)
+void RootsModule::setRootMinimum(int newMin)
 {
-    if (this->rootMin != newMin) {
+    if (this->rootMin != newMin)
+    {
         this->rootMin = newMin;
         QSettings settings;
         settings.setValue("rootsmodule/rootmin", rootMin);
@@ -206,15 +192,27 @@ void RootsModule::setRootMinimum(quint32 newMin)
         mainWindow->newQuestion();
     }
 }
-void RootsModule::setDecimalPlaces(quint32 newDecimals)
+void RootsModule::setDecimalPlaces(int newDecimals)
 {
-    if (decimalPlaces != newDecimals) {
+    if (decimalPlaces != newDecimals)
+    {
         decimalPlaces = newDecimals;
         QSettings settings;
         settings.setValue("rootsmodule/decimalplaces", decimalPlaces);
 
-        firstRangeUpdated();
-        rootRangeUpdated();
+        //rootRangeUpdated();
+        mainWindow->newQuestion();
+    }
+}
+
+void RootsModule::setIntegersOnly(bool intsOnly)
+{
+    if (integersOnly != intsOnly)
+    {
+        integersOnly = intsOnly;
+        QSettings settings;
+        settings.setValue("rootsmodule/integersonly", integersOnly);
+
         mainWindow->newQuestion();
     }
 }

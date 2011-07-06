@@ -4,6 +4,8 @@
 #include <QFrame>
 #include "rootsmodule.h"
 
+class QString;
+
 class RootsModule;
 
 namespace Ui {
@@ -19,11 +21,12 @@ public:
     ~RootsConfigFrame();
 
     void setModule(RootsModule *mod);
-    void setMinimum(quint64 min);
-    void setMaximum(quint64 max);
-    void setRootMinimum(quint32 min);
-    void setRootMaximum(quint32 max);
-    //void setDecimalPlaces(quint32 newDecimals);
+    void setMinimum(QString min);
+    void setMaximum(QString max);
+    void setRootMinimum(int min);
+    void setRootMaximum(int max);
+    void setDecimalPlaces(int newDecimals);
+    void setIntegersOnly(bool intsOnly);
 
     RootsModule *module;
 
@@ -31,6 +34,8 @@ private:
     Ui::RootsConfigFrame *ui;
 
 private slots:
+    void on_integerResultCheckBox_stateChanged(int );
+    void on_decimalPlacesLineEdit_editingFinished();
     void on_maxRootLineEdit_editingFinished();
     void on_minRootLineEdit_editingFinished();
     void on_maxNumberLineEdit_editingFinished();

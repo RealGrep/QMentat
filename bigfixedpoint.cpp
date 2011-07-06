@@ -18,6 +18,12 @@ BigFixedPoint::BigFixedPoint(const BigFixedPoint& bfp)
     decimalPlaces = bfp.decimalPlaces;
 }
 
+BigFixedPoint::BigFixedPoint(int num)
+    : number(num), decimalPlaces(0)
+{
+    // Empty
+}
+
 BigFixedPoint::BigFixedPoint(std::string num, int decimals)
     : number(num), decimalPlaces(decimals)
 {
@@ -32,6 +38,8 @@ BigFixedPoint::BigFixedPoint(mpz_class num, int decimals)
 
 BigFixedPoint::BigFixedPoint(QString num)
 {
+    //qDebug() << "num (start): " << num;
+
     // Strip separators out
     for (int i = 0; i < num.size(); ++i)
     {
@@ -51,10 +59,27 @@ BigFixedPoint::BigFixedPoint(QString num)
         num.remove(decimalLoc, 1);
     }
 
+    // There must not be leading 0s or it will interpret the number as octal
+    // That was puzzling for a few moments, let me tell you.
+    int i = 0;
+    while ((i < (num.size() - decimalPlaces))
+        && (num[i] == QLocale::system().zeroDigit()))
+    {
+        num.remove(i, 1);
+        ++i;
+    }
+    //qDebug() << "num (no leading 0s): " << num;
+
     // The number string is clean
-    number = num.toStdString();
+    if (num.size() == 0)
+    {
+        number = 0;
+    } else {
+        number = num.toStdString();
+    }
 }
 
+//! \todo Redundant
 BigFixedPoint::BigFixedPoint(std::string num)
 {
     // Strip separators out
@@ -167,9 +192,22 @@ bool BigFixedPoint::operator==(const BigFixedPoint &rhs) const {
     }
 }
 
+bool BigFixedPoint::operator==(int rhs) const {
+    BigFixedPoint lhsScaled = *this;
+    lhsScaled.scale(0);
+    return (lhsScaled.number == rhs);
+}
+
 bool BigFixedPoint::operator!=(const BigFixedPoint &rhs) const {
   return !(*this == rhs);
 }
+
+bool BigFixedPoint::operator!=(int rhs) const {
+    BigFixedPoint lhsScaled = *this;
+    lhsScaled.scale(0);
+    return (lhsScaled.number != rhs);
+}
+
 
 bool BigFixedPoint::operator>(const BigFixedPoint &rhs) const {
     BigFixedPoint lhsScaled = *this;
@@ -234,6 +272,18 @@ const BigFixedPoint BigFixedPoint::operator+(const BigFixedPoint& y) const
     return BigFixedPoint(*this) += y;
 }
 
+BigFixedPoint& BigFixedPoint::operator+=(int y) {
+    mpz_class factor;
+    mpz_ui_pow_ui(factor.get_mpz_t(), 10, decimalPlaces);
+    number = number + y*factor;
+    return *this;
+}
+
+const BigFixedPoint BigFixedPoint::operator+(int y) const
+{
+    return BigFixedPoint(*this) += y;
+}
+
 BigFixedPoint& BigFixedPoint::operator-=(const BigFixedPoint& y) {
     int decimals = decimalPlaces;
     // Scale parameter to our scale
@@ -258,39 +308,68 @@ BigFixedPoint& BigFixedPoint::operator-=(const BigFixedPoint& y) {
     return *this;
 }
 
-const BigFixedPoint BigFixedPoint::operator-(const BigFixedPoint& y) const
+const BigFixedPoint BigFixedPoint::operator-(const BigFixedPoint& rhs) const
 {
-    return BigFixedPoint(*this) -= y;
+    return BigFixedPoint(*this) -= rhs;
 }
 
-BigFixedPoint& BigFixedPoint::operator*=(const BigFixedPoint& y)
+BigFixedPoint& BigFixedPoint::operator*=(const BigFixedPoint& rhs)
                          {
-    int decimals = decimalPlaces + y.getDecimalPlaces();
-    number = number*y.getValue();
+    int decimals = decimalPlaces + rhs.getDecimalPlaces();
+    number = number*rhs.getValue();
     decimalPlaces = decimals;
     return *this;
 }
 
-const BigFixedPoint BigFixedPoint::operator*(const BigFixedPoint& y) const
+const BigFixedPoint BigFixedPoint::operator*(const BigFixedPoint& rhs) const
 {
-    return BigFixedPoint(*this) *= y;
+    return BigFixedPoint(*this) *= rhs;
 }
 
-BigFixedPoint& BigFixedPoint::operator/=(const BigFixedPoint& y)
+BigFixedPoint& BigFixedPoint::operator/=(const BigFixedPoint& rhs)
 {
-    //!\todo Scale or something to not lose precision
-    assert(y.getDecimalPlaces() <= decimalPlaces);
-    int decimals = decimalPlaces - y.getDecimalPlaces();
-    number = number/y.getValue();
+    assert(rhs.getDecimalPlaces() <= decimalPlaces);
+    int decimals = decimalPlaces - rhs.getDecimalPlaces();
+    number = number / rhs.getValue();
     decimalPlaces = decimals;
     return *this;
 }
 
-const BigFixedPoint BigFixedPoint::operator/(const BigFixedPoint& y) const
+const BigFixedPoint BigFixedPoint::operator/(const BigFixedPoint& rhs) const
 {
-    return BigFixedPoint(*this) /= y;
+    return BigFixedPoint(*this) /= rhs;
 }
 
+BigFixedPoint& BigFixedPoint::operator/=(int rhs)
+{
+    number = number / rhs;
+    return *this;
+}
+
+const BigFixedPoint BigFixedPoint::operator/(int rhs) const
+{
+    return BigFixedPoint(*this) /= rhs;
+}
+
+const BigFixedPoint BigFixedPoint::operator%(const BigFixedPoint& rhs) const
+{
+    BigFixedPoint ret;
+
+    assert(rhs.getDecimalPlaces() <= decimalPlaces);
+    int decimals = decimalPlaces - rhs.getDecimalPlaces();
+    ret.number = number % rhs.getValue();
+    ret.decimalPlaces = decimals;
+    return ret;
+}
+
+const BigFixedPoint BigFixedPoint::operator%(int rhs) const
+{
+    BigFixedPoint ret;
+
+    ret.number = number % rhs;
+    ret.decimalPlaces = decimalPlaces;
+    return ret;
+}
 
 BigFixedPoint BigFixedPoint::random(const BigFixedPoint& min, const BigFixedPoint& max)
 {
@@ -303,8 +382,24 @@ BigFixedPoint BigFixedPoint::random(const BigFixedPoint& n)
 {
     gmp_randclass r(gmp_randinit_default);
     r.seed(QTime::currentTime().msec());
-    mpz_class num = r.get_z_range(n.number);
+    mpz_class num = r.get_z_range(n.number+1);
     return BigFixedPoint(num, n.getDecimalPlaces());
+}
+
+BigFixedPoint BigFixedPoint::max(const BigFixedPoint& lhs, const BigFixedPoint& rhs)
+{
+    if (lhs > rhs)
+        return lhs;
+    else
+        return rhs;
+}
+
+BigFixedPoint BigFixedPoint::min(const BigFixedPoint& lhs, const BigFixedPoint& rhs)
+{
+    if (lhs < rhs)
+        return lhs;
+    else
+        return rhs;
 }
 
 /*! \todo Might be leading/trailing spaces we want to remove to make this
@@ -349,9 +444,9 @@ QString BigFixedPoint::toString() const
     {
         // Insert decimal separator into the integer part
         int partSize = numStr.size();
-        for (int i = 0; i < partSize-1; ++i)
+        for (int i = 1; i < partSize; ++i)
         {
-            if ((i > 0) && ((i % 3) == 0))
+            if ((i % 3) == 0)
             {
                 int pos = (partSize) - i;
                 numStr.insert(pos, QLocale::system().groupSeparator());
@@ -373,11 +468,12 @@ QString BigFixedPoint::toString() const
         int partSize = integerPart.size();
         if (partSize > 4)
         {
-            for (int i = 0; i < partSize; ++i)
+            for (int i = 1; i < partSize; ++i)
             {
-                if ((i > 0) && ((i % 3) == 0))
+                if ((i % 3) == 0)
                 {
-                    int pos = (partSize) - i;
+                    int pos = partSize - i;
+                    qDebug() << "Inserting separator at " << pos;
                     integerPart.insert(pos, QLocale::system().groupSeparator());
                 }
             }
@@ -390,10 +486,10 @@ QString BigFixedPoint::toString() const
 
         // Insert decimal separator into the fractional part
         if (fractionalPart.size() > 4) {
-            for (int i = 0; i < decimalPlaces; ++i)
+            for (int i = 1; i < decimalPlaces; ++i)
             {
                 int pos = i + (i/3)-1;
-                if ((i > 0) && ((i % 3) == 0))
+                if ((i % 3) == 0)
                 {
                     fractionalPart.insert(pos, QLocale::system().groupSeparator());
                 }

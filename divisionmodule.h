@@ -2,6 +2,7 @@
 #define DIVISIONMODULE_H
 
 #include "practicemodule.h"
+#include "bigfixedpoint.h"
 
 #include <vector>
 
@@ -27,36 +28,38 @@ public:
     QuestionDisplay* getDisplayFrame();
     QString getAnswerString();
 
-    void setFirstMaximum(quint64 newMax);
-    void setFirstMinimum(quint64 newMin);
-    void setLastMaximum(quint64 newMax);
-    void setLastMinimum(quint64 newMin);
+    void setFirstMaximum(BigFixedPoint newMax);
+    void setFirstMinimum(BigFixedPoint newMin);
+    void setLastMaximum(BigFixedPoint newMax);
+    void setLastMinimum(BigFixedPoint newMin);
     void setLargestNumberFirst(bool b);
-    void setDecimalPlaces(quint32 newDecimals);
+    void setDecimalPlaces(int newDecimals);
+    void setIntegersOnly(bool intsOnly);
 
 private:
     MainWindow *mainWindow;
 
-    quint64 firstMin;
-    quint64 firstMax;
-    quint64 lastMin;
-    quint64 lastMax;
-    quint64 firstNumber;
-    quint64 lastNumber;
-    quint64 answer;
+    BigFixedPoint firstMin;
+    BigFixedPoint firstMax;
+    BigFixedPoint lastMin;
+    BigFixedPoint lastMax;
+    BigFixedPoint firstNumber;
+    BigFixedPoint lastNumber;
+    BigFixedPoint answer;
     bool largestNumberFirst;
-    quint32 decimalPlaces;
+    int decimalPlaces;
+    bool integersOnly;
 
-    RandomInt<quint64> *genFirst;
-    RandomInt<quint64> *genLast;
+    std::vector<BigFixedPoint*> *getDivisors(BigFixedPoint& num,
+                                            BigFixedPoint& min,
+                                            BigFixedPoint& max);
 
-    void firstRangeUpdated();
-    void lastRangeUpdated();
-
+#if 0
     bool isRangeOk(int firstMin, int firstMax, int lastMin, int lastMax);
     std::vector<unsigned long> *getDivisors(unsigned long num,
                                             unsigned long min,
                                             unsigned long max);
+#endif
 };
 
 #endif // DIVISIONMODULE_H

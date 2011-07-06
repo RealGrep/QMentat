@@ -66,6 +66,7 @@ void MathDisplayForm::setText(QString text)
     }
 
     //this->setMinimumWidth(mml_widget->minimumWidth());
+    mml_widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     mml_widget->adjustSize();
     mml_widget->show();
     this->layout()->update();

@@ -7,8 +7,6 @@ DivisionConfigFrame::DivisionConfigFrame(QWidget *parent) :
         ui(new Ui::DivisionConfigFrame)
 {
     ui->setupUi(this);
-    //ui->minNumberLineEdit->setText(QString("2"));
-    //ui->maxNumberLineEdit->setText(QString("100"));
     this->module = 0;
 }
 
@@ -22,24 +20,24 @@ void DivisionConfigFrame::setModule(DivisionModule *mod)
     this->module = mod;
 }
 
-void DivisionConfigFrame::setFirstMinimum(quint64 min)
+void DivisionConfigFrame::setFirstMinimum(QString min)
 {
-    ui->minNumberLineEdit->setText(QString("%1").arg(min));
+    ui->minNumberLineEdit->setText(min);
 }
 
-void DivisionConfigFrame::setFirstMaximum(quint64 max)
+void DivisionConfigFrame::setFirstMaximum(QString max)
 {
-    ui->maxNumberLineEdit->setText(QString("%1").arg(max));
+    ui->maxNumberLineEdit->setText(max);
 }
 
-void DivisionConfigFrame::setLastMinimum(quint64 max)
+void DivisionConfigFrame::setLastMinimum(QString max)
 {
-    ui->secondMinLineEdit->setText(QString("%1").arg(max));
+    ui->secondMinLineEdit->setText(max);
 }
 
-void DivisionConfigFrame::setLastMaximum(quint64 max)
+void DivisionConfigFrame::setLastMaximum(QString max)
 {
-    ui->secondMaxLineEdit->setText(QString("%1").arg(max));
+    ui->secondMaxLineEdit->setText(max);
 }
 
 void DivisionConfigFrame::setLargestNumberFirst(bool b)
@@ -47,47 +45,57 @@ void DivisionConfigFrame::setLargestNumberFirst(bool b)
     ui->largestNumberFirstCheckBox->setChecked(b);
 }
 
-void DivisionConfigFrame::setDecimalPlaces(quint32 decimalPlaces)
+void DivisionConfigFrame::setDecimalPlaces(int decimalPlaces)
 {
     ui->decimalPlacesLineEdit->setText(QString("%1").arg(decimalPlaces));
 }
 
+void DivisionConfigFrame::setIntegersOnly(bool intsOnly)
+{
+    ui->integerResultCheckBox->setChecked(intsOnly);
+    ui->decimalPlacesLineEdit->setEnabled(!intsOnly);
+    ui->largestNumberFirstCheckBox->setEnabled(!intsOnly);
+}
+
 void DivisionConfigFrame::on_minNumberLineEdit_editingFinished()
 {
-    int newMin = ui->minNumberLineEdit->text().toInt();
+    BigFixedPoint newMin(ui->minNumberLineEdit->text());
     this->module->setFirstMinimum(newMin);
 }
 
 void DivisionConfigFrame::on_maxNumberLineEdit_editingFinished()
 {
-    int newMax = ui->maxNumberLineEdit->text().toInt();
+    BigFixedPoint newMax(ui->maxNumberLineEdit->text());
     this->module->setFirstMaximum(newMax);
 }
 
 void DivisionConfigFrame::on_secondMinLineEdit_editingFinished()
 {
-    int newMin = ui->secondMinLineEdit->text().toInt();
+    BigFixedPoint newMin(ui->secondMinLineEdit->text());
     this->module->setLastMinimum(newMin);
 }
 
 void DivisionConfigFrame::on_secondMaxLineEdit_editingFinished()
 {
-    int newMax = ui->secondMaxLineEdit->text().toInt();
+    BigFixedPoint newMax(ui->secondMaxLineEdit->text());
     this->module->setLastMaximum(newMax);
 }
 
 void DivisionConfigFrame::on_largestNumberFirstCheckBox_stateChanged(int state)
 {
-    if (state == Qt::Checked)
-    {
-        this->module->setLargestNumberFirst(true);
-    } else {
-        this->module->setLargestNumberFirst(false);
-    }
+    this->module->setLargestNumberFirst(state == Qt::Checked);
 }
 
 void DivisionConfigFrame::on_decimalPlacesLineEdit_editingFinished()
 {
     quint32 newDecimals = ui->decimalPlacesLineEdit->text().toUInt();
     this->module->setDecimalPlaces(newDecimals);
+}
+
+void DivisionConfigFrame::on_integerResultCheckBox_stateChanged(int state)
+{
+    bool intsOnly = (state == Qt::Checked);
+    this->module->setIntegersOnly(intsOnly);
+    ui->decimalPlacesLineEdit->setEnabled(!intsOnly);
+    ui->largestNumberFirstCheckBox->setEnabled(!intsOnly);
 }
