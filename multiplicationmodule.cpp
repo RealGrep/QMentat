@@ -20,6 +20,8 @@ MultiplicationModule::MultiplicationModule(MainWindow *mw)
     // Read config
     QSettings settings;
     settings.beginGroup("multiplicationmodule");
+    roundingMode = settings.value("roundingmode", false).toBool();
+    BigFixedPoint::setRounding(roundingMode == 1);
     firstMin = BigFixedPoint(settings.value("firstmin", 2).toString());
     firstMax = BigFixedPoint(settings.value("firstmax", 10).toString());
     lastMin = BigFixedPoint(settings.value("lastmin", 2).toString());
@@ -37,6 +39,7 @@ MultiplicationModule::MultiplicationModule(MainWindow *mw)
     configFrame->setLastMaximum(lastMax.toString());
     configFrame->setLargestNumberFirst(largestNumberFirst);
     configFrame->setDecimalPlaces(decimalPlaces);
+    configFrame->setRoundingMode((roundingMode == true) ? 1 : 0);
 
     // Make display frame
     displayFrame = (QuestionDisplay*)(new QuestionDisplayForm());
@@ -216,6 +219,19 @@ void MultiplicationModule::setDecimalPlaces(int newDecimals)
         decimalPlaces = newDecimals;
         QSettings settings;
         settings.setValue("multiplicationmodule/decimalplaces", decimalPlaces);
+
+        mainWindow->newQuestion();
+    }
+}
+
+void MultiplicationModule::setRoundingMode(bool rnd)
+{
+    if (roundingMode != rnd)
+    {
+        roundingMode = rnd;
+        BigFixedPoint::setRounding(roundingMode);
+        QSettings settings;
+        settings.setValue("multiplicationmodule/roundingmode", roundingMode);
 
         mainWindow->newQuestion();
     }

@@ -21,6 +21,8 @@ PowersModule::PowersModule(MainWindow *mw)
     // Read config
     QSettings settings;
     settings.beginGroup("powersmodule");
+    roundingMode = settings.value("roundingmode", false).toBool();
+    BigFixedPoint::setRounding(roundingMode == 1);
     min = BigFixedPoint(settings.value("min", 2).toString());
     max = BigFixedPoint(settings.value("max", 10).toString());
     powerMin = settings.value("powermin", 2).toInt();
@@ -36,6 +38,7 @@ PowersModule::PowersModule(MainWindow *mw)
     configFrame->setPowerMinimum(powerMin);
     configFrame->setPowerMaximum(powerMax);
     configFrame->setDecimalPlaces(decimalPlaces);
+    configFrame->setRoundingMode((roundingMode == true) ? 1 : 0);
 
     // Make display frame
     displayFrame = (QuestionDisplay*)(new MathDisplayForm());
@@ -187,6 +190,19 @@ void PowersModule::setDecimalPlaces(int newDecimals)
         decimalPlaces = newDecimals;
         QSettings settings;
         settings.setValue("powersmodule/decimalplaces", decimalPlaces);
+
+        mainWindow->newQuestion();
+    }
+}
+
+void PowersModule::setRoundingMode(bool rnd)
+{
+    if (roundingMode != rnd)
+    {
+        roundingMode = rnd;
+        BigFixedPoint::setRounding(roundingMode);
+        QSettings settings;
+        settings.setValue("powersmodule/roundingmode", roundingMode);
 
         mainWindow->newQuestion();
     }

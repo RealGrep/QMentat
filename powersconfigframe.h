@@ -24,6 +24,7 @@ public:
     void setPowerMinimum(int min);
     void setPowerMaximum(int max);
     void setDecimalPlaces(int newDecimals);
+    void setRoundingMode(int mode);
 
     PowersModule *module;
 
@@ -31,6 +32,7 @@ private:
     Ui::PowersConfigFrame *ui;
 
 private slots:
+    void on_roundingComboBox_currentIndexChanged(int index);
     void on_decimalPlacesLineEdit_editingFinished();
     void on_maxPowerLineEdit_editingFinished();
     void on_minPowerLineEdit_editingFinished();

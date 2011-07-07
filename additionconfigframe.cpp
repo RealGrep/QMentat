@@ -1,7 +1,7 @@
 #include "additionconfigframe.h"
 #include "ui_additionconfigframe.h"
 #include "additionmodule.h"
-#include "qulonglongvalidator.h"
+#include "qbigfixedvalidator.h"
 
 AdditionConfigFrame::AdditionConfigFrame(QWidget *parent) :
         QFrame(parent),
@@ -9,6 +9,16 @@ AdditionConfigFrame::AdditionConfigFrame(QWidget *parent) :
 {
     ui->setupUi(this);
     this->module = 0;
+
+    QBigFixedValidator *bfv = new QBigFixedValidator(
+            BigFixedPoint(QString("-9999999999999999999999999999")),
+            BigFixedPoint(QString("9999999999999999999999999999")),
+            this);
+
+    ui->minNumberLineEdit->setValidator(bfv);
+    ui->maxNumberLineEdit->setValidator(bfv);
+    ui->secondMinLineEdit->setValidator(bfv);
+    ui->secondMaxLineEdit->setValidator(bfv);
 
     /*
     QULongLongValidator *validator = new QULongLongValidator(this);

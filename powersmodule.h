@@ -32,6 +32,7 @@ public:
     void setPowerMaximum(int newMax);
     void setPowerMinimum(int newMin);
     void setDecimalPlaces(int newDecimals);
+    void setRoundingMode(bool rnd);
 
 private:
     MainWindow *mainWindow;
@@ -44,6 +45,7 @@ private:
     int power;
     BigFixedPoint answer;
     int decimalPlaces;
+    bool roundingMode;
 
     RandomInt<int> *genPower;
 

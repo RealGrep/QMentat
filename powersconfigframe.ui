@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>214</width>
-    <height>300</height>
+    <width>242</width>
+    <height>294</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -129,6 +129,27 @@ p, li { white-space: pre-wrap; }
        <property name="text">
         <string notr="true">0</string>
        </property>
+      </widget>
+     </item>
+     <item row="9" column="0">
+      <widget class="QLabel" name="roundingLabel">
+       <property name="text">
+        <string>Rounding Mode</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="1">
+      <widget class="QComboBox" name="roundingComboBox">
+       <item>
+        <property name="text">
+         <string>Truncate</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Round</string>
+        </property>
+       </item>
       </widget>
      </item>
     </layout>

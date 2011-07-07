@@ -25,6 +25,8 @@ DivisionModule::DivisionModule(MainWindow *mw)
     // Read config
     QSettings settings;
     settings.beginGroup("divisionmodule");
+    roundingMode = settings.value("roundingmode", false).toBool();
+    BigFixedPoint::setRounding(roundingMode == 1);
     firstMin = BigFixedPoint(settings.value("firstmin", 2).toString());
     firstMax = BigFixedPoint(settings.value("firstmax", 100).toString());
     lastMin = BigFixedPoint(settings.value("lastmin", 2).toString());
@@ -43,6 +45,7 @@ DivisionModule::DivisionModule(MainWindow *mw)
     configFrame->setLastMaximum(lastMax.toString());
     configFrame->setLargestNumberFirst(largestNumberFirst);
     configFrame->setDecimalPlaces(decimalPlaces);
+    configFrame->setRoundingMode((roundingMode == true) ? 1 : 0);
     configFrame->setIntegersOnly(integersOnly);
 
     // Make display frame
@@ -140,22 +143,26 @@ std::vector<unsigned long> *DivisionModule::getDivisors(unsigned long num,
 }
 #endif
 
-std::vector<BigFixedPoint*> *DivisionModule::getDivisors(BigFixedPoint& num,
+std::vector<BigFixedPoint> *DivisionModule::getDivisors(BigFixedPoint& num,
                                                         BigFixedPoint& min,
                                                         BigFixedPoint& max)
 {
-    std::vector<BigFixedPoint*> *divisors = new std::vector<BigFixedPoint*>();
+    std::vector<BigFixedPoint> *divisors = new std::vector<BigFixedPoint>();
     //qDebug() << num.toString() << " is divisible by ";
     // No use going past num/2
-    BigFixedPoint last = BigFixedPoint::min(num/2, max) + 1;
+    BigFixedPoint minScaled(min);
+    minScaled.scale(num.getDecimalPlaces());
+    BigFixedPoint maxScaled(max);
+    maxScaled.scale(num.getDecimalPlaces());
+    BigFixedPoint last = BigFixedPoint::min(num/2, maxScaled) + 1;
     //qDebug() << "[" << min.toString() << "->" << last.toString() << "] ";
-    for (BigFixedPoint i = min; i < last; i += 1)
+    for (BigFixedPoint i = minScaled; i < last; i += 1)
     {
         if ((num % i) == 0)
         {
             //isOk = true;
             //qDebug() << i.toString() << " ";
-            divisors->push_back(new BigFixedPoint(i));
+            divisors->push_back(BigFixedPoint(i));
         }
     }
     //std::cout << std::endl;
@@ -170,11 +177,13 @@ QString DivisionModule::question()
     if (integersOnly)
     {
         // Ensure we don't get a division by 0
+        int i = 0;
         do {
             // Generate the numbers
             firstNumber = BigFixedPoint::random(firstMin, firstMax);
+            //qDebug() << "firstNumber = " << firstNumber.toString();
 
-            std::vector<BigFixedPoint*> *divisors = getDivisors(firstNumber,
+            std::vector<BigFixedPoint> *divisors = getDivisors(firstNumber,
                                                                lastMin, lastMax);
             if (divisors->empty()) {
                 // No divisors, try again
@@ -184,17 +193,26 @@ QString DivisionModule::question()
                 continue;
             } else {
                 int random = qrand() % divisors->size();
-                lastNumber = *((*divisors)[random]);
+                lastNumber = (*divisors)[random];
+                /*
                 for (size_t i = 0; i < divisors->size(); ++i)
                 {
                     delete (*divisors)[i];
                 }
+                */
                 delete divisors;
             }
 
             answer = firstNumber / lastNumber;
+            answer.scale(0);
+            ++i;
+        } while ((i < 1000) && (lastNumber == 0));
 
-        } while (lastNumber == BigFixedPoint(QString("0")));
+        //! \todo Handle this better!
+        if (i >= 1000)
+        {
+            return "<math>ERR</math>";
+        }
 
         QString q = QString("<math><mfrac><mi>%1</mi><mn>%2</mn></mfrac></math>\n")
                     .arg(firstNumber.toString())
@@ -225,7 +243,11 @@ QString DivisionModule::question()
         //std::cout << "first = " << firstNumber.toString().toStdString() << std::endl;
         //std::cout << "last = " << lastNumber.toString().toStdString() << std::endl;
 
-        int decimals = std::max(firstNumber.getDecimalPlaces(), lastNumber.getDecimalPlaces());
+        int decimals = 0;
+        if (!integersOnly)
+        {
+            decimals = std::max(firstNumber.getDecimalPlaces(), lastNumber.getDecimalPlaces());
+        }
         BigFixedPoint firstDisplay(firstNumber);
         firstDisplay.scale(decimals);
         BigFixedPoint lastDisplay(lastNumber);
@@ -418,6 +440,19 @@ void DivisionModule::setDecimalPlaces(int newDecimals)
         decimalPlaces = newDecimals;
         QSettings settings;
         settings.setValue("divisionmodule/decimalplaces", decimalPlaces);
+
+        mainWindow->newQuestion();
+    }
+}
+
+void DivisionModule::setRoundingMode(bool rnd)
+{
+    if (roundingMode != rnd)
+    {
+        roundingMode = rnd;
+        BigFixedPoint::setRounding(roundingMode);
+        QSettings settings;
+        settings.setValue("divisionmodule/roundingmode", roundingMode);
 
         mainWindow->newQuestion();
     }

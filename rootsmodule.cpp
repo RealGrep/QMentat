@@ -26,6 +26,8 @@ RootsModule::RootsModule(MainWindow *mw)
     // Read config
     QSettings settings;
     settings.beginGroup("rootsmodule");
+    roundingMode = settings.value("roundingmode", false).toBool();
+    BigFixedPoint::setRounding(roundingMode == 1);
     min = BigFixedPoint(settings.value("min", 2).toString());
     max = BigFixedPoint(settings.value("max", 20).toString());
     rootMin = settings.value("rootmin", 2).toInt();
@@ -43,6 +45,7 @@ RootsModule::RootsModule(MainWindow *mw)
     configFrame->setRootMaximum(rootMax);
     configFrame->setDecimalPlaces(decimalPlaces);
     configFrame->setIntegersOnly(integersOnly);
+    configFrame->setRoundingMode((roundingMode == true) ? 1 : 0);
 
     // Make display frame
     displayFrame = (QuestionDisplay*)(new MathDisplayForm());
@@ -94,7 +97,8 @@ QString RootsModule::question()
     } else {
         firstNumber = BigFixedPoint::random(min, max);
         BigFixedPoint firstNumberScaled = firstNumber;
-        firstNumberScaled.scale((decimalPlaces + firstNumber.getDecimalPlaces()) * root);
+        // Add one for rounding purposes
+        firstNumberScaled.scale(((decimalPlaces + firstNumber.getDecimalPlaces() + 1) * root));
         answer = firstNumberScaled.root(root);
         answer.scale(decimalPlaces);
     }
@@ -201,6 +205,19 @@ void RootsModule::setDecimalPlaces(int newDecimals)
         settings.setValue("rootsmodule/decimalplaces", decimalPlaces);
 
         //rootRangeUpdated();
+        mainWindow->newQuestion();
+    }
+}
+
+void RootsModule::setRoundingMode(bool rnd)
+{
+    if (roundingMode != rnd)
+    {
+        roundingMode = rnd;
+        BigFixedPoint::setRounding(roundingMode);
+        QSettings settings;
+        settings.setValue("rootsmodule/roundingmode", roundingMode);
+
         mainWindow->newQuestion();
     }
 }

@@ -2,12 +2,24 @@
 #include "ui_subtractionconfigframe.h"
 #include "subtractionmodule.h"
 #include "bigfixedpoint.h"
+#include "qbigfixedvalidator.h"
 
 SubtractionConfigFrame::SubtractionConfigFrame(QWidget *parent) :
         QFrame(parent),
         ui(new Ui::SubtractionConfigFrame)
 {
     ui->setupUi(this);
+
+    QBigFixedValidator *bfv = new QBigFixedValidator(
+            BigFixedPoint(QString("-9999999999999999999999999999")),
+            BigFixedPoint(QString("9999999999999999999999999999")),
+            this);
+
+    ui->minNumberLineEdit->setValidator(bfv);
+    ui->maxNumberLineEdit->setValidator(bfv);
+    ui->secondMinLineEdit->setValidator(bfv);
+    ui->secondMaxLineEdit->setValidator(bfv);
+
     this->module = 0;
 }
 

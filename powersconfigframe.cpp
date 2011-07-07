@@ -2,12 +2,29 @@
 #include "ui_powersconfigframe.h"
 
 #include "bigfixedpoint.h"
+#include "qbigfixedvalidator.h"
 
 PowersConfigFrame::PowersConfigFrame(QWidget *parent) :
         QFrame(parent),
         ui(new Ui::PowersConfigFrame)
 {
     ui->setupUi(this);
+
+    QBigFixedValidator *bfv = new QBigFixedValidator(
+            BigFixedPoint(QString("-9999999999999999999999999999")),
+            BigFixedPoint(QString("9999999999999999999999999999")),
+            this);
+
+    ui->minNumberLineEdit->setValidator(bfv);
+    ui->maxNumberLineEdit->setValidator(bfv);
+
+    QIntValidator *powerValidator = new QIntValidator(0, 1000, this);
+    ui->maxPowerLineEdit->setValidator(powerValidator);
+    ui->minPowerLineEdit->setValidator(powerValidator);
+
+    QIntValidator *decimalsValidator = new QIntValidator(0, 100, this);
+    ui->decimalPlacesLineEdit->setValidator(decimalsValidator);
+
     this->module = 0;
 }
 
@@ -46,6 +63,11 @@ void PowersConfigFrame::setDecimalPlaces(int decimals)
     ui->decimalPlacesLineEdit->setText(QString("%1").arg(decimals));
 }
 
+void PowersConfigFrame::setRoundingMode(int mode)
+{
+    ui->roundingComboBox->setCurrentIndex(mode);
+}
+
 void PowersConfigFrame::on_minNumberLineEdit_editingFinished()
 {
     BigFixedPoint newMin(ui->minNumberLineEdit->text());
@@ -74,4 +96,9 @@ void PowersConfigFrame::on_decimalPlacesLineEdit_editingFinished()
 {
     int newDecimals = ui->decimalPlacesLineEdit->text().toInt();
     this->module->setDecimalPlaces(newDecimals);
+}
+
+void PowersConfigFrame::on_roundingComboBox_currentIndexChanged(int index)
+{
+    this->module->setRoundingMode(index == 1);
 }

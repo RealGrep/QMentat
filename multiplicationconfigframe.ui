@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>218</width>
-    <height>300</height>
+    <width>260</width>
+    <height>314</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -151,14 +151,14 @@ p, li { white-space: pre-wrap; }
        </property>
       </widget>
      </item>
-     <item row="9" column="0">
+     <item row="10" column="0">
       <widget class="QLabel" name="largestNumberFirstLabel">
        <property name="text">
         <string>Largest number first</string>
        </property>
       </widget>
      </item>
-     <item row="9" column="1">
+     <item row="10" column="1">
       <widget class="QCheckBox" name="largestNumberFirstCheckBox"/>
      </item>
      <item row="8" column="0">
@@ -187,6 +187,27 @@ p, li { white-space: pre-wrap; }
 &lt;td style=&quot;border: none;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Result&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
+      </widget>
+     </item>
+     <item row="9" column="0">
+      <widget class="QLabel" name="roundingLabel">
+       <property name="text">
+        <string>Rounding Mode</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="1">
+      <widget class="QComboBox" name="roundingComboBox">
+       <item>
+        <property name="text">
+         <string>Truncate</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Round</string>
+        </property>
+       </item>
       </widget>
      </item>
     </layout>

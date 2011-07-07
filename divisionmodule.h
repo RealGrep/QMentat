@@ -34,6 +34,7 @@ public:
     void setLastMinimum(BigFixedPoint newMin);
     void setLargestNumberFirst(bool b);
     void setDecimalPlaces(int newDecimals);
+    void setRoundingMode(bool rnd);
     void setIntegersOnly(bool intsOnly);
 
 private:
@@ -48,9 +49,11 @@ private:
     BigFixedPoint answer;
     bool largestNumberFirst;
     int decimalPlaces;
+    //! \todo Enum this. 0 = truncate, 0 = round
+    bool roundingMode;
     bool integersOnly;
 
-    std::vector<BigFixedPoint*> *getDivisors(BigFixedPoint& num,
+    std::vector<BigFixedPoint> *getDivisors(BigFixedPoint& num,
                                             BigFixedPoint& min,
                                             BigFixedPoint& max);
 

@@ -33,6 +33,7 @@ public:
     void setRootMinimum(int newMin);
     void setDecimalPlaces(int newDecimals);
     void setIntegersOnly(bool intsOnly);
+    void setRoundingMode(bool rnd);
 
 private:
     MainWindow *mainWindow;
@@ -45,6 +46,7 @@ private:
     int root;
     BigFixedPoint answer;
     int decimalPlaces;
+    bool roundingMode;
     bool integersOnly;
 
     RandomInt<int> *genRoot;

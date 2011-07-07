@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string>
 
+bool BigFixedPoint::roundingEnabled = false;
+
 BigFixedPoint::BigFixedPoint()
 {
     number = 0;
@@ -62,6 +64,7 @@ BigFixedPoint::BigFixedPoint(QString num)
     // There must not be leading 0s or it will interpret the number as octal
     // That was puzzling for a few moments, let me tell you.
     int i = 0;
+    assert(decimalPlaces >= 0);
     while ((i < (num.size() - decimalPlaces))
         && (num[i] == QLocale::system().zeroDigit()))
     {
@@ -110,6 +113,81 @@ BigFixedPoint::~BigFixedPoint()
 
 }
 
+bool BigFixedPoint::isValid(QString numStr)
+{
+    // At start only: - (optional)
+    // 0 or 1 decimal point, no more.
+    // Sprinkle in group separators to your heart's content
+    // Everything else is digits
+    int pos = 0;
+    bool foundNegative = false;
+    QString gmp_str;
+
+    if (numStr.isEmpty())
+    {
+        //qDebug() << "EMPTY";
+        return false;
+    }
+
+    // Skip leading - and whitespace
+    while ((pos < numStr.size())
+        && (numStr[pos].isSpace()
+            || numStr[pos] == QLocale::system().negativeSign()))
+    {
+        if (numStr[pos] == QLocale::system().negativeSign())
+        {
+            if (foundNegative)
+            {
+                //qDebug() << "Found extra negative: INVALID";
+                return false;
+            } else {
+                foundNegative = true;
+                gmp_str.append(numStr[pos]);
+            }
+        }
+        ++pos;
+    }
+
+    bool foundDigit = false;
+    // Now only digits, decimal and group separators
+    while (pos < numStr.size())
+    {
+        if (!numStr[pos].isDigit()
+            && numStr[pos] != QLocale::system().decimalPoint()
+            && numStr[pos] != QLocale::system().groupSeparator())
+        {
+            //qDebug() << "Not a digit, decimal or separator (" << numStr[pos] << ")";
+            return false;
+        }
+
+        if (numStr[pos].isDigit())
+        {
+            foundDigit = true;
+            gmp_str.append(numStr[pos]);
+        } else {
+            // Not a digit
+            //numStr.remove(pos, 1);
+        }
+        ++pos;
+    }
+
+    if (!foundDigit)
+    {
+        //qDebug() << "No digits - invalid";
+        return false;
+    }
+
+    //qDebug() << "gmp_str = " << gmp_str;
+    mpz_class num;
+    if (num.set_str(gmp_str.toStdString(), 10) != 0)
+    {
+        return false;
+    }
+
+    // Made it this far, looks good
+    return true;
+}
+
 void BigFixedPoint::scale(int decimals)
 {
     int adjustment = decimals - decimalPlaces;
@@ -121,9 +199,21 @@ void BigFixedPoint::scale(int decimals)
         number = adjusted;
         decimalPlaces = decimals;
     } else if (adjustment < 0) {
-        //! \todo ROUND
         mpz_class factor;
         mpz_ui_pow_ui(factor.get_mpz_t(), 10, abs(adjustment));
+
+        if (roundingEnabled)
+        {
+            //qDebug() << "Rounding " << QString::fromStdString(number.get_str())
+            //        << "from " << decimalPlaces << " to " << decimals;
+            mpz_class adjNum;
+            mpz_ui_pow_ui(adjNum.get_mpz_t(), 10, abs(adjustment)-1);
+            adjNum = 5*adjNum;
+            //qDebug() << "Adjnum = " << QString::fromStdString(adjNum.get_str());
+            number += adjNum;
+            //qDebug() << "number adjusted = " << QString::fromStdString(number.get_str());
+        }
+
         mpz_class adjusted = number / factor;
         number = adjusted;
         decimalPlaces = decimals;

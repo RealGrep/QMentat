@@ -26,6 +26,7 @@ public:
     void setRootMinimum(int min);
     void setRootMaximum(int max);
     void setDecimalPlaces(int newDecimals);
+    void setRoundingMode(int mode);
     void setIntegersOnly(bool intsOnly);
 
     RootsModule *module;
@@ -34,6 +35,7 @@ private:
     Ui::RootsConfigFrame *ui;
 
 private slots:
+    void on_roundingComboBox_currentIndexChanged(int index);
     void on_integerResultCheckBox_stateChanged(int );
     void on_decimalPlacesLineEdit_editingFinished();
     void on_maxRootLineEdit_editingFinished();

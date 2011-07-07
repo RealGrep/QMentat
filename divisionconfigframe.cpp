@@ -2,11 +2,27 @@
 #include "ui_divisionconfigframe.h"
 #include "divisionmodule.h"
 
+#include "qbigfixedvalidator.h"
+
 DivisionConfigFrame::DivisionConfigFrame(QWidget *parent) :
         QFrame(parent),
         ui(new Ui::DivisionConfigFrame)
 {
     ui->setupUi(this);
+
+    QBigFixedValidator *bfv = new QBigFixedValidator(
+            BigFixedPoint(QString("-9999999999999999999999999999")),
+            BigFixedPoint(QString("9999999999999999999999999999")),
+            this);
+
+    ui->minNumberLineEdit->setValidator(bfv);
+    ui->maxNumberLineEdit->setValidator(bfv);
+    ui->secondMinLineEdit->setValidator(bfv);
+    ui->secondMaxLineEdit->setValidator(bfv);
+
+    QIntValidator *intValidator = new QIntValidator(0, 100, this);
+    ui->decimalPlacesLineEdit->setValidator(intValidator);
+
     this->module = 0;
 }
 
@@ -50,10 +66,16 @@ void DivisionConfigFrame::setDecimalPlaces(int decimalPlaces)
     ui->decimalPlacesLineEdit->setText(QString("%1").arg(decimalPlaces));
 }
 
+void DivisionConfigFrame::setRoundingMode(int mode)
+{
+    ui->roundingComboBox->setCurrentIndex(mode);
+}
+
 void DivisionConfigFrame::setIntegersOnly(bool intsOnly)
 {
     ui->integerResultCheckBox->setChecked(intsOnly);
     ui->decimalPlacesLineEdit->setEnabled(!intsOnly);
+    ui->roundingComboBox->setEnabled(!intsOnly);
     ui->largestNumberFirstCheckBox->setEnabled(!intsOnly);
 }
 
@@ -97,5 +119,11 @@ void DivisionConfigFrame::on_integerResultCheckBox_stateChanged(int state)
     bool intsOnly = (state == Qt::Checked);
     this->module->setIntegersOnly(intsOnly);
     ui->decimalPlacesLineEdit->setEnabled(!intsOnly);
+    ui->roundingComboBox->setEnabled(!intsOnly);
     ui->largestNumberFirstCheckBox->setEnabled(!intsOnly);
+}
+
+void DivisionConfigFrame::on_roundingComboBox_currentIndexChanged(int index)
+{
+    this->module->setRoundingMode(index == 1);
 }

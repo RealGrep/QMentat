@@ -21,6 +21,7 @@ SubtractionModule::SubtractionModule(MainWindow *mw)
     // Read config
     QSettings settings;
     settings.beginGroup("subtractionmodule");
+    BigFixedPoint::setRounding(false);
     firstMin = BigFixedPoint(settings.value("firstmin", 2).toString());
     firstMax = BigFixedPoint(settings.value("firstmax", 100).toString());
     lastMin = BigFixedPoint(settings.value("lastmin", 2).toString());

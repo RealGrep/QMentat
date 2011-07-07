@@ -9,6 +9,7 @@
 
 class BigFixedPoint {
 public:
+    BigFixedPoint(const BigFixedPoint& bfp);
     BigFixedPoint();
     BigFixedPoint(int num);
     BigFixedPoint(QString num);
@@ -18,16 +19,36 @@ public:
 
     virtual ~BigFixedPoint();
 
-    BigFixedPoint(const BigFixedPoint& bfp);
+    static bool isValid(QString numStr);
 
     mpz_class getValue() const
     {
         return number;
     }
 
+    void setValue(const mpz_class num)
+    {
+        number = num;
+    }
+
     int getDecimalPlaces() const
     {
         return decimalPlaces;
+    }
+
+    void setDecimalPlaces(int decimals)
+    {
+        decimalPlaces = decimals;
+    }
+
+    static void setRounding(bool rnd)
+    {
+        roundingEnabled = rnd;
+    }
+
+    static bool isRounding()
+    {
+        return roundingEnabled;
     }
 
     void scale(int decimals);
@@ -83,6 +104,7 @@ public:
 private:
     mpz_class number;
     int decimalPlaces;
+    static bool roundingEnabled;
 };
 
 #endif // BIGFIXEDPOINT_H

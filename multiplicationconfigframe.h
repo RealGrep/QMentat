@@ -25,6 +25,7 @@ public:
     void setLastMaximum(QString max);
     void setLargestNumberFirst(bool b);
     void setDecimalPlaces(int decimalPlaces);
+    void setRoundingMode(int mode);
 
     MultiplicationModule *module;
 
@@ -32,6 +33,7 @@ private:
     Ui::MultiplicationConfigFrame *ui;
 
 private slots:
+    void on_roundingComboBox_currentIndexChanged(int index);
     void on_decimalPlacesLineEdit_editingFinished();
     void on_largestNumberFirstCheckBox_stateChanged(int );
     void on_secondMaxLineEdit_editingFinished();

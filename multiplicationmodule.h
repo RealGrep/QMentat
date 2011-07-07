@@ -30,8 +30,9 @@ public:
     void setFirstMinimum(BigFixedPoint newMin);
     void setLastMaximum(BigFixedPoint newMax);
     void setLastMinimum(BigFixedPoint newMin);
-    void setLargestNumberFirst(bool b);
     void setDecimalPlaces(int newDecimals);
+    void setRoundingMode(bool rnd);
+    void setLargestNumberFirst(bool b);
 
 private:
     MainWindow *mainWindow;
@@ -43,8 +44,9 @@ private:
     BigFixedPoint firstNumber;
     BigFixedPoint lastNumber;
     BigFixedPoint answer;
-    bool largestNumberFirst;
     int decimalPlaces;
+    bool roundingMode;
+    bool largestNumberFirst;
 };
 
 #endif // MULTIPLICATIONMODULE_H

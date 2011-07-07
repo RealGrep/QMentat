@@ -49,7 +49,8 @@ SOURCES += main.cpp\
     qulonglongvalidator.cpp \
     pieview.cpp \
     statisticsdialog.cpp \
-    bigfixedpoint.cpp
+    bigfixedpoint.cpp \
+    qbigfixedvalidator.cpp
 
 HEADERS  += mainwindow.h \
     additionmodule.h \
@@ -73,7 +74,8 @@ HEADERS  += mainwindow.h \
     FixedPoint.h \
     pieview.h \
     statisticsdialog.h \
-    bigfixedpoint.h
+    bigfixedpoint.h \
+    qbigfixedvalidator.h
 
 FORMS    += mainwindow.ui \
     additionconfigframe.ui \

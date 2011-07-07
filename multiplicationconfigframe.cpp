@@ -2,14 +2,28 @@
 #include "ui_multiplicationconfigframe.h"
 #include "multiplicationmodule.h"
 #include "bigfixedpoint.h"
+#include "qbigfixedvalidator.h"
 
 MultiplicationConfigFrame::MultiplicationConfigFrame(QWidget *parent) :
         QFrame(parent),
         ui(new Ui::MultiplicationConfigFrame)
 {
     ui->setupUi(this);
-    //ui->minNumberLineEdit->setText(tr("2"));
-    //ui->maxNumberLineEdit->setText(tr("100"));
+
+    QBigFixedValidator *bfv = new QBigFixedValidator(
+            BigFixedPoint(QString("-9999999999999999999999999999")),
+            BigFixedPoint(QString("9999999999999999999999999999")),
+            this);
+
+    ui->minNumberLineEdit->setValidator(bfv);
+    ui->maxNumberLineEdit->setValidator(bfv);
+    ui->secondMinLineEdit->setValidator(bfv);
+    ui->secondMaxLineEdit->setValidator(bfv);
+
+
+    QIntValidator *intValidator = new QIntValidator(0, 100, this);
+    ui->decimalPlacesLineEdit->setValidator(intValidator);
+
     this->module = 0;
 }
 
@@ -53,6 +67,11 @@ void MultiplicationConfigFrame::setDecimalPlaces(int decimalPlaces)
     ui->decimalPlacesLineEdit->setText(QString("%1").arg(decimalPlaces));
 }
 
+void MultiplicationConfigFrame::setRoundingMode(int mode)
+{
+    ui->roundingComboBox->setCurrentIndex(mode);
+}
+
 void MultiplicationConfigFrame::on_minNumberLineEdit_editingFinished()
 {
     BigFixedPoint newMin(ui->minNumberLineEdit->text());
@@ -91,4 +110,9 @@ void MultiplicationConfigFrame::on_decimalPlacesLineEdit_editingFinished()
 {
     int newDecimals = ui->decimalPlacesLineEdit->text().toInt();
     this->module->setDecimalPlaces(newDecimals);
+}
+
+void MultiplicationConfigFrame::on_roundingComboBox_currentIndexChanged(int index)
+{
+    this->module->setRoundingMode(index == 1);
 }

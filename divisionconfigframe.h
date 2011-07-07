@@ -25,6 +25,7 @@ public:
     void setLastMaximum(QString max);
     void setLargestNumberFirst(bool b);
     void setDecimalPlaces(int decimalPlaces);
+    void setRoundingMode(int mode);
     void setIntegersOnly(bool intsOnly);
 
     DivisionModule *module;
@@ -33,6 +34,7 @@ private:
     Ui::DivisionConfigFrame *ui;
 
 private slots:
+    void on_roundingComboBox_currentIndexChanged(int index);
     void on_integerResultCheckBox_stateChanged(int );
     void on_decimalPlacesLineEdit_editingFinished();
     void on_largestNumberFirstCheckBox_stateChanged(int );
