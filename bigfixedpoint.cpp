@@ -470,6 +470,7 @@ BigFixedPoint BigFixedPoint::random(const BigFixedPoint& min, const BigFixedPoin
 
 BigFixedPoint BigFixedPoint::random(const BigFixedPoint& n)
 {
+    //! \todo Fix this crappy seeding and use a better PRNG
     gmp_randclass r(gmp_randinit_default);
     r.seed(QTime::currentTime().msec());
     mpz_class num = r.get_z_range(n.number+1);

@@ -71,27 +71,8 @@ QuestionDisplay* MultiplicationModule::getDisplayFrame()
 
 QString MultiplicationModule::question()
 {
-    //range_type result_increment = uniform_int<range_type>(0, range/mult)(eng);
-    //        if((std::numeric_limits<range_type>::max)() / mult < result_increment) {
-    //          // The multiplcation would overflow.  Reject immediately.
-    //          continue;
-    //        }
-
     firstNumber = BigFixedPoint::random(firstMin, firstMax);
     lastNumber = BigFixedPoint::random(lastMin, lastMax);
-
-    // Scale to largest number of decimals
-    /*
-    int maxDecimals = std::max(firstNumber.getDecimalPlaces(), lastNumber.getDecimalPlaces());
-    if (firstNumber.getDecimalPlaces() < maxDecimals)
-    {
-        firstNumber.scale(maxDecimals);
-    }
-    if (lastNumber.getDecimalPlaces() < maxDecimals)
-    {
-        lastNumber.scale(maxDecimals);
-    }
-    */
 
     // Swap largest number first, if necessary and set to do so
     if (largestNumberFirst && (lastNumber > firstNumber))
@@ -104,7 +85,6 @@ QString MultiplicationModule::question()
     // Calculate answer
     answer = firstNumber * lastNumber;
     assert(decimalPlaces >= 0);
-    assert(decimalPlaces <= answer.getDecimalPlaces());
     answer.scale(decimalPlaces);
     //std::cout << "first = " << firstNumber.toString().toStdString() << std::endl;
     //std::cout << "last = " << lastNumber.toString().toStdString() << std::endl;

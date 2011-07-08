@@ -118,7 +118,6 @@ QString AdditionModule::question()
 /*! \param Reference to a QString containing the user's answer to the
  * current question.
  *  \returns true if the user answered correctly, false otherwise.
- *  \todo Perhaps all the fixed point stuff should go in it's own class/template.
  */
 bool AdditionModule::isCorrect(QString& answerGiven)
 {

@@ -192,14 +192,9 @@ QString DivisionModule::question()
                 delete divisors;
                 continue;
             } else {
+                //! \todo Use a proper PRNG
                 int random = qrand() % divisors->size();
                 lastNumber = (*divisors)[random];
-                /*
-                for (size_t i = 0; i < divisors->size(); ++i)
-                {
-                    delete (*divisors)[i];
-                }
-                */
                 delete divisors;
             }
 
@@ -234,14 +229,9 @@ QString DivisionModule::question()
         // Calculate answer
         BigFixedPoint firstNumberScaled = firstNumber;
         firstNumberScaled.scale(firstNumber.getDecimalPlaces()+lastNumber.getDecimalPlaces()+decimalPlaces);
-        //BigFixedPoint lastNumberScaled = lastNumber;
-        //lastNumberScaled.scale(lastNumber.getDecimalPlaces()+decimalPlaces);
         answer = firstNumberScaled / lastNumber;
         assert(decimalPlaces >= 0);
-        //assert(decimalPlaces <= answer.getDecimalPlaces());
         answer.scale(decimalPlaces);
-        //std::cout << "first = " << firstNumber.toString().toStdString() << std::endl;
-        //std::cout << "last = " << lastNumber.toString().toStdString() << std::endl;
 
         int decimals = 0;
         if (!integersOnly)
