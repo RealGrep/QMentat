@@ -3,6 +3,7 @@
 
 #include <QFrame>
 #include "divisionmodule.h"
+#include "qbigfixedvalidator.h"
 
 namespace Ui {
     class DivisionConfigFrame;
@@ -32,6 +33,7 @@ public:
 
 private:
     Ui::DivisionConfigFrame *ui;
+    QBigFixedValidator *numValidator;
 
 private slots:
     void on_roundingComboBox_currentIndexChanged(int index);
