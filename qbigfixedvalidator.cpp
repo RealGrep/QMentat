@@ -5,6 +5,7 @@
 
 QBigFixedValidator::QBigFixedValidator(QObject *parent)
     : QValidator(parent),
+    rangeEnabled(false),
     min(BigFixedPoint(QString("0"))),
     max(BigFixedPoint(QString("99999999999999999999999999999999999999999999")))
 {
@@ -23,8 +24,14 @@ QBigFixedValidator::~QBigFixedValidator()
     // Empty
 }
 
+void QBigFixedValidator::setRangeEnabled(bool enabled)
+{
+    rangeEnabled = enabled;
+}
+
 void QBigFixedValidator::setRange(BigFixedPoint bottom, BigFixedPoint top)
 {
+    rangeEnabled = true;
     min = bottom;
     max = top;
 }
@@ -58,9 +65,14 @@ QValidator::State QBigFixedValidator::validate(QString &input, int &) const
     }
 
     //qDebug() << "Entered: " << input;
-    BigFixedPoint entered(input);
-    if (entered >= min && entered <= max)
+    if (rangeEnabled)
     {
+        BigFixedPoint entered(input);
+        if (entered >= min && entered <= max)
+        {
+            return Acceptable;
+        }
+    } else {
         return Acceptable;
     }
 

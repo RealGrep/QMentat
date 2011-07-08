@@ -18,6 +18,7 @@ public:
     void setBottom(BigFixedPoint bottom);
     void setTop(BigFixedPoint top);
     virtual void setRange(BigFixedPoint bottom, BigFixedPoint top);
+    void setRangeEnabled(bool enabled);
 
     BigFixedPoint bottom() const { return min; }
     BigFixedPoint top() const { return max; }
@@ -25,6 +26,7 @@ public:
     QValidator::State validate(QString &input, int &) const;
 
 private:
+    bool rangeEnabled;
     BigFixedPoint min;
     BigFixedPoint max;
 
