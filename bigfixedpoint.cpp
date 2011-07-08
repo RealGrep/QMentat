@@ -3,6 +3,7 @@
 #include <gmpxx.h>
 #include <iostream>
 #include <string>
+#include <limits>
 
 bool BigFixedPoint::roundingEnabled = false;
 
@@ -24,6 +25,13 @@ BigFixedPoint::BigFixedPoint(int num)
     : number(num), decimalPlaces(0)
 {
     // Empty
+}
+
+BigFixedPoint::BigFixedPoint(qint64 num)
+    : decimalPlaces(0)
+{
+    QString numStr = QString("%1").arg(num);
+    number = numStr.toStdString();
 }
 
 BigFixedPoint::BigFixedPoint(std::string num, int decimals)
@@ -335,6 +343,32 @@ bool BigFixedPoint::operator>=(const BigFixedPoint &rhs) const {
     return !(*this < rhs);
 }
 
+
+bool BigFixedPoint::operator>(qint64 rhs) const {
+    BigFixedPoint lhsScaled = *this;
+    lhsScaled.scale(0);
+    BigFixedPoint rhsScaled(rhs);
+
+    return lhsScaled > rhsScaled;
+}
+
+bool BigFixedPoint::operator<=(qint64 rhs) const {
+    return !(*this > rhs);
+}
+
+bool BigFixedPoint::operator<(qint64 rhs) const {
+    BigFixedPoint lhsScaled = *this;
+    lhsScaled.scale(0);
+    BigFixedPoint rhsScaled(rhs);
+
+    return lhsScaled < rhsScaled;
+}
+
+bool BigFixedPoint::operator>=(qint64 rhs) const {
+    return !(*this < rhs);
+}
+
+
 BigFixedPoint& BigFixedPoint::operator+=(const BigFixedPoint& y) {
     int decimals = decimalPlaces;
     if (decimals > y.getDecimalPlaces())
@@ -593,4 +627,24 @@ QString BigFixedPoint::toString() const
     }
 
     return str;
+}
+
+qint64 BigFixedPoint::toLongLong() const
+{
+    if (fitsInLongLong())
+    {
+        qDebug() << "Fits in long long";
+        return QString::fromStdString(number.get_str()).toLongLong();
+    } else {
+        //BigFixedPoint scaled(*this);
+        //scaled.scale(0);
+        if (*this < std::numeric_limits<qint64>::min())
+        {
+            return std::numeric_limits<qint64>::min();
+        } else if (*this > std::numeric_limits<qint64>::max()) {
+            return std::numeric_limits<qint64>::max();
+        } else {
+            return QString::fromStdString(number.get_str()).toLongLong();
+        }
+    }
 }

@@ -6,12 +6,16 @@
 #include <string>
 #include <iostream>
 #include <cassert>
+#include <limits>
+
+#include <QDebug>
 
 class BigFixedPoint {
 public:
     BigFixedPoint(const BigFixedPoint& bfp);
     BigFixedPoint();
     BigFixedPoint(int num);
+    BigFixedPoint(qint64 num);
     BigFixedPoint(QString num);
     BigFixedPoint(std::string num);
     BigFixedPoint(std::string num, int decimals);
@@ -51,6 +55,34 @@ public:
         return roundingEnabled;
     }
 
+    bool fitsInLongLong() const
+    {
+        if (decimalPlaces != 0)
+        {
+            return false;
+        }
+        if (*this < std::numeric_limits<qint64>::min())
+        {
+            qDebug() << "Smaller than limit";
+
+            return false;
+        } else if (*this > std::numeric_limits<qint64>::max()) {
+            qDebug() << "Larger than limit";
+
+            return false;
+        }
+
+        QString numStr = QString::fromStdString(number.get_str());
+        bool ok;
+        numStr.toLongLong(&ok);
+        if (!ok)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     void scale(int decimals);
 
     //static QString decimalize(mpz_class num, qint32 decimals);
@@ -77,6 +109,11 @@ public:
     bool operator<(const BigFixedPoint &rhs) const;
     bool operator>=(const BigFixedPoint &rhs) const;
 
+    bool operator>(qint64 rhs) const;
+    bool operator<=(qint64 rhs) const;
+    bool operator<(qint64 rhs) const;
+    bool operator>=(qint64 rhs) const;
+
     // Operators for the basic 4 operations
     BigFixedPoint& operator+=(const BigFixedPoint& rhs);
     const BigFixedPoint operator+(const BigFixedPoint& rhs) const;
@@ -94,6 +131,8 @@ public:
     const BigFixedPoint operator%(int rhs) const;
 
     QString toString() const;
+    qint64 toLongLong() const;
+
     friend std::ostream&
             operator<< (std::ostream &os, const BigFixedPoint &x)
     {
