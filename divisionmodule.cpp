@@ -388,6 +388,175 @@ QString DivisionModule::getAnswerString()
     }
 }
 
+void DivisionModule::setSettings(BigFixedPoint newFirstMin,
+                                 BigFixedPoint newFirstMax,
+                                 BigFixedPoint newLastMin,
+                                 BigFixedPoint newLastMax,
+                                 bool newLargestNumberFirst, bool newIntsOnly,
+                                 int newDecimals, bool newRoundingMode)
+{
+    bool settingsChanged = false;
+
+    // RANGE
+    if ((firstMax != newFirstMax)
+     || (firstMax.getDecimalPlaces() != newFirstMax.getDecimalPlaces()))
+    {
+        firstMax = newFirstMax;
+        QSettings settings;
+        settings.setValue("divisionmodule/firstmax", firstMax.toString());
+        settingsChanged = true;
+    }
+
+    if ((firstMin != newFirstMin)
+     || (firstMin.getDecimalPlaces() != newFirstMin.getDecimalPlaces()))
+    {
+        firstMin = newFirstMin;
+        QSettings settings;
+        settings.setValue("divisionmodule/firstmin", firstMin.toString());
+        settingsChanged = true;
+    }
+
+    if ((lastMax != newLastMax)
+     || (lastMax.getDecimalPlaces() != newLastMax.getDecimalPlaces()))
+    {
+        lastMax = newLastMax;
+        QSettings settings;
+        settings.setValue("divisionmodule/lastmax", lastMax.toString());
+        settingsChanged = true;
+    }
+
+    if ((lastMin != newLastMin)
+     || (lastMin.getDecimalPlaces() != newLastMin.getDecimalPlaces()))
+    {
+        lastMin = newLastMin;
+        QSettings settings;
+        settings.setValue("divisionmodule/lastmin", lastMin.toString());
+        settingsChanged = true;
+    }
+
+    // RESULTS
+    if (this->largestNumberFirst != newLargestNumberFirst)
+    {
+        this->largestNumberFirst = newLargestNumberFirst;
+        QSettings settings;
+        settings.setValue("divisionmodule/largestNumberFirst", largestNumberFirst);
+        settingsChanged = true;
+    }
+
+    if (decimalPlaces != newDecimals)
+    {
+        decimalPlaces = newDecimals;
+        QSettings settings;
+        settings.setValue("divisionmodule/decimalplaces", decimalPlaces);
+        settingsChanged = true;
+    }
+
+    if (roundingMode != newRoundingMode)
+    {
+        roundingMode = newRoundingMode;
+        BigFixedPoint::setRounding(roundingMode);
+        QSettings settings;
+        settings.setValue("divisionmodule/roundingmode", roundingMode);
+        settingsChanged = true;
+    }
+
+    if (integersOnly != newIntsOnly)
+    {
+        integersOnly = newIntsOnly;
+        QSettings settings;
+        settings.setValue("divisionmodule/integersonly", integersOnly);
+        settingsChanged = true;
+    }
+
+    if (settingsChanged)
+    {
+        mainWindow->newQuestion();
+    }
+}
+
+// For integer results only mode
+void DivisionModule::setSettings(qint64 newFirstMin, qint64 newFirstMax,
+                                 qint64 newLastMin, qint64 newLastMax,
+                                 bool newlargestNumberFirst, bool newIntsOnly,
+                                 int newDecimals, bool newRoundingMode)
+{
+    bool settingsChanged = false;
+
+    if (firstMaxIR != newFirstMax)
+    {
+        firstMaxIR = newFirstMax;
+        QSettings settings;
+        settings.setValue("divisionmodule/firstmax", QString("%1").arg(firstMaxIR));
+        settingsChanged = true;
+    }
+
+    if (firstMinIR != newFirstMin)
+    {
+        firstMinIR = newFirstMin;
+        QSettings settings;
+        settings.setValue("divisionmodule/firstmin", QString("%1").arg(firstMinIR));
+        settingsChanged = true;
+    }
+
+    if (lastMaxIR != newLastMax)
+    {
+        lastMaxIR = newLastMax;
+        QSettings settings;
+        settings.setValue("divisionmodule/lastmax", QString("%1").arg(lastMaxIR));
+        settingsChanged = true;
+    }
+
+    if (lastMinIR != newLastMin)
+    {
+        lastMinIR = newLastMin;
+        QSettings settings;
+        settings.setValue("divisionmodule/lastmin", QString("%1").arg(lastMinIR));
+        settingsChanged = true;
+    }
+
+    // RESULTS
+    if (this->largestNumberFirst != newlargestNumberFirst)
+    {
+        this->largestNumberFirst = newlargestNumberFirst;
+        QSettings settings;
+        settings.setValue("divisionmodule/largestNumberFirst", largestNumberFirst);
+        settingsChanged = true;
+    }
+
+    if (decimalPlaces != newDecimals)
+    {
+        decimalPlaces = newDecimals;
+        QSettings settings;
+        settings.setValue("divisionmodule/decimalplaces", decimalPlaces);
+        settingsChanged = true;
+    }
+
+    if (roundingMode != newRoundingMode)
+    {
+        roundingMode = newRoundingMode;
+        BigFixedPoint::setRounding(roundingMode);
+        QSettings settings;
+        settings.setValue("divisionmodule/roundingmode", roundingMode);
+        settingsChanged = true;
+    }
+
+    if (integersOnly != newIntsOnly)
+    {
+        integersOnly = newIntsOnly;
+        QSettings settings;
+        settings.setValue("divisionmodule/integersonly", integersOnly);
+        settingsChanged = true;
+    }
+
+    if (settingsChanged)
+    {
+        firstRangeUpdated();
+        mainWindow->newQuestion();
+    }
+
+}
+
+#if 0
 /*! Set maximum for the dividend.
  * \param newMax New maximum for the dividend.
  */
@@ -574,7 +743,7 @@ void DivisionModule::setLastMinimum(qint64 newMin)
         mainWindow->newQuestion();
     }
 }
-
+#endif
 void DivisionModule::firstRangeUpdated()
 {
     // Get rid of previous generator
@@ -584,7 +753,17 @@ void DivisionModule::firstRangeUpdated()
     // Make new generator
     qint64 minGen = std::min(firstMinIR, firstMaxIR);
     qint64 maxGen = std::max(firstMaxIR, firstMinIR);
-    qDebug() << "rnd: min = " << minGen << "; max = " << maxGen;
+    //qDebug() << "rnd: min = " << minGen << "; max = " << maxGen;
 
     genFirst = new RandomInt<qint64>(minGen, maxGen);
+}
+
+bool DivisionModule::applyConfig()
+{
+    if (configFrame != 0)
+    {
+        return configFrame->applyConfig();
+    }
+
+    return false;
 }

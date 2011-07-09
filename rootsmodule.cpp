@@ -233,3 +233,16 @@ void RootsModule::setIntegersOnly(bool intsOnly)
         mainWindow->newQuestion();
     }
 }
+
+bool RootsModule::applyConfig()
+{
+    /*
+    if (configFrame != nullptr)
+    {
+        return configFrame->applyConfig();
+    }
+
+    return false;
+    */
+    return true;
+}

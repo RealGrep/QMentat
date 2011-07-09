@@ -34,6 +34,8 @@ public:
     void setRoundingMode(bool rnd);
     void setLargestNumberFirst(bool b);
 
+    bool applyConfig();
+
 private:
     MainWindow *mainWindow;
 

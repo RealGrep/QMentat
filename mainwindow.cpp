@@ -45,7 +45,8 @@ MainWindow::MainWindow(QWidget *parent) :
     this->module = 0;
     moduleChange(new AdditionModule(this));
 
-    ui->centralWidget->layout()->addWidget(this->module->getConfigFrame());
+    //ui->centralWidget->layout()->addWidget(this->module->getConfigFrame());
+    ui->settingsTab->layout()->addWidget(this->module->getConfigFrame());
 
     // Restore saved settings
     readSettings();
@@ -255,7 +256,10 @@ void MainWindow::moduleChange(PracticeModule *module) {
 
     // Load the config and display frames
     if (this->module != 0) {
-        ui->centralWidget->layout()->removeWidget(this->module->getConfigFrame());
+        //ui->centralWidget->layout()->removeWidget(this->module->getConfigFrame());
+        //this->module->getConfigFrame()->close();
+
+        ui->settingsTab->layout()->removeWidget(this->module->getConfigFrame());
         this->module->getConfigFrame()->close();
 
         ui->displayPane->layout()->removeWidget(this->module->getDisplayFrame());
@@ -267,7 +271,8 @@ void MainWindow::moduleChange(PracticeModule *module) {
 
     // Grab new module and get new config and display frames
     this->module = module;
-    ui->centralWidget->layout()->addWidget(this->module->getConfigFrame());
+    //ui->centralWidget->layout()->addWidget(this->module->getConfigFrame());
+    ui->settingsTab->layout()->addWidget(this->module->getConfigFrame());
     ui->displayPane->layout()->addWidget(this->module->getDisplayFrame());
 
     assert(this->module != 0);
@@ -330,4 +335,19 @@ void MainWindow::on_actionStatistics_triggered()
     StatisticsDialog stats;
     stats.set(totalCorrect, totalWrong);
     stats.exec();
+}
+
+void MainWindow::on_tabWidget_currentChanged(int index)
+{
+    //qDebug() << "Tab changed";
+    // Changed to main tab (thus from Settings tab)?
+    if (index == 0)
+    {
+        bool ok = module->applyConfig();
+        if (!ok)
+        {
+            ui->tabWidget->setCurrentIndex(1);
+            //QMessageBox::warning(this, tr("Settings Error"), tr("Settings are incorrect!"), QMessageBox::Ok);
+        }
+    }
 }

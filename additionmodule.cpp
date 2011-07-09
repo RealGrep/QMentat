@@ -207,3 +207,16 @@ void AdditionModule::setLargestNumberFirst(bool b)
         mainWindow->newQuestion();
     }
 }
+
+bool AdditionModule::applyConfig()
+{
+    /*
+    if (configFrame != nullptr)
+    {
+        return configFrame->applyConfig();
+    }
+
+    return false;
+    */
+    return true;
+}

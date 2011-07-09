@@ -29,6 +29,8 @@ public:
     void setRoundingMode(int mode);
     void setIntegersOnly(bool intsOnly);
 
+    bool applyConfig();
+
     DivisionModule *module;
 
 private:

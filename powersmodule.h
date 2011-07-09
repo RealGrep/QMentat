@@ -34,6 +34,8 @@ public:
     void setDecimalPlaces(int newDecimals);
     void setRoundingMode(bool rnd);
 
+    bool applyConfig();
+
 private:
     MainWindow *mainWindow;
 

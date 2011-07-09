@@ -12,6 +12,7 @@ public:
     virtual QString question() = 0;
     virtual bool isCorrect(QString& answerGiven) = 0;
     virtual QFrame* getConfigFrame() = 0;
+    virtual bool applyConfig() = 0;
     virtual QuestionDisplay* getDisplayFrame() = 0;
     virtual QString getAnswerString() = 0;
 

@@ -32,6 +32,8 @@ public:
     void setLastMinimum(BigFixedPoint newMin);
     void setLargestNumberFirst(bool b);
 
+    bool applyConfig();
+
 private:
     MainWindow *mainWindow;
 

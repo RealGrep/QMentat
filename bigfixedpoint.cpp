@@ -633,7 +633,6 @@ qint64 BigFixedPoint::toLongLong() const
 {
     if (fitsInLongLong())
     {
-        qDebug() << "Fits in long long";
         return QString::fromStdString(number.get_str()).toLongLong();
     } else {
         //BigFixedPoint scaled(*this);

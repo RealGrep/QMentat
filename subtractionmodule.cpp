@@ -190,3 +190,16 @@ void SubtractionModule::setLargestNumberFirst(bool b)
         mainWindow->newQuestion();
     }
 }
+
+bool SubtractionModule::applyConfig()
+{
+    /*
+    if (configFrame != nullptr)
+    {
+        return configFrame->applyConfig();
+    }
+
+    return false;
+    */
+    return true;
+}

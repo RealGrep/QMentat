@@ -216,3 +216,16 @@ void MultiplicationModule::setRoundingMode(bool rnd)
         mainWindow->newQuestion();
     }
 }
+
+bool MultiplicationModule::applyConfig()
+{
+    /*
+    if (configFrame != nullptr)
+    {
+        return configFrame->applyConfig();
+    }
+
+    return false;
+    */
+    return true;
+}

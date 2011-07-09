@@ -37,6 +37,7 @@ private:
     void writeSettings();
 
 private slots:
+    void on_tabWidget_currentChanged(int index);
     void on_actionStatistics_triggered();
     void moduleChange(PracticeModule *module);
     void on_actionRoots_triggered();

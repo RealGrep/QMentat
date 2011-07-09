@@ -35,6 +35,8 @@ public:
     void setIntegersOnly(bool intsOnly);
     void setRoundingMode(bool rnd);
 
+    bool applyConfig();
+
 private:
     MainWindow *mainWindow;
 

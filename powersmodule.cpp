@@ -207,3 +207,16 @@ void PowersModule::setRoundingMode(bool rnd)
         mainWindow->newQuestion();
     }
 }
+
+bool PowersModule::applyConfig()
+{
+    /*
+    if (configFrame != nullptr)
+    {
+        return configFrame->applyConfig();
+    }
+
+    return false;
+    */
+    return true;
+}
