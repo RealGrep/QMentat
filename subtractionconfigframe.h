@@ -2,7 +2,9 @@
 #define SUBTRACTIONCONFIGFRAME_H
 
 #include <QFrame>
-#include "subtractionmodule.h"
+
+class SubtractionModule;
+class QBigFixedValidator;
 
 namespace Ui {
     class SubtractionConfigFrame;
@@ -23,17 +25,15 @@ public:
     void setLastMaximum(QString max);
     void setLargestNumberFirst(bool b);
 
-    SubtractionModule *module;
+    bool applyConfig();
 
 private:
     Ui::SubtractionConfigFrame *ui;
 
+    SubtractionModule *module;
+
 private slots:
-    void on_largestNumberFirstCheckBox_stateChanged(int );
-    void on_secondMaxLineEdit_editingFinished();
-    void on_secondMinLineEdit_editingFinished();
-    void on_maxNumberLineEdit_editingFinished();
-    void on_minNumberLineEdit_editingFinished();
+
 };
 
 #endif // SUBTRACTIONCONFIGFRAME_H

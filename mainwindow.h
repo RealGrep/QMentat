@@ -20,7 +20,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     void newQuestion();
-    //! \todo Test method, remove when done
+    //! \todo Test method for SQL, remove when done
     void testSQL();
 
 protected:
@@ -48,7 +48,6 @@ private slots:
     void on_actionMultiplication_triggered();
     void on_actionAddition_triggered();
     void on_lineEdit_returnPressed();
-    void on_lineEdit_editingFinished();
 };
 
 #endif // MAINWINDOW_H

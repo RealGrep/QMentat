@@ -8,7 +8,7 @@
 #include "rootsconfigframe.h"
 #include "mainwindow.h"
 #include "practicemodule.h"
-//#include "questiondisplayform.h"R
+//#include "questiondisplayform.h"
 #include "mathdisplayform.h"
 #include "random.h"
 #include "bigfixedpoint.h"
@@ -20,7 +20,6 @@ RootsModule::RootsModule(MainWindow *mw)
 
     // Init sane defaults
     root = 0;
-
     genRoot = 0;
 
     // Read config
@@ -145,104 +144,90 @@ void RootsModule::rootRangeUpdated()
     genRoot = new RandomInt<int>(rootMin, rootMax);
 }
 
-void RootsModule::setMaximum(BigFixedPoint newMax)
+void RootsModule::setSettings(BigFixedPoint newFirstMin,
+                              BigFixedPoint newFirstMax,
+                              int newRootMin,
+                              int newRootMax,
+                              bool newIntsOnly,
+                              int newDecimals,
+                              bool newRoundingMode)
 {
-    if ((max != newMax)
-        || (max.getDecimalPlaces() != newMax.getDecimalPlaces()))
+    bool settingsChanged = false;
+
+    // RANGE
+    if ((max != newFirstMax)
+     || (max.getDecimalPlaces() != newFirstMax.getDecimalPlaces()))
     {
-        max = newMax;
+        max = newFirstMax;
         QSettings settings;
         settings.setValue("rootsmodule/max", max.toString());
-
-        mainWindow->newQuestion();
+        settingsChanged = true;
     }
-}
 
-void RootsModule::setMinimum(BigFixedPoint newMin)
-{
-    if ((min != newMin)
-        || (min.getDecimalPlaces() != newMin.getDecimalPlaces()))
+    if ((min != newFirstMin)
+     || (min.getDecimalPlaces() != newFirstMin.getDecimalPlaces()))
     {
-        min = newMin;
+        min = newFirstMin;
         QSettings settings;
         settings.setValue("rootsmodule/min", min.toString());
-
-        mainWindow->newQuestion();
+        settingsChanged = true;
     }
-}
 
-void RootsModule::setRootMaximum(int newMax)
-{
-    if (this->rootMax != newMax)
+    if (rootMax != newRootMax)
     {
-        rootMax = newMax;
+        rootMax = newRootMax;
         QSettings settings;
         settings.setValue("rootsmodule/rootmax", rootMax);
-
-        rootRangeUpdated();
-        mainWindow->newQuestion();
+        settingsChanged = true;
     }
-}
 
-void RootsModule::setRootMinimum(int newMin)
-{
-    if (this->rootMin != newMin)
+    if (rootMin != newRootMin)
     {
-        this->rootMin = newMin;
+        rootMin = newRootMin;
         QSettings settings;
         settings.setValue("rootsmodule/rootmin", rootMin);
-
-        rootRangeUpdated();
-        mainWindow->newQuestion();
+        settingsChanged = true;
     }
-}
-void RootsModule::setDecimalPlaces(int newDecimals)
-{
+
+    // RESULTS
     if (decimalPlaces != newDecimals)
     {
         decimalPlaces = newDecimals;
         QSettings settings;
         settings.setValue("rootsmodule/decimalplaces", decimalPlaces);
-
-        //rootRangeUpdated();
-        mainWindow->newQuestion();
+        settingsChanged = true;
     }
-}
 
-void RootsModule::setRoundingMode(bool rnd)
-{
-    if (roundingMode != rnd)
+    if (roundingMode != newRoundingMode)
     {
-        roundingMode = rnd;
+        roundingMode = newRoundingMode;
         BigFixedPoint::setRounding(roundingMode);
         QSettings settings;
         settings.setValue("rootsmodule/roundingmode", roundingMode);
-
-        mainWindow->newQuestion();
+        settingsChanged = true;
     }
-}
 
-void RootsModule::setIntegersOnly(bool intsOnly)
-{
-    if (integersOnly != intsOnly)
+    if (integersOnly != newIntsOnly)
     {
-        integersOnly = intsOnly;
+        integersOnly = newIntsOnly;
         QSettings settings;
         settings.setValue("rootsmodule/integersonly", integersOnly);
+        settingsChanged = true;
+    }
 
+    if (settingsChanged)
+    {
+        rootRangeUpdated();
         mainWindow->newQuestion();
     }
 }
 
 bool RootsModule::applyConfig()
 {
-    /*
-    if (configFrame != nullptr)
+    if (configFrame != 0)
     {
         return configFrame->applyConfig();
     }
 
     return false;
-    */
-    return true;
 }

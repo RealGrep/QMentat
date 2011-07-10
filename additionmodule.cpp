@@ -104,8 +104,6 @@ QString AdditionModule::question()
 
     // Calculate answer
     answer = firstNumber + lastNumber;
-    //std::cout << "first = " << firstNumber.toString().toStdString() << std::endl;
-    //std::cout << "last = " << lastNumber.toString().toStdString() << std::endl;
 
     // Build question string
     QString q = QString("%1\n+ %2")
@@ -124,7 +122,6 @@ bool AdditionModule::isCorrect(QString& answerGiven)
     BigFixedPoint answerNum(answerGiven);
     answerNum.scale(answer.getDecimalPlaces());
 
-    //qDebug() << "isCorrect: answerGiven = " << answerNum.toString() << "; answer = " << answer.toString();
     if (answerNum == answer)
     {
         return true;
@@ -144,79 +141,72 @@ QString AdditionModule::getAnswerString()
             .arg(answer.toString());
 }
 
-void AdditionModule::setFirstMaximum(BigFixedPoint newMax)
+void AdditionModule::setSettings(BigFixedPoint newFirstMin,
+                                 BigFixedPoint newFirstMax,
+                                 BigFixedPoint newLastMin,
+                                 BigFixedPoint newLastMax,
+                                 bool newLargestNumberFirst)
 {
-    if ((firstMax != newMax)
-        || (firstMax.getDecimalPlaces() != newMax.getDecimalPlaces()))
+    bool settingsChanged = false;
+
+    // RANGE
+    if ((firstMax != newFirstMax)
+     || (firstMax.getDecimalPlaces() != newFirstMax.getDecimalPlaces()))
     {
-        firstMax = newMax;
+        firstMax = newFirstMax;
         QSettings settings;
         settings.setValue("additionmodule/firstmax", firstMax.toString());
-
-        mainWindow->newQuestion();
+        settingsChanged = true;
     }
-}
 
-void AdditionModule::setFirstMinimum(BigFixedPoint newMin)
-{
-    if ((firstMin != newMin)
-        || (firstMin.getDecimalPlaces() != newMin.getDecimalPlaces()))
+    if ((firstMin != newFirstMin)
+     || (firstMin.getDecimalPlaces() != newFirstMin.getDecimalPlaces()))
     {
-        firstMin = newMin;
+        firstMin = newFirstMin;
         QSettings settings;
         settings.setValue("additionmodule/firstmin", firstMin.toString());
-
-        mainWindow->newQuestion();
+        settingsChanged = true;
     }
-}
 
-void AdditionModule::setLastMaximum(BigFixedPoint newMax)
-{
-    if ((lastMax != newMax)
-        || (lastMax.getDecimalPlaces() != newMax.getDecimalPlaces()))
+    if ((lastMax != newLastMax)
+     || (lastMax.getDecimalPlaces() != newLastMax.getDecimalPlaces()))
     {
-        lastMax = newMax;
+        lastMax = newLastMax;
         QSettings settings;
         settings.setValue("additionmodule/lastmax", lastMax.toString());
-
-        mainWindow->newQuestion();
+        settingsChanged = true;
     }
-}
 
-void AdditionModule::setLastMinimum(BigFixedPoint newMin)
-{
-    if ((lastMin != newMin)
-        || (lastMin.getDecimalPlaces() != newMin.getDecimalPlaces()))
+    if ((lastMin != newLastMin)
+     || (lastMin.getDecimalPlaces() != newLastMin.getDecimalPlaces()))
     {
-        lastMin = newMin;
+        lastMin = newLastMin;
         QSettings settings;
         settings.setValue("additionmodule/lastmin", lastMin.toString());
-
-        mainWindow->newQuestion();
+        settingsChanged = true;
     }
-}
 
-void AdditionModule::setLargestNumberFirst(bool b)
-{
-    if (largestNumberFirst != b)
+    // RESULTS
+    if (this->largestNumberFirst != newLargestNumberFirst)
     {
-        largestNumberFirst = b;
+        this->largestNumberFirst = newLargestNumberFirst;
         QSettings settings;
-        settings.setValue("additionmodule/largestNumberFirst",
-                          largestNumberFirst);
+        settings.setValue("additionmodule/largestNumberFirst", largestNumberFirst);
+        settingsChanged = true;
+    }
+
+    if (settingsChanged)
+    {
         mainWindow->newQuestion();
     }
 }
 
 bool AdditionModule::applyConfig()
 {
-    /*
-    if (configFrame != nullptr)
+    if (configFrame != 0)
     {
         return configFrame->applyConfig();
     }
 
     return false;
-    */
-    return true;
 }

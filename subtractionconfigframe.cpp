@@ -10,15 +10,12 @@ SubtractionConfigFrame::SubtractionConfigFrame(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QBigFixedValidator *bfv = new QBigFixedValidator(
-            BigFixedPoint(QString("-9999999999999999999999999999")),
-            BigFixedPoint(QString("9999999999999999999999999999")),
-            this);
+    QBigFixedValidator *numValidator = new QBigFixedValidator(this);
 
-    ui->minNumberLineEdit->setValidator(bfv);
-    ui->maxNumberLineEdit->setValidator(bfv);
-    ui->secondMinLineEdit->setValidator(bfv);
-    ui->secondMaxLineEdit->setValidator(bfv);
+    ui->minNumberLineEdit->setValidator(numValidator);
+    ui->maxNumberLineEdit->setValidator(numValidator);
+    ui->secondMinLineEdit->setValidator(numValidator);
+    ui->secondMaxLineEdit->setValidator(numValidator);
 
     this->module = 0;
 }
@@ -58,36 +55,34 @@ void SubtractionConfigFrame::setLargestNumberFirst(bool b)
     ui->largestNumberFirstCheckBox->setChecked(b);
 }
 
-void SubtractionConfigFrame::on_minNumberLineEdit_editingFinished()
+bool SubtractionConfigFrame::applyConfig()
 {
-    BigFixedPoint newMin(ui->minNumberLineEdit->text());
-    this->module->setFirstMinimum(newMin);
-}
+    int largestNumberFirst = ui->largestNumberFirstCheckBox->isChecked();
 
-void SubtractionConfigFrame::on_maxNumberLineEdit_editingFinished()
-{
-    BigFixedPoint newMax(ui->maxNumberLineEdit->text());
-    this->module->setFirstMaximum(newMax);
-}
+    QString str = ui->minNumberLineEdit->text();
+    BigFixedPoint firstMin(str.remove(QLocale::system().groupSeparator()));
 
-void SubtractionConfigFrame::on_secondMinLineEdit_editingFinished()
-{
-    BigFixedPoint newMin(ui->secondMinLineEdit->text());
-    this->module->setLastMinimum(newMin);
-}
+    str = ui->maxNumberLineEdit->text();
+    BigFixedPoint firstMax(str.remove(QLocale::system().groupSeparator()));
 
-void SubtractionConfigFrame::on_secondMaxLineEdit_editingFinished()
-{
-    BigFixedPoint newMax(ui->secondMaxLineEdit->text());
-    this->module->setLastMaximum(newMax);
-}
+    str = ui->secondMinLineEdit->text();
+    BigFixedPoint lastMin(str.remove(QLocale::system().groupSeparator()));
 
-void SubtractionConfigFrame::on_largestNumberFirstCheckBox_stateChanged(int state)
-{
-    if (state == Qt::Checked)
+    str = ui->secondMaxLineEdit->text();
+    BigFixedPoint lastMax(str.remove(QLocale::system().groupSeparator()));
+
+    if (firstMax < firstMin)
     {
-        this->module->setLargestNumberFirst(true);
+        QMessageBox::warning(this, tr("Range Validation Error"), tr("Maximum of first number is smaller than the minimum."), QMessageBox::Ok);
+        return false;
+    } else if (lastMax < lastMin) {
+        QMessageBox::warning(this, tr("Range Validation Error"), tr("Maximum of last number is smaller than the minimum."), QMessageBox::Ok);
+        return false;
     } else {
-        this->module->setLargestNumberFirst(false);
+        module->setSettings(firstMin, firstMax, lastMin, lastMax,
+                            largestNumberFirst);
     }
+
+    return true;
 }
+

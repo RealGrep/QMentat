@@ -27,15 +27,13 @@ public:
     QuestionDisplay *getDisplayFrame();
     QString getAnswerString();
 
-    //QString decimalize(quint64 num, quint32 decimals);
-
-    void setFirstMaximum(BigFixedPoint newMax);
-    void setFirstMinimum(BigFixedPoint newMin);
-    void setLastMaximum(BigFixedPoint newMax);
-    void setLastMinimum(BigFixedPoint newMin);
-    void setLargestNumberFirst(bool b);
-
     bool applyConfig();
+
+    void setSettings(BigFixedPoint newFirstMin,
+                     BigFixedPoint newFirstMax,
+                     BigFixedPoint newLastMin,
+                     BigFixedPoint newLastMax,
+                     bool newLargestNumberFirst);
 
 private:
     MainWindow *mainWindow;

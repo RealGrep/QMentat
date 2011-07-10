@@ -27,14 +27,14 @@ public:
     QuestionDisplay* getDisplayFrame();
     QString getAnswerString();
 
-    void setMaximum(BigFixedPoint newMax);
-    void setMinimum(BigFixedPoint newMin);
-    void setPowerMaximum(int newMax);
-    void setPowerMinimum(int newMin);
-    void setDecimalPlaces(int newDecimals);
-    void setRoundingMode(bool rnd);
-
     bool applyConfig();
+
+    void setSettings(BigFixedPoint newFirstMin,
+                     BigFixedPoint newFirstMax,
+                     int newPowerMin,
+                     int newPowerMax,
+                     int newDecimals,
+                     bool newRoundingMode);
 
 private:
     MainWindow *mainWindow;

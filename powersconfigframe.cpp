@@ -3,6 +3,7 @@
 
 #include "bigfixedpoint.h"
 #include "qbigfixedvalidator.h"
+#include "powersmodule.h"
 
 PowersConfigFrame::PowersConfigFrame(QWidget *parent) :
         QFrame(parent),
@@ -10,13 +11,9 @@ PowersConfigFrame::PowersConfigFrame(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QBigFixedValidator *bfv = new QBigFixedValidator(
-            BigFixedPoint(QString("-9999999999999999999999999999")),
-            BigFixedPoint(QString("9999999999999999999999999999")),
-            this);
-
-    ui->minNumberLineEdit->setValidator(bfv);
-    ui->maxNumberLineEdit->setValidator(bfv);
+    QBigFixedValidator *numValidator = new QBigFixedValidator(this);
+    ui->minNumberLineEdit->setValidator(numValidator);
+    ui->maxNumberLineEdit->setValidator(numValidator);
 
     QIntValidator *powerValidator = new QIntValidator(0, 1000, this);
     ui->maxPowerLineEdit->setValidator(powerValidator);
@@ -68,6 +65,7 @@ void PowersConfigFrame::setRoundingMode(int mode)
     ui->roundingComboBox->setCurrentIndex(mode);
 }
 
+#if 0
 void PowersConfigFrame::on_minNumberLineEdit_editingFinished()
 {
     BigFixedPoint newMin(ui->minNumberLineEdit->text());
@@ -101,4 +99,37 @@ void PowersConfigFrame::on_decimalPlacesLineEdit_editingFinished()
 void PowersConfigFrame::on_roundingComboBox_currentIndexChanged(int index)
 {
     this->module->setRoundingMode(index == 1);
+}
+#endif
+
+bool PowersConfigFrame::applyConfig()
+{
+    int rounding = ui->roundingComboBox->currentIndex() == 1;
+    int decimalPlaces = ui->decimalPlacesLineEdit->text().toInt();
+
+    QString str = ui->minNumberLineEdit->text();
+    BigFixedPoint firstMin(str.remove(QLocale::system().groupSeparator()));
+
+    str = ui->maxNumberLineEdit->text();
+    BigFixedPoint firstMax(str.remove(QLocale::system().groupSeparator()));
+
+    int powerMin = ui->minPowerLineEdit->text().toInt();
+    //BigFixedPoint lastMin(str.remove(QLocale::system().groupSeparator()));
+
+    int powerMax = ui->maxPowerLineEdit->text().toInt();
+    //BigFixedPoint lastMax(str.remove(QLocale::system().groupSeparator()));
+
+    if (firstMax < firstMin)
+    {
+        QMessageBox::warning(this, tr("Range Validation Error"), tr("Maximum of base number is smaller than the minimum."), QMessageBox::Ok);
+        return false;
+    } else if (powerMax < powerMin) {
+        QMessageBox::warning(this, tr("Range Validation Error"), tr("Maximum power is smaller than the minimum."), QMessageBox::Ok);
+        return false;
+    } else {
+        module->setSettings(firstMin, firstMax, powerMin, powerMax,
+                            decimalPlaces, rounding);
+    }
+
+    return true;
 }

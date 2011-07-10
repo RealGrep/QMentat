@@ -2,10 +2,8 @@
 #define ROOTSCONFIGFRAME_H
 
 #include <QFrame>
-#include "rootsmodule.h"
 
 class QString;
-
 class RootsModule;
 
 namespace Ui {
@@ -29,19 +27,16 @@ public:
     void setRoundingMode(int mode);
     void setIntegersOnly(bool intsOnly);
 
-    RootsModule *module;
+    bool applyConfig();
 
 private:
     Ui::RootsConfigFrame *ui;
 
+    RootsModule *module;
+
 private slots:
-    void on_roundingComboBox_currentIndexChanged(int index);
     void on_integerResultCheckBox_stateChanged(int );
-    void on_decimalPlacesLineEdit_editingFinished();
-    void on_maxRootLineEdit_editingFinished();
-    void on_minRootLineEdit_editingFinished();
-    void on_maxNumberLineEdit_editingFinished();
-    void on_minNumberLineEdit_editingFinished();
+
 };
 
 #endif // ROOTSCONFIGFRAME_H

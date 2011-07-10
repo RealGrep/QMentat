@@ -2,9 +2,11 @@
 #define ADDITIONCONFIGFRAME_H
 
 #include <QFrame>
-#include "additionmodule.h"
 
+class QWidget;
+class QString;
 class AdditionModule;
+class QBigFixedValidator;
 
 namespace Ui {
     class AdditionConfigFrame;
@@ -25,17 +27,15 @@ public:
     void setLastMaximum(QString max);
     void setLargestNumberFirst(bool b);
 
-    AdditionModule *module;
+    bool applyConfig();
 
 private:
     Ui::AdditionConfigFrame *ui;
 
+    AdditionModule *module;
+
 private slots:
-    void on_largestNumberFirstCheckBox_stateChanged(int );
-    void on_secondMaxLineEdit_editingFinished();
-    void on_secondMinLineEdit_editingFinished();
-    void on_maxNumberLineEdit_editingFinished();
-    void on_minNumberLineEdit_editingFinished();
+
 };
 
 #endif // ADDITIONCONFIGFRAME_H

@@ -61,14 +61,11 @@ public:
         {
             return false;
         }
+
         if (*this < std::numeric_limits<qint64>::min())
         {
-            qDebug() << "Smaller than limit";
-
             return false;
         } else if (*this > std::numeric_limits<qint64>::max()) {
-            qDebug() << "Larger than limit";
-
             return false;
         }
 

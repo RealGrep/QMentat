@@ -93,8 +93,6 @@ QString SubtractionModule::question()
 
     // Calculate answer
     answer = firstNumber - lastNumber;
-    //std::cout << "first = " << firstNumber.toString().toStdString() << std::endl;
-    //std::cout << "last = " << lastNumber.toString().toStdString() << std::endl;
 
     // Build question string
     QString q = QString("%1\n- %2")
@@ -126,80 +124,72 @@ QString SubtractionModule::getAnswerString()
             .arg(answer.toString());
 }
 
-void SubtractionModule::setFirstMaximum(BigFixedPoint newMax)
+void SubtractionModule::setSettings(BigFixedPoint newFirstMin,
+                                 BigFixedPoint newFirstMax,
+                                 BigFixedPoint newLastMin,
+                                 BigFixedPoint newLastMax,
+                                 bool newLargestNumberFirst)
 {
-    if ((firstMax != newMax)
-        || (firstMax.getDecimalPlaces() != newMax.getDecimalPlaces()))
+    bool settingsChanged = false;
+
+    // RANGE
+    if ((firstMax != newFirstMax)
+     || (firstMax.getDecimalPlaces() != newFirstMax.getDecimalPlaces()))
     {
-        firstMax = newMax;
+        firstMax = newFirstMax;
         QSettings settings;
         settings.setValue("subtractionmodule/firstmax", firstMax.toString());
-
-        mainWindow->newQuestion();
+        settingsChanged = true;
     }
-}
 
-void SubtractionModule::setFirstMinimum(BigFixedPoint newMin)
-{
-    if ((firstMin != newMin)
-        || (firstMin.getDecimalPlaces() != newMin.getDecimalPlaces()))
+    if ((firstMin != newFirstMin)
+     || (firstMin.getDecimalPlaces() != newFirstMin.getDecimalPlaces()))
     {
-        firstMin = newMin;
+        firstMin = newFirstMin;
         QSettings settings;
         settings.setValue("subtractionmodule/firstmin", firstMin.toString());
-
-        mainWindow->newQuestion();
+        settingsChanged = true;
     }
-}
 
-void SubtractionModule::setLastMaximum(BigFixedPoint newMax)
-{
-    if ((lastMax != newMax)
-        || (lastMax.getDecimalPlaces() != newMax.getDecimalPlaces()))
+    if ((lastMax != newLastMax)
+     || (lastMax.getDecimalPlaces() != newLastMax.getDecimalPlaces()))
     {
-        lastMax = newMax;
+        lastMax = newLastMax;
         QSettings settings;
         settings.setValue("subtractionmodule/lastmax", lastMax.toString());
-
-        mainWindow->newQuestion();
+        settingsChanged = true;
     }
-}
 
-void SubtractionModule::setLastMinimum(BigFixedPoint newMin)
-{
-    if ((lastMin != newMin)
-        || (lastMin.getDecimalPlaces() != newMin.getDecimalPlaces()))
+    if ((lastMin != newLastMin)
+     || (lastMin.getDecimalPlaces() != newLastMin.getDecimalPlaces()))
     {
-        lastMin = newMin;
+        lastMin = newLastMin;
         QSettings settings;
         settings.setValue("subtractionmodule/lastmin", lastMin.toString());
-
-        mainWindow->newQuestion();
+        settingsChanged = true;
     }
-}
 
-void SubtractionModule::setLargestNumberFirst(bool b)
-{
-    if (largestNumberFirst != b)
+    // RESULTS
+    if (this->largestNumberFirst != newLargestNumberFirst)
     {
-        largestNumberFirst = b;
+        this->largestNumberFirst = newLargestNumberFirst;
         QSettings settings;
-        settings.setValue("subtractionmodule/largestNumberFirst",
-                          largestNumberFirst);
+        settings.setValue("subtractionmodule/largestNumberFirst", largestNumberFirst);
+        settingsChanged = true;
+    }
 
+    if (settingsChanged)
+    {
         mainWindow->newQuestion();
     }
 }
 
 bool SubtractionModule::applyConfig()
 {
-    /*
-    if (configFrame != nullptr)
+    if (configFrame != 0)
     {
         return configFrame->applyConfig();
     }
 
     return false;
-    */
-    return true;
 }

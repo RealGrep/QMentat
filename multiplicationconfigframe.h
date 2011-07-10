@@ -1,10 +1,12 @@
 #ifndef MULTIPLICATIONCONFIGFRAME_H
 #define MULTIPLICATIONCONFIGFRAME_H
 
-#include "multiplicationmodule.h"
+#include <QFrame>
 
-class QFrame;
+class QWidget;
 class QString;
+class QBigFixedValidator;
+class MultiplicationModule;
 
 namespace Ui {
     class MultiplicationConfigFrame;
@@ -27,19 +29,15 @@ public:
     void setDecimalPlaces(int decimalPlaces);
     void setRoundingMode(int mode);
 
-    MultiplicationModule *module;
+    bool applyConfig();
 
 private:
     Ui::MultiplicationConfigFrame *ui;
 
+    MultiplicationModule *module;
+
 private slots:
-    void on_roundingComboBox_currentIndexChanged(int index);
-    void on_decimalPlacesLineEdit_editingFinished();
-    void on_largestNumberFirstCheckBox_stateChanged(int );
-    void on_secondMaxLineEdit_editingFinished();
-    void on_secondMinLineEdit_editingFinished();
-    void on_maxNumberLineEdit_editingFinished();
-    void on_minNumberLineEdit_editingFinished();
+
 };
 
 #endif // MULTIPLICATIONCONFIGFRAME_H

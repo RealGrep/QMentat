@@ -27,15 +27,15 @@ public:
     QuestionDisplay* getDisplayFrame();
     QString getAnswerString();
 
-    void setMaximum(BigFixedPoint newMax);
-    void setMinimum(BigFixedPoint newMin);
-    void setRootMaximum(int newMax);
-    void setRootMinimum(int newMin);
-    void setDecimalPlaces(int newDecimals);
-    void setIntegersOnly(bool intsOnly);
-    void setRoundingMode(bool rnd);
-
     bool applyConfig();
+
+    void setSettings(BigFixedPoint newFirstMin,
+                     BigFixedPoint newFirstMax,
+                     int newRootMin,
+                     int newRootMax,
+                     bool newIntsOnly,
+                     int newDecimals,
+                     bool newRoundingMode);
 
 private:
     MainWindow *mainWindow;

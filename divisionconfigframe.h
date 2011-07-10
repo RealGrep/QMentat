@@ -2,8 +2,11 @@
 #define DIVISIONCONFIGFRAME_H
 
 #include <QFrame>
-#include "divisionmodule.h"
-#include "qbigfixedvalidator.h"
+
+class QWidget;
+class QString;
+class QBigFixedValidator;
+class DivisionModule;
 
 namespace Ui {
     class DivisionConfigFrame;
@@ -31,21 +34,14 @@ public:
 
     bool applyConfig();
 
-    DivisionModule *module;
-
 private:
     Ui::DivisionConfigFrame *ui;
+
+    DivisionModule *module;
     QBigFixedValidator *numValidator;
 
 private slots:
-    void on_roundingComboBox_currentIndexChanged(int index);
     void on_integerResultCheckBox_stateChanged(int );
-    void on_decimalPlacesLineEdit_editingFinished();
-    void on_largestNumberFirstCheckBox_stateChanged(int );
-    void on_secondMaxLineEdit_editingFinished();
-    void on_secondMinLineEdit_editingFinished();
-    void on_maxNumberLineEdit_editingFinished();
-    void on_minNumberLineEdit_editingFinished();
 };
 
 #endif // DIVISIONCONFIGFRAME_H

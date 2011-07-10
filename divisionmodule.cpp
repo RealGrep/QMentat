@@ -128,7 +128,6 @@ bool DivisionModule::isRangeOk(qint64 firstMin, qint64 firstMax,
     {
         for (qint64 j = lastMin; j < lastMax; ++j)
         {
-            //std::cout << "[" << i << "/" << j << "]" << std::endl;
             if (((i % j) == 0) && (i != j))
             {
                 isOk = true;
@@ -153,18 +152,12 @@ std::vector<qint64> *DivisionModule::getDivisors(qint64 num,
                                                  qint64 max)
 {
     std::vector<qint64> *divisors = new std::vector<qint64>();
-    //std::cout << num << " is divisible by ";
     // No use going past sqrt(num)
-    //qint64 last = std::min(num/2, max) + 1;
     qint64 last = std::min(static_cast<qint64>(sqrt(num)), max) + 1;
-    //std::cout << "[" << min << "->" << last << "] ";
     for (unsigned long i = min; i <= last; ++i)
     {
         if ((num % i) == 0)
         {
-            //isOk = true;
-            //std::cout << i << " ";
-
             divisors->push_back(i);
             if ((num / i) > last)
             {
@@ -172,38 +165,9 @@ std::vector<qint64> *DivisionModule::getDivisors(qint64 num,
             }
         }
     }
-    //std::cout << std::endl;
 
     return divisors;
 }
-#if 0
-std::vector<BigFixedPoint> *DivisionModule::getDivisors(BigFixedPoint& num,
-                                                        BigFixedPoint& min,
-                                                        BigFixedPoint& max)
-{
-    std::vector<BigFixedPoint> *divisors = new std::vector<BigFixedPoint>();
-    //qDebug() << num.toString() << " is divisible by ";
-    // No use going past num/2
-    BigFixedPoint minScaled(min);
-    minScaled.scale(num.getDecimalPlaces());
-    BigFixedPoint maxScaled(max);
-    maxScaled.scale(num.getDecimalPlaces());
-    BigFixedPoint last = BigFixedPoint::min(num/2, maxScaled) + 1;
-    //qDebug() << "[" << min.toString() << "->" << last.toString() << "] ";
-    for (BigFixedPoint i = minScaled; i < last; i += 1)
-    {
-        if ((num % i) == 0)
-        {
-            //isOk = true;
-            //qDebug() << i.toString() << " ";
-            divisors->push_back(BigFixedPoint(i));
-        }
-    }
-    //std::cout << std::endl;
-
-    return divisors;
-}
-#endif
 
 /*! \returns QString containing new question in MathML format.
  */
@@ -213,11 +177,8 @@ QString DivisionModule::question()
     {
         assert(genFirst != 0);
 
-        //mainWindow->showMessage(QString("Finding divisors, please wait, as this can be slow for large number..."));
-        //mainWindow->statusBar()->show();
-
         // Check range
-        // TODO: Fix it so it can never happen
+        //! \todo Fix it so a bad range for division can never happen
         bool rangeOk = isRangeOk(firstMinIR, firstMaxIR,
                                  lastMinIR, lastMaxIR);
         if (!rangeOk) return "<math>ERR</math>";
@@ -240,7 +201,6 @@ QString DivisionModule::question()
 
             if (divisors->empty()) {
                 // No divisors, try again
-                //std::cout << "No divisors!" << std::endl;
                 lastNumberIR = 0;
                 delete divisors;
                 continue;
@@ -256,52 +216,11 @@ QString DivisionModule::question()
 
         } while (lastNumberIR == 0);
 
-        //mainWindow->statusBar()->showMessage(QString(""));
         QString q = QString("<math><mfrac><mi>%L1</mi><mn>%L2</mn></mfrac></math>\n")
                     .arg(firstNumberIR)
                     .arg(lastNumberIR);
 
         return q;
-#if 0
-        // Ensure we don't get a division by 0
-        int i = 0;
-        do {
-            // Generate the numbers
-            firstNumber = BigFixedPoint::random(firstMin, firstMax);
-            //qDebug() << "firstNumber = " << firstNumber.toString();
-
-            std::vector<BigFixedPoint> *divisors = getDivisors(firstNumber,
-                                                               lastMin, lastMax);
-            if (divisors->empty()) {
-                // No divisors, try again
-                //std::cout << "No divisors!" << std::endl;
-                lastNumber = 0;
-                delete divisors;
-                continue;
-            } else {
-                //! \todo Use a proper PRNG
-                int random = qrand() % divisors->size();
-                lastNumber = (*divisors)[random];
-                delete divisors;
-            }
-
-            answer = firstNumber / lastNumber;
-            answer.scale(0);
-            ++i;
-        } while ((i < 1000) && (lastNumber == 0));
-
-        //! \todo Handle this better!
-        if (i >= 1000)
-        {
-            return "<math>ERR</math>";
-        }
-
-        QString q = QString("<math><mfrac><mi>%1</mi><mn>%2</mn></mfrac></math>\n")
-                    .arg(firstNumber.toString())
-                    .arg(lastNumber.toString());
-
-        return q;
-#endif
     } else {
         firstNumber = BigFixedPoint::random(firstMin, firstMax);
         lastNumber = BigFixedPoint::random(lastMin, lastMax);
@@ -556,194 +475,6 @@ void DivisionModule::setSettings(qint64 newFirstMin, qint64 newFirstMax,
 
 }
 
-#if 0
-/*! Set maximum for the dividend.
- * \param newMax New maximum for the dividend.
- */
-void DivisionModule::setFirstMaximum(BigFixedPoint newMax)
-{
-    if ((firstMax != newMax)
-     || (firstMax.getDecimalPlaces() != newMax.getDecimalPlaces()))
-    {
-        firstMax = newMax;
-        QSettings settings;
-        settings.setValue("divisionmodule/firstmax", firstMax.toString());
-
-        //qDebug() << "First max (BFP) = " << firstMax.toString();
-        mainWindow->newQuestion();
-    }
-}
-
-/*! Set minimum for the dividend.
- * \param newMin New minimum for the dividend.
- */
-void DivisionModule::setFirstMinimum(BigFixedPoint newMin)
-{
-    if ((firstMin != newMin)
-     || (firstMin.getDecimalPlaces() != newMin.getDecimalPlaces()))
-    {
-        firstMin = newMin;
-        QSettings settings;
-        settings.setValue("divisionmodule/firstmin", firstMin.toString());
-
-        //qDebug() << "First min (BFP) = " << firstMin.toString();
-        mainWindow->newQuestion();
-    }
-}
-
-/*! Set maximum for the divisor.
- * \param newMax New maximum for the divisor.
- */
-void DivisionModule::setLastMaximum(BigFixedPoint newMax)
-{
-    if ((lastMax != newMax)
-     || (lastMax.getDecimalPlaces() != newMax.getDecimalPlaces()))
-    {
-        lastMax = newMax;
-        QSettings settings;
-        settings.setValue("divisionmodule/lastmax", lastMax.toString());
-
-        //qDebug() << "Last max (BFP) = " << lastMax.toString();
-        mainWindow->newQuestion();
-    }
-}
-
-/*! Set minimum for the divisor.
- * \param newMin New minimum for the divisor.
- */
-void DivisionModule::setLastMinimum(BigFixedPoint newMin)
-{
-    if ((lastMin != newMin)
-     || (lastMin.getDecimalPlaces() != newMin.getDecimalPlaces()))
-    {
-        lastMin = newMin;
-        QSettings settings;
-        settings.setValue("divisionmodule/lastmin", lastMin.toString());
-
-        //qDebug() << "Last min (BFP) = " << lastMin.toString();
-
-        mainWindow->newQuestion();
-    }
-}
-
-void DivisionModule::setLargestNumberFirst(bool b)
-{
-    if (this->largestNumberFirst != b)
-    {
-        this->largestNumberFirst = b;
-        QSettings settings;
-        settings.setValue("divisionmodule/largestNumberFirst", largestNumberFirst);
-
-        mainWindow->newQuestion();
-    }
-}
-
-void DivisionModule::setDecimalPlaces(int newDecimals)
-{
-    if (decimalPlaces != newDecimals)
-    {
-        decimalPlaces = newDecimals;
-        QSettings settings;
-        settings.setValue("divisionmodule/decimalplaces", decimalPlaces);
-
-        mainWindow->newQuestion();
-    }
-}
-
-void DivisionModule::setRoundingMode(bool rnd)
-{
-    if (roundingMode != rnd)
-    {
-        roundingMode = rnd;
-        BigFixedPoint::setRounding(roundingMode);
-        QSettings settings;
-        settings.setValue("divisionmodule/roundingmode", roundingMode);
-
-        mainWindow->newQuestion();
-    }
-}
-
-void DivisionModule::setIntegersOnly(bool intsOnly)
-{
-    if (integersOnly != intsOnly)
-    {
-        integersOnly = intsOnly;
-        QSettings settings;
-        settings.setValue("divisionmodule/integersonly", integersOnly);
-
-        if (integersOnly)
-        {
-            firstRangeUpdated();
-        }
-        mainWindow->newQuestion();
-    }
-}
-
-void DivisionModule::setFirstMaximum(qint64 newMax)
-{
-    if (firstMaxIR != newMax)
-    {
-        firstMaxIR = newMax;
-        QSettings settings;
-        settings.setValue("divisionmodule/firstmax", QString("%1").arg(firstMaxIR));
-
-        qDebug() << "New first max = " << firstMaxIR;
-        firstRangeUpdated();
-        mainWindow->newQuestion();
-    }
-}
-
-/*! Set minimum for the dividend.
- * \param newMin New minimum for the dividend.
- */
-void DivisionModule::setFirstMinimum(qint64 newMin)
-{
-    if (firstMinIR != newMin)
-    {
-        firstMinIR = newMin;
-        QSettings settings;
-        settings.setValue("divisionmodule/firstmin", QString("%1").arg(firstMinIR));
-
-        qDebug() << "New first min = " << firstMinIR;
-        firstRangeUpdated();
-        mainWindow->newQuestion();
-    }
-}
-
-/*! Set maximum for the divisor.
- * \param newMax New maximum for the divisor.
- */
-void DivisionModule::setLastMaximum(qint64 newMax)
-{
-    if (lastMaxIR != newMax)
-    {
-        lastMaxIR = newMax;
-        QSettings settings;
-        settings.setValue("divisionmodule/lastmax", QString("%1").arg(lastMaxIR));
-
-        qDebug() << "New last max = " << lastMaxIR;
-        firstRangeUpdated();
-        mainWindow->newQuestion();
-    }
-}
-
-/*! Set minimum for the divisor.
- * \param newMin New minimum for the divisor.
- */
-void DivisionModule::setLastMinimum(qint64 newMin)
-{
-    if (lastMinIR != newMin)
-    {
-        lastMinIR = newMin;
-        QSettings settings;
-        settings.setValue("divisionmodule/lastmin", QString("%1").arg(lastMinIR));
-
-        qDebug() << "New last min = " << lastMinIR;
-        firstRangeUpdated();
-        mainWindow->newQuestion();
-    }
-}
-#endif
 void DivisionModule::firstRangeUpdated()
 {
     // Get rid of previous generator
@@ -753,7 +484,6 @@ void DivisionModule::firstRangeUpdated()
     // Make new generator
     qint64 minGen = std::min(firstMinIR, firstMaxIR);
     qint64 maxGen = std::max(firstMaxIR, firstMinIR);
-    //qDebug() << "rnd: min = " << minGen << "; max = " << maxGen;
 
     genFirst = new RandomInt<qint64>(minGen, maxGen);
 }

@@ -3,6 +3,7 @@
 
 #include "bigfixedpoint.h"
 #include "qbigfixedvalidator.h"
+#include "rootsmodule.h"
 
 RootsConfigFrame::RootsConfigFrame(QWidget *parent) :
         QFrame(parent),
@@ -10,13 +11,9 @@ RootsConfigFrame::RootsConfigFrame(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QBigFixedValidator *bfv = new QBigFixedValidator(
-            BigFixedPoint(QString("-9999999999999999999999999999")),
-            BigFixedPoint(QString("9999999999999999999999999999")),
-            this);
-
-    ui->minNumberLineEdit->setValidator(bfv);
-    ui->maxNumberLineEdit->setValidator(bfv);
+    QBigFixedValidator *numValidator = new QBigFixedValidator(this);
+    ui->minNumberLineEdit->setValidator(numValidator);
+    ui->maxNumberLineEdit->setValidator(numValidator);
 
     QIntValidator *decimalsValidator = new QIntValidator(0, 100, this);
     ui->decimalPlacesLineEdit->setValidator(decimalsValidator);
@@ -75,45 +72,39 @@ void RootsConfigFrame::setIntegersOnly(bool intsOnly)
     ui->roundingComboBox->setEnabled(!intsOnly);
 }
 
-void RootsConfigFrame::on_minNumberLineEdit_editingFinished()
-{
-    BigFixedPoint newMin(ui->minNumberLineEdit->text());
-    this->module->setMinimum(newMin);
-}
-
-void RootsConfigFrame::on_maxNumberLineEdit_editingFinished()
-{
-    BigFixedPoint newMax(ui->maxNumberLineEdit->text());
-    this->module->setMaximum(newMax);
-}
-
-void RootsConfigFrame::on_minRootLineEdit_editingFinished()
-{
-    int newMin = ui->minRootLineEdit->text().toInt();
-    this->module->setRootMinimum(newMin);
-}
-
-void RootsConfigFrame::on_maxRootLineEdit_editingFinished()
-{
-    int newMax = ui->maxRootLineEdit->text().toInt();
-    this->module->setRootMaximum(newMax);
-}
-
-void RootsConfigFrame::on_decimalPlacesLineEdit_editingFinished()
-{
-    int newDecimals = ui->decimalPlacesLineEdit->text().toInt();
-    this->module->setDecimalPlaces(newDecimals);
-}
-
 void RootsConfigFrame::on_integerResultCheckBox_stateChanged(int state)
 {
     bool intsOnly = (state == Qt::Checked);
     ui->decimalPlacesLineEdit->setEnabled(!intsOnly);
     ui->roundingComboBox->setEnabled(!intsOnly);
-    this->module->setIntegersOnly(intsOnly);
 }
 
-void RootsConfigFrame::on_roundingComboBox_currentIndexChanged(int index)
+bool RootsConfigFrame::applyConfig()
 {
-    this->module->setRoundingMode(index == 1);
+    int integersOnly = ui->integerResultCheckBox->isChecked();
+    int rounding = ui->roundingComboBox->currentIndex() == 1;
+    int decimalPlaces = ui->decimalPlacesLineEdit->text().toInt();
+
+    QString str = ui->minNumberLineEdit->text();
+    BigFixedPoint firstMin(str.remove(QLocale::system().groupSeparator()));
+
+    str = ui->maxNumberLineEdit->text();
+    BigFixedPoint firstMax(str.remove(QLocale::system().groupSeparator()));
+
+    int rootMin = ui->minRootLineEdit->text().toInt();
+    int rootMax = ui->maxRootLineEdit->text().toInt();
+
+    if (firstMax < firstMin)
+    {
+        QMessageBox::warning(this, tr("Range Validation Error"), tr("Maximum of base number is smaller than the minimum."), QMessageBox::Ok);
+        return false;
+    } else if (rootMax < rootMin) {
+        QMessageBox::warning(this, tr("Range Validation Error"), tr("Maximum root is smaller than the minimum."), QMessageBox::Ok);
+        return false;
+    } else {
+        module->setSettings(firstMin, firstMax, rootMin, rootMax,
+                            integersOnly, decimalPlaces, rounding);
+    }
+
+    return true;
 }

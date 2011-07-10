@@ -3,7 +3,6 @@
 
 #include "practicemodule.h"
 #include "bigfixedpoint.h"
-
 #include <vector>
 
 // Forward declarations
@@ -43,29 +42,12 @@ public:
                      qint64 newLastMin, qint64 newLastMax,
                      bool newlargestNumberFirst, bool newIntsOnly,
                      int newDecimals, bool newRoundingMode);
-/*
-    void setFirstMaximum(BigFixedPoint newMax);
-    void setFirstMinimum(BigFixedPoint newMin);
-    void setLastMaximum(BigFixedPoint newMax);
-    void setLastMinimum(BigFixedPoint newMin);
 
-    void setLargestNumberFirst(bool b);
-    void setDecimalPlaces(int newDecimals);
-    void setRoundingMode(bool rnd);
-    void setIntegersOnly(bool intsOnly);
-*/
     bool isIntegersOnly() const
     {
         return integersOnly;
     }
 
-    // For Integer Results Only mode
-    /*
-    void setFirstMaximum(qint64 newMax);
-    void setFirstMinimum(qint64 newMin);
-    void setLastMaximum(qint64 newMax);
-    void setLastMinimum(qint64 newMin);
-    */
 private:
     MainWindow *mainWindow;
 

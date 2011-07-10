@@ -35,53 +35,25 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     // Initialize sane values
-    this->answerGiven = 0;
-    this->totalQuestions = 0;
-    this->totalCorrect = 0;
-    this->totalWrong = 0;
+    answerGiven = 0;
+    totalQuestions = 0;
+    totalCorrect = 0;
+    totalWrong = 0;
 
     // Load up the default module
     //! \todo Save/restore currently active module at app exit/load
-    this->module = 0;
+    module = 0;
     moduleChange(new AdditionModule(this));
 
     //ui->centralWidget->layout()->addWidget(this->module->getConfigFrame());
-    ui->settingsTab->layout()->addWidget(this->module->getConfigFrame());
+    ui->settingsTab->layout()->addWidget(module->getConfigFrame());
 
     // Restore saved settings
     readSettings();
 
     // Kick off first question
     newQuestion();
-    this->ui->lineEdit->setFocus();
-
-    /*
-    std::cout << std::endl << "=== FixedPoint ===" << std::endl;
-    FixedPoint<quint64> fixed1(123456, 3);
-    FixedPoint<quint64> fixed2(234567, 4);
-
-    std::cout << fixed1 << std::endl;
-    std::cout << "123.456 scaled to 2 = " << fixed1.scale(2) << std::endl;
-    std::cout << "123.456 scaled to 4 = " << fixed1.scale(4) << std::endl;
-
-    FixedPoint<quint64> result = fixed1 + fixed2;
-    qDebug() << "123.456 + 23.4567 = " << PracticeModule::decimalize(result.getValue(), result.getDecimalPlaces());
-    qDebug() << "Result (decimals): " << result.getValue() << " (" << result.getDecimalPlaces() << ")";
-
-    result = fixed1 - fixed2;
-    qDebug() << "123.456 - 23.4567 = " << PracticeModule::decimalize(result.getValue(), result.getDecimalPlaces());
-    qDebug() << "Result (decimals): " << result.getValue() << " (" << result.getDecimalPlaces() << ")";
-
-    result = fixed1 * fixed2;
-    qDebug() << "123.456 * 23.4567 = " << PracticeModule::decimalize(result.getValue(), result.getDecimalPlaces());
-    qDebug() << "Result (decimals): " << result.getValue() << " (" << result.getDecimalPlaces() << ")";
-
-    result = fixed1 / fixed2;
-    qDebug() << "123.456 / 23.4567 = ";// << PracticeModule::decimalize(result.getValue(), result.getDecimalPlaces());
-    qDebug() << "Result (decimals): " << result.getValue() << " (" << result.getDecimalPlaces() << ")";
-
-    qDebug() << "exp10(2) = " << exp10(2);
-    */
+    ui->lineEdit->setFocus();
 }
 
 MainWindow::~MainWindow()
@@ -202,15 +174,8 @@ void MainWindow::newQuestion()
     assert(module != 0);
     QString q = module->question();
 
-    this->module->getDisplayFrame()->setText(q);
-    this->ui->lineEdit->clear();
-
-    //this->ui->lineEdit->setFocus();
-}
-
-void MainWindow::on_lineEdit_editingFinished()
-{
-    //std::cerr << "Answer given: " << ui->lineEdit->text().toInt() << std::endl;
+    module->getDisplayFrame()->setText(q);
+    ui->lineEdit->clear();
 }
 
 /*! Return pressed, so verify the answer given and display result.
@@ -236,14 +201,14 @@ void MainWindow::on_lineEdit_returnPressed()
     }
     this->totalQuestions++;
     statusBar()->showMessage(tr( "Total: %1  Correct/Wrong: %2/%3  %4%5 success rate" )
-                             .arg(this->totalQuestions )
-                             .arg(this->totalCorrect)
-                             .arg(this->totalWrong)
-                             .arg(((double)totalCorrect / (double)totalQuestions) * 100.0, 0, 'f', 2)
+                             .arg(totalQuestions )
+                             .arg(totalCorrect)
+                             .arg(totalWrong)
+                             .arg(((double)totalCorrect / (double)totalQuestions) * 100.0F, 0, 'f', 2)
                              .arg(QLocale::system().percent()));
 
     newQuestion();
-    this->ui->lineEdit->setFocus();
+    ui->lineEdit->setFocus();
 }
 
 /*! Method to change the currently active module to another module (addition,
@@ -251,31 +216,27 @@ void MainWindow::on_lineEdit_returnPressed()
  * \param module The PracticeModule module which will be active, replacing
  *    the old one.
  */
-void MainWindow::moduleChange(PracticeModule *module) {
-    assert(module != 0);
+void MainWindow::moduleChange(PracticeModule *mod) {
+    assert(mod != 0);
 
     // Load the config and display frames
-    if (this->module != 0) {
-        //ui->centralWidget->layout()->removeWidget(this->module->getConfigFrame());
-        //this->module->getConfigFrame()->close();
+    if (module != 0) {
+        ui->settingsTab->layout()->removeWidget(mod->getConfigFrame());
+        module->getConfigFrame()->close();
 
-        ui->settingsTab->layout()->removeWidget(this->module->getConfigFrame());
-        this->module->getConfigFrame()->close();
+        ui->displayPane->layout()->removeWidget(mod->getDisplayFrame());
+        module->getDisplayFrame()->close();
 
-        ui->displayPane->layout()->removeWidget(this->module->getDisplayFrame());
-        this->module->getDisplayFrame()->close();
-
-        delete this->module;
-        this->module = 0;
+        delete module;
+        module = 0;
     }
 
     // Grab new module and get new config and display frames
-    this->module = module;
-    //ui->centralWidget->layout()->addWidget(this->module->getConfigFrame());
-    ui->settingsTab->layout()->addWidget(this->module->getConfigFrame());
-    ui->displayPane->layout()->addWidget(this->module->getDisplayFrame());
+    module = mod;
+    ui->settingsTab->layout()->addWidget(module->getConfigFrame());
+    ui->displayPane->layout()->addWidget(module->getDisplayFrame());
 
-    assert(this->module != 0);
+    assert(module != 0);
 
     newQuestion();
 }
@@ -339,15 +300,13 @@ void MainWindow::on_actionStatistics_triggered()
 
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
-    //qDebug() << "Tab changed";
-    // Changed to main tab (thus from Settings tab)?
+    // Changed to main tab (thus from Settings tab)
     if (index == 0)
     {
         bool ok = module->applyConfig();
         if (!ok)
         {
             ui->tabWidget->setCurrentIndex(1);
-            //QMessageBox::warning(this, tr("Settings Error"), tr("Settings are incorrect!"), QMessageBox::Ok);
         }
     }
 }

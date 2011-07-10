@@ -2,9 +2,10 @@
 #define POWERSCONFIGFRAME_H
 
 #include <QFrame>
-#include "powersmodule.h"
 
+class PowersModule;
 class QString;
+class QBigFixedValidator;
 
 namespace Ui {
     class PowersConfigFrame;
@@ -26,18 +27,22 @@ public:
     void setDecimalPlaces(int newDecimals);
     void setRoundingMode(int mode);
 
-    PowersModule *module;
+    bool applyConfig();
 
 private:
     Ui::PowersConfigFrame *ui;
 
+    PowersModule *module;
+
 private slots:
+    /*
     void on_roundingComboBox_currentIndexChanged(int index);
     void on_decimalPlacesLineEdit_editingFinished();
     void on_maxPowerLineEdit_editingFinished();
     void on_minPowerLineEdit_editingFinished();
     void on_maxNumberLineEdit_editingFinished();
     void on_minNumberLineEdit_editingFinished();
+    */
 };
 
 #endif // POWERSCONFIGFRAME_H

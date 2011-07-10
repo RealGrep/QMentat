@@ -2,6 +2,7 @@
 #include "ui_additionconfigframe.h"
 #include "additionmodule.h"
 #include "qbigfixedvalidator.h"
+#include "bigfixedpoint.h"
 
 AdditionConfigFrame::AdditionConfigFrame(QWidget *parent) :
         QFrame(parent),
@@ -10,23 +11,12 @@ AdditionConfigFrame::AdditionConfigFrame(QWidget *parent) :
     ui->setupUi(this);
     this->module = 0;
 
-    QBigFixedValidator *bfv = new QBigFixedValidator(
-            BigFixedPoint(QString("-9999999999999999999999999999")),
-            BigFixedPoint(QString("9999999999999999999999999999")),
-            this);
+    QBigFixedValidator *numValidator = new QBigFixedValidator(this);
 
-    ui->minNumberLineEdit->setValidator(bfv);
-    ui->maxNumberLineEdit->setValidator(bfv);
-    ui->secondMinLineEdit->setValidator(bfv);
-    ui->secondMaxLineEdit->setValidator(bfv);
-
-    /*
-    QULongLongValidator *validator = new QULongLongValidator(this);
-    ui->minNumberLineEdit->setValidator(validator);
-    ui->maxNumberLineEdit->setValidator(validator);
-    ui->secondMinLineEdit->setValidator(validator);
-    ui->secondMaxLineEdit->setValidator(validator);
-    */
+    ui->minNumberLineEdit->setValidator(numValidator);
+    ui->maxNumberLineEdit->setValidator(numValidator);
+    ui->secondMinLineEdit->setValidator(numValidator);
+    ui->secondMaxLineEdit->setValidator(numValidator);
 }
 
 AdditionConfigFrame::~AdditionConfigFrame()
@@ -64,37 +54,33 @@ void AdditionConfigFrame::setLargestNumberFirst(bool b)
     ui->largestNumberFirstCheckBox->setChecked(b);
 }
 
-void AdditionConfigFrame::on_minNumberLineEdit_editingFinished()
+bool AdditionConfigFrame::applyConfig()
 {
-    BigFixedPoint newMin(ui->minNumberLineEdit->text());
-    this->module->setFirstMinimum(newMin);
-}
+    int largestNumberFirst = ui->largestNumberFirstCheckBox->isChecked();
 
-void AdditionConfigFrame::on_maxNumberLineEdit_editingFinished()
-{
-    BigFixedPoint newMax(ui->maxNumberLineEdit->text());
-    this->module->setFirstMaximum(newMax);
-}
+    QString str = ui->minNumberLineEdit->text();
+    BigFixedPoint firstMin(str.remove(QLocale::system().groupSeparator()));
 
-void AdditionConfigFrame::on_secondMinLineEdit_editingFinished()
-{
-    BigFixedPoint newMin(ui->secondMinLineEdit->text());
-    this->module->setLastMinimum(newMin);
-}
+    str = ui->maxNumberLineEdit->text();
+    BigFixedPoint firstMax(str.remove(QLocale::system().groupSeparator()));
 
-void AdditionConfigFrame::on_secondMaxLineEdit_editingFinished()
-{
-    BigFixedPoint newMax(ui->secondMaxLineEdit->text());
-    this->module->setLastMaximum(newMax);
-}
+    str = ui->secondMinLineEdit->text();
+    BigFixedPoint lastMin(str.remove(QLocale::system().groupSeparator()));
 
-void AdditionConfigFrame::on_largestNumberFirstCheckBox_stateChanged(int state)
-{
-    if (state == Qt::Checked)
+    str = ui->secondMaxLineEdit->text();
+    BigFixedPoint lastMax(str.remove(QLocale::system().groupSeparator()));
+
+    if (firstMax < firstMin)
     {
-        this->module->setLargestNumberFirst(true);
+        QMessageBox::warning(this, tr("Range Validation Error"), tr("Maximum of first number is smaller than the minimum."), QMessageBox::Ok);
+        return false;
+    } else if (lastMax < lastMin) {
+        QMessageBox::warning(this, tr("Range Validation Error"), tr("Maximum of last number is smaller than the minimum."), QMessageBox::Ok);
+        return false;
     } else {
-        this->module->setLargestNumberFirst(false);
+        module->setSettings(firstMin, firstMax, lastMin, lastMax,
+                            largestNumberFirst);
     }
-}
 
+    return true;
+}

@@ -15,8 +15,6 @@ BigFixedPoint::BigFixedPoint()
 
 BigFixedPoint::BigFixedPoint(const BigFixedPoint& bfp)
 {
-    if (this == &bfp)
-        return;
     number = bfp.number;
     decimalPlaces = bfp.decimalPlaces;
 }
@@ -254,11 +252,12 @@ BigFixedPoint BigFixedPoint::sqrt() const
 BigFixedPoint& BigFixedPoint::operator=(const BigFixedPoint &rhs)
 {
     // Check for self-assignment
-    if (this == &rhs)
-        return *this;
+    if (this != &rhs)
+    {
+        number = rhs.number;
+        decimalPlaces = rhs.decimalPlaces;
+    }
 
-    number = rhs.number;
-    decimalPlaces = rhs.decimalPlaces;
     return *this;
 }
 
@@ -290,6 +289,13 @@ bool BigFixedPoint::operator==(const BigFixedPoint &rhs) const {
     }
 }
 
+/*! Equal comparison operator.
+ *
+ * IMPORTANT: Technically, operators which are equal should behave exactly the
+ * same. However, our scaling means two numbers with a different number
+ * of decimal places will behave slightly differently, and yet be equal.
+ * I prefer it this way, but it's good to take note of it.
+ */
 bool BigFixedPoint::operator==(int rhs) const {
     BigFixedPoint lhsScaled = *this;
     lhsScaled.scale(0);
@@ -391,6 +397,7 @@ BigFixedPoint& BigFixedPoint::operator+=(const BigFixedPoint& y) {
     return *this;
 }
 
+//! \todo This shouldn't be a member so things like 42 - y will work. That goes for all similar operators like -.
 const BigFixedPoint BigFixedPoint::operator+(const BigFixedPoint& y) const
 {
     return BigFixedPoint(*this) += y;

@@ -11,6 +11,7 @@
 #include "practicemodule.h"
 #include "questiondisplayform.h"
 #include "random.h"
+#include "bigfixedpoint.h"
 
 MultiplicationModule::MultiplicationModule(MainWindow *mw)
 {
@@ -86,8 +87,6 @@ QString MultiplicationModule::question()
     answer = firstNumber * lastNumber;
     assert(decimalPlaces >= 0);
     answer.scale(decimalPlaces);
-    //std::cout << "first = " << firstNumber.toString().toStdString() << std::endl;
-    //std::cout << "last = " << lastNumber.toString().toStdString() << std::endl;
 
     int decimals = std::max(firstNumber.getDecimalPlaces(), lastNumber.getDecimalPlaces());
     BigFixedPoint firstDisplay(firstNumber);
@@ -125,107 +124,91 @@ QString MultiplicationModule::getAnswerString()
             .arg(answer.toString());
 }
 
-void MultiplicationModule::setFirstMaximum(BigFixedPoint newMax)
+void MultiplicationModule::setSettings(BigFixedPoint newFirstMin,
+                                       BigFixedPoint newFirstMax,
+                                       BigFixedPoint newLastMin,
+                                       BigFixedPoint newLastMax,
+                                       bool newLargestNumberFirst,
+                                       int newDecimals,
+                                       bool newRoundingMode)
 {
-    if ((firstMax != newMax)
-        || (firstMax.getDecimalPlaces() != newMax.getDecimalPlaces()))
+    bool settingsChanged = false;
+
+    // RANGE
+    if ((firstMax != newFirstMax)
+     || (firstMax.getDecimalPlaces() != newFirstMax.getDecimalPlaces()))
     {
-        firstMax = newMax;
+        firstMax = newFirstMax;
         QSettings settings;
         settings.setValue("multiplicationmodule/firstmax", firstMax.toString());
-
-        mainWindow->newQuestion();
+        settingsChanged = true;
     }
-}
 
-void MultiplicationModule::setFirstMinimum(BigFixedPoint newMin)
-{
-    if ((firstMin != newMin)
-        || (firstMin.getDecimalPlaces() != newMin.getDecimalPlaces()))
+    if ((firstMin != newFirstMin)
+     || (firstMin.getDecimalPlaces() != newFirstMin.getDecimalPlaces()))
     {
-        firstMin = newMin;
+        firstMin = newFirstMin;
         QSettings settings;
         settings.setValue("multiplicationmodule/firstmin", firstMin.toString());
-
-        mainWindow->newQuestion();
+        settingsChanged = true;
     }
-}
 
-void MultiplicationModule::setLastMaximum(BigFixedPoint newMax)
-{
-    if ((lastMax != newMax)
-        || (lastMax.getDecimalPlaces() != newMax.getDecimalPlaces()))
+    if ((lastMax != newLastMax)
+     || (lastMax.getDecimalPlaces() != newLastMax.getDecimalPlaces()))
     {
-        lastMax = newMax;
+        lastMax = newLastMax;
         QSettings settings;
         settings.setValue("multiplicationmodule/lastmax", lastMax.toString());
-
-        mainWindow->newQuestion();
+        settingsChanged = true;
     }
-}
 
-void MultiplicationModule::setLastMinimum(BigFixedPoint newMin)
-{
-    if ((lastMin != newMin)
-        || (lastMin.getDecimalPlaces() != newMin.getDecimalPlaces()))
+    if ((lastMin != newLastMin)
+     || (lastMin.getDecimalPlaces() != newLastMin.getDecimalPlaces()))
     {
-        lastMin = newMin;
+        lastMin = newLastMin;
         QSettings settings;
         settings.setValue("multiplicationmodule/lastmin", lastMin.toString());
-
-        mainWindow->newQuestion();
+        settingsChanged = true;
     }
-}
 
-void MultiplicationModule::setLargestNumberFirst(bool b)
-{
-    if (this->largestNumberFirst != b)
+    // RESULTS
+    if (this->largestNumberFirst != newLargestNumberFirst)
     {
-        this->largestNumberFirst = b;
+        this->largestNumberFirst = newLargestNumberFirst;
         QSettings settings;
-        settings.setValue("multiplicationmodule/largestNumberFirst",
-                          largestNumberFirst);
-
-        mainWindow->newQuestion();
+        settings.setValue("multiplicationmodule/largestNumberFirst", largestNumberFirst);
+        settingsChanged = true;
     }
-}
 
-void MultiplicationModule::setDecimalPlaces(int newDecimals)
-{
-    if ((decimalPlaces != newDecimals)
-        && (newDecimals >= 0)
-        && (newDecimals <= firstNumber.getDecimalPlaces()+lastNumber.getDecimalPlaces()))
+    if (decimalPlaces != newDecimals)
     {
         decimalPlaces = newDecimals;
         QSettings settings;
         settings.setValue("multiplicationmodule/decimalplaces", decimalPlaces);
-
-        mainWindow->newQuestion();
+        settingsChanged = true;
     }
-}
 
-void MultiplicationModule::setRoundingMode(bool rnd)
-{
-    if (roundingMode != rnd)
+    if (roundingMode != newRoundingMode)
     {
-        roundingMode = rnd;
+        roundingMode = newRoundingMode;
         BigFixedPoint::setRounding(roundingMode);
         QSettings settings;
         settings.setValue("multiplicationmodule/roundingmode", roundingMode);
+        settingsChanged = true;
+    }
 
+    if (settingsChanged)
+    {
         mainWindow->newQuestion();
     }
 }
 
 bool MultiplicationModule::applyConfig()
 {
-    /*
-    if (configFrame != nullptr)
+    if (configFrame != 0)
     {
         return configFrame->applyConfig();
     }
 
     return false;
-    */
-    return true;
 }
