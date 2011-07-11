@@ -77,6 +77,11 @@ void DivisionConfigFrame::setIntegersOnly(bool intsOnly)
 {
     using namespace std;
 
+    bool intsOnlyState = ui->integerResultCheckBox->isChecked();
+    if (intsOnlyState != intsOnly)
+    {
+        ui->integerResultCheckBox->setChecked(intsOnly);
+    }
     ui->decimalPlacesLineEdit->setEnabled(!intsOnly);
     ui->roundingComboBox->setEnabled(!intsOnly);
     ui->largestNumberFirstCheckBox->setEnabled(!intsOnly);
@@ -146,12 +151,27 @@ bool DivisionConfigFrame::applyConfig()
         BigFixedPoint lastMax(str.remove(QLocale::system().groupSeparator()));
         qint64 lastMaxIR = lastMax.toLongLong();
 
+        bool rangeOk = module->isRangeOk(firstMinIR, firstMaxIR,
+                                         lastMinIR, lastMaxIR);
+
         if (firstMaxIR < firstMinIR)
         {
-            QMessageBox::warning(this, tr("Range Validation Error"), tr("Maximum of first number is smaller than the minimum."), QMessageBox::Ok);
+            QMessageBox::warning(this, tr("Range Validation Error"),
+                                 tr("Maximum of first number is smaller than "
+                                    "the minimum."),
+                                 QMessageBox::Ok);
             return false;
         } else if (lastMaxIR < lastMinIR) {
-            QMessageBox::warning(this, tr("Range Validation Error"), tr("Maximum of last number is smaller than the minimum."), QMessageBox::Ok);
+            QMessageBox::warning(this, tr("Range Validation Error"),
+                                 tr("Maximum of last number is smaller than "
+                                    "the minimum."),
+                                 QMessageBox::Ok);
+            return false;
+        } else if (!rangeOk) {
+            QMessageBox::warning(this, tr("Range Validation Error"),
+                                 tr("Range of first number has no divisors "
+                                    "within range of last number."),
+                                 QMessageBox::Ok);
             return false;
         } else {
             module->setSettings(firstMinIR, firstMaxIR, lastMinIR, lastMaxIR,

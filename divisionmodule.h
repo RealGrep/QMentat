@@ -42,6 +42,8 @@ public:
                      qint64 newLastMin, qint64 newLastMax,
                      bool newlargestNumberFirst, bool newIntsOnly,
                      int newDecimals, bool newRoundingMode);
+    bool isRangeOk(qint64 firstMin, qint64 firstMax,
+                   qint64 lastMin, qint64 lastMax) const;
 
     bool isIntegersOnly() const
     {
@@ -82,9 +84,7 @@ private:
     //                                        BigFixedPoint& min,
     //                                        BigFixedPoint& max);
 
-
-    bool isRangeOk(qint64 firstMin, qint64 firstMax, qint64 lastMin, qint64 lastMax);
-    std::vector<qint64> *getDivisors(qint64 num, qint64 min, qint64 max);
+    std::vector<qint64> *getDivisors(qint64 num, qint64 min, qint64 max) const;
 };
 
 #endif // DIVISIONMODULE_H

@@ -12,11 +12,18 @@
 #include "powersmodule.h"
 #include "rootsmodule.h"
 #include "questiondisplayform.h"
+#include "statisticsdialog.h"
+#include "random.h"
 #include <QtSql/QtSql>
 #include <QDebug>
 #include <QtMmlWidget>
 
-#include "statisticsdialog.h"
+// For seeding qrand
+#if defined(Q_OS_LINUX)
+#   include <fstream>   // Linux only - for reading urandom
+#else
+#   include <QDateTime>
+#endif
 
 
 /*! \class MainWindow
@@ -39,6 +46,10 @@ MainWindow::MainWindow(QWidget *parent) :
     totalQuestions = 0;
     totalCorrect = 0;
     totalWrong = 0;
+    currentTab = 0;
+
+    // Initialize qrand seed
+    qsrand(getSeed() % 1000000);
 
     // Load up the default module
     //! \todo Save/restore currently active module at app exit/load
@@ -64,6 +75,24 @@ MainWindow::~MainWindow()
     module = 0;
 
     delete ui;
+}
+
+/*! Gets a seed from an appropriate entropy source.
+ * \todo Seeding from urandom only works in Linux. Work in an alternative for
+ *    windows and other non-Unix systems.
+ */
+quint64 MainWindow::getSeed()
+{
+    quint64 seed;
+#if defined(Q_OS_LINUX)
+    std::ifstream urandom;
+    urandom.open("/dev/urandom");
+    urandom.read(reinterpret_cast<char*>(&seed), sizeof(seed));
+    urandom.close();
+#else // also available: Q_OS_WIN32 and Q_OS_MAC
+    seed = QDateTime::currentMSecsSinceEpoch();
+#endif
+    return seed;
 }
 
 void MainWindow::testSQL()
@@ -301,12 +330,17 @@ void MainWindow::on_actionStatistics_triggered()
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
     // Changed to main tab (thus from Settings tab)
-    if (index == 0)
+    if ((currentTab == 1) && (index == 0))
     {
         bool ok = module->applyConfig();
         if (!ok)
         {
-            ui->tabWidget->setCurrentIndex(1);
+            currentTab = 1;
+            ui->tabWidget->setCurrentIndex(currentTab);
+        } else {
+            currentTab = 0;
         }
+    } else {
+        currentTab = index;
     }
 }

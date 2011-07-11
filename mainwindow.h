@@ -22,6 +22,7 @@ public:
     void newQuestion();
     //! \todo Test method for SQL, remove when done
     void testSQL();
+    static quint64 getSeed();
 
 protected:
     int answerGiven;
@@ -35,6 +36,8 @@ private:
 
     void readSettings();
     void writeSettings();
+
+    int currentTab;
 
 private slots:
     void on_tabWidget_currentChanged(int index);

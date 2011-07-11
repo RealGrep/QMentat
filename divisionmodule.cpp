@@ -30,6 +30,7 @@ DivisionModule::DivisionModule(MainWindow *mw)
     roundingMode = settings.value("roundingmode", false).toBool();
     BigFixedPoint::setRounding(roundingMode == 1);
     integersOnly = settings.value("integersonly", false).toBool();
+
     if (integersOnly)
     {
         QString str = settings.value("firstmin", 2).toString();
@@ -119,7 +120,7 @@ QuestionDisplay* DivisionModule::getDisplayFrame()
  *    least one of the possible dividends, false otherwise.
  */
 bool DivisionModule::isRangeOk(qint64 firstMin, qint64 firstMax,
-                               qint64 lastMin, qint64 lastMax)
+                               qint64 lastMin, qint64 lastMax) const
 {
     bool isOk = false;
 
@@ -149,7 +150,7 @@ bool DivisionModule::isRangeOk(qint64 firstMin, qint64 firstMax,
  */
 std::vector<qint64> *DivisionModule::getDivisors(qint64 num,
                                                  qint64 min,
-                                                 qint64 max)
+                                                 qint64 max) const
 {
     std::vector<qint64> *divisors = new std::vector<qint64>();
     // No use going past sqrt(num)
@@ -170,18 +171,17 @@ std::vector<qint64> *DivisionModule::getDivisors(qint64 num,
 }
 
 /*! \returns QString containing new question in MathML format.
+ *
+ * \todo Might be a good idea to put up a "Please wait" type dialog while
+ * we're calculating divisors, and perhaps to launch the processing in a
+ * thread so it doesn't "hang" the interface. We could put a Stop/Cancel
+ * button so they can cancel if it's taking too long.
  */
 QString DivisionModule::question()
 {
     if (integersOnly)
     {
         assert(genFirst != 0);
-
-        // Check range
-        //! \todo Fix it so a bad range for division can never happen
-        bool rangeOk = isRangeOk(firstMinIR, firstMaxIR,
-                                 lastMinIR, lastMaxIR);
-        if (!rangeOk) return "<math>ERR</math>";
 
         // Ensure we don't get a division by 0
         do {
@@ -205,7 +205,6 @@ QString DivisionModule::question()
                 delete divisors;
                 continue;
             } else {
-                //! \todo Seeeeed mee.....
                 int random = qrand() % divisors->size();
                 lastNumberIR = (qint64)(*divisors)[random];
                 delete divisors;

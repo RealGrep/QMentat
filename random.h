@@ -5,7 +5,11 @@
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_int.hpp>
 #include <boost/random/variate_generator.hpp>
-#include <fstream>   // Linux only - for reading urandom
+#if defined(Q_OS_LINUX)
+#   include <fstream>   // Linux only - for reading urandom
+#else
+#   include <QDateTime>
+#endif
 
 template <class inttype> class RandomInt
 {
@@ -15,7 +19,7 @@ public:
         dist(min, max),
         gen(engine, dist) {}
     RandomInt(quint64 min, quint64 max)
-        : engine(static_cast<quint64>(GetSeed())),
+        : engine(static_cast<quint64>(getSeed())),
         dist(min, max),
         gen(engine, dist) {}
 
@@ -25,31 +29,23 @@ protected:
     boost::uniform_int<inttype> dist;
     boost::variate_generator<boost::mt19937&, boost::uniform_int<inttype> > gen;
 
-    static quint64 GetSeed()
+    /*! Gets a seed from an appropriate entropy source.
+     * \todo Seeding from urandom only works in Linux. Work in an alternative for
+     *    windows and other non-Unix systems.
+     */
+    static quint64 getSeed()
     {
         quint64 seed;
+#if defined(Q_OS_LINUX)
         std::ifstream urandom;
         urandom.open("/dev/urandom");
         urandom.read(reinterpret_cast<char*>(&seed), sizeof(seed));
         urandom.close();
+#else // also available: Q_OS_WIN32 and Q_OS_MAC
+        seed = QDateTime::currentMSecsSinceEpoch();
+#endif
         return seed;
     }
 };
-
-/*! Gets a seed from an appropriate entropy source.
- * \todo Seeding from urandom only works in Linux. Work in an alternative for
- *    windows and other non-Unix systems.
- */
-/*
-static quint64 RandomInt::GetSeed()
-{
-   quint64 seed;
-   std::ifstream urandom;
-   urandom.open("/dev/urandom");
-   urandom.read(reinterpret_cast<char*>(&seed), sizeof(seed));
-   urandom.close();
-   return seed;
-}
-*/
 
 #endif // RANDOM_H
