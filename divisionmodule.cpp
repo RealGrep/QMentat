@@ -183,6 +183,8 @@ QString DivisionModule::question()
     {
         assert(genFirst != 0);
 
+        QApplication::setOverrideCursor(Qt::WaitCursor);
+
         // Ensure we don't get a division by 0
         do {
             // Generate the numbers
@@ -214,6 +216,8 @@ QString DivisionModule::question()
                        / static_cast<quint64>(lastNumberIR);
 
         } while (lastNumberIR == 0);
+
+        QApplication::restoreOverrideCursor();
 
         QString q = QString("<math><mfrac><mi>%L1</mi><mn>%L2</mn></mfrac></math>\n")
                     .arg(firstNumberIR)

@@ -329,7 +329,7 @@ void MainWindow::on_actionStatistics_triggered()
 
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
-    // Changed to main tab (thus from Settings tab)
+    // Changed to main tab (from Settings tab)
     if ((currentTab == 1) && (index == 0))
     {
         bool ok = module->applyConfig();
