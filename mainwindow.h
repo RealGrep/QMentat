@@ -20,8 +20,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     void newQuestion();
-    //! \todo Test method for SQL, remove when done
-    void testSQL();
+    //void testSQL();
     static quint64 getSeed();
 
 protected:

@@ -5,6 +5,13 @@
 #include <string>
 #include <limits>
 
+// For seeding gmp
+#if defined(Q_OS_LINUX)
+#   include <fstream>   // Linux only - for reading urandom
+#else
+#   include <QDateTime> // Use this for seeding on non-Linux systems
+#endif
+
 bool BigFixedPoint::roundingEnabled = false;
 
 BigFixedPoint::BigFixedPoint()
@@ -46,8 +53,6 @@ BigFixedPoint::BigFixedPoint(mpz_class num, int decimals)
 
 BigFixedPoint::BigFixedPoint(QString num)
 {
-    //qDebug() << "num (start): " << num;
-
     // Strip separators out
     for (int i = 0; i < num.size(); ++i)
     {
@@ -77,7 +82,6 @@ BigFixedPoint::BigFixedPoint(QString num)
         num.remove(i, 1);
         ++i;
     }
-    //qDebug() << "num (no leading 0s): " << num;
 
     // The number string is clean
     if (num.size() == 0)
@@ -162,7 +166,6 @@ bool BigFixedPoint::isValid(QString numStr)
             && numStr[pos] != QLocale::system().decimalPoint()
             && numStr[pos] != QLocale::system().groupSeparator())
         {
-            //qDebug() << "Not a digit, decimal or separator (" << numStr[pos] << ")";
             return false;
         }
 
@@ -172,18 +175,15 @@ bool BigFixedPoint::isValid(QString numStr)
             gmp_str.append(numStr[pos]);
         } else {
             // Not a digit
-            //numStr.remove(pos, 1);
         }
         ++pos;
     }
 
     if (!foundDigit)
     {
-        //qDebug() << "No digits - invalid";
         return false;
     }
 
-    //qDebug() << "gmp_str = " << gmp_str;
     mpz_class num;
     if (num.set_str(gmp_str.toStdString(), 10) != 0)
     {
@@ -397,51 +397,72 @@ BigFixedPoint& BigFixedPoint::operator+=(const BigFixedPoint& y) {
     return *this;
 }
 
-//! \todo This shouldn't be a member so things like 42 - y will work. That goes for all similar operators like -.
-const BigFixedPoint BigFixedPoint::operator+(const BigFixedPoint& y) const
+const BigFixedPoint operator+(const BigFixedPoint &lhs, const BigFixedPoint& rhs)
 {
-    return BigFixedPoint(*this) += y;
+    return BigFixedPoint(lhs) += rhs;
 }
 
-BigFixedPoint& BigFixedPoint::operator+=(int y) {
+BigFixedPoint& BigFixedPoint::operator+=(int rhs) {
     mpz_class factor;
     mpz_ui_pow_ui(factor.get_mpz_t(), 10, decimalPlaces);
-    number = number + y*factor;
+    number = number + rhs*factor;
     return *this;
 }
 
-const BigFixedPoint BigFixedPoint::operator+(int y) const
+const BigFixedPoint operator+(const BigFixedPoint &lhs, int rhs)
 {
-    return BigFixedPoint(*this) += y;
+    return BigFixedPoint(lhs) += rhs;
 }
 
-BigFixedPoint& BigFixedPoint::operator-=(const BigFixedPoint& y) {
+const BigFixedPoint operator+(int lhs, const BigFixedPoint &rhs)
+{
+    return BigFixedPoint(rhs) += lhs;
+}
+
+BigFixedPoint& BigFixedPoint::operator-=(const BigFixedPoint& rhs) {
     int decimals = decimalPlaces;
     // Scale parameter to our scale
-    if (decimals > y.getDecimalPlaces())
+    if (decimals > rhs.getDecimalPlaces())
     {
-        int adjustment = decimals - y.getDecimalPlaces();
+        int adjustment = decimals - rhs.getDecimalPlaces();
         mpz_class factor;
         mpz_ui_pow_ui(factor.get_mpz_t(), 10, adjustment);
-        number = number - y.getValue()*factor;
-    } else if (decimals < y.getDecimalPlaces()) {
+        number = number - rhs.getValue()*factor;
+    } else if (decimals < rhs.getDecimalPlaces()) {
         // Scale ourselves to the parameter
-        decimals = y.getDecimalPlaces();
-        int adjustment = y.decimalPlaces - decimalPlaces;
+        decimals = rhs.getDecimalPlaces();
+        int adjustment = rhs.decimalPlaces - decimalPlaces;
         mpz_class factor;
         mpz_ui_pow_ui(factor.get_mpz_t(), 10, adjustment);
-        number = number*factor - y.getValue();
+        number = number*factor - rhs.getValue();
         decimalPlaces = decimals;
     } else {
-        number -= y.getValue();
+        number -= rhs.getValue();
     }
 
     return *this;
 }
 
-const BigFixedPoint BigFixedPoint::operator-(const BigFixedPoint& rhs) const
+const BigFixedPoint operator-(const BigFixedPoint& lhs, const BigFixedPoint& rhs)
 {
-    return BigFixedPoint(*this) -= rhs;
+    return BigFixedPoint(lhs) -= rhs;
+}
+
+BigFixedPoint& BigFixedPoint::operator-=(int rhs) {
+    mpz_class factor;
+    mpz_ui_pow_ui(factor.get_mpz_t(), 10, decimalPlaces);
+    number = number - rhs*factor;
+    return *this;
+}
+
+const BigFixedPoint operator-(const BigFixedPoint& lhs, int rhs)
+{
+    return BigFixedPoint(lhs) -= rhs;
+}
+
+const BigFixedPoint operator-(int lhs, const BigFixedPoint& rhs)
+{
+    return BigFixedPoint(lhs) -= rhs;
 }
 
 BigFixedPoint& BigFixedPoint::operator*=(const BigFixedPoint& rhs)
@@ -452,9 +473,10 @@ BigFixedPoint& BigFixedPoint::operator*=(const BigFixedPoint& rhs)
     return *this;
 }
 
-const BigFixedPoint BigFixedPoint::operator*(const BigFixedPoint& rhs) const
+const BigFixedPoint operator*(const BigFixedPoint& lhs,
+                              const BigFixedPoint& rhs)
 {
-    return BigFixedPoint(*this) *= rhs;
+    return BigFixedPoint(lhs) *= rhs;
 }
 
 BigFixedPoint& BigFixedPoint::operator/=(const BigFixedPoint& rhs)
@@ -466,9 +488,10 @@ BigFixedPoint& BigFixedPoint::operator/=(const BigFixedPoint& rhs)
     return *this;
 }
 
-const BigFixedPoint BigFixedPoint::operator/(const BigFixedPoint& rhs) const
+const BigFixedPoint operator/(const BigFixedPoint& lhs,
+                              const BigFixedPoint& rhs)
 {
-    return BigFixedPoint(*this) /= rhs;
+    return BigFixedPoint(lhs) /= rhs;
 }
 
 BigFixedPoint& BigFixedPoint::operator/=(int rhs)
@@ -477,29 +500,47 @@ BigFixedPoint& BigFixedPoint::operator/=(int rhs)
     return *this;
 }
 
-const BigFixedPoint BigFixedPoint::operator/(int rhs) const
+const BigFixedPoint operator/(BigFixedPoint& lhs, int rhs)
 {
-    return BigFixedPoint(*this) /= rhs;
+    return BigFixedPoint(lhs) /= rhs;
 }
 
-const BigFixedPoint BigFixedPoint::operator%(const BigFixedPoint& rhs) const
+const BigFixedPoint operator%(const BigFixedPoint& lhs,
+                              const BigFixedPoint& rhs)
 {
     BigFixedPoint ret;
 
-    assert(rhs.getDecimalPlaces() <= decimalPlaces);
-    int decimals = decimalPlaces - rhs.getDecimalPlaces();
-    ret.number = number % rhs.getValue();
+    assert(rhs.getDecimalPlaces() <= lhs.decimalPlaces);
+    int decimals = lhs.decimalPlaces - rhs.getDecimalPlaces();
+    ret.number = lhs.number % rhs.getValue();
     ret.decimalPlaces = decimals;
     return ret;
 }
 
-const BigFixedPoint BigFixedPoint::operator%(int rhs) const
+const BigFixedPoint operator%(BigFixedPoint& lhs, int rhs)
 {
     BigFixedPoint ret;
 
-    ret.number = number % rhs;
-    ret.decimalPlaces = decimalPlaces;
+    ret.number = lhs.number % rhs;
+    ret.decimalPlaces = lhs.decimalPlaces;
     return ret;
+}
+
+/*! Gets a seed from an appropriate entropy source.
+ */
+quint32 BigFixedPoint::getSeed()
+{
+    quint32 seed;
+#if defined(Q_OS_LINUX)
+    std::ifstream urandom;
+    urandom.open("/dev/urandom");
+    urandom.read(reinterpret_cast<char*>(&seed), sizeof(seed));
+    urandom.close();
+#else // also available: Q_OS_WIN32 and Q_OS_MAC
+    //seed = QDateTime::currentMSecsSinceEpoch();
+    seed = QDateTime::toTime_t();
+#endif
+    return seed;
 }
 
 BigFixedPoint BigFixedPoint::random(const BigFixedPoint& min, const BigFixedPoint& max)
@@ -511,9 +552,10 @@ BigFixedPoint BigFixedPoint::random(const BigFixedPoint& min, const BigFixedPoin
 
 BigFixedPoint BigFixedPoint::random(const BigFixedPoint& n)
 {
-    //! \todo Fix this crappy seeding and use a better PRNG
     gmp_randclass r(gmp_randinit_default);
-    r.seed(QTime::currentTime().msec());
+
+    //r.seed(QTime::currentTime().msec());
+    r.seed(getSeed());
     mpz_class num = r.get_z_range(n.number+1);
     return BigFixedPoint(num, n.getDecimalPlaces());
 }
@@ -534,18 +576,8 @@ BigFixedPoint BigFixedPoint::min(const BigFixedPoint& lhs, const BigFixedPoint& 
         return rhs;
 }
 
-/*! \todo Might be leading/trailing spaces we want to remove to make this
- *  more robust.
- */
 QString BigFixedPoint::toString() const
 {
-    // Handle this better. Need to handle it mostly in the division
-    // code, where this can occur if we end up with a scaling factor
-    // of 10^x where x < 0. Maybe here we should assume 0, since it
-    // sort of "underflowed". If we have adaptive precision in division
-    // we can get around the loss of precision in the first place.
-
-    //! \todo Handle by adding trailing 0s perhaps?
     assert(decimalPlaces >= 0);
 
     QString str;
@@ -642,8 +674,6 @@ qint64 BigFixedPoint::toLongLong() const
     {
         return QString::fromStdString(number.get_str()).toLongLong();
     } else {
-        //BigFixedPoint scaled(*this);
-        //scaled.scale(0);
         if (*this < std::numeric_limits<qint64>::min())
         {
             return std::numeric_limits<qint64>::min();

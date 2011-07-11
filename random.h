@@ -30,8 +30,6 @@ protected:
     boost::variate_generator<boost::mt19937&, boost::uniform_int<inttype> > gen;
 
     /*! Gets a seed from an appropriate entropy source.
-     * \todo Seeding from urandom only works in Linux. Work in an alternative for
-     *    windows and other non-Unix systems.
      */
     static quint64 getSeed()
     {

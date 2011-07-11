@@ -52,11 +52,9 @@ MainWindow::MainWindow(QWidget *parent) :
     qsrand(getSeed() % 1000000);
 
     // Load up the default module
-    //! \todo Save/restore currently active module at app exit/load
     module = 0;
     moduleChange(new AdditionModule(this));
 
-    //ui->centralWidget->layout()->addWidget(this->module->getConfigFrame());
     ui->settingsTab->layout()->addWidget(module->getConfigFrame());
 
     // Restore saved settings
@@ -78,8 +76,6 @@ MainWindow::~MainWindow()
 }
 
 /*! Gets a seed from an appropriate entropy source.
- * \todo Seeding from urandom only works in Linux. Work in an alternative for
- *    windows and other non-Unix systems.
  */
 quint64 MainWindow::getSeed()
 {
@@ -95,9 +91,9 @@ quint64 MainWindow::getSeed()
     return seed;
 }
 
+/*
 void MainWindow::testSQL()
 {
-    /*
       QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
       db.setHostName("localhost");
       db.setDatabaseName("qmentat_data.sqlite");
@@ -169,8 +165,8 @@ void MainWindow::testSQL()
       //query.exec("CREATE TABLE ");
       //bool result = query.exec("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;");
       //std::cerr << "Result: " << result << std::endl;
-   */
 }
+*/
 
 /*! Reads the saved Qt settings and restores to saved state.
  */

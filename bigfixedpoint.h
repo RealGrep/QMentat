@@ -82,7 +82,7 @@ public:
 
     void scale(int decimals);
 
-    //static QString decimalize(mpz_class num, qint32 decimals);
+    static quint32 getSeed();
     static BigFixedPoint random(const BigFixedPoint& min, const BigFixedPoint& max);
     static BigFixedPoint random(const BigFixedPoint& n);
     static BigFixedPoint max(const BigFixedPoint& lhs, const BigFixedPoint& rhs);
@@ -113,19 +113,29 @@ public:
 
     // Operators for the basic 4 operations
     BigFixedPoint& operator+=(const BigFixedPoint& rhs);
-    const BigFixedPoint operator+(const BigFixedPoint& rhs) const;
+    friend const BigFixedPoint operator+(const BigFixedPoint &lhs, const BigFixedPoint& rhs);
     BigFixedPoint& operator+=(int rhs);
-    const BigFixedPoint operator+(int rhs) const;
+    friend const BigFixedPoint operator+(const BigFixedPoint &lhs, int rhs);
+    friend const BigFixedPoint operator+(int lhs, const BigFixedPoint &rhs);
+
     BigFixedPoint & operator-=(const BigFixedPoint& rhs);
-    const BigFixedPoint operator-(const BigFixedPoint& rhs) const;
+    friend const BigFixedPoint operator-(const BigFixedPoint& lhs, const BigFixedPoint& rhs);
+    BigFixedPoint& operator-=(int rhs);
+    friend const BigFixedPoint operator-(const BigFixedPoint &lhs, int rhs);
+    friend const BigFixedPoint operator-(int lhs, const BigFixedPoint &rhs);
+
     BigFixedPoint& operator*=(const BigFixedPoint& rhs);
-    const BigFixedPoint operator*(const BigFixedPoint& rhs) const;
+    friend const BigFixedPoint operator*(const BigFixedPoint& lhs,
+                                         const BigFixedPoint& rhs);
+
     BigFixedPoint& operator/=(const BigFixedPoint& rhs);
-    const BigFixedPoint operator/(const BigFixedPoint& rhs) const;
+    friend const BigFixedPoint operator/(const BigFixedPoint& lhs,
+                                         const BigFixedPoint& rhs);
     BigFixedPoint& operator/=(int rhs);
-    const BigFixedPoint operator/(int rhs) const;
-    const BigFixedPoint operator%(const BigFixedPoint& rhs) const;
-    const BigFixedPoint operator%(int rhs) const;
+    friend const BigFixedPoint operator/(BigFixedPoint& lhs, int rhs);
+    friend const BigFixedPoint operator%(const BigFixedPoint& lhs,
+                                         const BigFixedPoint& rhs);
+    friend const BigFixedPoint operator%(BigFixedPoint& lhs, int rhs);
 
     QString toString() const;
     qint64 toLongLong() const;
