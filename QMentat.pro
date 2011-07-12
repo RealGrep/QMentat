@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui webkit sql qwt
+QT       += core gui
 
 TARGET = QMentat
 TEMPLATE = app
