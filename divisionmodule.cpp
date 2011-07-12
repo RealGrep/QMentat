@@ -1,6 +1,7 @@
 #include "divisionmodule.h"
 
 #include "mainwindow.h"
+#include <cmath>
 #include <iostream>
 #include <vector>
 #include <QtGui>
@@ -28,7 +29,7 @@ DivisionModule::DivisionModule(MainWindow *mw)
     QSettings settings;
     settings.beginGroup("divisionmodule");
     roundingMode = settings.value("roundingmode", false).toBool();
-    BigFixedPoint::setRounding(roundingMode == 1);
+    BigFixedPoint::setRounding(roundingMode == DivisionConfigFrame::ROUNDING_ROUND);
     integersOnly = settings.value("integersonly", false).toBool();
 
     if (integersOnly)
@@ -129,7 +130,8 @@ bool DivisionModule::isRangeOk(qint64 firstMin, qint64 firstMax,
     // We ignore firstMax because we don't care if it's only divisible by itself
     for (qint64 i = firstMax-1; i >= firstMin; --i)
     {
-        for (qint64 j = lastMin; j < lastMax; ++j)
+        qint64 last = std::min(static_cast<qint64>(sqrt(i)), lastMax) + 1;
+        for (qint64 j = lastMin; j < last; ++j)
         {
             if (((i % j) == 0) && (i != j))
             {
@@ -158,15 +160,31 @@ std::vector<qint64> *DivisionModule::getDivisors(qint64 num,
     // No use going past sqrt(num)
     qint64 last = std::min(static_cast<qint64>(sqrt(num)), max) + 1;
 
+    const int partitions = 100000000;
     QProgressDialog progress("Finding divisors, please wait...", "Cancel",
-                             min, last, configFrame);
+                             0, partitions, configFrame);
     progress.setWindowModality(Qt::WindowModal);
-
-    for (unsigned long i = min; i <= last; ++i)
+    int prog = 0;
+    for (qint64 i = min; i <= last; ++i)
     {
-        progress.setValue(i);
+        int newProg = (int)round(((double)(i - min) / (double)last) * (double)partitions);
+
+        if (newProg > prog)
+        {
+            prog = newProg;
+        }
+        progress.setValue(prog);
+
         if (progress.wasCanceled())
         {
+            /*
+            if (divisors->empty())
+            {
+                delete divisors;
+                divisors = 0;
+                return 0;
+            }
+            */
             break;
         }
 
@@ -180,7 +198,7 @@ std::vector<qint64> *DivisionModule::getDivisors(qint64 num,
         }
     }
 
-    progress.setValue(last);
+    progress.setValue(partitions);
 
     return divisors;
 }
@@ -205,22 +223,9 @@ QString DivisionModule::question()
             // Generate the numbers
             firstNumberIR = (*genFirst)();
 
-#if 0
-            // TEST
-            QFuture<std::vector<qint64>* > future = QtConcurrent::run(getDivisors,
-                                                            firstNumberIR,
-                                                            lastMinIR, lastMaxIR);
-            QFutureWatcher *watcher = new FutureWatcher(this);
-            watcher->setFuture(future);
-            connect(watcher, SIGNAL(finished()), this, SLOT(divisorsFound));
-            //future.waitForFinished();
-            processingDone.wait();
-            std::vector<qint64> *divisors = future.result();
-            // END TEST
-#endif
-
             std::vector<qint64> *divisors = getDivisors(firstNumberIR,
                                                         lastMinIR, lastMaxIR);
+            assert(divisors != 0);
             /*
             std::cout << "Divisors for " << firstNumberIR << ": ";
             for (auto it = divisors->begin(); it != divisors->end(); ++it)
@@ -229,7 +234,6 @@ QString DivisionModule::question()
             }
             std::cout << std::endl;
             */
-
             if (divisors->empty()) {
                 // No divisors, try again
                 lastNumberIR = 0;
@@ -273,10 +277,8 @@ QString DivisionModule::question()
         answer.scale(decimalPlaces);
 
         int decimals = 0;
-        if (!integersOnly)
-        {
-            decimals = std::max(firstNumber.getDecimalPlaces(), lastNumber.getDecimalPlaces());
-        }
+        decimals = std::max(firstNumber.getDecimalPlaces(), lastNumber.getDecimalPlaces());
+
         BigFixedPoint firstDisplay(firstNumber);
         firstDisplay.scale(decimals);
         BigFixedPoint lastDisplay(lastNumber);

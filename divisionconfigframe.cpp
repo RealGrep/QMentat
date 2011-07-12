@@ -91,22 +91,43 @@ void DivisionConfigFrame::setIntegersOnly(bool intsOnly)
     {
         QString str = ui->minNumberLineEdit->text();
         BigFixedPoint oldFirstMin(str.remove(QLocale::system().groupSeparator()));
-        qint64 num = oldFirstMin.toLongLong();
+        qint64 num;
+        if (!oldFirstMin.fitsInLongLong())
+        {
+            num = 1000000000000LL;
+        } else {
+            num = oldFirstMin.toLongLong();
+        }
         ui->minNumberLineEdit->setText(QString("%1").arg(num));
 
         str = ui->maxNumberLineEdit->text();
         BigFixedPoint oldFirstMax(str.remove(QLocale::system().groupSeparator()));
-        num = oldFirstMax.toLongLong();
+        if (!oldFirstMax.fitsInLongLong())
+        {
+            num = 1000000000000LL;
+        } else {
+            num = oldFirstMax.toLongLong();
+        }
         ui->maxNumberLineEdit->setText(QString("%1").arg(num));
 
         str = ui->secondMinLineEdit->text();
         BigFixedPoint oldLastMin(str.remove(QLocale::system().groupSeparator()));
-        num = oldLastMin.toLongLong();
+        if (!oldLastMin.fitsInLongLong())
+        {
+            num = 1000000000000LL;
+        } else {
+            num = oldLastMin.toLongLong();
+        }
         ui->secondMinLineEdit->setText(QString("%1").arg(num));
 
         str = ui->secondMaxLineEdit->text();
         BigFixedPoint oldLastMax(str.remove(QLocale::system().groupSeparator()));
-        num = oldLastMax.toLongLong();
+        if (!oldLastMax.fitsInLongLong())
+        {
+            num = 1000000000000LL;
+        } else {
+            num = oldLastMax.toLongLong();
+        }
         ui->secondMaxLineEdit->setText(QString("%1").arg(num));
 
         numValidator->setRange(
