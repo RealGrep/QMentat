@@ -22,6 +22,8 @@ public:
     explicit DivisionConfigFrame(QWidget *parent = 0);
     ~DivisionConfigFrame();
 
+    enum RoundingMode {ROUNDING_TRUNCATE = 0, ROUNDING_ROUND = 1};
+
     void setModule(DivisionModule *mod);
     void setFirstMinimum(QString min);
     void setFirstMaximum(QString max);
@@ -29,7 +31,7 @@ public:
     void setLastMaximum(QString max);
     void setLargestNumberFirst(bool b);
     void setDecimalPlaces(int decimalPlaces);
-    void setRoundingMode(int mode);
+    void setRoundingMode(RoundingMode mode);
     void setIntegersOnly(bool intsOnly);
 
     bool applyConfig();

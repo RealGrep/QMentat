@@ -63,7 +63,6 @@ private:
     BigFixedPoint answer;
     bool largestNumberFirst;
     int decimalPlaces;
-    //! \todo Enum this. 0 = truncate, 0 = round
     bool roundingMode;
     bool integersOnly;
 

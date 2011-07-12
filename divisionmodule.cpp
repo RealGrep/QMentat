@@ -68,7 +68,9 @@ DivisionModule::DivisionModule(MainWindow *mw)
     }
     configFrame->setLargestNumberFirst(largestNumberFirst);
     configFrame->setDecimalPlaces(decimalPlaces);
-    configFrame->setRoundingMode((roundingMode == true) ? 1 : 0);
+    configFrame->setRoundingMode((roundingMode == true)
+                                 ? DivisionConfigFrame::ROUNDING_ROUND
+                                     : DivisionConfigFrame::ROUNDING_TRUNCATE);
     configFrame->setIntegersOnly(integersOnly);
 
     // Make display frame
@@ -155,8 +157,19 @@ std::vector<qint64> *DivisionModule::getDivisors(qint64 num,
     std::vector<qint64> *divisors = new std::vector<qint64>();
     // No use going past sqrt(num)
     qint64 last = std::min(static_cast<qint64>(sqrt(num)), max) + 1;
+
+    QProgressDialog progress("Finding divisors, please wait...", "Cancel",
+                             min, last, configFrame);
+    progress.setWindowModality(Qt::WindowModal);
+
     for (unsigned long i = min; i <= last; ++i)
     {
+        progress.setValue(i);
+        if (progress.wasCanceled())
+        {
+            break;
+        }
+
         if ((num % i) == 0)
         {
             divisors->push_back(i);
@@ -166,6 +179,8 @@ std::vector<qint64> *DivisionModule::getDivisors(qint64 num,
             }
         }
     }
+
+    progress.setValue(last);
 
     return divisors;
 }
@@ -189,6 +204,20 @@ QString DivisionModule::question()
         do {
             // Generate the numbers
             firstNumberIR = (*genFirst)();
+
+#if 0
+            // TEST
+            QFuture<std::vector<qint64>* > future = QtConcurrent::run(getDivisors,
+                                                            firstNumberIR,
+                                                            lastMinIR, lastMaxIR);
+            QFutureWatcher *watcher = new FutureWatcher(this);
+            watcher->setFuture(future);
+            connect(watcher, SIGNAL(finished()), this, SLOT(divisorsFound));
+            //future.waitForFinished();
+            processingDone.wait();
+            std::vector<qint64> *divisors = future.result();
+            // END TEST
+#endif
 
             std::vector<qint64> *divisors = getDivisors(firstNumberIR,
                                                         lastMinIR, lastMaxIR);

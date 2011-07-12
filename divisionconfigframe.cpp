@@ -68,7 +68,7 @@ void DivisionConfigFrame::setDecimalPlaces(int decimalPlaces)
     ui->decimalPlacesLineEdit->setText(QString("%1").arg(decimalPlaces));
 }
 
-void DivisionConfigFrame::setRoundingMode(int mode)
+void DivisionConfigFrame::setRoundingMode(RoundingMode mode)
 {
     ui->roundingComboBox->setCurrentIndex(mode);
 }
