@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+class QString;
+
 class QuestionDisplay : public QWidget
 {
     Q_OBJECT

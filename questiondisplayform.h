@@ -6,6 +6,8 @@
 #include <QString>
 #include "questiondisplay.h"
 
+class QFont;
+
 namespace Ui {
     class QuestionDisplayForm;
 }
@@ -23,6 +25,13 @@ public:
 
 private:
     Ui::QuestionDisplayForm *ui;
+
+    QFont displayFont;
+    int widestChar;
+
+    QString first;
+    QString last;
+    QChar operation;
 };
 
 #endif // QUESTIONDISPLAYFORM_H
