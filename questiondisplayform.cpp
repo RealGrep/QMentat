@@ -23,7 +23,7 @@ QuestionDisplayForm::QuestionDisplayForm(QWidget *parent) :
     widestChar = 0;
 
     // Find out the width of the widest digit we use
-    QString ourDigits = "+-x/0123456789.";
+    QString ourDigits = "+-x/0123456789.,";
     QFontMetrics metrics(displayFont);
     for (int i = 0; i < ourDigits.size(); ++i)
     {
@@ -109,8 +109,8 @@ void QuestionDisplayForm::paintEvent(QPaintEvent *)
     int sepWidth = metrics.width(QLocale::system().groupSeparator());
     int sepAdj = widestChar - sepWidth;
 
-    int firstWidth = first.size()*widestChar - (firstNumSep*sepWidth);
-    int lastWidth = last.size()*widestChar - (lastNumSep*sepWidth);
+    int firstWidth = first.size()*widestChar - (firstNumSep*sepAdj);
+    int lastWidth = last.size()*widestChar - (lastNumSep*sepAdj);
     int numsWidth = std::max(firstWidth, lastWidth);
 
     //int totalWidth = numsWidth + widestChar;
