@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>246</width>
-    <height>300</height>
+    <height>308</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -90,6 +90,9 @@ p, li { white-space: pre-wrap; }
        <property name="text">
         <string notr="true">2</string>
        </property>
+       <property name="maxLength">
+        <number>6</number>
+       </property>
       </widget>
      </item>
      <item row="5" column="0">
@@ -103,6 +106,9 @@ p, li { white-space: pre-wrap; }
       <widget class="QLineEdit" name="maxRootLineEdit">
        <property name="text">
         <string notr="true">2</string>
+       </property>
+       <property name="maxLength">
+        <number>6</number>
        </property>
       </widget>
      </item>
@@ -131,6 +137,9 @@ p, li { white-space: pre-wrap; }
       <widget class="QLineEdit" name="decimalPlacesLineEdit">
        <property name="text">
         <string notr="true">0</string>
+       </property>
+       <property name="maxLength">
+        <number>3</number>
        </property>
       </widget>
      </item>

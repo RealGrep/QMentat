@@ -87,6 +87,9 @@ p, li { white-space: pre-wrap; }
        <property name="text">
         <string notr="true">2</string>
        </property>
+       <property name="maxLength">
+        <number>6</number>
+       </property>
       </widget>
      </item>
      <item row="6" column="0">
@@ -100,6 +103,9 @@ p, li { white-space: pre-wrap; }
       <widget class="QLineEdit" name="maxPowerLineEdit">
        <property name="text">
         <string notr="true">2</string>
+       </property>
+       <property name="maxLength">
+        <number>6</number>
        </property>
       </widget>
      </item>
@@ -128,6 +134,9 @@ p, li { white-space: pre-wrap; }
       <widget class="QLineEdit" name="decimalPlacesLineEdit">
        <property name="text">
         <string notr="true">0</string>
+       </property>
+       <property name="maxLength">
+        <number>3</number>
        </property>
       </widget>
      </item>

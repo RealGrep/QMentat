@@ -204,11 +204,6 @@ std::vector<qint64> *DivisionModule::getDivisors(qint64 num,
 }
 
 /*! \returns QString containing new question in MathML format.
- *
- * \todo Might be a good idea to put up a "Please wait" type dialog while
- * we're calculating divisors, and perhaps to launch the processing in a
- * thread so it doesn't "hang" the interface. We could put a Stop/Cancel
- * button so they can cancel if it's taking too long.
  */
 QString DivisionModule::question()
 {
