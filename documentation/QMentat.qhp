@@ -5,11 +5,11 @@
     <filterSection>
         <toc>
             <section title="QMentat Manual" ref="index.html">
-                <section title="Addition" ref="addition.html"/>
+                <section title="Addition" ref="index.html#Addition"/>
             </section>
         </toc>
         <keywords>
-            <keyword name="Addition" ref="addition.html"/>
+            <keyword name="Addition" ref="index.html#Addition"/>
         </keywords>
         <files>
             <file>*.html</file>

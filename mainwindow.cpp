@@ -370,19 +370,30 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
 void MainWindow::on_actionContents_triggered()
 {
-    if (assistant == 0 || assistant->state() != QProcess::Running)
+    if (!assistant)
     {
-        if (assistant == 0)
-        {
-            assistant = new QProcess;
-        }
+        assistant = new QProcess;
+    }
+
+    if (assistant->state() != QProcess::Running)
+    {
+        QString app = QLibraryInfo::location(QLibraryInfo::BinariesPath) + QDir::separator();
+#if !defined(Q_OS_MAC)
+        app += QLatin1String("assistant");
+#else
+        app += QLatin1String("Assistant.app/Contents/MacOS/Assistant");
+#endif
+
         QStringList args;
         args << QLatin1String("-collectionFile")
              << QLatin1String("QMentat.qhc")
              << QLatin1String("-enableRemoteControl");
-        assistant->start(QLatin1String("assistant"), args);
-        if (!assistant->waitForStarted())
-            return;
+        assistant->start(app, args);
+
+        if (!assistant->waitForStarted()) {
+            QMessageBox::critical(0, QObject::tr("QMentat"),
+                                  QObject::tr("Unable to launch Qt Assistant (%1)").arg(app));
+        }
     } else {
         QByteArray ba;
          ba.append("setSource qthelp://mike.dusseault.QMentat/doc/index.html\n");

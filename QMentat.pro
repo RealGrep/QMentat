@@ -102,7 +102,12 @@ OTHER_FILES += \
     Doxyfile \
     qmentat_fr.ts \
     qmentat_es.ts \
-    INSTALL
+    INSTALL \
+    documentation/QMentat.qhp \
+    documentation/QMentat.qhcp \
+    documentation/index.html \
+    documentation/addition.html \
+    documentation/about.txt
 
 TRANSLATIONS += \
     qmentat_fr.ts \
