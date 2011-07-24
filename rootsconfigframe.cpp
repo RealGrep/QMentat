@@ -21,7 +21,7 @@ RootsConfigFrame::RootsConfigFrame(QWidget *parent) :
     QIntValidator *decimalsValidator = new QIntValidator(0, 100, this);
     ui->decimalPlacesLineEdit->setValidator(decimalsValidator);
 
-    QIntValidator *rootValidator = new QIntValidator(0, 1000, this);
+    QIntValidator *rootValidator = new QIntValidator(1, 1000, this);
     ui->minRootLineEdit->setValidator(rootValidator);
     ui->maxRootLineEdit->setValidator(rootValidator);
 
@@ -97,8 +97,13 @@ bool RootsConfigFrame::applyConfig()
     int rootMin = ui->minRootLineEdit->text().toInt();
     int rootMax = ui->maxRootLineEdit->text().toInt();
 
-    if (firstMax < firstMin)
-    {
+    if (rootMin <= 0) {
+        QMessageBox::warning(this, tr("Range Validation Error"), tr("Minimum of root must be greater than zero."), QMessageBox::Ok);
+        return false;
+    } else if (rootMax <= 0) {
+        QMessageBox::warning(this, tr("Range Validation Error"), tr("Maximum of root must be greater than zero."), QMessageBox::Ok);
+        return false;
+    } else if (firstMax < firstMin) {
         QMessageBox::warning(this, tr("Range Validation Error"), tr("Maximum of base number is smaller than the minimum."), QMessageBox::Ok);
         return false;
     } else if (rootMax < rootMin) {
