@@ -117,10 +117,14 @@ images.files = *.png
 translates.path = $$DESTDIR
 translates.files = *.qm
 
+docs.path = $$DESTDIR
+docs.files = documentation/QMentat.qhc
+
 INSTALLS = \
     target \
     images \
-    translates
+    translates \
+    docs
 
 RESOURCES += \
     qmentat.qrc

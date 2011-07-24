@@ -49,6 +49,7 @@ MainWindow::MainWindow(QWidget *parent) :
     totalCorrect = 0;
     totalWrong = 0;
     currentTab = 0;
+    assistant = 0;
 
     // Initialize qrand seed
     qsrand(getSeed() % 1000000);
@@ -91,6 +92,12 @@ MainWindow::~MainWindow()
 
     delete module;
     module = 0;
+
+    if (assistant && assistant->state() == QProcess::Running) {
+            assistant->terminate();
+            assistant->waitForFinished(3000);
+        }
+        delete assistant;
 
     delete ui;
 }
@@ -358,5 +365,32 @@ void MainWindow::on_tabWidget_currentChanged(int index)
         }
     } else {
         currentTab = index;
+    }
+}
+
+void MainWindow::on_actionContents_triggered()
+{
+    if (assistant == 0 || assistant->state() != QProcess::Running)
+    {
+        if (assistant == 0)
+        {
+            assistant = new QProcess;
+        }
+        QStringList args;
+        args << QLatin1String("-collectionFile")
+             << QLatin1String("QMentat.qhc")
+             << QLatin1String("-enableRemoteControl");
+        assistant->start(QLatin1String("assistant"), args);
+        while (assistant->canReadLine())
+        {
+            QByteArray bytes = assistant->readLine(1024);
+            qDebug() << bytes;
+        }
+        if (!assistant->waitForStarted())
+            return;
+    } else {
+        QByteArray ba;
+         ba.append("setSource qthelp://mike.dusseault.QMentat/doc/index.html\n");
+         assistant->write(ba);
     }
 }

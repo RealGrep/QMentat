@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QtHelpProject version="1.0">
+    <namespace>mike.dusseault.QMentat</namespace>
+    <virtualFolder>doc</virtualFolder>
+    <filterSection>
+        <toc>
+            <section title="QMentat Manual" ref="index.html">
+                <section title="Addition" ref="addition.html"/>
+            </section>
+        </toc>
+        <keywords>
+            <keyword name="Addition" ref="addition.html"/>
+        </keywords>
+        <files>
+            <file>*.html</file>
+        </files>
+    </filterSection>
+</QtHelpProject>
+

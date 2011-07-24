@@ -7,6 +7,7 @@
 #include "practicemodule.h"
 
 class PracticeModule;
+class QProcess;
 
 namespace Ui {
     class MainWindow;
@@ -38,6 +39,8 @@ private:
 
     int currentTab;
 
+    QProcess *assistant;
+
 private slots:
     void on_tabWidget_currentChanged(int index);
     void on_actionStatistics_triggered();
@@ -50,6 +53,7 @@ private slots:
     void on_actionMultiplication_triggered();
     void on_actionAddition_triggered();
     void on_lineEdit_returnPressed();
+    void on_actionContents_triggered();
 };
 
 #endif // MAINWINDOW_H

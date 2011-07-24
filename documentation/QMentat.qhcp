@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QHelpCollectionProject version="1.0">
+    <assistant>
+        <title>QMentat Manual</title>
+        <applicationIcon>images/QMentat.png</applicationIcon>
+        <cacheDirectory>mike.dusseault/QMentat</cacheDirectory>
+        <startPage>qthelp://mike.dusseault.QMentat/doc/index.html</startPage>
+        <aboutMenuText>
+            <text>About QMentat</text>
+        </aboutMenuText>
+        <aboutDialog>
+            <file>about.txt</file>
+            <icon>images/QMentat.png</icon>
+        </aboutDialog>
+        <enableDocumentationManager>false</enableDocumentationManager>
+        <enableAddressBar>false</enableAddressBar>
+        <enableFilterFunctionality>false</enableFilterFunctionality>
+    </assistant>
+    <docFiles>
+        <generate>
+            <file>
+                <input>QMentat.qhp</input>
+                <output>QMentat.qch</output>
+            </file>
+        </generate>
+        <register>
+            <file>QMentat.qch</file>
+        </register>
+    </docFiles>
+
+<!--
+    <assistant>
+        <title>QMentat Mental Arithmetic Trainer</title>
+        <applicationIcon>images/QMentat.png</applicationIcon>
+        <cacheDirectory>mike.dusseault/QMentat</cacheDirectory>
+        <startPage>qthelp://mike.dusseault.QMentat/doc/index.html</startPage>
+        <aboutMenuText>
+            <text>About QMentat Blah Blah Blah</text>
+        </aboutMenuText>
+        <aboutDialog>
+            <file>about.txt</file>
+            <icon>images/QMentat.png</icon>
+        </aboutDialog>
+        <enableDocumentationManager>false</enableDocumentationManager>
+        <enableAddressBar>false</enableAddressBar>
+        <enableFilterFunctionality>false</enableFilterFunctionality>
+    </assistant>
+    <docFiles>
+        <generate>
+            <file>
+                <input>QMentat.qhp</input>
+                <output>QMentat.qch</output>
+            </file>
+        </generate>
+        <register>
+            <file>QMentat.qch</file>
+        </register>
+    </docFiles>
+-->
+</QHelpCollectionProject>
+

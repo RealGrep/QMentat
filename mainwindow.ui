@@ -141,6 +141,8 @@ p, li { white-space: pre-wrap; }
     <property name="title">
      <string>Help</string>
     </property>
+    <addaction name="actionContents"/>
+    <addaction name="separator"/>
     <addaction name="actionAbout"/>
    </widget>
    <addaction name="menuFile"/>
@@ -264,6 +266,11 @@ p, li { white-space: pre-wrap; }
   <action name="actionStatistics">
    <property name="text">
     <string>Statistics</string>
+   </property>
+  </action>
+  <action name="actionContents">
+   <property name="text">
+    <string>Contents</string>
    </property>
   </action>
  </widget>
