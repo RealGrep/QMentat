@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>Addition_32x32.png</file>
+        <file>Division_32x32.png</file>
+        <file>Multiplication_32x32.png</file>
+        <file>Powers_32x32.png</file>
+        <file>QMentat.png</file>
+        <file>Roots_32x32.png</file>
+        <file>Subtraction_32x32.png</file>
+        <file>exit.png</file>
+    </qresource>
+    <qresource prefix="/translations">
+        <file>qmentat_es.qm</file>
+        <file>qmentat_fr.qm</file>
+    </qresource>
+</RCC>

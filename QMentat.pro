@@ -10,7 +10,6 @@ TARGET = QMentat
 TEMPLATE = app
 
 QMAKE_CXXFLAGS += -std=c++0x
-#QMAKE_CXXLDFLAGS += -lgmpxx -lgmp
 LIBS += -lgmpxx -lgmp
 include(/home/michel/code/QMentat/qtmmlwidget-2.4_1-opensource/src/qtmmlwidget.pri)
 
@@ -50,7 +49,8 @@ SOURCES += main.cpp\
     pieview.cpp \
     statisticsdialog.cpp \
     bigfixedpoint.cpp \
-    qbigfixedvalidator.cpp
+    qbigfixedvalidator.cpp \
+    licensedialog.cpp
 
 HEADERS  += mainwindow.h \
     additionmodule.h \
@@ -75,7 +75,8 @@ HEADERS  += mainwindow.h \
     pieview.h \
     statisticsdialog.h \
     bigfixedpoint.h \
-    qbigfixedvalidator.h
+    qbigfixedvalidator.h \
+    licensedialog.h
 
 FORMS    += mainwindow.ui \
     additionconfigframe.ui \
@@ -86,7 +87,8 @@ FORMS    += mainwindow.ui \
     powersconfigframe.ui \
     rootsconfigframe.ui \
     mathdisplayform.ui \
-    statisticsdialog.ui
+    statisticsdialog.ui \
+    licensedialog.ui
 
 OTHER_FILES += \
     exit.png \
@@ -119,3 +121,6 @@ INSTALLS = \
     target \
     images \
     translates
+
+RESOURCES += \
+    qmentat.qrc

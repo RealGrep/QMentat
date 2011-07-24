@@ -25,6 +25,8 @@
 #   include <QDateTime>
 #endif
 
+#include "licensedialog.h"
+
 
 /*! \class MainWindow
  * \brief The MainWindow of the entire application.
@@ -59,6 +61,24 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Restore saved settings
     readSettings();
+
+    // Make sure the user accepts the license agreement on first run
+    QSettings settings;
+    bool licenseAccepted = settings.value("licenseAccepted", false).toBool();
+    if (!licenseAccepted)
+    {
+        LicenseDialog license(this);
+        int res = license.exec();
+
+        licenseAccepted = (res == 1) ? true : false;
+        settings.setValue("licenseAccepted", licenseAccepted);
+
+        // Still haven't accepted? Bail.
+        if (!licenseAccepted)
+        {
+            exit(0);
+        }
+    }
 
     // Kick off first question
     newQuestion();

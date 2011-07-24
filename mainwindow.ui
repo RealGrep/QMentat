@@ -14,8 +14,8 @@
    <string>QMentat v0.6</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>QMentat.png</normaloff>QMentat.png</iconset>
+   <iconset resource="qmentat.qrc">
+    <normaloff>:/images/QMentat.png</normaloff>:/images/QMentat.png</iconset>
   </property>
   <property name="layoutDirection">
    <enum>Qt::LeftToRight</enum>
@@ -46,6 +46,9 @@
               <weight>75</weight>
               <bold>true</bold>
              </font>
+            </property>
+            <property name="toolTip">
+             <string>Enter your answer here.</string>
             </property>
             <property name="inputMethodHints">
              <set>Qt::ImhDigitsOnly</set>
@@ -165,8 +168,8 @@ p, li { white-space: pre-wrap; }
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionExit">
    <property name="icon">
-    <iconset>
-     <normaloff>exit.png</normaloff>exit.png</iconset>
+    <iconset resource="qmentat.qrc">
+     <normaloff>:/images/exit.png</normaloff>:/images/exit.png</iconset>
    </property>
    <property name="text">
     <string>Exit</string>
@@ -177,8 +180,8 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionAddition">
    <property name="icon">
-    <iconset>
-     <normaloff>Addition_32x32.png</normaloff>Addition_32x32.png</iconset>
+    <iconset resource="qmentat.qrc">
+     <normaloff>:/images/Addition_32x32.png</normaloff>:/images/Addition_32x32.png</iconset>
    </property>
    <property name="text">
     <string>Addition</string>
@@ -189,8 +192,8 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionSubtraction">
    <property name="icon">
-    <iconset>
-     <normaloff>Subtraction_32x32.png</normaloff>Subtraction_32x32.png</iconset>
+    <iconset resource="qmentat.qrc">
+     <normaloff>:/images/Subtraction_32x32.png</normaloff>:/images/Subtraction_32x32.png</iconset>
    </property>
    <property name="text">
     <string>Subtraction</string>
@@ -201,8 +204,8 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionMultiplication">
    <property name="icon">
-    <iconset>
-     <normaloff>Multiplication_32x32.png</normaloff>Multiplication_32x32.png</iconset>
+    <iconset resource="qmentat.qrc">
+     <normaloff>:/images/Multiplication_32x32.png</normaloff>:/images/Multiplication_32x32.png</iconset>
    </property>
    <property name="text">
     <string>Multiplication</string>
@@ -216,8 +219,8 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionDivision">
    <property name="icon">
-    <iconset>
-     <normaloff>Division_32x32.png</normaloff>Division_32x32.png</iconset>
+    <iconset resource="qmentat.qrc">
+     <normaloff>:/images/Division_32x32.png</normaloff>:/images/Division_32x32.png</iconset>
    </property>
    <property name="text">
     <string>Division</string>
@@ -236,8 +239,8 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionPowers">
    <property name="icon">
-    <iconset>
-     <normaloff>Powers_32x32.png</normaloff>Powers_32x32.png</iconset>
+    <iconset resource="qmentat.qrc">
+     <normaloff>:/images/Powers_32x32.png</normaloff>:/images/Powers_32x32.png</iconset>
    </property>
    <property name="text">
     <string>Powers</string>
@@ -248,8 +251,8 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionRoots">
    <property name="icon">
-    <iconset>
-     <normaloff>Roots_32x32.png</normaloff>Roots_32x32.png</iconset>
+    <iconset resource="qmentat.qrc">
+     <normaloff>:/images/Roots_32x32.png</normaloff>:/images/Roots_32x32.png</iconset>
    </property>
    <property name="text">
     <string>Roots</string>
@@ -265,7 +268,9 @@ p, li { white-space: pre-wrap; }
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="qmentat.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>actionExit</sender>

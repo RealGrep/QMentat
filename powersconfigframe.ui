@@ -45,6 +45,11 @@ p, li { white-space: pre-wrap; }
      </item>
      <item row="1" column="1">
       <widget class="QLineEdit" name="minNumberLineEdit">
+       <property name="toolTip">
+        <string>The smallest allowed value for the base number wbich is raised to a power. It must be smaller than (or equal to) the maximum number provided.
+
+This can be negative, and include any number of decimal places. The generated number will have as many digits after the decimal point as the most supplied between the minimum and maximum values.</string>
+       </property>
        <property name="text">
         <string notr="true">2</string>
        </property>
@@ -84,6 +89,11 @@ p, li { white-space: pre-wrap; }
      </item>
      <item row="5" column="1">
       <widget class="QLineEdit" name="minPowerLineEdit">
+       <property name="toolTip">
+        <string>The smallest allowed value for the exponent. It must be smaller than (or equal to) the maximum number provided.
+
+This can be negative.</string>
+       </property>
        <property name="text">
         <string notr="true">2</string>
        </property>
@@ -101,6 +111,11 @@ p, li { white-space: pre-wrap; }
      </item>
      <item row="6" column="1">
       <widget class="QLineEdit" name="maxPowerLineEdit">
+       <property name="toolTip">
+        <string>The largest allowed value for the exponent. It must be larger than (or equal to) the minimum number provided.
+
+This can be negative.</string>
+       </property>
        <property name="text">
         <string notr="true">2</string>
        </property>
@@ -132,6 +147,11 @@ p, li { white-space: pre-wrap; }
      </item>
      <item row="8" column="1">
       <widget class="QLineEdit" name="decimalPlacesLineEdit">
+       <property name="toolTip">
+        <string>The desired number of digits after the decimal point in the result. If less than that produced by the exponentiation, the result will be rounded according to the currently set rounding mode.
+
+Should be 0 or more.</string>
+       </property>
        <property name="text">
         <string notr="true">0</string>
        </property>
@@ -149,6 +169,17 @@ p, li { white-space: pre-wrap; }
      </item>
      <item row="9" column="1">
       <widget class="QComboBox" name="roundingComboBox">
+       <property name="toolTip">
+        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Method to use when rounding the result to a certain number of digits after the decimal point.&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Truncate&lt;/span&gt;: Simply chops off extra digits.&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Round&lt;/span&gt;: Rounds the number in the standard way before truncating.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <item>
         <property name="text">
          <string>Truncate</string>
