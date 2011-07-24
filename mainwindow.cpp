@@ -381,11 +381,6 @@ void MainWindow::on_actionContents_triggered()
              << QLatin1String("QMentat.qhc")
              << QLatin1String("-enableRemoteControl");
         assistant->start(QLatin1String("assistant"), args);
-        while (assistant->canReadLine())
-        {
-            QByteArray bytes = assistant->readLine(1024);
-            qDebug() << bytes;
-        }
         if (!assistant->waitForStarted())
             return;
     } else {
