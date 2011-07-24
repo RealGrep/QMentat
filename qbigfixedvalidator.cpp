@@ -14,7 +14,7 @@ QBigFixedValidator::QBigFixedValidator(QObject *parent)
 
 QBigFixedValidator::QBigFixedValidator(BigFixedPoint bottom, BigFixedPoint top,
                                        QObject *parent)
-    : QValidator(parent), min(bottom), max(top)
+    : QValidator(parent), rangeEnabled(true), min(bottom), max(top)
 {
     // Empty
 }
@@ -48,6 +48,14 @@ void QBigFixedValidator::setTop(BigFixedPoint top)
 
 QValidator::State QBigFixedValidator::validate(QString &input, int &) const
 {
+    // A negative sign, when the range is enabled, is not allowed if the
+    // range minimum is equal to or greather than 0.
+    if (input.size() == 1 && input[0] == QLocale::system().negativeSign()
+            && (rangeEnabled && min >= 0))
+    {
+        return Invalid;
+    }
+
     // A single negative sign with no digits should still be allowed as an
     // intermediate step, even though it's fails the BigFixedPoint validity
     // test.

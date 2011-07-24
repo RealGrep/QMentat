@@ -92,7 +92,7 @@ p, li { white-space: pre-wrap; }
        <property name="toolTip">
         <string>The smallest allowed value for the exponent. It must be smaller than (or equal to) the maximum number provided.
 
-This can be negative.</string>
+This must be positive.</string>
        </property>
        <property name="text">
         <string notr="true">2</string>
@@ -114,7 +114,7 @@ This can be negative.</string>
        <property name="toolTip">
         <string>The largest allowed value for the exponent. It must be larger than (or equal to) the minimum number provided.
 
-This can be negative.</string>
+This must be positive.</string>
        </property>
        <property name="text">
         <string notr="true">2</string>

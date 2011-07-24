@@ -11,7 +11,10 @@ RootsConfigFrame::RootsConfigFrame(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QBigFixedValidator *numValidator = new QBigFixedValidator(this);
+    QBigFixedValidator *numValidator = new QBigFixedValidator(
+                BigFixedPoint(QString("0")),
+                BigFixedPoint(QString("99999999999999999999999999999999999999999999")),
+                this);
     ui->minNumberLineEdit->setValidator(numValidator);
     ui->maxNumberLineEdit->setValidator(numValidator);
 
