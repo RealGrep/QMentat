@@ -14,7 +14,6 @@ PreferencesDialog::PreferencesDialog(QWidget *parent) :
     QPushButton* applyButton = ui->preferencesButtonBox->button(QDialogButtonBox::Apply);
     connect(applyButton, SIGNAL(clicked()), this, SLOT(apply()));
 
-
     ui->questionFontLineEdit->setFont(Preferences::getInstance().getQuestionFont());
     ui->answerFontLineEdit->setFont(Preferences::getInstance().getAnswerFont());
 }

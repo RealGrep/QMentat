@@ -19,25 +19,10 @@ QuestionDisplayForm::QuestionDisplayForm(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //displayFont = QFont("Arial", 30);
-    //Preferences prefs = Preferences::getInstance();
     displayFont = Preferences::getInstance().getQuestionFont();
     Preferences::getInstance().addListener(this);
-    widestChar = 0;
 
-    // Find out the width of the widest digit we use
-    QString ourDigits = "+-x/0123456789.,";
-    QFontMetrics metrics(displayFont);
-    for (int i = 0; i < ourDigits.size(); ++i)
-    {
-        int currentDigit = metrics.charWidth(ourDigits, i);
-        widestChar = std::max(widestChar, currentDigit);
-    }
-    //qDebug() << "Widest char = " << widestChar;
-
-    int minHeight = metrics.height()*2 + 10;
-    this->setMinimumHeight(minHeight);
-    this->setMaximumHeight(minHeight);
+    preferencesChanged();
 
     this->text = tr("N/A");
 }
@@ -173,7 +158,6 @@ void QuestionDisplayForm::paintEvent(QPaintEvent *)
 
 void QuestionDisplayForm::preferencesChanged()
 {
-    //qDebug() << "QuestionDisplayForm: Prefs changed!";
     displayFont = Preferences::getInstance().getQuestionFont();
     //qDebug() << "QDF: New font = " << displayFont.toString();
     widestChar = 0;

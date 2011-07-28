@@ -110,7 +110,6 @@ OTHER_FILES += \
     documentation/QMentat.qhp \
     documentation/QMentat.qhcp \
     documentation/index.html \
-    documentation/addition.html \
     documentation/about.txt
 
 TRANSLATIONS += \

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>493</width>
-    <height>183</height>
+    <width>563</width>
+    <height>207</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -58,6 +58,14 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>30</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="text">
            <string>+-1,234,567,890.00</string>
           </property>
@@ -82,6 +90,14 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="answerFontLineEdit">
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>30</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="text">
            <string>+-1,234,567,890.00</string>
           </property>

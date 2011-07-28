@@ -4,15 +4,6 @@
 #include <vector>
 
 #include "preferenceslistener.h"
-/*
-Preferences& Preferences::getInstance(){
-    if (Preferences::prefs == 0)
-    {
-        Preferences::prefs = new Preferences();
-    }
-    return *Preferences::prefs;
-}
-*/
 
 Preferences::Preferences()
 {
@@ -32,6 +23,7 @@ void Preferences::restore()
     QSettings settings;
     questionFont.fromString(settings.value("main/questionfont", QFont("Arial", 30).toString()).toString());
     answerFont.fromString(settings.value("main/answerfont", QFont("Arial", 30).toString()).toString());
+    notifyListeners();
 }
 
 void Preferences::addListener(PreferencesListener *listener)

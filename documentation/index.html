@@ -10,6 +10,8 @@
 <p>Welcome to QMentat, a versatile program to help you practice mental
 arithmetic.</p>
 
+<!-- This needs a pep talk of some sort -->
+
 <p></p>
 
 <h2>The Main Interface</h2>
@@ -17,7 +19,7 @@ arithmetic.</p>
 <p>When you first start up QMentat, it will be showing the
 <a href="#Addition">Addition Module</a>. However, all modules function in a
 similar manner. Modules may be selected by either clicking on the appropriate
-icon in the toolbar, or selecting it from the "Practice" menu.</p>
+icon in the toolbar, or selecting them from the "Practice" menu.</p>
 
 <p>In the application's window, you will see the question
 display area at the top. This is where the currently active question will
@@ -40,8 +42,424 @@ number from 0 to 100.</p>
 <a name="Addition">
 <h2>Addition</h2>
 
-<p>The Addition Module allows you to practice adding numbers. The numbers may be
-positive, negative, and contain digits after the decimal point.</p>
+<p>The Addition Module allows you to practice adding together two numbers. The
+numbers may be positive, negative, and contain digits after the decimal point.</p>
+
+<h3>Addition Settings</h3>
+
+<p>In the settings tab, there are a few parameters you may adjust to suit
+your practice goals. Keep in mind that very large numbers may be limited by
+such factors as the width of your screen and the size of the font you are using.
+</p>
+
+<p>Mainly, you will be interested in setting the range of both the first and
+the second number to be added. Each number may have it's range specified
+separately, and contain different numbers of digits after the decimal point.
+The answer is expected to contain as many digits after the decimal point as
+the most used by the random numbers generated for the first and second numbers.
+However, it is not necessary to add trailing zeroes after the decimal point.
+</p>
+
+<p>How many digits each number will have after the decimal point is determined
+by the most provided by the minimum and maximum numbers for that number.</p>
+
+<p>In more detail, here are the fields present in the settings for the addition
+module:</p>
+
+<h4>First Number</h4>
+
+<h5>Minimum</h5>
+
+<p>The smallest allowed value for the first number in the addition. It must
+be smaller than (or equal to) the maximum number provided.</p>
+
+<p>This can be negative, and include any number of decimal places. The generated
+number will have as many digits after the decimal point as the most supplied
+between the minimum and maximum values.</p>
+
+<p>The answer will contain as many digits after the decimal place as the most
+used by the first and second numbers.</p>
+
+<h5>Maximum</h5>
+
+<p>The largest allowed value for the first number in the addition. It must be
+larger than (or equal to) the minimum number provided.</p>
+
+<p>This can be negative, and include any number of decimal places. The
+generated number will have as many digits after the decimal point as the most
+supplied between the minimum and maximum values.</p>
+
+<p>The answer will contain as many digits after the decimal place as the
+most used by the first and second numbers.</p>
+
+<h4>Second Number</h4>
+
+<h5>Minimum</h5>
+
+<p>The smallest allowed value for the second number in the addition. It must
+be smaller than (or equal to) the maximum number provided.</p>
+
+<p>This can be negative, and include any number of decimal places. The
+generated number will have as many digits after the decimal point as
+the most supplied between the minimum and maximum values.</p>
+
+<p>The answer will contain as many digits after the decimal place as
+the most used by the first and second numbers.</p>
+
+<h5>Maximum</h5>
+
+<p>The largest allowed value for the second number in the addition. It must
+be larger than (or equal to) the minimum number provided.</p>
+
+<p>This can be negative, and include any number of decimal places. The
+generated number will have as many digits after the decimal point as the
+most supplied between the minimum and maximum values.</p>
+
+<p>The answer will contain as many digits after the decimal place as the
+most used by the first and second numbers.</p>
+
+<h4>Largest Number First</h4>
+
+<p>If checked, whatever numbers are generated will be presented with the
+largest number as the first number, and the smallest one as the second
+number. Otherwise, what ever is generated will be used without modification.</p>
+
+
+<a name="Subtraction">
+<h2>Subtraction</h2>
+
+<h3>Subtraction Settings</h3>
+
+<h4>First Number</h4>
+
+<h5>Minimum</h5>
+
+<p>The smallest allowed value for the first number in the subtraction.
+It must be smaller than (or equal to) the maximum number provided.</p>
+
+<p>This can be negative, and include any number of decimal places.
+The generated number will have as many digits after the decimal point as
+the most supplied between the minimum and maximum values.</p>
+
+<p>The answer will contain as many digits after the decimal place as the
+most used by the first and second numbers.</p>
+
+<h5>Maximum</h5>
+
+<p>The largest allowed value for the first number in the subtraction.
+It must be larger than (or equal to) the minimum number provided.</p>
+
+<p>This can be negative, and include any number of decimal places.
+The generated number will have as many digits after the decimal point as
+the most supplied between the minimum and maximum values.</p>
+
+<p>The answer will contain as many digits after the decimal place as the
+most used by the first and second numbers.</p>
+
+<h4>Second Number</h4>
+
+<h5>Minimum</h5>
+
+<p>The smallest allowed value for the second number in the subtraction.
+It must be smaller than (or equal to) the maximum number provided.</p>
+
+<p>This can be negative, and include any number of decimal places.
+The generated number will have as many digits after the decimal point
+as the most supplied between the minimum and maximum values.</p>
+
+<p>The answer will contain as many digits after the decimal place as
+the most used by the first and second numbers.</p>
+
+<h5>Maximum</h5>
+
+<p>The largest allowed value for the second number in the subtraction.
+It must be larger than (or equal to) the minimum number provided.</p>
+
+<p>This can be negative, and include any number of decimal places.
+The generated number will have as many digits after the decimal point
+as the most supplied between the minimum and maximum values.</p>
+
+<p>The answer will contain as many digits after the decimal place as
+the most used by the first and second numbers.</p>
+
+<h4>Largest Number First</h4>
+
+<p>If checked, whatever numbers are generated will be presented with
+the largest number as the first number, and the smallest one as the
+second number. Otherwise, what ever is generated will be used without
+modification.</p>
+
+
+<a name="Multiplication">
+<h2>Multiplication</h2>
+
+<h3>Multiplication Settings</h3>
+
+<h4>First Number</h4>
+
+<h5>Minimum</h5>
+
+<p>The smallest allowed value for the first number in the multiplication.
+It must be smaller than (or equal to) the maximum number provided.</p>
+
+<p>This can be negative, and include any number of decimal places.
+The generated number will have as many digits after the decimal point
+as the most supplied between the minimum and maximum values.</p>
+
+<h5>Maximum</h5>
+
+<p>The largest allowed value for the first number in the multiplication.
+It must be larger than (or equal to) the minimum number provided.</p>
+
+<p>This can be negative, and include any number of decimal places.
+The generated number will have as many digits after the decimal point
+as the most supplied between the minimum and maximum values.</p>
+
+<h4>Second Number</h4>
+
+<h5>Minimum</h5>
+
+<p>The smallest allowed value for the second number in the multiplication.
+It must be smaller than (or equal to) the maximum number provided.</p>
+
+<p>This can be negative, and include any number of decimal places.
+The generated number will have as many digits after the decimal point
+as the most supplied between the minimum and maximum values.</p>
+
+<h5>Maximum</h5>
+
+<p>The largest allowed value for the second number in the multiplication.
+It must be larger than (or equal to) the minimum number provided.</p>
+
+<p>This can be negative, and include any number of decimal places.
+The generated number will have as many digits after the decimal point
+as the most supplied between the minimum and maximum values.</p>
+
+<h4>Result</h4>
+
+<h5>Largest Number First</h5>
+
+<p>If checked, whatever numbers are generated will be presented with
+the largest number as the first number, and the smallest one as the
+second number. Otherwise, what ever is generated will be used without
+modification.</p>
+
+<h5>Decimal Places</h5>
+
+<p>The desired number of digits after the decimal point in the result.
+If less than that produced by the multiplication, the result will be
+rounded according to the currently set rounding mode.</p>
+
+<p>Should be 0 or more. The number of digits after the decimal point
+of the result will be at most the sum of the number of digits after
+the decimal point of the first and second numbers.</p>
+
+<h5>Rounding Mode</h5>
+
+<p>Method to use when rounding the result to a certain number of digits after the decimal point.</p>
+
+<p><span style=" font-weight:600;">Truncate</span>: Simply chops off extra digits.</p>
+
+<p><span style=" font-weight:600;">Round</span>: Rounds the number in the standard way before truncating.</p>
+
+
+<a name="Division">
+<h2>Division</h2>
+
+<h3>Division Settings</h3>
+
+<h4>First Number</h4>
+
+<h5>Minimum</h5>
+
+<p>The smallest allowed value for the first number in the division.
+It must be smaller than (or equal to) the maximum number provided.</p>
+
+<p>This can be negative, and include any number of decimal places.
+The generated number will have as many digits after the decimal point
+as the most supplied between the minimum and maximum values.</p>
+
+<h5>Maximum</h5>
+
+<p>The largest allowed value for the first number in the division.
+It must be larger than (or equal to) the minimum number provided.</p>
+
+<p>This can be negative, and include any number of decimal places.
+The generated number will have as many digits after the decimal point
+as the most supplied between the minimum and maximum values.</p>
+
+<h4>Second Number</h4>
+
+<h5>Minimum</h5>
+
+<p>The smallest allowed value for the second number in the division.
+It must be smaller than (or equal to) the maximum number provided.</p>
+
+<p>This can be negative, and include any number of decimal places.
+The generated number will have as many digits after the decimal point
+as the most supplied between the minimum and maximum values.</p>
+
+<h5>Maximum</h5>
+
+<p>The largest allowed value for the second number in the division.
+It must be larger than (or equal to) the minimum number provided.</p>
+
+<p>This can be negative, and include any number of decimal places.
+The generated number will have as many digits after the decimal point
+as the most supplied between the minimum and maximum values.</p>
+
+<h4>Result</h4>
+
+<h5>Decimal Places</h5>
+
+<p>The desired number of digits after the decimal point in the result.
+If less than that produced by the division, the result will be rounded
+according to the currently set rounding mode.</p>
+
+<p>Should be 0 or more.</p>
+
+<h5>Largest Number First</h5>
+
+<p>If checked, whatever numbers are generated will be presented with
+the largest number as the first number, and the smallest one as the
+second number. Otherwise, what ever is generated will be used without
+modification.</p>
+
+<h5>Rounding Mode</h5>
+
+<p>Method to use when rounding the result to a certain number of digits after the decimal point.</p>
+
+<p><span style=" font-weight:600;">Truncate</span>: Simply chops off extra digits.</p>
+
+<p><span style=" font-weight:600;">Round</span>: Rounds the number in the standard way before truncating.</p>
+
+
+<a name="Powers">
+<h2>Powers/Exponents</h2>
+
+<h3>Powers Settings</h3>
+
+<h4>Base Number</h4>
+
+<h5>Minimum</h5>
+
+<p>The smallest allowed value for the base number which is raised
+to a power. It must be smaller than (or equal to) the maximum number
+provided.</p>
+
+<p>This can be negative, and include any number of decimal places.
+The generated number will have as many digits after the decimal point
+as the most supplied between the minimum and maximum values.</p>
+
+<h5>Maximum</h5>
+
+<p>The largest allowed value for the base number which is raised
+to a power. It must be larger than (or equal to) the minimum number
+provided.</p>
+
+<p>This can be negative, and include any number of decimal places.
+The generated number will have as many digits after the decimal point
+as the most supplied between the minimum and maximum values.</p>
+
+<h4>Power</h4>
+
+<h5>Minimum</h5>
+
+<p>The smallest allowed value for the exponent. It must be smaller
+than (or equal to) the maximum number provided.</p>
+
+<p>This must be positive.</p>
+
+<h5>Maximum</h5>
+
+<p>The largest allowed value for the exponent. It must be larger
+than (or equal to) the minimum number provided.</p>
+
+<p>This must be positive.</p>
+
+<h4>Result</h4>
+
+<h5>Decimal Places</h5>
+
+<p>The desired number of digits after the decimal point in the
+result. If less than that produced by the exponentiation, the
+result will be rounded according to the currently set rounding mode.</p>
+
+<p>Should be 0 or more.</p>
+
+<h5>Rounding Mode</h5>
+
+<p>Method to use when rounding the result to a certain number of digits after the decimal point.</p>
+
+<p><span style=" font-weight:600;">Truncate</span>: Simply chops off extra digits.</p>
+
+<p><span style=" font-weight:600;">Round</span>: Rounds the number in the standard way before truncating.</p>
+
+
+<a name="Roots">
+<h2>Roots</h2>
+
+<h3>Roots Settings</h3>
+
+<h4>Base Number</h4>
+
+<h5>Minimum</h5>
+
+<p>The smallest allowed value for the base number from which we take
+a root. It must be smaller than (or equal to) the maximum number provided.</p>
+
+<p>This must be greater than or equal to 0, and include any number
+of decimal places. The generated number will have as many digits after
+the decimal point as the most supplied between the minimum and
+maximum values.</p>
+
+<h5>Maximum</h5>
+
+<p>The largest allowed value for the base number from which we take a
+root. It must be larger than (or equal to) the minimum number provided.</p>
+
+<p>This must be greater than or equal to 0, and include any number of
+decimal places. The generated number will have as many digits after
+the decimal point as the most supplied between the minimum and
+maximum values.</p>
+
+<h4>Root</h4>
+
+<h5>Minimum</h5>
+
+<p>The smallest allowed value for the root. It must be smaller than
+(or equal to) the maximum number provided.</p>
+
+<p>This must greater than 0.</p>
+
+<h5>Maximum</h5>
+
+<p>The largest allowed value for the root. It must be larger than
+(or equal to) the minimum number provided.</p>
+
+<p>This must be greater than 0.</p>
+
+<h4>Result</h4>
+
+<h5>Decimal Digits</h5>
+
+<p>The desired number of digits after the decimal point in the
+result. If less than that produced by the root, the result will
+be rounded according to the currently set rounding mode.</p>
+
+<p>Should be 0 or more.</p>
+
+<h5>Integer Results Only</h5>
+
+<p>Results must be integers only.</p>
+
+<h5>Rounding Mode</h5>
+
+<p>Method to use when rounding the result to a certain number of digits after the decimal point.</p>
+
+<p><span style=" font-weight:600;">Truncate</span>: Simply chops off extra digits.</p>
+
+<p><span style=" font-weight:600;">Round</span>: Rounds the number in the standard way before truncating.</p>
 
 </body>
 </html>

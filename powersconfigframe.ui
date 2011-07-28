@@ -46,7 +46,7 @@ p, li { white-space: pre-wrap; }
      <item row="1" column="1">
       <widget class="QLineEdit" name="minNumberLineEdit">
        <property name="toolTip">
-        <string>The smallest allowed value for the base number wbich is raised to a power. It must be smaller than (or equal to) the maximum number provided.
+        <string>The smallest allowed value for the base number which is raised to a power. It must be smaller than (or equal to) the maximum number provided.
 
 This can be negative, and include any number of decimal places. The generated number will have as many digits after the decimal point as the most supplied between the minimum and maximum values.</string>
        </property>
@@ -64,6 +64,11 @@ This can be negative, and include any number of decimal places. The generated nu
      </item>
      <item row="2" column="1">
       <widget class="QLineEdit" name="maxNumberLineEdit">
+       <property name="toolTip">
+        <string>The largest allowed value for the base number which is raised to a power. It must be larger than (or equal to) the minimum number provided.
+
+This can be negative, and include any number of decimal places. The generated number will have as many digits after the decimal point as the most supplied between the minimum and maximum values.</string>
+       </property>
        <property name="text">
         <string notr="true">20</string>
        </property>

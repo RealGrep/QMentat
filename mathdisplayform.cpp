@@ -28,8 +28,8 @@ MathDisplayForm::MathDisplayForm(QWidget *parent) :
     mml_widget->setUpdatesEnabled(true);
     QFont font = Preferences::getInstance().getQuestionFont();
     mml_widget->setBaseFontPointSize(font.pointSize());
-    mml_widget->setMinimumHeight(font.pointSize()*1.5);
-    this->setMinimumHeight(font.pointSize()*1.5);
+    mml_widget->setMinimumHeight(font.pointSize()*3);
+    this->setMinimumHeight(font.pointSize()*3);
     //mml_widget->setMaximumHeight(100);
     mml_widget->setMinimumWidth(100);
     layout->addWidget(mml_widget);
@@ -85,8 +85,8 @@ void MathDisplayForm::preferencesChanged()
     QFont font = Preferences::getInstance().getQuestionFont();
     //! \todo Fix this crappy font problem by replacing the entire QMMlWidget.
     mml_widget->setBaseFontPointSize(font.pointSize());
-    mml_widget->setMinimumHeight(font.pointSize()*1.5);
-    this->setMinimumHeight(font.pointSize()*1.5);
+    mml_widget->setMinimumHeight(font.pointSize()*3);
+    this->setMinimumHeight(font.pointSize()*3);
     mml_widget->adjustSize();
     mml_widget->update();
     this->layout()->update();

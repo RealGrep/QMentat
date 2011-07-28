@@ -6,10 +6,20 @@
         <toc>
             <section title="QMentat Manual" ref="index.html">
                 <section title="Addition" ref="index.html#Addition"/>
+                <section title="Subtraction" ref="index.html#Subtraction"/>
+                <section title="Multiplication" ref="index.html#Multiplication"/>
+                <section title="Division" ref="index.html#Division"/>
+                <section title="Powers" ref="index.html#Powers"/>
+                <section title="Roots" ref="index.html#Roots"/>
             </section>
         </toc>
         <keywords>
             <keyword name="Addition" ref="index.html#Addition"/>
+            <keyword name="Subtraction" ref="index.html#Subtraction"/>
+            <keyword name="Multiplication" ref="index.html#Multiplication"/>
+            <keyword name="Division" ref="index.html#Division"/>
+            <keyword name="Powers" ref="index.html#Powers"/>
+            <keyword name="Roots" ref="index.html#Roots"/>
         </keywords>
         <files>
             <file>*.html</file>
