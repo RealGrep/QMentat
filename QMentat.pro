@@ -30,8 +30,6 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     additionmodule.cpp \
     additionconfigframe.cpp \
-    PracticeModule.cpp \
-    practicemodule.cpp \
     multiplicationmodule.cpp \
     multiplicationconfigframe.cpp \
     subtractionmodule.cpp \
@@ -135,7 +133,7 @@ translates.path = $$DESTDIR
 translates.files = *.qm
 
 docs.path = $$DESTDIR
-docs.files = documentation/QMentat.qhc
+docs.files = documentation/QMentat.qhc LICENSE
 
 INSTALLS = \
     target \

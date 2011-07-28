@@ -8,6 +8,8 @@ LicenseDialog::LicenseDialog(QWidget *parent) :
     ui(new Ui::LicenseDialog)
 {
     ui->setupUi(this);
+    ui->noButton->setChecked(true);
+    ui->okButton->setEnabled(false);
 }
 
 LicenseDialog::~LicenseDialog()
