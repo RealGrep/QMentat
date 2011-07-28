@@ -4,6 +4,8 @@
 #include <QtMmlWidget>
 #include <QVBoxLayout>
 
+#include "preferences.h"
+
 /*! \class MathDisplayForm
  *  \author Mike Dusseault <mike.dusseault@gmail.com>
  *  Displays more complicated MathML formulas. Useful for those more
@@ -15,8 +17,7 @@ MathDisplayForm::MathDisplayForm(QWidget *parent) :
         ui(new Ui::MathDisplayForm)
 {
     ui->setupUi(this);
-    this->setMinimumHeight(100);
-    this->setMaximumHeight(100);
+    //this->setMaximumHeight(100);
     this->setMinimumWidth(100);
 
     QVBoxLayout *layout = new QVBoxLayout;
@@ -24,15 +25,22 @@ MathDisplayForm::MathDisplayForm(QWidget *parent) :
     this->setLayout(layout);
 
     mml_widget = new QtMmlWidget(parent);
-    mml_widget->setMinimumHeight(100);
-    mml_widget->setMaximumHeight(100);
+    mml_widget->setUpdatesEnabled(true);
+    QFont font = Preferences::getInstance().getQuestionFont();
+    mml_widget->setBaseFontPointSize(font.pointSize());
+    mml_widget->setMinimumHeight(font.pointSize()*1.5);
+    this->setMinimumHeight(font.pointSize()*1.5);
+    //mml_widget->setMaximumHeight(100);
     mml_widget->setMinimumWidth(100);
     layout->addWidget(mml_widget);
     mml_widget->show();
+
+    Preferences::getInstance().addListener(this);
 }
 
 MathDisplayForm::~MathDisplayForm()
 {
+    Preferences::getInstance().removeListener(this);
     delete ui;
 }
 
@@ -53,7 +61,7 @@ void MathDisplayForm::setText(QString text)
    std::cout << fontName.toStdString() << std::endl;
    mml_widget->setFontName(QtMmlWidget::FrakturFont, fontName);
    */
-    mml_widget->setBaseFontPointSize(30);
+    //mml_widget->setBaseFontPointSize(30);
 
     int error_line, error_column;
     bool result = mml_widget->setContent(text, &error_msg, &error_line, &error_column);
@@ -69,5 +77,17 @@ void MathDisplayForm::setText(QString text)
     mml_widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     mml_widget->adjustSize();
     mml_widget->show();
+    this->layout()->update();
+}
+
+void MathDisplayForm::preferencesChanged()
+{
+    QFont font = Preferences::getInstance().getQuestionFont();
+    //! \todo Fix this crappy font problem by replacing the entire QMMlWidget.
+    mml_widget->setBaseFontPointSize(font.pointSize());
+    mml_widget->setMinimumHeight(font.pointSize()*1.5);
+    this->setMinimumHeight(font.pointSize()*1.5);
+    mml_widget->adjustSize();
+    mml_widget->update();
     this->layout()->update();
 }

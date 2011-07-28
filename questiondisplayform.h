@@ -6,13 +6,15 @@
 #include <QString>
 #include "questiondisplay.h"
 
+#include "preferenceslistener.h"
+
 class QFont;
 
 namespace Ui {
     class QuestionDisplayForm;
 }
 
-class QuestionDisplayForm : public QuestionDisplay
+class QuestionDisplayForm : public QuestionDisplay, public PreferencesListener
 {
     Q_OBJECT
 
@@ -22,6 +24,8 @@ public:
     void paintEvent(QPaintEvent *);
 
     void setText(QString text);
+
+    void preferencesChanged();
 
 private:
     Ui::QuestionDisplayForm *ui;

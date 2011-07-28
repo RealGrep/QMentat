@@ -50,7 +50,9 @@ SOURCES += main.cpp\
     statisticsdialog.cpp \
     bigfixedpoint.cpp \
     qbigfixedvalidator.cpp \
-    licensedialog.cpp
+    licensedialog.cpp \
+    preferencesdialog.cpp \
+    preferences.cpp
 
 HEADERS  += mainwindow.h \
     additionmodule.h \
@@ -76,7 +78,10 @@ HEADERS  += mainwindow.h \
     statisticsdialog.h \
     bigfixedpoint.h \
     qbigfixedvalidator.h \
-    licensedialog.h
+    licensedialog.h \
+    preferencesdialog.h \
+    preferences.h \
+    preferenceslistener.h
 
 FORMS    += mainwindow.ui \
     additionconfigframe.ui \
@@ -88,7 +93,8 @@ FORMS    += mainwindow.ui \
     rootsconfigframe.ui \
     mathdisplayform.ui \
     statisticsdialog.ui \
-    licensedialog.ui
+    licensedialog.ui \
+    preferencesdialog.ui
 
 OTHER_FILES += \
     exit.png \
@@ -116,6 +122,12 @@ TRANSLATIONS += \
 # INSTALLATION
 target.path = $$DESTDIR
 
+script.path = $$DESTDIR
+script.files = QMentat.sh
+
+appicon.path = $$DESTDIR
+appicon.files = QMentat.png
+
 images.path = $$DESTDIR
 images.files = *.png
 
@@ -127,8 +139,10 @@ docs.files = documentation/QMentat.qhc
 
 INSTALLS = \
     target \
-    images \
-    translates \
+    script \
+    appicon \
+ #   images \
+ #   translates \
     docs
 
 RESOURCES += \

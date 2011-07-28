@@ -13,6 +13,9 @@
 #include "rootsmodule.h"
 #include "questiondisplayform.h"
 #include "statisticsdialog.h"
+#include "licensedialog.h"
+#include "preferencesdialog.h"
+#include "preferences.h"
 #include "random.h"
 #include <QtSql/QtSql>
 #include <QDebug>
@@ -24,9 +27,6 @@
 #else
 #   include <QDateTime>
 #endif
-
-#include "licensedialog.h"
-
 
 /*! \class MainWindow
  * \brief The MainWindow of the entire application.
@@ -83,12 +83,16 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Kick off first question
     newQuestion();
+    Preferences::getInstance().addListener(this);
+    ui->lineEdit->setFont(Preferences::getInstance().getAnswerFont());
     ui->lineEdit->setFocus();
 }
 
 MainWindow::~MainWindow()
 {
     writeSettings();
+
+    Preferences::getInstance().removeListener(this);
 
     delete module;
     module = 0;
@@ -206,6 +210,8 @@ void MainWindow::readSettings() {
     restoreState(state);
     resize(size);
     move(pos);
+
+    Preferences::getInstance().restore();
 }
 
 /*! Writes current Qt settings and saves them.
@@ -216,6 +222,8 @@ void MainWindow::writeSettings() {
     settings.setValue("pos", pos());
     settings.setValue("size", size());
     settings.setValue("state", saveState());
+
+    Preferences::getInstance().save();
 }
 
 
@@ -398,5 +406,24 @@ void MainWindow::on_actionContents_triggered()
         QByteArray ba;
          ba.append("setSource qthelp://mike.dusseault.QMentat/doc/index.html\n");
          assistant->write(ba);
+    }
+}
+
+void MainWindow::on_actionPreferences_triggered()
+{
+    PreferencesDialog prefs;
+    prefs.exec();
+}
+
+void MainWindow::on_actionAbout_Qt_triggered()
+{
+    QMessageBox::aboutQt(this, tr("About Qt"));
+}
+
+void MainWindow::preferencesChanged()
+{
+    if (Preferences::getInstance().getAnswerFont() != ui->lineEdit->font())
+    {
+        ui->lineEdit->setFont(Preferences::getInstance().getAnswerFont());
     }
 }

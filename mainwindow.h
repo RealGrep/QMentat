@@ -5,6 +5,7 @@
 #include "multiplicationmodule.h"
 #include <QMainWindow>
 #include "practicemodule.h"
+#include "preferenceslistener.h"
 
 class PracticeModule;
 class QProcess;
@@ -13,7 +14,7 @@ namespace Ui {
     class MainWindow;
 }
 
-class MainWindow : public QMainWindow
+class MainWindow : public QMainWindow, public PreferencesListener
 {
     Q_OBJECT
 
@@ -41,6 +42,8 @@ private:
 
     QProcess *assistant;
 
+    void preferencesChanged();
+
 private slots:
     void on_tabWidget_currentChanged(int index);
     void on_actionStatistics_triggered();
@@ -54,6 +57,8 @@ private slots:
     void on_actionAddition_triggered();
     void on_lineEdit_returnPressed();
     void on_actionContents_triggered();
+    void on_actionPreferences_triggered();
+    void on_actionAbout_Qt_triggered();
 };
 
 #endif // MAINWINDOW_H

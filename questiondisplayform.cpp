@@ -4,6 +4,8 @@
 #include <QRect>
 #include <iostream>
 #include "questiondisplay.h"
+#include "preferences.h"
+#include "preferenceslistener.h"
 
 /*! \class QuestionDisplayForm
  *  \author Mike Dusseault <mike.dusseault@gmail.com>
@@ -16,10 +18,11 @@ QuestionDisplayForm::QuestionDisplayForm(QWidget *parent) :
         ui(new Ui::QuestionDisplayForm)
 {
     ui->setupUi(this);
-    this->setMinimumHeight(100);
-    this->setMaximumHeight(100);
 
-    displayFont = QFont("Arial", 30);
+    //displayFont = QFont("Arial", 30);
+    //Preferences prefs = Preferences::getInstance();
+    displayFont = Preferences::getInstance().getQuestionFont();
+    Preferences::getInstance().addListener(this);
     widestChar = 0;
 
     // Find out the width of the widest digit we use
@@ -32,11 +35,16 @@ QuestionDisplayForm::QuestionDisplayForm(QWidget *parent) :
     }
     //qDebug() << "Widest char = " << widestChar;
 
+    int minHeight = metrics.height()*2 + 10;
+    this->setMinimumHeight(minHeight);
+    this->setMaximumHeight(minHeight);
+
     this->text = tr("N/A");
 }
 
 QuestionDisplayForm::~QuestionDisplayForm()
 {
+    Preferences::getInstance().removeListener(this);
     delete ui;
 }
 
@@ -161,4 +169,27 @@ void QuestionDisplayForm::paintEvent(QPaintEvent *)
     //qDebug() << "Line from (" << (width()-textWidth) << ", " << (height()-10)
     //        << ") to (" << width() << ", " << (height()-10) << ")";
     painter.drawLine(width() - numsWidth, height() - 10, width(), height() - 10);
+}
+
+void QuestionDisplayForm::preferencesChanged()
+{
+    //qDebug() << "QuestionDisplayForm: Prefs changed!";
+    displayFont = Preferences::getInstance().getQuestionFont();
+    //qDebug() << "QDF: New font = " << displayFont.toString();
+    widestChar = 0;
+
+    // Find out the width of the widest digit we use
+    QString ourDigits = "+-x/0123456789.,";
+    QFontMetrics metrics(displayFont);
+    for (int i = 0; i < ourDigits.size(); ++i)
+    {
+        int currentDigit = metrics.charWidth(ourDigits, i);
+        widestChar = std::max(widestChar, currentDigit);
+    }
+
+    int minHeight = metrics.height()*2 + 10;
+    this->setMinimumHeight(minHeight);
+    this->setMaximumHeight(minHeight);
+
+    repaint();
 }

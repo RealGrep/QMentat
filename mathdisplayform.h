@@ -5,11 +5,13 @@
 #include "questiondisplay.h"
 #include <QtMmlWidget>
 
+#include "preferenceslistener.h"
+
 namespace Ui {
     class MathDisplayForm;
 }
 
-class MathDisplayForm : public QuestionDisplay
+class MathDisplayForm : public QuestionDisplay, public PreferencesListener
 {
     Q_OBJECT
 
@@ -18,6 +20,8 @@ public:
     ~MathDisplayForm();
 
     void setText(QString text);
+
+    void preferencesChanged();
 
 private:
     Ui::MathDisplayForm *ui;

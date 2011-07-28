@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>QMentat v0.6</string>
+   <string>QMentat v0.7</string>
   </property>
   <property name="windowIcon">
    <iconset resource="qmentat.qrc">
@@ -118,14 +118,15 @@ p, li { white-space: pre-wrap; }
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File</string>
+     <string>&amp;File</string>
     </property>
     <addaction name="actionStatistics"/>
+    <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuModules">
     <property name="title">
-     <string>Modules</string>
+     <string>&amp;Practice</string>
     </property>
     <addaction name="actionAddition"/>
     <addaction name="actionSubtraction"/>
@@ -139,13 +140,21 @@ p, li { white-space: pre-wrap; }
      <enum>Qt::LeftToRight</enum>
     </property>
     <property name="title">
-     <string>Help</string>
+     <string>&amp;Help</string>
     </property>
     <addaction name="actionContents"/>
     <addaction name="separator"/>
     <addaction name="actionAbout"/>
+    <addaction name="actionAbout_Qt"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>&amp;Edit</string>
+    </property>
+    <addaction name="actionPreferences"/>
    </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
    <addaction name="menuModules"/>
    <addaction name="menuHelp"/>
   </widget>
@@ -174,7 +183,7 @@ p, li { white-space: pre-wrap; }
      <normaloff>:/images/exit.png</normaloff>:/images/exit.png</iconset>
    </property>
    <property name="text">
-    <string>Exit</string>
+    <string>E&amp;xit</string>
    </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
@@ -265,12 +274,22 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionStatistics">
    <property name="text">
-    <string>Statistics</string>
+    <string>&amp;Statistics</string>
    </property>
   </action>
   <action name="actionContents">
    <property name="text">
     <string>Contents</string>
+   </property>
+  </action>
+  <action name="actionPreferences">
+   <property name="text">
+    <string>&amp;Preferences</string>
+   </property>
+  </action>
+  <action name="actionAbout_Qt">
+   <property name="text">
+    <string>About Qt</string>
    </property>
   </action>
  </widget>
