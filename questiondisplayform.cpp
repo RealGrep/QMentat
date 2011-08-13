@@ -226,7 +226,7 @@ void QuestionDisplayForm::paintEvent(QPaintEvent *)
 
         // Line 2 - operation and last
         y_pos += metrics.ascent();
-        x_pos = width() - hGap - (cols * widestChar - (lastNumSep*sepAdj));
+        x_pos = width() - hGap*2 - (cols * widestChar - (lastNumSep*sepAdj));
         painter.drawText(x_pos, y_pos, QString(operation));
 
         x_pos = width() - hGap - (last.size()*widestChar - (lastNumSep*sepAdj));
