@@ -256,8 +256,7 @@ void QuestionDisplayForm::preferencesChanged()
     widestChar = 0;
 
     // Find out the width of the widest digit we use
-    //QString ourDigits = "+-x/0123456789.,";
-    QString ourDigits = "0123456789.,";
+    QString ourDigits = "-0123456789.,";
     QFontMetrics metrics(displayFont);
     for (int i = 0; i < ourDigits.size(); ++i)
     {
