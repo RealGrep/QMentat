@@ -126,6 +126,8 @@ void QuestionDisplayForm::paintEvent(QPaintEvent *)
         int firstWidth = metrics.width(first);
         int firstHeight = metrics.ascent();
 
+        int lineThickness = std::max(1, (int)((displayFont.pointSize()/8)+0.5));
+
         QFont rootFont = displayFont;
         rootFont.setPointSize(displayFont.pointSize()/2.0);
         painter.setFont(rootFont);
@@ -138,7 +140,6 @@ void QuestionDisplayForm::paintEvent(QPaintEvent *)
         // Draw base
         painter.setFont(displayFont);
         int hMargins = (width() - numsWidth) / 2;
-        qDebug() << "hMargins = " << hMargins;
         int y_pos = (height()/3) * 2;
         int x_pos = width() - hMargins - firstWidth;
         painter.drawText(x_pos, y_pos, first);
@@ -154,8 +155,6 @@ void QuestionDisplayForm::paintEvent(QPaintEvent *)
         y_pos = (height()/3) * 2 - metrics.ascent();
         x_pos = width() - hMargins - firstWidth;
 
-        painter.setPen(Qt::black);
-        int lineThickness = (int)((displayFont.pointSize()/12)+0.5);
         QPen pen(Qt::black, lineThickness,
                  Qt::SolidLine, Qt::SquareCap, Qt::RoundJoin);
         painter.setPen(pen);
@@ -170,16 +169,14 @@ void QuestionDisplayForm::paintEvent(QPaintEvent *)
                          x_pos - metrics.averageCharWidth()/2,
                          y_pos - (firstHeight - rootHeight) + lineThickness);
     } else if (operation == QChar('/')) {
+        int lineThickness = std::max(1, (int)((displayFont.pointSize()/8)+0.5));
+
         int firstWidth = metrics.width(first);
         int lastWidth = metrics.width(last);
         int numsWidth = std::max(firstWidth, lastWidth);
 
-        int hMargins = (width() - numsWidth) / 2;
-
         int y_pos = (height() / 2);
         int x_pos = (width() / 2) - (firstWidth / 2);
-
-        int lineThickness = (int)((displayFont.pointSize()/12)+0.5);
 
         painter.drawText(x_pos, y_pos, first);
 
@@ -189,10 +186,16 @@ void QuestionDisplayForm::paintEvent(QPaintEvent *)
 
         y_pos = height() / 2 + lineThickness;
         x_pos = (width() / 2) - (numsWidth / 2);
+
+        QPen pen(Qt::black, lineThickness, Qt::SolidLine, Qt::SquareCap, Qt::RoundJoin);
+        painter.setPen(pen);
         painter.drawLine(x_pos, y_pos,
                          x_pos + numsWidth,
                          y_pos);
     } else {
+        int lineThickness = std::max(1, (int)((displayFont.pointSize()/8)+0.5));
+        int hGap = lineThickness*2;
+
         int firstNumSep = first.count(QLocale::system().groupSeparator());
         int lastNumSep = last.count(QLocale::system().groupSeparator());
         int sepWidth = metrics.width(QLocale::system().groupSeparator());
@@ -201,6 +204,8 @@ void QuestionDisplayForm::paintEvent(QPaintEvent *)
         int firstWidth = first.size()*widestChar - (firstNumSep*sepAdj);
         int lastWidth = last.size()*widestChar - (lastNumSep*sepAdj);
         int numsWidth = std::max(firstWidth, lastWidth);
+        int barHeight = lineThickness * 3;
+        //int numsHeight = (metrics.height() * 2) + barHeight;
 
         //int totalWidth = numsWidth + widestChar;
 
@@ -213,8 +218,9 @@ void QuestionDisplayForm::paintEvent(QPaintEvent *)
         */
 
         // Line 1 - first
-        int y_pos = (height() / 3);
-        int x_pos = width() - firstWidth;
+        //int y_pos = (height() / 3);
+        int y_pos = height() - (metrics.ascent() + barHeight);
+        int x_pos = width() - firstWidth - hGap;
         for (int i = 0; i < first.size(); ++i)
         {
             painter.drawText(x_pos, y_pos, QString(first[i]));
@@ -227,11 +233,12 @@ void QuestionDisplayForm::paintEvent(QPaintEvent *)
         }
 
         // Line 2 - operation and last
-        y_pos += metrics.lineSpacing();
-        x_pos = width() - (cols * widestChar - (lastNumSep*sepAdj));
+        //y_pos += metrics.lineSpacing();
+        y_pos += metrics.ascent();
+        x_pos = width() - hGap - (cols * widestChar - (lastNumSep*sepAdj));
         painter.drawText(x_pos, y_pos, QString(operation));
 
-        x_pos = width() - (last.size()*widestChar - (lastNumSep*sepAdj));
+        x_pos = width() - hGap - (last.size()*widestChar - (lastNumSep*sepAdj));
         for (int i = 0; i < last.size(); ++i)
         {
             painter.drawText(x_pos, y_pos, QString(last[i]));
@@ -244,13 +251,12 @@ void QuestionDisplayForm::paintEvent(QPaintEvent *)
         }
 
         // Draw a line under all the text, of the right length
-        int lineThickness = (int)((displayFont.pointSize()/12)+0.5);
-        painter.setPen(Qt::black);
         QPen pen(Qt::black, lineThickness, Qt::SolidLine, Qt::SquareCap, Qt::RoundJoin);
         painter.setPen(pen);
         //qDebug() << "Line from (" << (width()-textWidth) << ", " << (height()-10)
         //        << ") to (" << width() << ", " << (height()-10) << ")";
-        painter.drawLine(width() - numsWidth, height() - 10, width(), height() - 10);
+        painter.drawLine(width() - numsWidth - hGap, height() - barHeight/2,
+                         width() - hGap, height() - barHeight/2);
     }
 }
 
