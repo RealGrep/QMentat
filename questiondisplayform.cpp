@@ -54,12 +54,14 @@ void QuestionDisplayForm::setText(QString text)
         {
             if (text[nlPos] == QChar('+')
                 || text[nlPos] == QChar('-')
-                || text[nlPos] == QChar('x')
                 || text[nlPos] == QChar('/')
                 || text[nlPos] == QChar('^')
                 || text[nlPos] == QChar('|'))
             {
                 operation = text[nlPos];
+                break;
+            } else if (text[nlPos] == QChar('x')) {
+                operation = QLatin1Char('\xD7');
                 break;
             }
             nlPos++;
