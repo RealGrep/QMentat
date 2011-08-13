@@ -37,7 +37,8 @@ MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent),
         ui(new Ui::MainWindow)
 {
-    QCoreApplication::setOrganizationName("mike.dusseault");
+    //QCoreApplication::setOrganizationName("mike.dusseault");
+    QCoreApplication::setOrganizationName("Synergem");
     QCoreApplication::setApplicationName("QMentat");
 
     ui->setupUi(this);
