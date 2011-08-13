@@ -9,7 +9,13 @@
 #include "mainwindow.h"
 #include "practicemodule.h"
 //#include "questiondisplayform.h"
-#include "mathdisplayform.h"
+
+#ifdef USE_MATH_DISPLAY
+#   include "mathdisplayform.h"
+#else
+#   include "questiondisplayform.h"
+#endif
+
 #include "random.h"
 #include "bigfixedpoint.h"
 
@@ -47,7 +53,11 @@ RootsModule::RootsModule(MainWindow *mw)
     configFrame->setRoundingMode((roundingMode == true) ? 1 : 0);
 
     // Make display frame
+#ifdef USE_MATH_DISPLAY
     displayFrame = (QuestionDisplay*)(new MathDisplayForm());
+#else
+    displayFrame = (QuestionDisplay*)(new QuestionDisplayForm());
+#endif
 
     rootRangeUpdated();
 }
@@ -102,9 +112,15 @@ QString RootsModule::question()
         answer.scale(decimalPlaces);
     }
 
+#ifdef USE_MATH_DISPLAY
     QString q = QString("<math><mroot><mi>%1</mi><mn>%2</mn></mroot></math>\n")
                 .arg(firstNumber.toString())
                 .arg(root);
+#else
+    QString q = QString("%1\n| %2")
+                .arg(firstNumber.toString())
+                .arg(root);
+#endif
 
     return q;
 }

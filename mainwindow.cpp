@@ -19,7 +19,6 @@
 #include "random.h"
 #include <QtSql/QtSql>
 #include <QDebug>
-#include <QtMmlWidget>
 
 // For seeding qrand
 #if defined(Q_OS_LINUX)

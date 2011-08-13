@@ -11,7 +11,7 @@ TEMPLATE = app
 
 QMAKE_CXXFLAGS += -std=c++0x
 LIBS += -lgmpxx -lgmp
-include(/home/michel/code/QMentat/qtmmlwidget-2.4_1-opensource/src/qtmmlwidget.pri)
+#include(/home/michel/code/QMentat/qtmmlwidget-2.4_1-opensource/src/qtmmlwidget.pri)
 
 #INCLUDEPATH
 #LIBS += -lrandom
@@ -42,7 +42,7 @@ SOURCES += main.cpp\
     rootsmodule.cpp \
     rootsconfigframe.cpp \
     questiondisplay.cpp \
-    mathdisplayform.cpp \
+ #   mathdisplayform.cpp \
     qulonglongvalidator.cpp \
     pieview.cpp \
     statisticsdialog.cpp \
@@ -68,7 +68,7 @@ HEADERS  += mainwindow.h \
     rootsmodule.h \
     rootsconfigframe.h \
     questiondisplay.h \
-    mathdisplayform.h \
+ #   mathdisplayform.h \
     random.h \
     qulonglongvalidator.h \
     FixedPoint.h \

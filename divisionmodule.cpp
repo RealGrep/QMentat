@@ -10,7 +10,13 @@
 #include "divisionconfigframe.h"
 #include "mainwindow.h"
 #include "practicemodule.h"
-#include "mathdisplayform.h"
+
+#ifdef USE_MATH_DISPLAY
+#   include "mathdisplayform.h"
+#else
+#   include "questiondisplayform.h"
+#endif
+
 #include "random.h"
 #include "bigfixedpoint.h"
 
@@ -75,7 +81,11 @@ DivisionModule::DivisionModule(MainWindow *mw)
     configFrame->setIntegersOnly(integersOnly);
 
     // Make display frame
+#ifdef USE_MATH_DISPLAY
     displayFrame = (QuestionDisplay*)(new MathDisplayForm());
+#else
+    displayFrame = (QuestionDisplay*)(new QuestionDisplayForm());
+#endif
 
     if (integersOnly)
     {
@@ -247,9 +257,15 @@ QString DivisionModule::question()
 
         QApplication::restoreOverrideCursor();
 
+#ifdef USE_MATH_DISPLAY
         QString q = QString("<math><mfrac><mi>%L1</mi><mn>%L2</mn></mfrac></math>\n")
                     .arg(firstNumberIR)
                     .arg(lastNumberIR);
+#else
+        QString q = QString("%L1\n/%L2")
+                    .arg(firstNumberIR)
+                    .arg(lastNumberIR);
+#endif
 
         return q;
     } else {
@@ -280,9 +296,15 @@ QString DivisionModule::question()
         lastDisplay.scale(decimals);
 
         // Build question string
+#ifdef USE_MATH_DISPLAY
         QString q = QString("<math><mfrac><mi>%1</mi><mn>%2</mn></mfrac></math>\n")
                     .arg(firstDisplay.toString())
                     .arg(lastDisplay.toString());
+#else
+        QString q = QString("%1\n/ %2")
+                    .arg(firstDisplay.toString())
+                    .arg(lastDisplay.toString());
+#endif
 
         return q;
     }

@@ -97,6 +97,8 @@ bool RootsConfigFrame::applyConfig()
     int rootMin = ui->minRootLineEdit->text().toInt();
     int rootMax = ui->maxRootLineEdit->text().toInt();
 
+    //! \todo Check for impossible parameters. There must be at least one possible answer before it's ok
+
     if (rootMin <= 0) {
         QMessageBox::warning(this, tr("Range Validation Error"), tr("Minimum of root must be greater than zero."), QMessageBox::Ok);
         return false;

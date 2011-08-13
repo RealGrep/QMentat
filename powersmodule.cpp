@@ -7,7 +7,13 @@
 #include "powersconfigframe.h"
 #include "mainwindow.h"
 #include "practicemodule.h"
-#include "mathdisplayform.h"
+
+#ifdef USE_MATH_DISPLAY
+#   include "mathdisplayform.h"
+#else
+#   include "questiondisplayform.h"
+#endif
+
 #include "random.h"
 #include "bigfixedpoint.h"
 
@@ -43,7 +49,11 @@ PowersModule::PowersModule(MainWindow *mw)
     configFrame->setRoundingMode((roundingMode == true) ? 1 : 0);
 
     // Make display frame
+#ifdef USE_MATH_DISPLAY
     displayFrame = (QuestionDisplay*)(new MathDisplayForm());
+#else
+    displayFrame = (QuestionDisplay*)(new QuestionDisplayForm());
+#endif
 
     powerRangeUpdated();
 }
@@ -87,9 +97,13 @@ QString PowersModule::question()
     answer.scale(decimalPlaces);
 
     // Build question string
+#ifdef USE_MATH_DISPLAY
     QString q = QString("<math><msup><mi>%1</mi><mn>%2</mn></msup></math>\n")
                 .arg(firstNumber.toString())
                 .arg(power);
+#else
+    QString q = QString("%1\n^ %2").arg(firstNumber.toString()).arg(power);
+#endif
 
     return q;
 }
