@@ -93,17 +93,25 @@ QString RootsModule::question()
 {
     assert(genRoot != 0);
 
-    root = (*genRoot)();
-
     if (integersOnly) {
-        BigFixedPoint maxNum = max.root(root);
-        BigFixedPoint minNum = BigFixedPoint::max(min.root(root), min);
+        BigFixedPoint maxNum;
+        BigFixedPoint minNum;
+        // Iterate until we get a root that leads to a usable range.
+        do {
+            root = (*genRoot)();
+
+            maxNum = max.root(root);
+            minNum = BigFixedPoint::max(min.root(root), min);
+        } while ((maxNum - minNum) < 0);
+
         BigFixedPoint desiredResult = BigFixedPoint::random(minNum, maxNum);
 
         firstNumber = desiredResult.pow(root);
         answer = desiredResult;
         answer.scale(0);
     } else {
+        root = (*genRoot)();
+
         firstNumber = BigFixedPoint::random(min, max);
         BigFixedPoint firstNumberScaled = firstNumber;
         // Add one for rounding purposes
@@ -130,7 +138,7 @@ bool RootsModule::isCorrect(QString& answerGiven)
     BigFixedPoint answerNum(answerGiven);
     answerNum.scale(answer.getDecimalPlaces());
 
-    if (answerNum == this->answer)
+    if (answerNum == answer)
     {
         return true;
     } else {
