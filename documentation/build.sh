@@ -1,0 +1,1 @@
+qcollectiongenerator QMentat.qhcp

@@ -1,0 +1,1 @@
+assistant -collectionFile QMentat.qhc

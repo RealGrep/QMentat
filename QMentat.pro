@@ -24,7 +24,8 @@ LIBS += -lgmpxx -lgmp
 #    message("Debug mode")
 #}
 
-DESTDIR = ../QMentat-install
+#DESTDIR = ../QMentat-install
+DESTDIR = /usr
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -117,30 +118,35 @@ TRANSLATIONS += \
     qmentat_es.ts
 
 # INSTALLATION
-target.path = $$DESTDIR
+target.path = $$DESTDIR/share/QMentat
 
-script.path = $$DESTDIR
+script.path = $$DESTDIR/bin
 script.files = QMentat.sh
 
-appicon.path = $$DESTDIR
+appicon.path = $$DESTDIR/share/icons
 appicon.files = QMentat.png
 
-images.path = $$DESTDIR
+desktop.path = $$DESTDIR/share/applications
+desktop.files = qmentat.desktop
+
+images.path = $$DESTDIR/share/QMentat
 images.files = *.png
 
-translates.path = $$DESTDIR
+translates.path = $$DESTDIR/share/Qmentat
 translates.files = *.qm
 
-docs.path = $$DESTDIR
+docs.path = $$DESTDIR/share/QMentat
 docs.files = documentation/QMentat.qhc LICENSE
 
 INSTALLS = \
     target \
     script \
     appicon \
+    desktop \
  #   images \
  #   translates \
     docs
 
 RESOURCES += \
     qmentat.qrc
+

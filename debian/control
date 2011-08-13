@@ -1,0 +1,13 @@
+Source: qmentat
+Section: Mathematics
+Priority: extra
+Maintainer: Mike Dusseault <mike.dusseault@gmail.com>
+Build-Depends: debhelper (>= 7), libqt4-dev, libgmp3-dev
+Standards-Version: 3.7.3
+Homepage: http://synergem.org/QMentat/
+
+Package: qmentat
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libgmp3c2, libgmpxx4ldbl
+Description: QMentat Mental Arithmetic Trainer
+ QMentat is a very flexible program to help train mental arithmetic.

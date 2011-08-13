@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=0.8
+Type=Application
+Name=QMentat
+GenericName=Mental Arithmetic Trainer
+Comment=A trainer for mental arithmetic
+Icon=QMentat.png
+Exec=QMentat.sh
+Categories=Math;Education;
+
