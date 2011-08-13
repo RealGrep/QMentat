@@ -27,6 +27,9 @@ public:
     QuestionDisplay* getDisplayFrame();
     QString getAnswerString();
 
+    bool isRangeOk(BigFixedPoint newMin, BigFixedPoint newMax,
+                   int newRootMin, int newRootMax);
+
     bool applyConfig();
 
     void setSettings(BigFixedPoint newFirstMin,

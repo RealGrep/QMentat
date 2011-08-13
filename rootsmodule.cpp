@@ -89,6 +89,25 @@ QuestionDisplay* RootsModule::getDisplayFrame()
     return displayFrame;
 }
 
+bool RootsModule::isRangeOk(BigFixedPoint newMin, BigFixedPoint newMax,
+                            int newRootMin, int newRootMax)
+{
+    bool isOk = false;
+
+    for (int i = newRootMin; i < newRootMax; ++i)
+    {
+        BigFixedPoint maxNum = newMax.root(i);
+        BigFixedPoint minNum = BigFixedPoint::max(newMin.root(i), newMin);
+        if ((maxNum - minNum) >= 0)
+        {
+            isOk = true;
+            break;
+        }
+    }
+
+    return isOk;
+}
+
 QString RootsModule::question()
 {
     assert(genRoot != 0);
