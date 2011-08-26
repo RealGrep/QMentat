@@ -1,4 +1,5 @@
-
+Building from command line
+==========================
 1. Create shadow build directory.
 
 2. Go into shadow build directory.
@@ -13,4 +14,24 @@ qmake ../QMentat/QMentat.pro -r -spec linux-g++ CONFIG+=release
 6. Run lrelease ../QMentat/QMentat.pro to generate .qm translation files.
 
 6. Run make install
+
+Building Debian package
+=======================
+1. Make a directory for the build. I will use 'pkg' as the directory.
+
+2. Copy QMentat main directory into the pkg directory, in this format:
+
+qmentat-version
+
+For example, version 0.8 would be:
+
+qmentat-0.8
+
+3. Edit DESTDIR in QMentat.pro to set the installation prefix. This should be /usr in most cases. The DESTDIR line should read:
+
+DESTDIR = /usr
+
+4. Run package.sh
+
+In the root of the pkg directory, you will see all the package files. Most importantly, the .deb package file. That is assuming everything worked.
 
