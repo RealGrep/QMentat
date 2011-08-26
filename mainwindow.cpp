@@ -17,8 +17,12 @@
 #include "preferencesdialog.h"
 #include "preferences.h"
 #include "random.h"
-#include <QtSql/QtSql>
+//#include <QtSql/QtSql>
 #include <QDebug>
+
+#include "helpdialog.h"
+
+//#define DOCS_PATH "/home/michel/code/QMentat/documentation/QMentat.qhc"
 
 // For seeding qrand
 #if defined(Q_OS_LINUX)
@@ -49,7 +53,9 @@ MainWindow::MainWindow(QWidget *parent) :
     totalCorrect = 0;
     totalWrong = 0;
     currentTab = 0;
+#ifdef USE_ASSISTANT
     assistant = 0;
+#endif
 
     // Initialize qrand seed
     qsrand(getSeed() % 1000000);
@@ -97,11 +103,13 @@ MainWindow::~MainWindow()
     delete module;
     module = 0;
 
+#ifdef USE_ASSISTANT
     if (assistant && assistant->state() == QProcess::Running) {
             assistant->terminate();
             assistant->waitForFinished(3000);
         }
         delete assistant;
+#endif
 
     delete ui;
 }
@@ -378,6 +386,10 @@ void MainWindow::on_tabWidget_currentChanged(int index)
 
 void MainWindow::on_actionContents_triggered()
 {
+    HelpDialog *helpDialog = new HelpDialog(this);
+    helpDialog->show();
+
+#ifdef USE_ASSISTANT
     if (!assistant)
     {
         assistant = new QProcess;
@@ -407,6 +419,7 @@ void MainWindow::on_actionContents_triggered()
          ba.append("setSource qthelp://mike.dusseault.QMentat/doc/index.html\n");
          assistant->write(ba);
     }
+#endif
 }
 
 void MainWindow::on_actionPreferences_triggered()

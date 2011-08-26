@@ -34,7 +34,7 @@ RootsModule::RootsModule(MainWindow *mw)
     roundingMode = settings.value("roundingmode", false).toBool();
     BigFixedPoint::setRounding(roundingMode == 1);
     min = BigFixedPoint(settings.value("min", 2).toString());
-    max = BigFixedPoint(settings.value("max", 20).toString());
+    max = BigFixedPoint(settings.value("max", 100).toString());
     rootMin = settings.value("rootmin", 2).toInt();
     rootMax = settings.value("rootmax", 2).toInt();
     decimalPlaces = settings.value("decimalplaces", 0).toInt();
@@ -94,7 +94,7 @@ bool RootsModule::isRangeOk(BigFixedPoint newMin, BigFixedPoint newMax,
 {
     bool isOk = false;
 
-    for (int i = newRootMin; i < newRootMax; ++i)
+    for (int i = newRootMin; i <= newRootMax; ++i)
     {
         BigFixedPoint maxNum = newMax.root(i);
         BigFixedPoint minNum = BigFixedPoint::max(newMin.root(i), newMin);

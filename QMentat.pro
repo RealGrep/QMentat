@@ -6,8 +6,10 @@
 
 QT       += core gui
 
-TARGET = QMentat
+TARGET = bin/QMentat
 TEMPLATE = app
+
+CONFIG += help
 
 QMAKE_CXXFLAGS += -std=c++0x
 LIBS += -lgmpxx -lgmp
@@ -24,8 +26,11 @@ LIBS += -lgmpxx -lgmp
 #    message("Debug mode")
 #}
 
-#DESTDIR = ../QMentat-install
-DESTDIR = /usr
+DESTDIR = /home/michel/code/QMentat-install
+message($$DESTDIR)
+
+#QMAKE_CXXFLAGS += -DSHARE_DIR=\'"$$DESTDIR/share/QMentat"\'
+DEFINES += SHARE_DIR=\\\"$$DESTDIR/share/QMentat\\\"
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -51,7 +56,9 @@ SOURCES += main.cpp\
     qbigfixedvalidator.cpp \
     licensedialog.cpp \
     preferencesdialog.cpp \
-    preferences.cpp
+    preferences.cpp \
+    helpbrowser.cpp \
+    helpdialog.cpp
 
 HEADERS  += mainwindow.h \
     additionmodule.h \
@@ -80,7 +87,9 @@ HEADERS  += mainwindow.h \
     licensedialog.h \
     preferencesdialog.h \
     preferences.h \
-    preferenceslistener.h
+    preferenceslistener.h \
+    helpbrowser.h \
+    helpdialog.h
 
 FORMS    += mainwindow.ui \
     additionconfigframe.ui \
@@ -93,7 +102,8 @@ FORMS    += mainwindow.ui \
     mathdisplayform.ui \
     statisticsdialog.ui \
     licensedialog.ui \
-    preferencesdialog.ui
+    preferencesdialog.ui \
+    helpdialog.ui
 
 OTHER_FILES += \
     exit.png \
@@ -118,7 +128,7 @@ TRANSLATIONS += \
     qmentat_es.ts
 
 # INSTALLATION
-target.path = $$DESTDIR/share/QMentat
+target.path = $$DESTDIR/bin
 
 script.path = $$DESTDIR/bin
 script.files = QMentat.sh
@@ -136,17 +146,16 @@ translates.path = $$DESTDIR/share/Qmentat
 translates.files = *.qm
 
 docs.path = $$DESTDIR/share/QMentat
-docs.files = documentation/QMentat.qhc LICENSE
+docs.files = documentation/QMentat.qhc documentation/QMentat.qch LICENSE
 
 INSTALLS = \
     target \
-    script \
+#    script \
     appicon \
     desktop \
- #   images \
- #   translates \
+#   images \
+#   translates \
     docs
 
 RESOURCES += \
     qmentat.qrc
-

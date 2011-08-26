@@ -5,6 +5,6 @@ Name=QMentat
 GenericName=Mental Arithmetic Trainer
 Comment=A trainer for mental arithmetic
 Icon=QMentat.png
-Exec=QMentat.sh
+Exec=QMentat
 Categories=Math;Education;
 

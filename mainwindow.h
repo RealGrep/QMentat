@@ -8,7 +8,12 @@
 #include "preferenceslistener.h"
 
 class PracticeModule;
+#ifdef USE_ASSISTANT
 class QProcess;
+#else
+class QHelpEngine;
+class HelpBrowser;
+#endif
 
 namespace Ui {
     class MainWindow;
@@ -40,7 +45,13 @@ private:
 
     int currentTab;
 
+#ifdef USE_ASSISTANT
     QProcess *assistant;
+#else
+    QHelpEngine *helpEngine;
+    //QTextBrowser *helpBrowser;
+    HelpBrowser *helpBrowser;
+#endif
 
     void preferencesChanged();
 
@@ -59,6 +70,8 @@ private slots:
     void on_actionContents_triggered();
     void on_actionPreferences_triggered();
     void on_actionAbout_Qt_triggered();
+
+    //void setSource(const QUrl &);
 };
 
 #endif // MAINWINDOW_H

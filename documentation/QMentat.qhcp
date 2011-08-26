@@ -3,8 +3,8 @@
     <assistant>
         <title>QMentat Manual</title>
         <applicationIcon>images/QMentat.png</applicationIcon>
-        <cacheDirectory>mike.dusseault/QMentat</cacheDirectory>
-        <startPage>qthelp://mike.dusseault.QMentat/doc/index.html</startPage>
+        <cacheDirectory>mike.dusseault/qmentat</cacheDirectory>
+        <startPage>qthelp://mike.dusseault.qmentat/doc/index.html</startPage>
         <aboutMenuText>
             <text>About QMentat</text>
         </aboutMenuText>

@@ -97,7 +97,8 @@ bool RootsConfigFrame::applyConfig()
     int rootMin = ui->minRootLineEdit->text().toInt();
     int rootMax = ui->maxRootLineEdit->text().toInt();
 
-    if (!module->isRangeOk(firstMin, firstMax, rootMin, rootMax)) {
+    if (integersOnly
+            && !module->isRangeOk(firstMin, firstMax, rootMin, rootMax)) {
         QMessageBox::warning(this, tr("Range Validation Error"), tr("There are no possible answers for the ranges you have entered."), QMessageBox::Ok);
         return false;
     } else if (rootMin <= 0) {
