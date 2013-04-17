@@ -11,7 +11,7 @@ TEMPLATE = app
 
 CONFIG += help
 
-QMAKE_CXXFLAGS += -std=c++0x
+QMAKE_CXXFLAGS += -std=c++11
 LIBS += -lgmpxx -lgmp
 #include(/home/michel/code/QMentat/qtmmlwidget-2.4_1-opensource/src/qtmmlwidget.pri)
 
@@ -26,11 +26,12 @@ LIBS += -lgmpxx -lgmp
 #    message("Debug mode")
 #}
 
+#DESTDIR = /home/michel/code/QMentat-install
 DESTDIR = /home/michel/code/QMentat-install
-message($$DESTDIR)
+#message($$DESTDIR)
 
 #QMAKE_CXXFLAGS += -DSHARE_DIR=\'"$$DESTDIR/share/QMentat"\'
-DEFINES += SHARE_DIR=\\\"$$DESTDIR/share/QMentat\\\"
+#DEFINES += SHARE_DIR=\\\"$$DESTDIR/share/QMentat\\\"
 
 SOURCES += main.cpp\
         mainwindow.cpp \

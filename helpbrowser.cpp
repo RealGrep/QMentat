@@ -26,7 +26,8 @@ void HelpBrowser::setSource(const QUrl &url)
 {
     if (helpEngine != 0)
     {
-        qDebug() << "setSource = " << url.toString();
+        //qDebug() << "setSource = " << url.toString();
+
         QByteArray helpData = helpEngine->fileData(url);
         // show the documentation to the user
         if (!helpData.isEmpty())

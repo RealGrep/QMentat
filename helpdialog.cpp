@@ -7,9 +7,9 @@
 //#define XSTR(x) #x
 //#define STR(x) XSTR(x)
 
-#if !defined(SHARE_DIR)
-#   define SHARE_DIR "/home/michel/code/QMentat-install/"
-#endif
+//#if !defined(SHARE_DIR)
+//#   define SHARE_DIR "/home/michel/code/QMentat-install/"
+//#endif
 
 #define HELP_URL "qthelp://mike.dusseault.qmentat/doc/index.html"
 #define QMENTAT_HELP_FILE "QMentat.qhc"
@@ -20,11 +20,18 @@ HelpDialog::HelpDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    qDebug() << SHARE_DIR;
+    //qDebug() << SHARE_DIR;
 
+#if defined(SHARE_DIR)
     QString docsFile = SHARE_DIR;
     docsFile.append("/");
     docsFile.append(QMENTAT_HELP_FILE);
+#else
+    QString docsFile = QFileInfo( QCoreApplication::applicationFilePath() ).absolutePath();
+    docsFile.append("/../share/QMentat/");
+    docsFile.append(QMENTAT_HELP_FILE);
+#endif
+    //qDebug() << docsFile;
 
     helpEngine = new QHelpEngine(docsFile, this);
     helpEngine->setupData();

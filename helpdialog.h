@@ -2,6 +2,7 @@
 #define HELPDIALOG_H
 
 #include <QDialog>
+#include <QHelpEngineCore>
 
 class QHelpEngine;
 
