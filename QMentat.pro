@@ -122,7 +122,8 @@ OTHER_FILES += \
     documentation/QMentat.qhp \
     documentation/QMentat.qhcp \
     documentation/index.html \
-    documentation/about.txt
+    documentation/about.txt \
+    README
 
 TRANSLATIONS += \
     qmentat_fr.ts \

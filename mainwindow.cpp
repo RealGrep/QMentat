@@ -1,3 +1,20 @@
+/* Copyright (c) 2013 Mike Dusseault
+ *
+ * This file is part of QMentat.
+ *
+ * QMentat is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * QMentat is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with QMentat.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <iostream>
@@ -41,8 +58,8 @@ MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent),
         ui(new Ui::MainWindow)
 {
-    //QCoreApplication::setOrganizationName("mike.dusseault");
-    QCoreApplication::setOrganizationName("Synergem");
+    QCoreApplication::setOrganizationName("michel.dusseault");
+    //QCoreApplication::setOrganizationName("Synergem");
     QCoreApplication::setApplicationName("QMentat");
 
     ui->setupUi(this);
@@ -70,6 +87,7 @@ MainWindow::MainWindow(QWidget *parent) :
     readSettings();
 
     // Make sure the user accepts the license agreement on first run
+#ifdef SHOW_LICENSE
     QSettings settings;
     bool licenseAccepted = settings.value("licenseAccepted", false).toBool();
     if (!licenseAccepted)
@@ -86,6 +104,7 @@ MainWindow::MainWindow(QWidget *parent) :
             exit(0);
         }
     }
+#endif
 
     // Kick off first question
     newQuestion();
@@ -356,7 +375,7 @@ void MainWindow::on_actionRoots_triggered()
  */
 void MainWindow::on_actionAbout_triggered()
 {
-    QMessageBox::about(this, tr("About QMentat"), tr("QMentat\n\nWritten by Mike Dusseault\nCopyright 2011 Mike Dusseault.\nAll Rights Reserved."));
+    QMessageBox::about(this, tr("About QMentat"), tr("QMentat\n\nWritten by Mike Dusseault\nCopyright 2013 Mike Dusseault."));
 }
 
 void MainWindow::on_actionStatistics_triggered()
