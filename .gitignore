@@ -2,6 +2,7 @@ doc
 oldpics
 *.qm
 QMentat.pro.user*
+debian
 debian/*.ex
 debian/*.EX
 
