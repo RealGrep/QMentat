@@ -106,7 +106,7 @@ QuestionDisplay* RootsModule::getDisplayFrame()
     return displayFrame;
 }
 
-bool RootsModule::isRangeOk(BigFixedPoint newMin, BigFixedPoint newMax,
+bool RootsModule::isRangeOk(const BigFixedPoint& newMin, const BigFixedPoint& newMax,
                             int newRootMin, int newRootMax)
 {
     bool isOk = false;
@@ -169,7 +169,7 @@ QString RootsModule::question()
     return q;
 }
 
-bool RootsModule::isCorrect(QString& answerGiven)
+bool RootsModule::isCorrect(const QString& answerGiven)
 {
     BigFixedPoint answerNum(answerGiven);
     answerNum.scale(answer.getDecimalPlaces());
@@ -204,8 +204,8 @@ void RootsModule::rootRangeUpdated()
     genRoot = new RandomInt<int>(rootMin, rootMax);
 }
 
-void RootsModule::setSettings(BigFixedPoint newFirstMin,
-                              BigFixedPoint newFirstMax,
+void RootsModule::setSettings(const BigFixedPoint& newFirstMin,
+                              const BigFixedPoint& newFirstMax,
                               int newRootMin,
                               int newRootMax,
                               bool newIntsOnly,

@@ -38,10 +38,10 @@ public:
     ~AdditionConfigFrame();
 
     void setModule(AdditionModule *mod);
-    void setFirstMinimum(QString min);
-    void setFirstMaximum(QString max);
-    void setLastMinimum(QString min);
-    void setLastMaximum(QString max);
+    void setFirstMinimum(const QString& min);
+    void setFirstMaximum(const QString& max);
+    void setLastMinimum(const QString& min);
+    void setLastMaximum(const QString& max);
     void setLargestNumberFirst(bool b);
 
     bool applyConfig();

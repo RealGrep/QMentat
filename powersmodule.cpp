@@ -125,7 +125,7 @@ QString PowersModule::question()
     return q;
 }
 
-bool PowersModule::isCorrect(QString& answerGiven)
+bool PowersModule::isCorrect(const QString& answerGiven)
 {
     BigFixedPoint answerNum(answerGiven);
     answerNum.scale(answer.getDecimalPlaces());
@@ -162,8 +162,8 @@ void PowersModule::powerRangeUpdated()
     genPower = new RandomInt<int>(minGen, maxGen);
 }
 
-void PowersModule::setSettings(BigFixedPoint newFirstMin,
-                               BigFixedPoint newFirstMax,
+void PowersModule::setSettings(const BigFixedPoint& newFirstMin,
+                               const BigFixedPoint& newFirstMax,
                                int newPowerMin,
                                int newPowerMax,
                                int newDecimals,

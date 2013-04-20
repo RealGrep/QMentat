@@ -134,7 +134,7 @@ QString AdditionModule::question()
  * current question.
  *  \returns true if the user answered correctly, false otherwise.
  */
-bool AdditionModule::isCorrect(QString& answerGiven)
+bool AdditionModule::isCorrect(const QString& answerGiven)
 {
     BigFixedPoint answerNum(answerGiven);
     answerNum.scale(answer.getDecimalPlaces());

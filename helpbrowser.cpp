@@ -31,7 +31,6 @@ HelpBrowser::HelpBrowser(QWidget *parent) :
     QTextBrowser(parent)
 {
     helpEngine = 0;
-    //qDebug() << "HelpEngine: ctor";
 }
 
 void HelpBrowser::setHelpEngine(QHelpEngine *engine)

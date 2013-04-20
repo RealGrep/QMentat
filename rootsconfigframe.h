@@ -36,8 +36,8 @@ public:
     ~RootsConfigFrame();
 
     void setModule(RootsModule *mod);
-    void setMinimum(QString min);
-    void setMaximum(QString max);
+    void setMinimum(const QString& min);
+    void setMaximum(const QString& max);
     void setRootMinimum(int min);
     void setRootMaximum(int max);
     void setDecimalPlaces(int newDecimals);

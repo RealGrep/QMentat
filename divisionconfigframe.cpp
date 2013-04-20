@@ -55,22 +55,22 @@ void DivisionConfigFrame::setModule(DivisionModule *mod)
     this->module = mod;
 }
 
-void DivisionConfigFrame::setFirstMinimum(QString min)
+void DivisionConfigFrame::setFirstMinimum(const QString& min)
 {
     ui->minNumberLineEdit->setText(min);
 }
 
-void DivisionConfigFrame::setFirstMaximum(QString max)
+void DivisionConfigFrame::setFirstMaximum(const QString& max)
 {
     ui->maxNumberLineEdit->setText(max);
 }
 
-void DivisionConfigFrame::setLastMinimum(QString max)
+void DivisionConfigFrame::setLastMinimum(const QString& max)
 {
     ui->secondMinLineEdit->setText(max);
 }
 
-void DivisionConfigFrame::setLastMaximum(QString max)
+void DivisionConfigFrame::setLastMaximum(const QString& max)
 {
     ui->secondMaxLineEdit->setText(max);
 }

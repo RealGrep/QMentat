@@ -47,22 +47,22 @@ void SubtractionConfigFrame::setModule(SubtractionModule *mod)
     this->module = mod;
 }
 
-void SubtractionConfigFrame::setFirstMinimum(QString min)
+void SubtractionConfigFrame::setFirstMinimum(const QString& min)
 {
     ui->minNumberLineEdit->setText(min);
 }
 
-void SubtractionConfigFrame::setFirstMaximum(QString max)
+void SubtractionConfigFrame::setFirstMaximum(const QString& max)
 {
     ui->maxNumberLineEdit->setText(max);
 }
 
-void SubtractionConfigFrame::setLastMinimum(QString min)
+void SubtractionConfigFrame::setLastMinimum(const QString& min)
 {
     ui->secondMinLineEdit->setText(min);
 }
 
-void SubtractionConfigFrame::setLastMaximum(QString max)
+void SubtractionConfigFrame::setLastMaximum(const QString& max)
 {
     ui->secondMaxLineEdit->setText(max);
 }

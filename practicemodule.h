@@ -27,7 +27,7 @@ public:
     //PracticeModule(MainWindow *mw);
     virtual ~PracticeModule() { }
     virtual QString question() = 0;
-    virtual bool isCorrect(QString& answerGiven) = 0;
+    virtual bool isCorrect(const QString& answerGiven) = 0;
     virtual QFrame* getConfigFrame() = 0;
     virtual bool applyConfig() = 0;
     virtual QuestionDisplay* getDisplayFrame() = 0;

@@ -119,7 +119,7 @@ QString MultiplicationModule::question()
     return q;
 }
 
-bool MultiplicationModule::isCorrect(QString& answerGiven)
+bool MultiplicationModule::isCorrect(const QString& answerGiven)
 {
     BigFixedPoint answerNum(answerGiven);
     answerNum.scale(answer.getDecimalPlaces());
@@ -141,10 +141,10 @@ QString MultiplicationModule::getAnswerString()
             .arg(answer.toString());
 }
 
-void MultiplicationModule::setSettings(BigFixedPoint newFirstMin,
-                                       BigFixedPoint newFirstMax,
-                                       BigFixedPoint newLastMin,
-                                       BigFixedPoint newLastMax,
+void MultiplicationModule::setSettings(const BigFixedPoint& newFirstMin,
+                                       const BigFixedPoint& newFirstMax,
+                                       const BigFixedPoint& newLastMin,
+                                       const BigFixedPoint& newLastMax,
                                        bool newLargestNumberFirst,
                                        int newDecimals,
                                        bool newRoundingMode)

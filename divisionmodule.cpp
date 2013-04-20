@@ -330,7 +330,7 @@ QString DivisionModule::question()
 /*! Tells if the supplied answer is correct.
  * \returns true if correct, false otherwise.
  */
-bool DivisionModule::isCorrect(QString& answerGiven)
+bool DivisionModule::isCorrect(const QString& answerGiven)
 {
     if (integersOnly)
     {
@@ -375,10 +375,10 @@ QString DivisionModule::getAnswerString()
     }
 }
 
-void DivisionModule::setSettings(BigFixedPoint newFirstMin,
-                                 BigFixedPoint newFirstMax,
-                                 BigFixedPoint newLastMin,
-                                 BigFixedPoint newLastMax,
+void DivisionModule::setSettings(const BigFixedPoint& newFirstMin,
+                                 const BigFixedPoint& newFirstMax,
+                                 const BigFixedPoint& newLastMin,
+                                 const BigFixedPoint& newLastMax,
                                  bool newLargestNumberFirst, bool newIntsOnly,
                                  int newDecimals, bool newRoundingMode)
 {

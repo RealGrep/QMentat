@@ -375,7 +375,7 @@ void MainWindow::on_actionRoots_triggered()
  */
 void MainWindow::on_actionAbout_triggered()
 {
-    QMessageBox::about(this, tr("About QMentat"), tr("QMentat\n\nWritten by Mike Dusseault\nCopyright 2013 Mike Dusseault."));
+    QMessageBox::about(this, tr("About QMentat"), tr("QMentat\n\nWritten by Mike Dusseault\nCopyright 2013 Mike Dusseault.\n\nQMentat is released under the GPL version 3."));
 }
 
 void MainWindow::on_actionStatistics_triggered()

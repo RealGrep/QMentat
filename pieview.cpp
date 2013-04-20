@@ -308,7 +308,7 @@
  {
      QItemSelectionModel *selections = selectionModel();
      QStyleOptionViewItem option = viewOptions();
-     QStyle::State state = option.state;
+     //QStyle::State state = option.state;
 
      QBrush background = option.palette.base();
      QPen foreground(option.palette.color(QPalette::WindowText));
@@ -323,8 +323,8 @@
 
      // Viewport rectangles
      QRect pieRect = QRect(margin, margin, pieSize, pieSize);
-     QPoint keyPoint = QPoint(totalSize - horizontalScrollBar()->value(),
-                              margin - verticalScrollBar()->value());
+     //QPoint keyPoint = QPoint(totalSize - horizontalScrollBar()->value(),
+     //                         margin - verticalScrollBar()->value());
 
      if (validItems > 0) {
 

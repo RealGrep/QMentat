@@ -37,20 +37,20 @@ public:
     ~RootsModule();
 
     QString question();
-    bool isCorrect(QString& answerGiven);
+    bool isCorrect(const QString& answerGiven);
     RootsConfigFrame *configFrame;
     QFrame* getConfigFrame();
     QuestionDisplay *displayFrame;
     QuestionDisplay* getDisplayFrame();
     QString getAnswerString();
 
-    bool isRangeOk(BigFixedPoint newMin, BigFixedPoint newMax,
+    bool isRangeOk(const BigFixedPoint& newMin, const BigFixedPoint& newMax,
                    int newRootMin, int newRootMax);
 
     bool applyConfig();
 
-    void setSettings(BigFixedPoint newFirstMin,
-                     BigFixedPoint newFirstMax,
+    void setSettings(const BigFixedPoint& newFirstMin,
+                     const BigFixedPoint& newFirstMax,
                      int newRootMin,
                      int newRootMax,
                      bool newIntsOnly,

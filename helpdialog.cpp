@@ -44,7 +44,7 @@ HelpDialog::HelpDialog(QWidget *parent) :
     docsFile.append("/");
     docsFile.append(QMENTAT_HELP_FILE);
 #else
-    QString docsFile = QFileInfo( QCoreApplication::applicationFilePath() ).absolutePath();
+    QString docsFile = QFileInfo(QCoreApplication::applicationFilePath()).absolutePath();
     docsFile.append("/../share/QMentat/");
     docsFile.append(QMENTAT_HELP_FILE);
 #endif

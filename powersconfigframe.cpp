@@ -52,12 +52,12 @@ void PowersConfigFrame::setModule(PowersModule *mod)
     this->module = mod;
 }
 
-void PowersConfigFrame::setMinimum(QString min)
+void PowersConfigFrame::setMinimum(const QString& min)
 {
     ui->minNumberLineEdit->setText(min);
 }
 
-void PowersConfigFrame::setMaximum(QString max)
+void PowersConfigFrame::setMaximum(const QString& max)
 {
     ui->maxNumberLineEdit->setText(max);
 }

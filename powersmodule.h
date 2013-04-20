@@ -37,7 +37,7 @@ public:
     ~PowersModule();
 
     QString question();
-    bool isCorrect(QString& answerGiven);
+    bool isCorrect(const QString& answerGiven);
     PowersConfigFrame *configFrame;
     QFrame* getConfigFrame();
     QuestionDisplay *displayFrame;
@@ -46,8 +46,8 @@ public:
 
     bool applyConfig();
 
-    void setSettings(BigFixedPoint newFirstMin,
-                     BigFixedPoint newFirstMax,
+    void setSettings(const BigFixedPoint& newFirstMin,
+                     const BigFixedPoint& newFirstMax,
                      int newPowerMin,
                      int newPowerMax,
                      int newDecimals,

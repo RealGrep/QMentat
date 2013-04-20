@@ -36,7 +36,7 @@ public:
     ~MultiplicationModule();
 
     QString question();
-    bool isCorrect(QString& answerGiven);
+    bool isCorrect(const QString& answerGiven);
     MultiplicationConfigFrame *configFrame;
     QFrame* getConfigFrame();
     QuestionDisplay *displayFrame;
@@ -45,10 +45,10 @@ public:
 
     bool applyConfig();
 
-    void setSettings(BigFixedPoint newFirstMin,
-                     BigFixedPoint newFirstMax,
-                     BigFixedPoint newLastMin,
-                     BigFixedPoint newLastMax,
+    void setSettings(const BigFixedPoint& newFirstMin,
+                     const BigFixedPoint& newFirstMax,
+                     const BigFixedPoint& newLastMin,
+                     const BigFixedPoint& newLastMax,
                      bool newLargestNumberFirst,
                      int newDecimals,
                      bool newRoundingMode);

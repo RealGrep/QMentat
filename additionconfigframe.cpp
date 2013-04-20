@@ -46,22 +46,22 @@ void AdditionConfigFrame::setModule(AdditionModule *mod)
     this->module = mod;
 }
 
-void AdditionConfigFrame::setFirstMinimum(QString min)
+void AdditionConfigFrame::setFirstMinimum(const QString& min)
 {
     ui->minNumberLineEdit->setText(min);
 }
 
-void AdditionConfigFrame::setFirstMaximum(QString max)
+void AdditionConfigFrame::setFirstMaximum(const QString& max)
 {
     ui->maxNumberLineEdit->setText(max);
 }
 
-void AdditionConfigFrame::setLastMinimum(QString min)
+void AdditionConfigFrame::setLastMinimum(const QString& min)
 {
     ui->secondMinLineEdit->setText(min);
 }
 
-void AdditionConfigFrame::setLastMaximum(QString max)
+void AdditionConfigFrame::setLastMaximum(const QString& max)
 {
     ui->secondMaxLineEdit->setText(max);
 }

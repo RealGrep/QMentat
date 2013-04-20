@@ -55,12 +55,12 @@ void RootsConfigFrame::setModule(RootsModule *mod)
     this->module = mod;
 }
 
-void RootsConfigFrame::setMinimum(QString min)
+void RootsConfigFrame::setMinimum(const QString& min)
 {
     ui->minNumberLineEdit->setText(min);
 }
 
-void RootsConfigFrame::setMaximum(QString max)
+void RootsConfigFrame::setMaximum(const QString& max)
 {
     ui->maxNumberLineEdit->setText(max);
 }

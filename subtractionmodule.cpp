@@ -119,7 +119,7 @@ QString SubtractionModule::question()
     return q;
 }
 
-bool SubtractionModule::isCorrect(QString& answerGiven)
+bool SubtractionModule::isCorrect(const QString& answerGiven)
 {
     BigFixedPoint answerNum(answerGiven);
     answerNum.scale(answer.getDecimalPlaces());
@@ -141,10 +141,10 @@ QString SubtractionModule::getAnswerString()
             .arg(answer.toString());
 }
 
-void SubtractionModule::setSettings(BigFixedPoint newFirstMin,
-                                 BigFixedPoint newFirstMax,
-                                 BigFixedPoint newLastMin,
-                                 BigFixedPoint newLastMax,
+void SubtractionModule::setSettings(const BigFixedPoint& newFirstMin,
+                                 const BigFixedPoint& newFirstMax,
+                                 const BigFixedPoint& newLastMin,
+                                 const BigFixedPoint& newLastMax,
                                  bool newLargestNumberFirst)
 {
     bool settingsChanged = false;

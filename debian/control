@@ -1,10 +1,10 @@
 Source: qmentat
 Section: Mathematics
 Priority: extra
-Maintainer: Mike Dusseault <mike.dusseault@gmail.com>
+Maintainer: Michel Dusseault <mike.dusseault@gmail.com>
 Build-Depends: debhelper (>= 7), libqt4-dev, libgmp3-dev
 Standards-Version: 3.7.3
-Homepage: http://synergem.org/QMentat/
+Homepage: https://github.com/RealGrep/QMentat
 
 Package: qmentat
 Architecture: any

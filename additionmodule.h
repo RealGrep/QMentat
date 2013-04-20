@@ -37,7 +37,7 @@ public:
     ~AdditionModule();
 
     QString question();
-    bool isCorrect(QString& answerGiven);
+    bool isCorrect(const QString& answerGiven);
     AdditionConfigFrame *configFrame;
     QFrame *getConfigFrame();
     QuestionDisplay *displayFrame;

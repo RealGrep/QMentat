@@ -53,22 +53,22 @@ void MultiplicationConfigFrame::setModule(MultiplicationModule *mod)
     this->module = mod;
 }
 
-void MultiplicationConfigFrame::setFirstMinimum(QString min)
+void MultiplicationConfigFrame::setFirstMinimum(const QString& min)
 {
     ui->minNumberLineEdit->setText(min);
 }
 
-void MultiplicationConfigFrame::setFirstMaximum(QString max)
+void MultiplicationConfigFrame::setFirstMaximum(const QString& max)
 {
     ui->maxNumberLineEdit->setText(max);
 }
 
-void MultiplicationConfigFrame::setLastMinimum(QString min)
+void MultiplicationConfigFrame::setLastMinimum(const QString& min)
 {
     ui->secondMinLineEdit->setText(min);
 }
 
-void MultiplicationConfigFrame::setLastMaximum(QString max)
+void MultiplicationConfigFrame::setLastMaximum(const QString& max)
 {
     ui->secondMaxLineEdit->setText(max);
 }

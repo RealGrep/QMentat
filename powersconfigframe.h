@@ -37,8 +37,8 @@ public:
     ~PowersConfigFrame();
 
     void setModule(PowersModule *mod);
-    void setMinimum(QString min);
-    void setMaximum(QString max);
+    void setMinimum(const QString& min);
+    void setMaximum(const QString& max);
     void setPowerMinimum(int min);
     void setPowerMaximum(int max);
     void setDecimalPlaces(int newDecimals);

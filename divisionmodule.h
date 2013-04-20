@@ -37,7 +37,7 @@ public:
     ~DivisionModule();
 
     QString question();
-    bool isCorrect(QString& answerGiven);
+    bool isCorrect(const QString& answerGiven);
     DivisionConfigFrame *configFrame;
     QFrame* getConfigFrame();
     QuestionDisplay *displayFrame;
@@ -47,10 +47,10 @@ public:
     bool applyConfig();
 
     // For fixed point results
-    void setSettings(BigFixedPoint newFirstMin,
-                     BigFixedPoint newFirstMax,
-                     BigFixedPoint newLastMin,
-                     BigFixedPoint newLastMax,
+    void setSettings(const BigFixedPoint& newFirstMin,
+                     const BigFixedPoint& newFirstMax,
+                     const BigFixedPoint& newLastMin,
+                     const BigFixedPoint& newLastMax,
                      bool newLargestNumberFirst, bool newIntsOnly,
                      int newDecimals, bool newRoundingMode);
 
