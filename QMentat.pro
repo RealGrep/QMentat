@@ -14,7 +14,6 @@ CONFIG += help
 #QMAKE_CXXFLAGS += -std=c++11
 QMAKE_CXXFLAGS += -std=c++0x
 LIBS += -lgmpxx -lgmp
-#include(/home/michel/code/QMentat/qtmmlwidget-2.4_1-opensource/src/qtmmlwidget.pri)
 
 #INCLUDEPATH
 #LIBS += -lrandom
@@ -27,6 +26,8 @@ LIBS += -lgmpxx -lgmp
 #    message("Debug mode")
 #}
 
+# WARNING: Never leave any DESTDIR variable uncommented or you will break some of the
+#          automated package builds (i.e. Ubuntu, Arch, etc)
 #DESTDIR = /home/michel/code/QMentat-install
 #DESTDIR = /usr
 #message($$DESTDIR)
@@ -69,13 +70,13 @@ SOURCES += main.cpp\
     rootsmodule.cpp \
     rootsconfigframe.cpp \
     questiondisplay.cpp \
- #   mathdisplayform.cpp \
+#    mathdisplayform.cpp \
     qulonglongvalidator.cpp \
     pieview.cpp \
     statisticsdialog.cpp \
     bigfixedpoint.cpp \
     qbigfixedvalidator.cpp \
-    licensedialog.cpp \
+#    licensedialog.cpp \
     preferencesdialog.cpp \
     preferences.cpp \
     helpbrowser.cpp \
@@ -97,7 +98,7 @@ HEADERS  += mainwindow.h \
     rootsmodule.h \
     rootsconfigframe.h \
     questiondisplay.h \
- #   mathdisplayform.h \
+#    mathdisplayform.h \
     random.h \
     qulonglongvalidator.h \
     FixedPoint.h \
@@ -105,7 +106,7 @@ HEADERS  += mainwindow.h \
     statisticsdialog.h \
     bigfixedpoint.h \
     qbigfixedvalidator.h \
-    licensedialog.h \
+#    licensedialog.h \
     preferencesdialog.h \
     preferences.h \
     preferenceslistener.h \
@@ -122,7 +123,7 @@ FORMS    += mainwindow.ui \
     rootsconfigframe.ui \
     mathdisplayform.ui \
     statisticsdialog.ui \
-    licensedialog.ui \
+#    licensedialog.ui \
     preferencesdialog.ui \
     helpdialog.ui
 
