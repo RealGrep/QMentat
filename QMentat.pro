@@ -11,7 +11,8 @@ TEMPLATE = app
 
 CONFIG += help
 
-QMAKE_CXXFLAGS += -std=c++11
+#QMAKE_CXXFLAGS += -std=c++11
+QMAKE_CXXFLAGS += -std=c++0x
 LIBS += -lgmpxx -lgmp
 #include(/home/michel/code/QMentat/qtmmlwidget-2.4_1-opensource/src/qtmmlwidget.pri)
 
@@ -27,11 +28,30 @@ LIBS += -lgmpxx -lgmp
 #}
 
 #DESTDIR = /home/michel/code/QMentat-install
-DESTDIR = /home/michel/code/QMentat-install
+#DESTDIR = /usr
 #message($$DESTDIR)
+
+PREFIX = /usr
 
 #QMAKE_CXXFLAGS += -DSHARE_DIR=\'"$$DESTDIR/share/QMentat"\'
 #DEFINES += SHARE_DIR=\\\"$$DESTDIR/share/QMentat\\\"
+
+!isEmpty(TRANSLATIONS) {
+  isEmpty(QMAKE_LRELEASE) {
+    win32:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]\lrelease.exe
+    else:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]/lrelease
+  }
+
+  isEmpty(TS_DIR):TS_DIR = Translations
+
+  TSQM.name = lrelease ${QMAKE_FILE_IN}
+  TSQM.input = TRANSLATIONS
+  TSQM.output = $$TS_DIR/${QMAKE_FILE_BASE}.qm
+  TSQM.commands = $$QMAKE_LRELEASE ${QMAKE_FILE_IN}
+  TSQM.CONFIG = no_link
+  QMAKE_EXTRA_COMPILERS += TSQM
+  PRE_TARGETDEPS += compiler_TSQM_make_all
+} else:message(No translation files in project)
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -130,24 +150,24 @@ TRANSLATIONS += \
     qmentat_es.ts
 
 # INSTALLATION
-target.path = $$DESTDIR/bin
+target.path = $$PREFIX/bin
 
-script.path = $$DESTDIR/bin
+script.path = $$PREFIX/bin
 script.files = QMentat.sh
 
-appicon.path = $$DESTDIR/share/icons
+appicon.path = $$PREFIX/share/icons
 appicon.files = QMentat.png
 
-desktop.path = $$DESTDIR/share/applications
+desktop.path = $$PREFIX/share/applications
 desktop.files = qmentat.desktop
 
-images.path = $$DESTDIR/share/QMentat
+images.path = $$PREFIX/share/QMentat
 images.files = *.png
 
-translates.path = $$DESTDIR/share/Qmentat
+translates.path = $$PREFIX/share/Qmentat
 translates.files = *.qm
 
-docs.path = $$DESTDIR/share/QMentat
+docs.path = $$PREFIX/share/QMentat
 docs.files = documentation/QMentat.qhc documentation/QMentat.qch LICENSE
 
 INSTALLS = \
@@ -161,3 +181,4 @@ INSTALLS = \
 
 RESOURCES += \
     qmentat.qrc
+
