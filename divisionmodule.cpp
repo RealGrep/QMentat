@@ -195,7 +195,7 @@ std::vector<qint64> *DivisionModule::getDivisors(qint64 num,
     int prog = 0;
     for (qint64 i = min; i <= last; ++i)
     {
-        int newProg = (int)round(((double)(i - min) / (double)last) * (double)partitions);
+        int newProg = (int)qRound(((double)(i - min) / (double)last) * (double)partitions);
 
         if (newProg > prog)
         {
