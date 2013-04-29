@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>QMentat v0.8</string>
+   <string>QMentat v0.9.0</string>
   </property>
   <property name="windowIcon">
    <iconset resource="qmentat.qrc">
@@ -119,7 +119,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>588</width>
-     <height>23</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
