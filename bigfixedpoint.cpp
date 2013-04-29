@@ -30,6 +30,9 @@
 #endif
 
 bool BigFixedPoint::roundingEnabled = false;
+bool BigFixedPoint::isSeeded = false;
+gmp_randclass BigFixedPoint::r(gmp_randinit_default);
+
 
 BigFixedPoint::BigFixedPoint()
 {
@@ -71,11 +74,14 @@ BigFixedPoint::BigFixedPoint(mpz_class num, int decimals)
 BigFixedPoint::BigFixedPoint(QString num)
 {
     // Strip separators out
-    for (int i = 0; i < num.size(); ++i)
+    int i = 0;
+    while (i < num.size())
     {
         if (num[i] == QLocale::system().groupSeparator())
         {
             num.remove(i, 1);
+        } else {
+            ++i;
         }
     }
 
@@ -91,13 +97,12 @@ BigFixedPoint::BigFixedPoint(QString num)
 
     // There must not be leading 0s or it will interpret the number as octal
     // That was puzzling for a few moments, let me tell you.
-    int i = 0;
+    i = 0;
     assert(decimalPlaces >= 0);
     while ((i < (num.size() - decimalPlaces))
         && (num[i] == QLocale::system().zeroDigit()))
     {
         num.remove(i, 1);
-        ++i;
     }
 
     // The number string is clean
@@ -555,7 +560,7 @@ quint32 BigFixedPoint::getSeed()
     urandom.close();
 #else // also available: Q_OS_WIN32 and Q_OS_MAC
     //seed = QDateTime::currentMSecsSinceEpoch();
-    seed = QDateTime::toTime_t();
+    seed = QDateTime::currentDateTime().toTime_t();
 #endif
     return seed;
 }
@@ -569,10 +574,10 @@ BigFixedPoint BigFixedPoint::random(const BigFixedPoint& min, const BigFixedPoin
 
 BigFixedPoint BigFixedPoint::random(const BigFixedPoint& n)
 {
-    gmp_randclass r(gmp_randinit_default);
-
-    //r.seed(QTime::currentTime().msec());
-    r.seed(getSeed());
+    if (!isSeeded) {
+        r.seed(getSeed());
+        isSeeded = true;
+    }
     mpz_class num = r.get_z_range(n.number+1);
     return BigFixedPoint(num, n.getDecimalPlaces());
 }

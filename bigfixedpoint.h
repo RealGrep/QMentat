@@ -168,6 +168,8 @@ private:
     mpz_class number;
     int decimalPlaces;
     static bool roundingEnabled;
+    static bool isSeeded;
+    static gmp_randclass r;
 };
 
 #endif // BIGFIXEDPOINT_H

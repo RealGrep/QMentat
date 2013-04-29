@@ -21,6 +21,7 @@
 #include <string>
 #include <cassert>
 #include <QtGui>
+#include <QChar>
 #include "practicemodule.h"
 #include "additionmodule.h"
 #include "subtractionmodule.h"
@@ -265,6 +266,35 @@ void MainWindow::newQuestion()
     ui->lineEdit->clear();
 }
 
+bool MainWindow::answerValid(const QString& answerGiven)
+{
+
+    bool first_char = true;
+    bool saw_decimal = false;
+    for (int i = 0; i < answerGiven.size(); i++)
+    {
+        QChar c = answerGiven[i];
+        // If we see a + or - and it's not the first character we see, not valid.
+        if (!first_char && (c == QChar('-') || c == QChar('+')))
+        {
+            return false;
+        // Ensure only one decimal point
+        } else if (c == QLocale::system().decimalPoint()) {
+            if (saw_decimal) {
+                return false;
+            }
+            saw_decimal = true;
+        // Otherwise, if it's not a digit or a group separator, not valid.
+        } else if (!c.isDigit() &&
+                   c != QLocale::system().groupSeparator())
+        {
+            return false;
+        }
+        first_char = false;
+    }
+    return true;
+}
+
 /*! Return pressed, so verify the answer given and display result.
  */
 void MainWindow::on_lineEdit_returnPressed()
@@ -272,14 +302,15 @@ void MainWindow::on_lineEdit_returnPressed()
     assert(module != 0);
 
     // Answer as integer
-    QString answerGiven = ui->lineEdit->text();
+    QString answerGiven = ui->lineEdit->text().trimmed();
     if (answerGiven.size() == 0)
     {
         answerGiven = "0";
     }
 
     // Handle correct or not
-    if (module->isCorrect(answerGiven)) {
+    if (answerValid(answerGiven) && module->isCorrect(answerGiven))
+    {
         ui->textEdit->setText(tr("Correct!"));
         this->totalCorrect++;
     } else {

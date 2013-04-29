@@ -11,13 +11,23 @@ TEMPLATE = app
 
 CONFIG += help
 
-#QMAKE_CXXFLAGS += -std=c++11
-QMAKE_CXXFLAGS += -std=c++0x
-LIBS += -lgmpxx -lgmp
+#!win32: QMAKE_CXXFLAGS += -std=c++11
+!win32: QMAKE_CXXFLAGS += -std=c++0x
+
+# Windows only. Make sure to edit these to point to your MPIR and Boost.
+win32 {
+    # Windows icon embedded in exeutable
+    RC_FILE = QMentat.rc
+    LIBS += -L"C:/mpir-2.6.0/dll/Win32/Release"
+    LIBS += -L"C:/mpir-2.6.0/lib/Win32/Release"
+    LIBS += -lmpirxx -lmpir
+
+    INCLUDEPATH += "C:/mpir-2.6.0/lib/Win32/Release"
+    INCLUDEPATH += "C:/boost_1_53_0"
+}
+else:LIBS += -lgmpxx -lgmp
 
 #INCLUDEPATH
-#LIBS += -lrandom
-#DESTDIR
 #DEFINES
 #DEPENDPATH
 #PKGCONFIG +=
@@ -36,6 +46,7 @@ PREFIX = /usr
 
 #QMAKE_CXXFLAGS += -DSHARE_DIR=\'"$$DESTDIR/share/QMentat"\'
 #DEFINES += SHARE_DIR=\\\"$$DESTDIR/share/QMentat\\\"
+
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -113,6 +124,8 @@ FORMS    += mainwindow.ui \
 OTHER_FILES += \
     exit.png \
     QMentat.png \
+    QMentat.ico \
+    QMentat.rc \
     Subtraction_32x32.png \
     Roots_32x32.png \
     Powers_32x32.png \
@@ -168,7 +181,7 @@ RESOURCES += \
 
 !isEmpty(TRANSLATIONS) {
   isEmpty(QMAKE_LRELEASE) {
-    win32:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]\lrelease.exe
+    win32:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]/lrelease.exe
     else:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]/lrelease
   }
 

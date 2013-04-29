@@ -59,6 +59,7 @@ private:
 
     void readSettings();
     void writeSettings();
+    bool answerValid(const QString& answerGiven);
 
     int currentTab;
 

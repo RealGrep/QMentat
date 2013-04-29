@@ -19,6 +19,7 @@
 
 #include "mainwindow.h"
 #include <cmath>
+#include <QtCore/qmath.h>
 #include <iostream>
 #include <vector>
 #include <QtGui>
@@ -157,7 +158,7 @@ bool DivisionModule::isRangeOk(qint64 firstMin, qint64 firstMax,
     // We ignore firstMax because we don't care if it's only divisible by itself
     for (qint64 i = firstMax-1; i >= firstMin; --i)
     {
-        qint64 last = std::min(static_cast<qint64>(sqrt(i)), lastMax) + 1;
+        qint64 last = std::min(static_cast<qint64>(qSqrt(i)), lastMax) + 1;
         for (qint64 j = lastMin; j < last; ++j)
         {
             if (((i % j) == 0) && (i != j))
@@ -185,7 +186,7 @@ std::vector<qint64> *DivisionModule::getDivisors(qint64 num,
 {
     std::vector<qint64> *divisors = new std::vector<qint64>();
     // No use going past sqrt(num)
-    qint64 last = std::min(static_cast<qint64>(sqrt(num)), max) + 1;
+    qint64 last = std::min(static_cast<qint64>(qSqrt(num)), max) + 1;
 
     const int partitions = 100000000;
     QProgressDialog progress("Finding divisors, please wait...", "Cancel",
