@@ -1,15 +1,17 @@
 Building from command line
 ==========================
-1. Create shadow build directory.
+1. You will need, other than g++ and associated tools: the Qt4 development tools, libraries and headers, as well as the libraries and headers for Boost and GMP.
 
-2. Go into shadow build directory.
+2. Create shadow build directory. For example, a good name is QMentat-build.
 
-3. Ensure the correct PREFIX is set in .pro file. This is the directory to which you want to install. For example, "/usr" or "/usr/local".
+3. Go into shadow build directory.
 
-4. Run (assuming path to project is ../QMentat/):
+4. Ensure the correct PREFIX is set in .pro file. This is the directory to which you want to install. For example, "/usr" or "/usr/local".
+
+5. Run (assuming path to project is ../QMentat/):
 qmake ../QMentat/QMentat.pro -r -spec linux-g++ CONFIG+=release
 
-5. Run make
+6. Run make
 
-6. Run sudo make install
+7. Run sudo make install
 
