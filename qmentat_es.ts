@@ -50,17 +50,17 @@ p, li { white-space: pre-wrap; }
         <location filename="additionconfigframe.cpp" line="75"/>
         <location filename="additionconfigframe.cpp" line="78"/>
         <source>Range Validation Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error de rango de validación</translation>
     </message>
     <message>
         <location filename="additionconfigframe.cpp" line="75"/>
         <source>Maximum of first number is smaller than the minimum.</source>
-        <translation type="unfinished"></translation>
+        <translation>El máximo del primer número es mas pequeño que el mínimo.</translation>
     </message>
     <message>
         <location filename="additionconfigframe.cpp" line="78"/>
         <source>Maximum of last number is smaller than the minimum.</source>
-        <translation type="unfinished"></translation>
+        <translation>El máximo del último número es más pequeño que el mínimo.</translation>
     </message>
 </context>
 <context>
@@ -113,12 +113,19 @@ p, li { white-space: pre-wrap; }
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Result&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;table style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Resultado&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.ui" line="159"/>
         <source>Decimal Places</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de Decimales</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.ui" line="176"/>
@@ -128,22 +135,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="divisionconfigframe.ui" line="186"/>
         <source>Integers Only</source>
-        <translation type="unfinished"></translation>
+        <translation>Solo enteros</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.ui" line="200"/>
         <source>Rounding Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de redondeo</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.ui" line="208"/>
         <source>Truncate</source>
-        <translation type="unfinished"></translation>
+        <translation>Truncar</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.ui" line="213"/>
         <source>Round</source>
-        <translation type="unfinished"></translation>
+        <translation>Redondear</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.cpp" line="180"/>
@@ -152,24 +159,24 @@ p, li { white-space: pre-wrap; }
         <location filename="divisionconfigframe.cpp" line="217"/>
         <location filename="divisionconfigframe.cpp" line="220"/>
         <source>Range Validation Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error de rango de validación</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.cpp" line="181"/>
         <location filename="divisionconfigframe.cpp" line="217"/>
         <source>Maximum of first number is smaller than the minimum.</source>
-        <translation type="unfinished"></translation>
+        <translation>El máximo del primer número es mas pequeño que el mínimo.</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.cpp" line="187"/>
         <location filename="divisionconfigframe.cpp" line="220"/>
         <source>Maximum of last number is smaller than the minimum.</source>
-        <translation type="unfinished"></translation>
+        <translation>El máximo del último número es más pequeño que el mínimo.</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.cpp" line="193"/>
         <source>Range of first number has no divisors within range of last number.</source>
-        <translation type="unfinished"></translation>
+        <translation>El rango del primer número no tiene divisores dentro del rango del último número.</translation>
     </message>
 </context>
 <context>
@@ -178,12 +185,12 @@ p, li { white-space: pre-wrap; }
         <location filename="mainwindow.ui" line="14"/>
         <source>QMentat v0.6</source>
         <oldsource>QMentat v0.2</oldsource>
-        <translation type="unfinished">QMentat v0.2</translation>
+        <translation>QMentat v0.6</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="34"/>
         <source>Main</source>
-        <translation type="unfinished"></translation>
+        <translation>Principal</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="82"/>
@@ -207,7 +214,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="mainwindow.ui" line="97"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuración</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="118"/>
@@ -274,7 +281,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="mainwindow.ui" line="263"/>
         <source>Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Estadísticas</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="221"/>
@@ -289,7 +296,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="mainwindow.cpp" line="228"/>
         <source>Total: %1  Correct/Wrong: %2/%3  %4%5 success rate</source>
-        <translation type="unfinished"></translation>
+        <translation>Total: %1  Correcto/Incorrecto: %2/%3  tasa de éxito del %4%5</translation>
     </message>
     <message>
         <source>Total: %1  Correct/Wrong: %2/%3  %4% success rate</source>
@@ -368,7 +375,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="multiplicationconfigframe.ui" line="155"/>
         <source>Decimal Places</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de decimales</translation>
     </message>
     <message>
         <location filename="multiplicationconfigframe.ui" line="172"/>
@@ -380,38 +387,45 @@ p, li { white-space: pre-wrap; }
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Result&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;table style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Resultado&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="multiplicationconfigframe.ui" line="186"/>
         <source>Rounding Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de redondeo</translation>
     </message>
     <message>
         <location filename="multiplicationconfigframe.ui" line="194"/>
         <source>Truncate</source>
-        <translation type="unfinished"></translation>
+        <translation>Truncar</translation>
     </message>
     <message>
         <location filename="multiplicationconfigframe.ui" line="199"/>
         <source>Round</source>
-        <translation type="unfinished"></translation>
+        <translation>Redondear</translation>
     </message>
     <message>
         <location filename="multiplicationconfigframe.cpp" line="94"/>
         <location filename="multiplicationconfigframe.cpp" line="97"/>
         <source>Range Validation Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error de rango de validación</translation>
     </message>
     <message>
         <location filename="multiplicationconfigframe.cpp" line="94"/>
         <source>Maximum of first number is smaller than the minimum.</source>
-        <translation type="unfinished"></translation>
+        <translation>El máximo del primer número es mas pequeño que el mínimo.</translation>
     </message>
     <message>
         <location filename="multiplicationconfigframe.cpp" line="97"/>
         <source>Maximum of last number is smaller than the minimum.</source>
-        <translation type="unfinished"></translation>
+        <translation>El máximo del último número es más pequeño que el mínimo.</translation>
     </message>
 </context>
 <context>
@@ -449,27 +463,34 @@ p, li { white-space: pre-wrap; }
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Result&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;table style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Resultado&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="powersconfigframe.ui" line="129"/>
         <source>Decimal Places</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de decimales</translation>
     </message>
     <message>
         <location filename="powersconfigframe.ui" line="146"/>
         <source>Rounding Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de redondeo</translation>
     </message>
     <message>
         <location filename="powersconfigframe.ui" line="154"/>
         <source>Truncate</source>
-        <translation type="unfinished"></translation>
+        <translation>Truncar</translation>
     </message>
     <message>
         <location filename="powersconfigframe.ui" line="159"/>
         <source>Round</source>
-        <translation type="unfinished"></translation>
+        <translation>Redondear</translation>
     </message>
     <message>
         <location filename="powersconfigframe.ui" line="31"/>
@@ -482,7 +503,7 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Base Número&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Número Base&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="powersconfigframe.ui" line="81"/>
@@ -498,17 +519,17 @@ p, li { white-space: pre-wrap; }
         <location filename="powersconfigframe.cpp" line="124"/>
         <location filename="powersconfigframe.cpp" line="127"/>
         <source>Range Validation Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error de rango de validación</translation>
     </message>
     <message>
         <location filename="powersconfigframe.cpp" line="124"/>
         <source>Maximum of base number is smaller than the minimum.</source>
-        <translation type="unfinished"></translation>
+        <translation>El máximo del número base es más pequeño que el mínimo.</translation>
     </message>
     <message>
         <location filename="powersconfigframe.cpp" line="127"/>
         <source>Maximum power is smaller than the minimum.</source>
-        <translation type="unfinished"></translation>
+        <translation>El máximo de la potencia es más pequeño que el mínimo.</translation>
     </message>
 </context>
 <context>
@@ -561,17 +582,17 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Base Número&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Número Base&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.ui" line="84"/>
         <source>Min Root</source>
-        <translation>Mínimo raíz</translation>
+        <translation>Raíz mínima</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.ui" line="101"/>
         <source>Max Root</source>
-        <translation>Máxima de la raíz</translation>
+        <translation>Raíz máxima</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.ui" line="118"/>
@@ -583,48 +604,55 @@ p, li { white-space: pre-wrap; }
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Result&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;table style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Resultado&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.ui" line="132"/>
         <source>Decimal Places</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de decimales</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.ui" line="149"/>
         <source>Integers Only</source>
-        <translation type="unfinished"></translation>
+        <translation>Solo enteros</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.ui" line="163"/>
         <source>Rounding Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de redondeo</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.ui" line="171"/>
         <source>Truncate</source>
-        <translation type="unfinished"></translation>
+        <translation>Truncar</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.ui" line="176"/>
         <source>Round</source>
-        <translation type="unfinished"></translation>
+        <translation>Redondear</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.cpp" line="99"/>
         <location filename="rootsconfigframe.cpp" line="102"/>
         <source>Range Validation Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error de rango de validación</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.cpp" line="99"/>
         <source>Maximum of base number is smaller than the minimum.</source>
-        <translation type="unfinished"></translation>
+        <translation>El máximo del número base es más pequeño que el mínimo.</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.cpp" line="102"/>
         <source>Maximum root is smaller than the minimum.</source>
-        <translation type="unfinished"></translation>
+        <translation>El máximo de la raiz es más pequeño que el mínimo.</translation>
     </message>
 </context>
 <context>
@@ -632,27 +660,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="statisticsdialog.ui" line="14"/>
         <source>Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Estadísticas</translation>
     </message>
     <message>
         <location filename="statisticsdialog.cpp" line="34"/>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Etiqueta</translation>
     </message>
     <message>
         <location filename="statisticsdialog.cpp" line="35"/>
         <source>Quantity</source>
-        <translation type="unfinished"></translation>
+        <translation>Cantidad</translation>
     </message>
     <message>
         <location filename="statisticsdialog.cpp" line="69"/>
         <source>Correct - %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Correcto - %1</translation>
     </message>
     <message>
         <location filename="statisticsdialog.cpp" line="77"/>
         <source>Wrong - %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Incorrecto - %1</translation>
     </message>
 </context>
 <context>
@@ -704,17 +732,17 @@ p, li { white-space: pre-wrap; }
         <location filename="subtractionconfigframe.cpp" line="76"/>
         <location filename="subtractionconfigframe.cpp" line="79"/>
         <source>Range Validation Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error de rango de validación</translation>
     </message>
     <message>
         <location filename="subtractionconfigframe.cpp" line="76"/>
         <source>Maximum of first number is smaller than the minimum.</source>
-        <translation type="unfinished"></translation>
+        <translation>El máximo del primer número es mas pequeño que el mínimo.</translation>
     </message>
     <message>
         <location filename="subtractionconfigframe.cpp" line="79"/>
         <source>Maximum of last number is smaller than the minimum.</source>
-        <translation type="unfinished"></translation>
+        <translation>El máximo del último número es más pequeño que el mínimo.</translation>
     </message>
 </context>
 </TS>
