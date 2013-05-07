@@ -11,7 +11,6 @@ TEMPLATE = app
 
 CONFIG += help
 
-#!win32: QMAKE_CXXFLAGS += -std=c++11
 !win32: QMAKE_CXXFLAGS += -std=c++0x
 
 # Windows only. Make sure to edit these to point to your MPIR and Boost.
@@ -25,28 +24,9 @@ win32 {
     INCLUDEPATH += "C:/mpir-2.6.0/lib/Win32/Release"
     INCLUDEPATH += "C:/boost_1_53_0"
 }
-else:LIBS += -lgmpxx -lgmp
-
-#INCLUDEPATH
-#DEFINES
-#DEPENDPATH
-#PKGCONFIG +=
-#CONFIG += debug
-#CONFIG(debug, debug|release) {
-#    message("Debug mode")
-#}
-
-# WARNING: Never leave any DESTDIR variable uncommented or you will break some of the
-#          automated package builds (i.e. Ubuntu, Arch, etc)
-#DESTDIR = /home/michel/code/QMentat-install
-#DESTDIR = /usr
-#message($$DESTDIR)
+else:LIBS += -lgmp
 
 PREFIX = /usr
-
-#QMAKE_CXXFLAGS += -DSHARE_DIR=\'"$$DESTDIR/share/QMentat"\'
-#DEFINES += SHARE_DIR=\\\"$$DESTDIR/share/QMentat\\\"
-
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -161,7 +141,7 @@ desktop.files = qmentat.desktop
 images.path = $$PREFIX/share/QMentat
 images.files = *.png
 
-translates.path = $$PREFIX/share/Qmentat
+translates.path = $$PREFIX/share/QMentat
 translates.files = *.qm
 
 docs.path = $$PREFIX/share/QMentat
