@@ -60,7 +60,6 @@ qt_add_executable(QMentat
     questiondisplayform.ui
     powersconfigframe.ui
     rootsconfigframe.ui
-#    mathdisplayform.ui
     statisticsdialog.ui
     preferencesdialog.ui
     helpdialog.ui
