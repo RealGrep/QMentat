@@ -19,7 +19,7 @@ build() {
     #cd "QMentat"
     #qmake6 QMentat.pro
     #make
-    cmake -B build -S "$pkgname-$pkgver" \
+    cmake -B build -S QMentat \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr
     cmake --build build

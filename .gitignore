@@ -28,7 +28,8 @@ debug/
 QMentat
 
 # IDE
-.vscode/
+.vscode/settings.json
+.vscode/extensions.json
 *.kate-swp
 first_errors.txt
 .qmake.stash
