@@ -82,43 +82,6 @@ void PowersConfigFrame::setRoundingMode(int mode)
     ui->roundingComboBox->setCurrentIndex(mode);
 }
 
-#if 0
-void PowersConfigFrame::on_minNumberLineEdit_editingFinished()
-{
-    BigFixedPoint newMin(ui->minNumberLineEdit->text());
-    this->module->setMinimum(newMin);
-}
-
-void PowersConfigFrame::on_maxNumberLineEdit_editingFinished()
-{
-    BigFixedPoint newMax(ui->maxNumberLineEdit->text());
-    this->module->setMaximum(newMax);
-}
-
-void PowersConfigFrame::on_minPowerLineEdit_editingFinished()
-{
-    int newMin = ui->minPowerLineEdit->text().toInt();
-    this->module->setPowerMinimum(newMin);
-}
-
-void PowersConfigFrame::on_maxPowerLineEdit_editingFinished()
-{
-    int newMax = ui->maxPowerLineEdit->text().toInt();
-    this->module->setPowerMaximum(newMax);
-}
-
-void PowersConfigFrame::on_decimalPlacesLineEdit_editingFinished()
-{
-    int newDecimals = ui->decimalPlacesLineEdit->text().toInt();
-    this->module->setDecimalPlaces(newDecimals);
-}
-
-void PowersConfigFrame::on_roundingComboBox_currentIndexChanged(int index)
-{
-    this->module->setRoundingMode(index == 1);
-}
-#endif
-
 bool PowersConfigFrame::applyConfig()
 {
     int rounding = ui->roundingComboBox->currentIndex() == 1;

@@ -54,33 +54,17 @@ void StatisticsDialog::setupModel()
 
 void StatisticsDialog::setupViews()
 {
-//    QSplitter *splitter = new QSplitter;
-//    QTableView *table = new QTableView;
     pieChart = new PieView;
-//    splitter->addWidget(table);
-//    splitter->addWidget(pieChart);
-//    splitter->setStretchFactor(0, 0);
-//    splitter->setStretchFactor(1, 1);
 
-  //  table->setModel(model);
     pieChart->setModel(model);
     pieChart->doItemsLayout();
 
     QItemSelectionModel *selectionModel = new QItemSelectionModel(model);
-//    table->setSelectionModel(selectionModel);
     pieChart->setSelectionModel(selectionModel);
-
-//    QHeaderView *headerView = table->horizontalHeader();
-//    headerView->setStretchLastSection(true);
-
-//    table->setEnabled(false);
-//    setCentralWidget(splitter);
-    //setCentralWidget(pieChart);
 }
 
 void StatisticsDialog::setupData(int totalCorrect, int totalWrong)
 {
-    //model->clear();
     model->insertRows(0, 1, QModelIndex());
     model->setData(model->index(0, 0, QModelIndex()),
                    tr("Correct - %1").arg(totalCorrect));

@@ -100,11 +100,7 @@ void QuestionDisplayForm::setText(QString text)
         //qDebug() << "Last starts at " << (nlPos+1);
         last = text.mid(nlPos);
     }
-/*
-    qDebug() << "first = " << first;
-    qDebug() << "operation = " << operation;
-    qDebug() << "last = " << last;
-*/
+
     repaint();
 }
 
@@ -276,7 +272,6 @@ void QuestionDisplayForm::paintEvent(QPaintEvent *)
 void QuestionDisplayForm::preferencesChanged()
 {
     displayFont = Preferences::getInstance().getQuestionFont();
-    //qDebug() << "QDF: New font = " << displayFont.toString();
     widestChar = 0;
 
     // Find out the width of the widest digit we use

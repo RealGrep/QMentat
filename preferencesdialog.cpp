@@ -60,7 +60,6 @@ void PreferencesDialog::on_questionFontButton_clicked()
     QFont font = fontDialog.getFont(&ok, ui->questionFontLineEdit->font(), this);
     if (ok)
     {
-        //qDebug() << "QUESTION Font: " << font.toString();
         ui->questionFontLineEdit->setFont(font);
     } else {
         //qDebug() << "QUESTION: No font.";
@@ -74,7 +73,6 @@ void PreferencesDialog::on_answerFontButton_clicked()
     QFont font = fontDialog.getFont(&ok, ui->answerFontLineEdit->font(), this);
     if (ok)
     {
-        //qDebug() << "ANSWER Font: " << font.toString();
         ui->answerFontLineEdit->setFont(font);
     } else {
         //qDebug() << "ANSWER: No font.";

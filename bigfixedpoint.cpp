@@ -559,7 +559,6 @@ quint32 BigFixedPoint::getSeed()
     urandom.read(reinterpret_cast<char*>(&seed), sizeof(seed));
     urandom.close();
 #else // also available: Q_OS_WIN32 and Q_OS_MAC
-    //seed = QDateTime::currentMSecsSinceEpoch();
     seed = QDateTime::currentDateTime().toTime_t();
 #endif
     return seed;

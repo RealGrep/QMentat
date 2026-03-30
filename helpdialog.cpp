@@ -21,14 +21,6 @@
 #include <QtGui>
 #include <QtHelp>
 
-//#define XSTR(x) #x
-//#define STR(x) XSTR(x)
-
-//#if !defined(SHARE_DIR)
-//#   define SHARE_DIR "/home/michel/code/QMentat-install/"
-//#endif
-
-//#define HELP_URL "qthelp://mike.dusseault.qmentat/doc/index.html"
 #define HELP_URL "qthelp://mike.dusseault.qmentat/doc/index.html"
 #define QMENTAT_HELP_FILE "QMentat.qhc"
 
@@ -37,8 +29,6 @@ HelpDialog::HelpDialog(QWidget *parent) :
     ui(new Ui::HelpDialog)
 {
     ui->setupUi(this);
-
-    //qDebug() << SHARE_DIR;
 
 #if defined(SHARE_DIR)
     QString docsFile = SHARE_DIR;
@@ -62,7 +52,6 @@ HelpDialog::HelpDialog(QWidget *parent) :
         }
     }
 #endif
-    //qDebug() << docsFile;
 
     helpEngine = new QHelpEngine(docsFile, this);
 

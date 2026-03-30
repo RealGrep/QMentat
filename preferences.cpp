@@ -61,8 +61,6 @@ void Preferences::removeListener(PreferencesListener *listener)
 
 void Preferences::notifyListeners()
 {
-    //qDebug() << "Notify all listeners.";
-    //qDebug() << "There are " << listeners.size() << " listeners.";
     for (size_t i = 0; i < listeners.size(); i++)
     {
         listeners[i]->preferencesChanged();

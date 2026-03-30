@@ -25,7 +25,6 @@
 class PracticeModule
 {
 public:
-    //PracticeModule(MainWindow *mw);
     virtual ~PracticeModule() { }
     virtual QString question() = 0;
     virtual bool isCorrect(const QString& answerGiven) = 0;
@@ -45,9 +44,6 @@ public:
             int decimalLoc = numStr.size() - decimals;
             quint64 integerPart = numStr.left(decimalLoc).toULongLong();
             quint64 fractionalPart = numStr.right(decimals).toULongLong();
-            //qDebug() << "numStr = " << numStr;
-            //qDebug() << "integer = " << integerPart;
-            //qDebug() << "fract = " << fractionalPart;
 
             str = QString("%L1%2%3")
                   .arg(integerPart)

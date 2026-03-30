@@ -18,7 +18,6 @@
 #include "subtractionmodule.h"
 
 #include <QtGui>
-//#include <string>
 #include <QString>
 
 #include <cassert>
@@ -124,7 +123,6 @@ bool SubtractionModule::isCorrect(const QString& answerGiven)
     BigFixedPoint answerNum(answerGiven);
     answerNum.scale(answer.getDecimalPlaces());
 
-    //qDebug() << "isCorrect: answerGiven = " << answerNum.toString() << "; answer = " << answer.toString();
     if (answerNum == answer)
     {
         return true;

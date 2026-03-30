@@ -40,8 +40,6 @@
 
 #include "helpdialog.h"
 
-//#define DOCS_PATH "/home/michel/code/QMentat/documentation/QMentat.qhc"
-
 // For seeding srand
 #if defined(Q_OS_LINUX)
 #   include <fstream>   // Linux only - for reading urandom
@@ -71,9 +69,6 @@ MainWindow::MainWindow(QWidget *parent) :
     totalCorrect = 0;
     totalWrong = 0;
     currentTab = 0;
-#ifdef USE_ASSISTANT
-    assistant = 0;
-#endif
 
     // Initialize qrand seed
     srand(getSeed() % 1000000);
@@ -122,14 +117,6 @@ MainWindow::~MainWindow()
 
     delete module;
     module = 0;
-
-#ifdef USE_ASSISTANT
-    if (assistant && assistant->state() == QProcess::Running) {
-            assistant->terminate();
-            assistant->waitForFinished(3000);
-        }
-        delete assistant;
-#endif
 
     delete ui;
 }
@@ -438,38 +425,6 @@ void MainWindow::on_actionContents_triggered()
 {
     HelpDialog *helpDialog = new HelpDialog(this);
     helpDialog->show();
-
-#ifdef USE_ASSISTANT
-    if (!assistant)
-    {
-        assistant = new QProcess;
-    }
-
-    if (assistant->state() != QProcess::Running)
-    {
-        QString app = QLibraryInfo::location(QLibraryInfo::BinariesPath) + QDir::separator();
-#if !defined(Q_OS_MAC)
-        app += QLatin1String("assistant");
-#else
-        app += QLatin1String("Assistant.app/Contents/MacOS/Assistant");
-#endif
-
-        QStringList args;
-        args << QLatin1String("-collectionFile")
-             << QLatin1String("QMentat.qhc")
-             << QLatin1String("-enableRemoteControl");
-        assistant->start(app, args);
-
-        if (!assistant->waitForStarted()) {
-            QMessageBox::critical(0, QObject::tr("QMentat"),
-                                  QObject::tr("Unable to launch Qt Assistant (%1)").arg(app));
-        }
-    } else {
-        QByteArray ba;
-         ba.append("setSource qthelp://mike.dusseault.QMentat/doc/index.html\n");
-         assistant->write(ba);
-    }
-#endif
 }
 
 void MainWindow::on_actionPreferences_triggered()
