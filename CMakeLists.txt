@@ -79,15 +79,6 @@ qt_add_translations(QMentat
     RESOURCE_PREFIX "/translations"
 )
 
-# Link everything
-target_link_libraries(QMentat PRIVATE 
-    Qt6::Core 
-    Qt6::Gui 
-    Qt6::Widgets 
-    Qt6::Help
-    ${EXTRA_LIBS}
-)
-
 # If your .qrc file explicitly lists the .qm files, 
 # CMake needs to know they are dependencies of the executable.
 target_sources(QMentat PRIVATE ${qm_files})
