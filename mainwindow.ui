@@ -193,59 +193,80 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <property name="text">
     <string>E&amp;xit</string>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
    </property>
   </action>
   <action name="actionAddition">
-   <property name="icon">
-    <iconset resource="qmentat.qrc">
-     <normaloff>:/images/Addition_32x32.png</normaloff>:/images/Addition_32x32.png</iconset>
-   </property>
    <property name="text">
     <string>Addition</string>
    </property>
+   <property name="iconText">
+    <string>+</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
    <property name="iconVisibleInMenu">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
   </action>
   <action name="actionSubtraction">
-   <property name="icon">
-    <iconset resource="qmentat.qrc">
-     <normaloff>:/images/Subtraction_32x32.png</normaloff>:/images/Subtraction_32x32.png</iconset>
-   </property>
    <property name="text">
     <string>Subtraction</string>
    </property>
+   <property name="iconText">
+    <string>-</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
    <property name="iconVisibleInMenu">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
   </action>
   <action name="actionMultiplication">
-   <property name="icon">
-    <iconset resource="qmentat.qrc">
-     <normaloff>:/images/Multiplication_32x32.png</normaloff>:/images/Multiplication_32x32.png</iconset>
-   </property>
    <property name="text">
     <string>Multiplication</string>
+   </property>
+   <property name="iconText">
+    <string>×</string>
    </property>
    <property name="toolTip">
     <string>Multiplication</string>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
    <property name="iconVisibleInMenu">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
   </action>
   <action name="actionDivision">
-   <property name="icon">
-    <iconset resource="qmentat.qrc">
-     <normaloff>:/images/Division_32x32.png</normaloff>:/images/Division_32x32.png</iconset>
-   </property>
    <property name="text">
     <string>Division</string>
    </property>
+   <property name="iconText">
+    <string>÷</string>
+   </property>
    <property name="toolTip">
     <string>DIvision</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
@@ -257,24 +278,32 @@ li.checked::marker { content: &quot;\2612&quot;; }
    </property>
   </action>
   <action name="actionPowers">
-   <property name="icon">
-    <iconset resource="qmentat.qrc">
-     <normaloff>:/images/Powers_32x32.png</normaloff>:/images/Powers_32x32.png</iconset>
-   </property>
    <property name="text">
     <string>Powers</string>
+   </property>
+   <property name="iconText">
+    <string>xⁿ</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
    </property>
   </action>
   <action name="actionRoots">
-   <property name="icon">
-    <iconset resource="qmentat.qrc">
-     <normaloff>:/images/Roots_32x32.png</normaloff>:/images/Roots_32x32.png</iconset>
-   </property>
    <property name="text">
     <string>Roots</string>
+   </property>
+   <property name="iconText">
+    <string>ⁿ√x</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
