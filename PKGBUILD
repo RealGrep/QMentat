@@ -16,12 +16,17 @@ sha256sums=('SKIP')
 
 build() {
     #cd "$pkgname-$pkgver"
-    cd "QMentat"
-    qmake6 QMentat.pro
-    make
+    #cd "QMentat"
+    #qmake6 QMentat.pro
+    #make
+    cmake -B build -S "$pkgname-$pkgver" \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr
+    cmake --build build
 }
 
 package() {
-    cd "QMentat"
-    make INSTALL_ROOT="$pkgdir" install
+    #cd "QMentat"
+    #make INSTALL_ROOT="$pkgdir" install
+    DESTDIR="$pkgdir" cmake --install build
 }
