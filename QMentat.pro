@@ -27,7 +27,7 @@ win32 {
 }
 else:LIBS += -lgmp
 
-PREFIX = /usr/local
+PREFIX = /usr
 
 SOURCES += main.cpp\
         mainwindow.cpp \

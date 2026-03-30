@@ -44,9 +44,17 @@ HelpDialog::HelpDialog(QWidget *parent) :
     docsFile.append("/");
     docsFile.append(QMENTAT_HELP_FILE);
 #else
-    QString docsFile = QFileInfo(QCoreApplication::applicationFilePath()).absolutePath();
+    /*QString docsFile = QFileInfo(QCoreApplication::applicationFilePath()).absolutePath();
     docsFile.append("/../share/QMentat/");
-    docsFile.append(QMENTAT_HELP_FILE);
+    docsFile.append(QMENTAT_HELP_FILE);*/
+    QString docsFile = QStandardPaths::locate(
+    QStandardPaths::AppDataLocation, QMENTAT_HELP_FILE);
+
+    // Fallback to source/running directory
+    if (docsFile.isEmpty())
+    {
+        docsFile = QApplication::applicationDirPath() + "/documentation/QMentat.qhc";
+    }
 #endif
     //qDebug() << docsFile;
 
