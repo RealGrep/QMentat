@@ -22,6 +22,7 @@ qrc_*.cpp
 build/
 release/
 debug/
+.cache/
 
 # Binary
 QMentat
