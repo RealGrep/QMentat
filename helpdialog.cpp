@@ -28,6 +28,7 @@
 //#   define SHARE_DIR "/home/michel/code/QMentat-install/"
 //#endif
 
+//#define HELP_URL "qthelp://mike.dusseault.qmentat/doc/index.html"
 #define HELP_URL "qthelp://mike.dusseault.qmentat/doc/index.html"
 #define QMENTAT_HELP_FILE "QMentat.qhc"
 
@@ -44,22 +45,26 @@ HelpDialog::HelpDialog(QWidget *parent) :
     docsFile.append("/");
     docsFile.append(QMENTAT_HELP_FILE);
 #else
-    /*QString docsFile = QFileInfo(QCoreApplication::applicationFilePath()).absolutePath();
-    docsFile.append("/../share/QMentat/");
-    docsFile.append(QMENTAT_HELP_FILE);*/
     QString docsFile = QStandardPaths::locate(
     QStandardPaths::AppDataLocation, QMENTAT_HELP_FILE);
 
     // Fallback to source/running directory
     if (docsFile.isEmpty())
     {
-        docsFile = QApplication::applicationDirPath() + "/documentation/QMentat.qhc";
+        //docsFile = QApplication::applicationDirPath() + "/documentation/QMentat.qhc";
+        // Try installed location first
+        docsFile = QStandardPaths::locate(QStandardPaths::AppDataLocation, "documentation/QMentat.qhc");
+
+        // Fall back to development location
+        if (docsFile.isEmpty())
+        {
+            docsFile = QString(QMENTAT_SOURCE_DIR) + "/documentation/QMentat.qhc";
+        }
     }
 #endif
     //qDebug() << docsFile;
 
     helpEngine = new QHelpEngine(docsFile, this);
-    helpEngine->setupData();
 
     ui->helpBrowser->setHelpEngine(helpEngine);
 
@@ -72,11 +77,18 @@ HelpDialog::HelpDialog(QWidget *parent) :
 
     ui->splitter->insertWidget(0, (QWidget*)contentPanel);
     ui->splitter->setStretchFactor(0, 1);
-    ui->helpBrowser->setSource(QUrl(HELP_URL));
 
     connect(helpEngine->contentWidget(),
             SIGNAL(linkActivated(const QUrl &)),
             ui->helpBrowser, SLOT(setSource(const QUrl &)));
+
+    connect(helpEngine, &QHelpEngine::setupFinished, this, [this]() {
+        ui->helpBrowser->setSource(QUrl(HELP_URL));
+        helpEngine->contentWidget()->expandAll();
+    });
+
+    if (!helpEngine->setupData())
+        qWarning() << "Help engine setup failed:" << helpEngine->error();
 }
 
 HelpDialog::~HelpDialog()
@@ -84,5 +96,5 @@ HelpDialog::~HelpDialog()
     delete ui;
 
     delete helpEngine;
-    helpEngine = 0;
+    helpEngine = nullptr;
 }

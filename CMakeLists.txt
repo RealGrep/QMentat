@@ -83,11 +83,10 @@ qt_add_translations(QMentat
 # CMake needs to know they are dependencies of the executable.
 target_sources(QMentat PRIVATE ${qm_files})
 
-#qt_add_translations(QMentat
-#    TS_FILES 
-#        qmentat_fr.ts 
-#        qmentat_es.ts
-#)
+target_compile_definitions(QMentat PRIVATE 
+    QMENTAT_SOURCE_DIR="${CMAKE_SOURCE_DIR}"
+)
+
 
 # 5. Link everything
 target_link_libraries(QMentat PRIVATE 

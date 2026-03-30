@@ -44,7 +44,10 @@ void HelpBrowser::setSource(const QUrl &url)
     {
         //qDebug() << "setSource = " << url.toString();
 
+        qDebug() << "setSource url:" << url;
+        qDebug() << "registeredDocumentations:" << helpEngine->registeredDocumentations();
         QByteArray helpData = helpEngine->fileData(url);
+        qDebug() << "helpData size:" << helpData.size();
         // show the documentation to the user
         if (!helpData.isEmpty())
         {
