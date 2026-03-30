@@ -18,13 +18,10 @@
 #include "rootsmodule.h"
 
 #include "mainwindow.h"
-#include <iostream>
 #include <QtGui>
-#include <string>
 #include <QString>
 #include "rootsconfigframe.h"
 #include "mainwindow.h"
-#include "practicemodule.h"
 
 #include "questiondisplayform.h"
 

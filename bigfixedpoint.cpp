@@ -18,7 +18,6 @@
 #include "bigfixedpoint.h"
 #include <QtGui>
 #include <gmpxx.h>
-#include <iostream>
 #include <string>
 #include <limits>
 

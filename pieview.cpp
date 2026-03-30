@@ -106,13 +106,13 @@ QModelIndex PieView::indexAt(const QPoint &point) const
     int wy = point.y() + verticalScrollBar()->value();
 
     if (wx < totalSize) {
-        double cx = wx - totalSize/2;
-        double cy = totalSize/2 - wy; // positive cy for items above the center
+        double cx = wx - totalSize/2.0;
+        double cy = totalSize/2.0 - wy; // positive cy for items above the center
 
         // Determine the distance from the center point of the pie chart.
         double d = pow(pow(cx, 2) + pow(cy, 2), 0.5);
 
-        if (d == 0 || d > pieSize/2)
+        if (d == 0 || d > pieSize/2.0)
             return QModelIndex();
 
         // Determine the angle of the point.
@@ -230,7 +230,7 @@ QRegion PieView::itemRegion(const QModelIndex &index) const
 
             if (sliceIndex == index) {
                 QPainterPath slicePath;
-                slicePath.moveTo(totalSize/2, totalSize/2);
+                slicePath.moveTo(totalSize/2.0, totalSize/2.0);
                 slicePath.arcTo(margin, margin, margin+pieSize, margin+pieSize,
                                 startAngle, angle);
                 slicePath.closeSubpath();

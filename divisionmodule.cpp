@@ -18,24 +18,14 @@
 #include "divisionmodule.h"
 
 #include "mainwindow.h"
-#include <cmath>
 #include <QtCore/qmath.h>
-#include <iostream>
 #include <vector>
-#include <random>
 #include <QtGui>
-#include <string>
 #include <QString>
 #include "divisionconfigframe.h"
 #include "mainwindow.h"
-#include "practicemodule.h"
 
-
-#ifdef USE_MATH_DISPLAY
-#   include "mathdisplayform.h"
-#else
-#   include "questiondisplayform.h"
-#endif
+#include "questiondisplayform.h"
 
 #include "random.h"
 #include "bigfixedpoint.h"

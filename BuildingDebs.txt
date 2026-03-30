@@ -25,7 +25,7 @@ $ sudo pbuilder build ../qmentat_0.8-2-gfed2e64-1ppa2.dsc
 
 6. If all is well, it can be pushed to the PPA with (using the appropriate file that was just created):
 
-$ dput ppa:mike-dusseault qmentat_0.9.1-1ppa1~quantal1_source.changes
+$ dput ppa:mike-dusseault qmentat_1.0.0-1ppa1~quantal1_source.changes
 
 ==========
 Setting up pbuilder environment:
@@ -43,7 +43,7 @@ Versions:
 
 Examples:
 qmentat (0.8-2-gfed2e64-1ppa2)
-qmentat (0.9.1-1ppa1~quantal1)
+qmentat (1.0.0-1ppa1~quantal1)
 
 
 

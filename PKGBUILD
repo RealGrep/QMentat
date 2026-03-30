@@ -1,5 +1,5 @@
 pkgname=qmentat
-pkgver=0.9.1  # or whatever version
+pkgver=1.0.0  # or whatever version
 pkgrel=1
 pkgdesc="Mental arithmetic practice application"
 arch=('x86_64')

@@ -17,8 +17,6 @@
  */
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <iostream>
-#include <string>
 #include <cassert>
 #include <QtGui>
 #include <QChar>
@@ -31,10 +29,11 @@
 #include "rootsmodule.h"
 #include "questiondisplayform.h"
 #include "statisticsdialog.h"
-#include "licensedialog.h"
+#ifdef SHOW_LICENSE
+#    include "licensedialog.h"
+#endif
 #include "preferencesdialog.h"
 #include "preferences.h"
-#include "random.h"
 //#include <QtSql/QtSql>
 #include <QDebug>
 

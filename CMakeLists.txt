@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(QMentat VERSION 0.9.1 LANGUAGES CXX)
+project(QMentat VERSION 1.0.0 LANGUAGES CXX)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)

@@ -21,10 +21,8 @@
 #include <QRect>
 #include <QFontMetrics>
 #include <QMessageBox>
-#include <iostream>
 #include "questiondisplay.h"
 #include "preferences.h"
-#include "preferenceslistener.h"
 
 /*! \class QuestionDisplayForm
  *  \author Mike Dusseault <mike.dusseault@gmail.com>
@@ -144,7 +142,8 @@ void QuestionDisplayForm::paintEvent(QPaintEvent *)
         int firstWidth = metrics.horizontalAdvance(first);
         int firstHeight = metrics.ascent();
 
-        int lineThickness = std::max(1, (int)((displayFont.pointSize()/8)+0.5));
+        //int lineThickness = std::max(1, (int)((displayFont.pointSize()/8)+0.5));
+        int lineThickness = std::max(1, static_cast<int>(std::round(displayFont.pointSize() / 8.0)));
 
         QFont rootFont = displayFont;
         rootFont.setPointSize(displayFont.pointSize()*0.65);
@@ -187,7 +186,8 @@ void QuestionDisplayForm::paintEvent(QPaintEvent *)
                          x_pos - metrics.averageCharWidth()/2,
                          y_pos - firstHeight + rootHeight + lineThickness);
     } else if (operation == QChar('/')) {
-        int lineThickness = std::max(1, (int)((displayFont.pointSize()/8)+0.5));
+        //int lineThickness = std::max(1, (int)((displayFont.pointSize()/8)+0.5));
+        int lineThickness = std::max(1, static_cast<int>(std::round(displayFont.pointSize() / 8.0)));
 
         int firstWidth = metrics.horizontalAdvance(first);
         int lastWidth = metrics.horizontalAdvance(last);
@@ -211,7 +211,8 @@ void QuestionDisplayForm::paintEvent(QPaintEvent *)
                          x_pos + numsWidth,
                          y_pos);
     } else {
-        int lineThickness = std::max(1, (int)((displayFont.pointSize()/8)+0.5));
+        //int lineThickness = std::max(1, (int)((displayFont.pointSize()/8)+0.5));
+        int lineThickness = std::max(1, static_cast<int>(std::round(displayFont.pointSize() / 8.0)));
         int hGap = lineThickness*2;
 
         int firstNumSep = first.count(QLocale::system().groupSeparator());

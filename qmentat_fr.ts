@@ -311,7 +311,7 @@ p, li { white-space: pre-wrap; }
     <name>MainWindow</name>
     <message>
         <location filename="mainwindow.ui" line="14"/>
-        <source>QMentat v0.9.1</source>
+        <source>QMentat v1.0.0</source>
         <oldsource>QMentat v0.9.0</oldsource>
         <translation type="unfinished">QMentat v0.2</translation>
     </message>

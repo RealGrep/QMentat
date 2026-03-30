@@ -18,12 +18,10 @@
 #include "powersmodule.h"
 
 #include "mainwindow.h"
-#include <iostream>
 #include <QtGui>
 #include <QString>
 #include "powersconfigframe.h"
 #include "mainwindow.h"
-#include "practicemodule.h"
 
 #include "questiondisplayform.h"
 

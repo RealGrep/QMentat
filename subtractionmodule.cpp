@@ -22,10 +22,8 @@
 
 #include <cassert>
 
-#include <iostream>
 #include "subtractionconfigframe.h"
 #include "mainwindow.h"
-#include "practicemodule.h"
 #include "questiondisplayform.h"
 #include "bigfixedpoint.h"
 

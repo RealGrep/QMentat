@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>QMentat v0.9.1</string>
+   <string>QMentat v1.0.0</string>
   </property>
   <property name="windowIcon">
    <iconset resource="qmentat.qrc">
