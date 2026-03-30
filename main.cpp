@@ -25,11 +25,11 @@ int main(int argc, char *argv[])
 
     QString locale = QLocale::system().name();
 
+    // This looks for "QMentat_fr.qm" inside the embedded resources
     QTranslator translator;
-    if (!translator.load(QString(":/translations/qmentat_") + locale)) {
-        std::cerr << "Failed to load translation file." << std::endl;
+    if (translator.load(QLocale(), "QMentat", "_", ":/i18n")) {
+        QCoreApplication::installTranslator(&translator);
     }
-    a.installTranslator(&translator);
 
     MainWindow w;
     w.show();

@@ -7,6 +7,9 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# This ensures generated UI headers can find your source headers
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
 # 1. Find Qt Components (LinguistTools handles the translations)
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Help LinguistTools)
 
@@ -63,12 +66,37 @@ qt_add_executable(QMentat
     qmentat.qrc
 )
 
+# Or, to be more explicit and modern:
+target_include_directories(QMentat PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+
 # 4. Handle Translations (Replaces the custom TSQM compiler) 
+find_package(Qt6 REQUIRED COMPONENTS LinguistTools)
+
+# Define the translations and ensure they are generated
+# This command finds lrelease and automates the .ts -> .qm conversion
 qt_add_translations(QMentat
-    TS_FILES 
-        qmentat_fr.ts 
-        qmentat_es.ts
+    TS_FILES qmentat_fr.ts qmentat_es.ts
+    RESOURCE_PREFIX "/translations"
 )
+
+# Link everything
+target_link_libraries(QMentat PRIVATE 
+    Qt6::Core 
+    Qt6::Gui 
+    Qt6::Widgets 
+    Qt6::Help
+    ${EXTRA_LIBS}
+)
+
+# If your .qrc file explicitly lists the .qm files, 
+# CMake needs to know they are dependencies of the executable.
+target_sources(QMentat PRIVATE ${qm_files})
+
+#qt_add_translations(QMentat
+#    TS_FILES 
+#        qmentat_fr.ts 
+#        qmentat_es.ts
+#)
 
 # 5. Link everything
 target_link_libraries(QMentat PRIVATE 
