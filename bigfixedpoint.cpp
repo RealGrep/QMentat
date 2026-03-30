@@ -127,7 +127,7 @@ BigFixedPoint::BigFixedPoint(std::string num)
     }
 
     // Where's the decimal point?
-    int decimalLoc = num.find(QLocale::system().decimalPoint().toAscii());
+    int decimalLoc = num.find(QLocale::system().decimalPoint().toLatin1());
     if (decimalLoc <= 0)
     {
         decimalPlaces = 0;

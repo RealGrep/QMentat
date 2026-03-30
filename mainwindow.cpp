@@ -42,7 +42,7 @@
 
 //#define DOCS_PATH "/home/michel/code/QMentat/documentation/QMentat.qhc"
 
-// For seeding qrand
+// For seeding srand
 #if defined(Q_OS_LINUX)
 #   include <fstream>   // Linux only - for reading urandom
 #else
@@ -76,7 +76,7 @@ MainWindow::MainWindow(QWidget *parent) :
 #endif
 
     // Initialize qrand seed
-    qsrand(getSeed() % 1000000);
+    srand(getSeed() % 1000000);
 
     // Load up the default module
     module = 0;
@@ -231,7 +231,7 @@ void MainWindow::testSQL()
  */
 void MainWindow::readSettings() {
     QSettings settings;
-    qDebug() << "Settings file: " << settings.fileName() << endl;
+    qDebug() << "Settings file: " << settings.fileName() << Qt::endl;
     QPoint pos = settings.value("pos", this->pos()).toPoint();
     QSize size = settings.value("size", this->sizeHint()).toSize();
     QByteArray state = settings.value("state", QByteArray()).toByteArray();

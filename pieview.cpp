@@ -40,6 +40,7 @@
 
  #include <math.h>
  #include <QtGui>
+ #include <QScrollBar>
 
  #ifndef M_PI
  #define M_PI 3.1415927
@@ -62,9 +63,10 @@
  }
 
  void PieView::dataChanged(const QModelIndex &topLeft,
-                           const QModelIndex &bottomRight)
+                           const QModelIndex &bottomRight,
+                           const QList<int> &roles)
  {
-     QAbstractItemView::dataChanged(topLeft, bottomRight);
+     QAbstractItemView::dataChanged(topLeft, bottomRight, roles);
 
      validItems = 0;
      totalValue = 0.0;
@@ -136,7 +138,7 @@
              }
          }
      } else {
-         double itemHeight = QFontMetrics(viewOptions().font).height();
+         double itemHeight = QFontMetrics(font()).height();
          int listItem = int((wy - margin) / itemHeight);
          int validRow = 0;
 
@@ -193,7 +195,7 @@
 
          switch (index.column()) {
          case 0:
-             itemHeight = QFontMetrics(viewOptions().font).height();
+             itemHeight = QFontMetrics(font()).height();
 
              return QRect(totalSize,
                           int(margin + listItem*itemHeight),
@@ -307,7 +309,8 @@
  void PieView::paintEvent(QPaintEvent *event)
  {
      QItemSelectionModel *selections = selectionModel();
-     QStyleOptionViewItem option = viewOptions();
+     QStyleOptionViewItem option;
+     option.initFrom(this);
      //QStyle::State state = option.state;
 
      QBrush background = option.palette.base();
@@ -372,13 +375,14 @@
              if (value > 0.0) {
                  QModelIndex labelIndex = model()->index(row, 0, rootIndex());
 
-                 QStyleOptionViewItem option = viewOptions();
-                 option.rect = visualRect(labelIndex);
+                 QStyleOptionViewItem labelOption;
+                 labelOption.initFrom(this);
+                 labelOption.rect = visualRect(labelIndex);
                  if (selections->isSelected(labelIndex))
-                     option.state |= QStyle::State_Selected;
+                     labelOption.state |= QStyle::State_Selected;
                  if (currentIndex() == labelIndex)
-                     option.state |= QStyle::State_HasFocus;
-                 itemDelegate()->paint(&painter, option, labelIndex);
+                     labelOption.state |= QStyle::State_HasFocus;
+                 itemDelegate()->paint(&painter, labelOption, labelIndex);
 
                  keyNumber++;
              }
@@ -477,7 +481,7 @@
          for (int column = 0; column < columns; ++column) {
              QModelIndex index = model()->index(row, column, rootIndex());
              QRegion region = itemRegion(index);
-             if (!region.intersect(contentsRect).isEmpty())
+             if (region.intersects(contentsRect))
                  indexes.append(index);
          }
      }

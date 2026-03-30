@@ -20,6 +20,8 @@
 
 #include "practicemodule.h"
 #include "bigfixedpoint.h"
+#include <QApplication>
+#include <QProgressDialog>
 #include <vector>
 
 // Forward declarations

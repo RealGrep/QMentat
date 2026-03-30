@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with QMentat.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <QtGui/QApplication>
+#include <QApplication>
 #include <QTransform>
 #include "mainwindow.h"
 
@@ -26,7 +26,9 @@ int main(int argc, char *argv[])
     QString locale = QLocale::system().name();
 
     QTranslator translator;
-    translator.load(QString(":/translations/qmentat_") + locale);
+    if (!translator.load(QString(":/translations/qmentat_") + locale)) {
+        std::cerr << "Failed to load translation file." << std::endl;
+    }
     a.installTranslator(&translator);
 
     MainWindow w;

@@ -65,7 +65,7 @@
      QModelIndex indexAt(const QPoint &point) const;
 
  protected slots:
-     void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight);
+     void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QList<int> &roles = QList<int>());
      void rowsInserted(const QModelIndex &parent, int start, int end);
      void rowsAboutToBeRemoved(const QModelIndex &parent, int start, int end);
 

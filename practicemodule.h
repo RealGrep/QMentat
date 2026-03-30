@@ -19,6 +19,7 @@
 #define PRACTICEMODULE_H
 
 #include <QtGui>
+#include <QFrame>
 #include "questiondisplay.h"
 
 class PracticeModule
@@ -51,7 +52,7 @@ public:
             str = QString("%L1%2%3")
                   .arg(integerPart)
                   .arg(QLocale::system().decimalPoint())
-                  .arg(fractionalPart, decimals, 10, QLocale::system().zeroDigit());
+                  .arg(fractionalPart, decimals, 10, QLocale::system().zeroDigit().at(0));
             // Insert decimal separator into the fractional part
             if (decimals > 4) {
                 for (size_t i = 0; i < decimals; ++i)

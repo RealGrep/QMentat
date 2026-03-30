@@ -19,6 +19,7 @@
 #define SUBTRACTIONCONFIGFRAME_H
 
 #include <QFrame>
+#include <QMessageBox>
 
 class SubtractionModule;
 class QBigFixedValidator;

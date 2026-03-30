@@ -1,0 +1,15 @@
+<!DOCTYPE QPH>
+<QPH sourcelanguage="en" language="fr">
+<phrase>
+    <source>Min Number</source>
+    <target>Numéro Minimum</target>
+</phrase>
+<phrase>
+    <source>Max Number</source>
+    <target>Numéro Maximum</target>
+</phrase>
+<phrase>
+    <source>Largest number first</source>
+    <target>Numéro plus grand en premier</target>
+</phrase>
+</QPH>

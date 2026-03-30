@@ -1,0 +1,70 @@
+1. Drop the tarball in the packaging root and name it properly. For example:
+
+$ mv RealGrep-QMentat-v0.8-1-g8c82f61.tar.gz qmentat_0.8.orig.tar.gz
+
+2. Pull the debian packaging:
+
+$ bzr whoami "Michel Dusseault <mike.dusseault@gmail.com>"
+$ bzr launchpad-login mike-dusseault
+$ bzr branch lp:~mike-dusseault/+junk/QMentat-debian
+
+Then, put it in the right place (i.e. $packaging_dir/qmentat/debian)
+
+3. Update anything that needs updating in the debian/ dir. The changelog can be edited with dch -i. Commit it and push it to launchpad with:
+
+$ bzr commit
+$ bzr push lp:~mike-dusseault/+junk/QMentat-debian
+
+4. Build the source package:
+
+$ bzr builddeb -S
+
+5. Ensure it builds perfectly with pbuilder:
+
+$ sudo pbuilder build ../qmentat_0.8-2-gfed2e64-1ppa2.dsc
+
+6. If all is well, it can be pushed to the PPA with (using the appropriate file that was just created):
+
+$ dput ppa:mike-dusseault qmentat_0.9.1-1ppa1~quantal1_source.changes
+
+==========
+Setting up pbuilder environment:
+
+1. Edit .pbuilderrc and put this in it:
+
+COMPONENTS="main restricted universe multiverse"
+
+Then make the environment:
+
+$ sudo pbuilder create
+==========
+Versions:
+* Increment the N in ppaN for new package release on same overall version.
+
+Examples:
+qmentat (0.8-2-gfed2e64-1ppa2)
+qmentat (0.9.1-1ppa1~quantal1)
+
+
+
+==========
+
+bzr branch lp:~mike-dusseault/+junk/QMentat-debian
+bzr launchpad-login mike-dusseault
+mv RealGrep-QMentat-v0.8-1-g8c82f61.tar.gz qmentat_0.8.orig.tar.gz
+mv QMentat-debian/debian qmentat/
+
+cd debian/
+Update changelog: dch -i
+
+
+debbuild -S
+sudo pbuilder build ../qmentat_0.8-2-gfed2e64-1ppa2.dsc
+dput ppa:mike-dusseault/ppa ./qmentat_0.8-2-gfed2e64-1ppa2_source.changes
+
+bzr whoami "Michel Dusseault <mike.dusseault@gmail.com>"
+
+bzr commit
+
+bzr push lp:~mike-dusseault/+junk/QMentat-debian
+

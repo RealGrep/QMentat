@@ -19,6 +19,7 @@
 #define ROOTSCONFIGFRAME_H
 
 #include <QFrame>
+#include <QMessageBox>
 
 class QString;
 class RootsModule;

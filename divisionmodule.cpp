@@ -22,12 +22,14 @@
 #include <QtCore/qmath.h>
 #include <iostream>
 #include <vector>
+#include <random>
 #include <QtGui>
 #include <string>
 #include <QString>
 #include "divisionconfigframe.h"
 #include "mainwindow.h"
 #include "practicemodule.h"
+
 
 #ifdef USE_MATH_DISPLAY
 #   include "mathdisplayform.h"
@@ -263,7 +265,7 @@ QString DivisionModule::question()
                 delete divisors;
                 continue;
             } else {
-                int random = qrand() % divisors->size();
+                int random = rand() % divisors->size();
                 lastNumberIR = (qint64)(*divisors)[random];
                 delete divisors;
             }

@@ -5,4 +5,35 @@ QMentat.pro.user*
 debian
 debian/*.ex
 debian/*.EX
+.cccc/
 
+# Qt build artifacts
+*.o
+*.a
+Makefile
+ui_*.h
+moc_*.cpp
+moc_*.h
+qrc_*.cpp
+*.pro.user
+*.pro.user.*
+
+# Build directories
+build/
+release/
+debug/
+
+# Binary
+QMentat
+
+# IDE
+.vscode/
+*.kate-swp
+first_errors.txt
+.qmake.stash
+.project
+git-daemon-export-ok
+Qt47supp.txt
+.settings/org.eclipse.ocl.modelregistry
+qmentat_es.ts.jardi
+.cproject

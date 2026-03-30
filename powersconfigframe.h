@@ -19,6 +19,7 @@
 #define POWERSCONFIGFRAME_H
 
 #include <QFrame>
+#include <QMessageBox>
 
 class PowersModule;
 class QString;

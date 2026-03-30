@@ -9,9 +9,10 @@ QT       += core gui
 TARGET = bin/QMentat
 TEMPLATE = app
 
-CONFIG += help
+QT += help \
+      widgets
 
-!win32: QMAKE_CXXFLAGS += -std=c++0x
+!win32: CONFIG += -std=c++17
 
 # Windows only. Make sure to edit these to point to your MPIR and Boost.
 win32 {
@@ -26,7 +27,7 @@ win32 {
 }
 else:LIBS += -lgmp
 
-PREFIX = /usr
+PREFIX = /usr/local
 
 SOURCES += main.cpp\
         mainwindow.cpp \

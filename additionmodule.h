@@ -18,6 +18,7 @@
 #ifndef ADDITIONMODULE_H
 #define ADDITIONMODULE_H
 
+#include <QLayout>
 #include "practicemodule.h"
 
 #include "bigfixedpoint.h"

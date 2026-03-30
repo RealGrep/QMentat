@@ -19,6 +19,7 @@
 #define ADDITIONCONFIGFRAME_H
 
 #include <QFrame>
+#include <QMessageBox>
 
 class QWidget;
 class QString;

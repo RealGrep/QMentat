@@ -19,6 +19,7 @@
 #define PREFERENCESDIALOG_H
 
 #include <QDialog>
+#include <QFontDialog>
 
 namespace Ui {
     class PreferencesDialog;

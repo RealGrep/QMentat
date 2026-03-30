@@ -21,6 +21,7 @@
 #include "additionmodule.h"
 #include "multiplicationmodule.h"
 #include <QMainWindow>
+#include <QMessageBox>
 #include "practicemodule.h"
 #include "preferenceslistener.h"
 

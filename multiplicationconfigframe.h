@@ -19,6 +19,7 @@
 #define MULTIPLICATIONCONFIGFRAME_H
 
 #include <QFrame>
+#include <QMessageBox>
 
 class QWidget;
 class QString;
