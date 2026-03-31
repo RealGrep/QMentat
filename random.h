@@ -22,11 +22,7 @@
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_int.hpp>
 #include <boost/random/variate_generator.hpp>
-#if defined(Q_OS_LINUX)
-#   include <fstream>   // Linux only - for reading urandom
-#else
-#   include <QDateTime>
-#endif
+#include <QRandomGenerator>
 
 template <class inttype> class RandomInt
 {
@@ -50,15 +46,8 @@ protected:
      */
     static quint64 getSeed()
     {
-        quint64 seed;
-#if defined(Q_OS_LINUX)
-        std::ifstream urandom;
-        urandom.open("/dev/urandom");
-        urandom.read(reinterpret_cast<char*>(&seed), sizeof(seed));
-        urandom.close();
-#else // also available: Q_OS_WIN32 and Q_OS_MAC
-        seed = QDateTime::currentMSecsSinceEpoch();
-#endif
+        quint32 seed = QRandomGenerator::securelySeeded().generate();
+
         return seed;
     }
 };

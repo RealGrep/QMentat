@@ -22,11 +22,7 @@
 #include <limits>
 
 // For seeding gmp
-#if defined(Q_OS_LINUX)
-#   include <fstream>   // Linux only - for reading urandom
-#else
-#   include <QDateTime> // Use this for seeding on non-Linux systems
-#endif
+#include <QRandomGenerator>
 
 bool BigFixedPoint::roundingEnabled = false;
 bool BigFixedPoint::isSeeded = false;
@@ -551,15 +547,8 @@ const BigFixedPoint operator%(BigFixedPoint& lhs, int rhs)
  */
 quint32 BigFixedPoint::getSeed()
 {
-    quint32 seed;
-#if defined(Q_OS_LINUX)
-    std::ifstream urandom;
-    urandom.open("/dev/urandom");
-    urandom.read(reinterpret_cast<char*>(&seed), sizeof(seed));
-    urandom.close();
-#else // also available: Q_OS_WIN32 and Q_OS_MAC
-    seed = QDateTime::currentDateTime().toTime_t();
-#endif
+    quint32 seed = QRandomGenerator::securelySeeded().generate();
+
     return seed;
 }
 

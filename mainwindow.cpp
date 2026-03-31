@@ -40,11 +40,7 @@
 #include "helpdialog.h"
 
 // For seeding srand
-#if defined(Q_OS_LINUX)
-#   include <fstream>   // Linux only - for reading urandom
-#else
-#   include <QDateTime>
-#endif
+#include <QRandomGenerator>
 
 /*! \class MainWindow
  * \brief The MainWindow of the entire application.
@@ -115,7 +111,7 @@ MainWindow::~MainWindow()
     Preferences::getInstance().removeListener(this);
 
     delete module;
-    module = 0;
+    module = nullptr;
 
     delete ui;
 }
@@ -124,15 +120,8 @@ MainWindow::~MainWindow()
  */
 quint64 MainWindow::getSeed()
 {
-    quint64 seed;
-#if defined(Q_OS_LINUX)
-    std::ifstream urandom;
-    urandom.open("/dev/urandom");
-    urandom.read(reinterpret_cast<char*>(&seed), sizeof(seed));
-    urandom.close();
-#else // also available: Q_OS_WIN32 and Q_OS_MAC
-    seed = QDateTime::currentMSecsSinceEpoch();
-#endif
+    quint32 seed = QRandomGenerator::securelySeeded().generate();
+
     return seed;
 }
 
