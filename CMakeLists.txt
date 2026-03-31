@@ -103,4 +103,4 @@ install(FILES QMentat.png DESTINATION share/icons)
 install(FILES qmentat.desktop DESTINATION share/applications)
 # Docs and license installation
 install(DIRECTORY documentation/ DESTINATION share/QMentat/documentation)
-install(FILES LICENSE README DESTINATION share/QMentat)
+install(FILES LICENSE README.md DESTINATION share/QMentat)
