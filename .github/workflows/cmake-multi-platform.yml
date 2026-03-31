@@ -1,0 +1,32 @@
+name: Build and Release
+
+on:
+  workflow_dispatch:  # manual trigger button in GitHub Actions UI
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: '6.6.*'
+          
+      - name: Install GMP via vcpkg
+        run: vcpkg install gmp:x64-windows
+        
+      - name: Configure CMake
+        run: cmake -B build -DCMAKE_TOOLCHAIN_FILE=$env:VCPKG_INSTALLATION_ROOT/scripts/buildsystems/vcpkg.cmake -DCMAKE_BUILD_TYPE=Release
+        
+      - name: Build
+        run: cmake --build build --config Release
+        
+      - name: Package
+        run: Compress-Archive build/Release/* QMentat-windows.zip
+        
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: QMentat-windows.zip
