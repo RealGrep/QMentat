@@ -8,6 +8,6 @@ For instructions on building and installing, please see the INSTALL file.
 
 I'll fancy this up with a few screenshots shortly, when I have time.
 
-The home page for QMentat is at: http://realgrep.github.io/QMentat/
+The home page for QMentat is at: [QMentat Home Page](http://realgrep.github.io/QMentat/)
 
 Michel Dusseault <mike.dusseault@gmail.com>
