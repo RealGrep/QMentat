@@ -1,24 +1,18 @@
 pkgname=qmentat
-pkgver=1.0.0  # or whatever version
+pkgver=1.0.0_rc1  # or whatever version
 pkgrel=1
 pkgdesc="Mental arithmetic practice application"
 arch=('x86_64')
-#url="https://github.com/michel/qmentat"  # or forgejo URL
+#url="https://github.com/RealGrep/QMentat"
 url="http://rincewind.tower:3001/michel/QMentat"
 license=('GPL3')
 depends=('qt6-base' 'gmp')
 makedepends=('qt6-tools')
-#source=("$pkgname-$pkgver.tar.gz")
-#source=("git+ssh://forgejo@rincewind.tower:3001/michel/QMentat.git")
-source=("git+ssh://forgejo@rincewind.tower/michel/QMentat.git")
-#source=("git+file:///home/michel/rincewind/code/QMentat")
+#source=('git+https://github.com/RealGrep/QMentat.git#tag=v${pkgver}')
+source=("git+ssh://forgejo@rincewind.tower/michel/QMentat.git#tag=v1.0.0-rc1")
 sha256sums=('SKIP')
 
 build() {
-    #cd "$pkgname-$pkgver"
-    #cd "QMentat"
-    #qmake6 QMentat.pro
-    #make
     cmake -B build -S QMentat \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr
@@ -26,7 +20,5 @@ build() {
 }
 
 package() {
-    #cd "QMentat"
-    #make INSTALL_ROOT="$pkgdir" install
     DESTDIR="$pkgdir" cmake --install build
 }
