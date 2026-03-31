@@ -1,4 +1,4 @@
-/* Copyright (c) 2013 Mike Dusseault
+/* Copyright (c) 2026 Mike Dusseault
  *
  * This file is part of QMentat.
  *

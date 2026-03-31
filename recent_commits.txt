@@ -1,0 +1,100 @@
+commit 44330bc4238b2a722243e9f74ae55cf76c7eb179
+Author: Michel Dusseault <mike.dusseault@proton.me>
+Date:   Mon Mar 30 19:58:04 2026 -0400
+
+    Remove mathdisplayform everything.
+    
+     - Removed mathdisplayform.* files. It hasn't really been updated properly or supported since like Qt4. It's dead, Jim. It's been replaced anyway, it's not even needed.
+
+commit 96a0e3ed96d5b23c8229e47c6150e513845f1946
+Author: Michel Dusseault <mike.dusseault@proton.me>
+Date:   Mon Mar 30 19:54:25 2026 -0400
+
+    Cleanup warnings
+    
+     - Clean up any warnings from clang, unused header includes, a few integer divisions.
+
+commit 240efb32a9b7dbfb883affe7491933c2b8622e72
+Author: Michel Dusseault <mike.dusseault@proton.me>
+Date:   Mon Mar 30 19:23:47 2026 -0400
+
+    Cleanup
+    
+     - Removed old QtAssistant help code.
+     - Cleaned up a bunch of uneeded commented out code.
+     - Just general cleanup.
+
+commit dbc088ad047d74cc040185cb9f55365ec7f05da4
+Author: Michel Dusseault <mike.dusseault@proton.me>
+Date:   Mon Mar 30 18:34:13 2026 -0400
+
+    Changed operation toolbar icons to just text.
+    
+     - Toolbar icons were ok, but they were black and wouldn't work well with dark themes. So now it's just unicode symbols for them.
+
+commit 2eabaf4011f4a51d8093c92ec644463276e9da4c
+Author: Michel Dusseault <mike.dusseault@proton.me>
+Date:   Mon Mar 30 17:53:02 2026 -0400
+
+    Bunch of fixes to the build/vscode stuff
+    
+     - Checked in some vscode stuff that was portable and not specific to me.
+     - Some various fixes of the build system in general.
+     - Fixed the PKGBUILD
+
+commit faa323981a7e5e88bbc107c806fba686b0198b47
+Author: Michel Dusseault <mike.dusseault@proton.me>
+Date:   Mon Mar 30 17:02:54 2026 -0400
+
+    Fixed help system, statistics pie chart
+    
+    - Old help was made with Qt4 and so it needed to be regenerated properly for Qt6. All that was changed to work properly.
+    - pieview code was somehow shifted one space to the right, which is odd, but fixed, so that'll be two files of whitespace changes.
+    - Added a message when there's no statistics yet, so it's not just some big empty box.
+
+commit 3d9e2ec551e8686c8f8713447ef3b710a2b4742c
+Author: Michel Dusseault <mike.dusseault@proton.me>
+Date:   Mon Mar 30 15:49:34 2026 -0400
+
+    Fixes for CMake.
+    
+    Added CMakePresets.json so the run/debug stuff works in vscode.
+    Removed duplicate line in CMakeLists.txt.
+
+commit 57415a1e81c69f70452a1f2fe03cd3fe77ddb33d
+Author: Michel Dusseault <mike.dusseault@proton.me>
+Date:   Mon Mar 30 08:58:31 2026 -0400
+
+    Update the PKGBUILD to use cmake
+
+commit 24a27e3b55d86837c09876a9fd423bec4300377c
+Author: Michel Dusseault <mike.dusseault@proton.me>
+Date:   Mon Mar 30 08:21:01 2026 -0400
+
+    Fixed new CMake system a bit
+    
+    Fixed issues with the translation and the new build system, also requiring a small code change.
+
+commit 22d65a7744115d7d37416988385b566c5e043e67
+Author: Michel Dusseault <mike.dusseault@proton.me>
+Date:   Mon Mar 30 07:29:16 2026 -0400
+
+    New CMake build system.
+
+commit 435476d4049d2d1dd89e7219afd4d81e577584ea
+Author: Michel Dusseault <mike.dusseault@proton.me>
+Date:   Mon Mar 30 04:46:09 2026 -0400
+
+    Arch PKGBUILD and small help work
+    
+    - Made an Arch PKGBUILD (btw), and changed the prefix back to /usr
+    - Update one part of the Help system to Qt6.
+
+commit d01030816c8443be5f0480885ba91c4ffa8ef704
+Author: Michel Dusseault <mike.dusseault@proton.me>
+Date:   Mon Mar 30 01:45:27 2026 -0400
+
+    Update for Qt6
+    
+    - Fix numerous errors due to changes to Qt6 from earlier versions.
+    - Added a few files that weren't checked in that I hope should be.

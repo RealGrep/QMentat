@@ -474,7 +474,7 @@ p, li { white-space: pre-wrap; }
         <source>QMentat
 
 Written by Mike Dusseault
-Copyright 2013 Mike Dusseault.
+Copyright 2026 Mike Dusseault.
 
 QMentat is released under the GPL version 3.</source>
         <translation type="unfinished"></translation>

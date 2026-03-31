@@ -10,7 +10,7 @@
 //#   define SHARE_DIR "/home/michel/code/QMentat-install/"
 //#endif
 
-/* Copyright (c) 2013 Mike Dusseault
+/* Copyright (c) 2026 Mike Dusseault
  *
  * This file is part of QMentat.
  *

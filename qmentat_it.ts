@@ -450,13 +450,13 @@ p, li { white-space: pre-wrap; }
         <source>QMentat
 
 Written by Mike Dusseault
-Copyright 2013 Mike Dusseault.
+Copyright 2026 Mike Dusseault.
 
 QMentat is released under the GPL version 3.</source>
         <translation type="unfinished">QMentat
 
 Scritto da Mike Dusseault
-Copyright 2013 Mike Dusseault.
+Copyright 2026 Mike Dusseault.
 
 QMentat è rilasciato sotto la GPL versione 3.</translation>
     </message>
