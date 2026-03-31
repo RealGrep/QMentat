@@ -17,9 +17,11 @@ find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Help LinguistTools)
 # 2. Handle Dependencies (GMP/MPIR)
 if(WIN32)
     # Make sure to edit these to point to your MPIR and Boost 
-    target_include_directories(QMentat PRIVATE "C:/mpir-2.6.0/lib/Win32/Release" "C:/boost_1_53_0")
-    link_directories("C:/mpir-2.6.0/dll/Win32/Release" "C:/mpir-2.6.0/lib/Win32/Release")
-    set(EXTRA_LIBS mpirxx mpir)
+    #target_include_directories(QMentat PRIVATE "C:/mpir-2.6.0/lib/Win32/Release" "C:/boost_1_53_0")
+    #link_directories("C:/mpir-2.6.0/dll/Win32/Release" "C:/mpir-2.6.0/lib/Win32/Release")
+    #set(EXTRA_LIBS mpirxx mpir)
+    find_package(GMP REQUIRED)  # vcpkg provides this
+    set(EXTRA_LIBS GMP::GMP GMP::GMPXX)
 else()
     find_library(GMP_LIB gmp)
     set(EXTRA_LIBS ${GMP_LIB})
@@ -97,10 +99,30 @@ target_link_libraries(QMentat PRIVATE
     ${EXTRA_LIBS}
 )
 
-# 6. Installation Logic 
-install(TARGETS QMentat DESTINATION bin)
-install(FILES QMentat.png DESTINATION share/icons)
-install(FILES qmentat.desktop DESTINATION share/applications)
-# Docs and license installation
-install(DIRECTORY documentation/ DESTINATION share/QMentat/documentation)
-install(FILES LICENSE README.md DESTINATION share/QMentat)
+# Windows stuff
+if(WIN32)
+    find_program(WINDEPLOYQT windeployqt6 REQUIRED)
+    add_custom_command(TARGET QMentat POST_BUILD
+        COMMAND ${WINDEPLOYQT}
+            --no-translations
+            --no-system-d3d-compiler
+            --no-opengl-sw
+            $<TARGET_FILE:QMentat>
+        COMMENT "Deploying Qt dependencies..."
+    )
+endif()
+
+# 6. Installation Logic
+if(WIN32)
+    install(TARGETS QMentat DESTINATION .)  # same dir as exe
+    install(FILES QMentat.png DESTINATION .)
+    install(DIRECTORY documentation/ DESTINATION documentation)
+    install(FILES LICENSE README.md DESTINATION .)
+else()
+    install(TARGETS QMentat DESTINATION bin)
+    install(FILES QMentat.png DESTINATION share/icons)
+    install(FILES qmentat.desktop DESTINATION share/applications)
+    # Docs and license installation
+    install(DIRECTORY documentation/ DESTINATION share/QMentat/documentation)
+    install(FILES LICENSE README.md DESTINATION share/QMentat)
+endif()
