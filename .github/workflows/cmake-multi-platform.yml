@@ -1,6 +1,9 @@
 name: Build and Release
 
 on:
+  push:
+    tags:
+      - 'v*'
   workflow_dispatch:  # manual trigger button in GitHub Actions UI
 
 jobs:
@@ -26,7 +29,13 @@ jobs:
       - name: Package
         run: Compress-Archive build/Release/* QMentat-windows.zip
         
-      - name: Release
-        uses: softprops/action-gh-release@v1
+#      - name: Release
+#        uses: softprops/action-gh-release@v1
+#        with:
+#          files: QMentat-windows.zip
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
         with:
-          files: QMentat-windows.zip
+          name: QMentat-windows
+          path: QMentat-windows.zip
