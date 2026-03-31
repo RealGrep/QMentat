@@ -1,5 +1,5 @@
 pkgname=qmentat
-pkgver=1.0.0_rc3  # or whatever version
+pkgver=1.0.0  # or whatever version
 pkgrel=1
 pkgdesc="Mental arithmetic practice application"
 arch=('x86_64')
@@ -8,8 +8,8 @@ url="https://github.com/RealGrep/QMentat"
 license=('GPL3')
 depends=('qt6-base' 'gmp')
 makedepends=('qt6-tools')
-source=('git+https://github.com/RealGrep/QMentat.git#tag=v1.0.0-rc3')
-#source=("git+ssh://forgejo@rincewind.tower/michel/QMentat.git#tag=v1.0.0-rc3")
+source=('git+https://github.com/RealGrep/QMentat.git#tag=v1.0.0')
+#source=("git+ssh://forgejo@rincewind.tower/michel/QMentat.git#tag=v1.0.0")
 sha256sums=('SKIP')
 
 build() {
