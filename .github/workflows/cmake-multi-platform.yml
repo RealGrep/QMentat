@@ -28,14 +28,15 @@ jobs:
         
       - name: Package
         run: Compress-Archive build/Release/* QMentat-windows.zip
-        
-#      - name: Release
-#        uses: softprops/action-gh-release@v1
-#        with:
-#          files: QMentat-windows.zip
+
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: QMentat-windows.zip
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: QMentat-windows
-          path: QMentat-windows.zip
+          path: build/Release/
