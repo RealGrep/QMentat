@@ -16,12 +16,6 @@ find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Help LinguistTools)
 
 # 2. Handle Dependencies (GMP/MPIR)
 if(WIN32)
-    # Make sure to edit these to point to your MPIR and Boost 
-    #target_include_directories(QMentat PRIVATE "C:/mpir-2.6.0/lib/Win32/Release" "C:/boost_1_53_0")
-    #link_directories("C:/mpir-2.6.0/dll/Win32/Release" "C:/mpir-2.6.0/lib/Win32/Release")
-    #set(EXTRA_LIBS mpirxx mpir)
-    #find_package(GMP REQUIRED)  # vcpkg provides this
-    #set(EXTRA_LIBS GMP::GMP GMP::GMPXX)
     find_library(GMP_LIB NAMES gmp libgmp REQUIRED)
     find_library(GMPXX_LIB NAMES gmpxx libgmpxx REQUIRED)
     set(EXTRA_LIBS ${GMPXX_LIB} ${GMP_LIB})
@@ -93,7 +87,6 @@ target_sources(QMentat PRIVATE ${qm_files})
 target_compile_definitions(QMentat PRIVATE 
     QMENTAT_SOURCE_DIR="${CMAKE_SOURCE_DIR}"
 )
-
 
 # 5. Link everything
 target_link_libraries(QMentat PRIVATE 

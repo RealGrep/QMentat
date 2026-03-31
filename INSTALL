@@ -1,6 +1,6 @@
 Building from command line
 ==========================
-You will need, other than g++ and associated tools: the Qt6 development tools, libraries and headers, as well as the libraries and headers for Boost and GMP.
+You will need, other than g++ and associated tools: the Qt6 development tools, libraries and headers, as well as the libraries and headers for GMP.
 
 And you will also need cmake.
 

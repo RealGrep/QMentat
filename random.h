@@ -19,9 +19,7 @@
 #define RANDOM_H
 
 #include <QtGlobal>
-#include <boost/random/mersenne_twister.hpp>
-#include <boost/random/uniform_int.hpp>
-#include <boost/random/variate_generator.hpp>
+#include <random>
 #include <QRandomGenerator>
 
 template <class inttype> class RandomInt
@@ -29,18 +27,16 @@ template <class inttype> class RandomInt
 public:
     RandomInt(quint64 seed, quint64 min, quint64 max)
         : engine(static_cast<quint64>(seed)),
-        dist(min, max),
-        gen(engine, dist) {}
+        dist(min, max) {}
     RandomInt(quint64 min, quint64 max)
         : engine(static_cast<quint64>(getSeed())),
-        dist(min, max),
-        gen(engine, dist) {}
+        dist(min, max) {}
 
-    inttype operator()(void) { return gen(); }
+    inttype operator()(void) { return dist(engine); }
+
 protected:
-    boost::mt19937 engine;
-    boost::uniform_int<inttype> dist;
-    boost::variate_generator<boost::mt19937&, boost::uniform_int<inttype> > gen;
+    std::mt19937_64 engine;
+    std::uniform_int_distribution<inttype> dist;
 
     /*! Gets a seed from an appropriate entropy source.
      */
