@@ -41,9 +41,8 @@ HelpDialog::HelpDialog(QWidget *parent) :
     // Fallback to source/running directory
     if (docsFile.isEmpty())
     {
-        //docsFile = QApplication::applicationDirPath() + "/documentation/QMentat.qhc";
         // Try installed location first
-        docsFile = QStandardPaths::locate(QStandardPaths::AppDataLocation, "documentation/QMentat.qhc");
+        docsFile = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "QMentat/documentation/QMentat.qhc");
 
         // Fall back to development location
         if (docsFile.isEmpty())
@@ -52,6 +51,10 @@ HelpDialog::HelpDialog(QWidget *parent) :
         }
     }
 #endif
+
+    //qDebug() << "AppDataLocation paths:" << QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
+    //qDebug() << "Looking for:" << docsFile;
+    //qDebug() << "Found:" << !docsFile.isEmpty();
 
     helpEngine = new QHelpEngine(docsFile, this);
 
