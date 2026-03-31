@@ -16,6 +16,9 @@ jobs:
           
       - name: Install GMP via vcpkg
         run: vcpkg install gmp:x64-windows
+
+      - name: Debug vcpkg packages
+        run: vcpkg list 
         
       - name: Configure CMake
         run: cmake -B build -DCMAKE_TOOLCHAIN_FILE="C:/vcpkg/scripts/buildsystems/vcpkg.cmake" -DCMAKE_BUILD_TYPE=Release
