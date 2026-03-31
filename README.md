@@ -6,7 +6,7 @@ QMentat is a program to help you practice mental arithmetic. It uses arbitrary l
 
 For instructions on building and installing, please see the INSTALL file.
 
-*Note: If you wish to port this to Windows, it should be quite simple. Mostly messing with CMakeLists.txt, I imagine. Let me know if you're interested.*
+I'll fancy this up with a few screenshots shortly, when I have time.
 
 The home page for QMentat is at: http://realgrep.github.io/QMentat/
 
