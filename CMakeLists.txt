@@ -20,8 +20,10 @@ if(WIN32)
     #target_include_directories(QMentat PRIVATE "C:/mpir-2.6.0/lib/Win32/Release" "C:/boost_1_53_0")
     #link_directories("C:/mpir-2.6.0/dll/Win32/Release" "C:/mpir-2.6.0/lib/Win32/Release")
     #set(EXTRA_LIBS mpirxx mpir)
-    find_package(GMP REQUIRED)  # vcpkg provides this
-    set(EXTRA_LIBS GMP::GMP GMP::GMPXX)
+    #find_package(GMP REQUIRED)  # vcpkg provides this
+    #set(EXTRA_LIBS GMP::GMP GMP::GMPXX)
+    find_package(unofficial-gmp CONFIG REQUIRED)
+    set(EXTRA_LIBS unofficial::gmp::gmp unofficial::gmpxx::gmpxx)
 else()
     find_library(GMP_LIB gmp)
     set(EXTRA_LIBS ${GMP_LIB})
