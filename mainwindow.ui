@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>QMentat v1.0.0</string>
+   <string>QMentat</string>
   </property>
   <property name="windowIcon">
    <iconset resource="qmentat.qrc">
@@ -194,9 +194,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <string>E&amp;xit</string>
    </property>
    <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-    </font>
+    <font/>
    </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
@@ -210,9 +208,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <string>+</string>
    </property>
    <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-    </font>
+    <font/>
    </property>
    <property name="iconVisibleInMenu">
     <bool>false</bool>
@@ -226,9 +222,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <string>-</string>
    </property>
    <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-    </font>
+    <font/>
    </property>
    <property name="iconVisibleInMenu">
     <bool>false</bool>
@@ -245,9 +239,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <string>Multiplication</string>
    </property>
    <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-    </font>
+    <font/>
    </property>
    <property name="iconVisibleInMenu">
     <bool>false</bool>
@@ -264,9 +256,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <string>DIvision</string>
    </property>
    <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-    </font>
+    <font/>
    </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
@@ -285,9 +275,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <string>xⁿ</string>
    </property>
    <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-    </font>
+    <font/>
    </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
@@ -301,9 +289,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <string>ⁿ√x</string>
    </property>
    <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-    </font>
+    <font/>
    </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>

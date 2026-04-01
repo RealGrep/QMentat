@@ -29,7 +29,7 @@
 #include "rootsmodule.h"
 #include "questiondisplayform.h"
 #include "statisticsdialog.h"
-#include "version.h.in"
+#include "version.h"
 #ifdef SHOW_LICENSE
 #    include "licensedialog.h"
 #endif
@@ -58,6 +58,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QCoreApplication::setApplicationName("QMentat");
 
     ui->setupUi(this);
+
+    setWindowTitle(QString("QMentat v%1").arg(QMENTAT_VERSION));
 
     // Initialize sane values
     answerGiven = 0;
