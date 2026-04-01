@@ -82,7 +82,7 @@ find_package(Qt6 REQUIRED COMPONENTS LinguistTools)
 # Define the translations and ensure they are generated
 # This command finds lrelease and automates the .ts -> .qm conversion
 qt_add_translations(QMentat
-    TS_FILES qmentat_fr.ts qmentat_es.ts
+    TS_FILES qmentat_fr.ts qmentat_es.ts qmentat_it.ts qmentat_de.ts
     RESOURCE_PREFIX "/translations"
 )
 
@@ -130,3 +130,15 @@ else()
     install(DIRECTORY documentation/ DESTINATION share/QMentat/documentation)
     install(FILES LICENSE README.md DESTINATION share/QMentat)
 endif()
+
+
+# CUSTOM COMMANDS
+# Update translation files
+#add_custom_target(update_translations
+#    COMMAND lupdate ${CMAKE_SOURCE_DIR} -ts ${CMAKE_SOURCE_DIR}/qmentat_fr.ts
+#                                           ${CMAKE_SOURCE_DIR}/qmentat_de.ts
+#                                           ${CMAKE_SOURCE_DIR}/qmentat_es.ts
+#                                           ${CMAKE_SOURCE_DIR}/qmentat_it.ts
+#    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+#    COMMENT "Updating translation files..."
+#)

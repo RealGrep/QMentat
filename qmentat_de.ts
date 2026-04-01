@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="es_ES">
+<TS version="2.1" language="de_DE">
 <context>
     <name>AdditionConfigFrame</name>
     <message>
@@ -14,13 +14,13 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Primer Número&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Erste Zahl&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="additionconfigframe.ui" line="42"/>
         <location filename="additionconfigframe.ui" line="113"/>
         <source>Min Number</source>
-        <translation>Número mínimo</translation>
+        <translation>Mindestzahl</translation>
     </message>
     <message>
         <location filename="additionconfigframe.ui" line="55"/>
@@ -29,17 +29,17 @@ p, li { white-space: pre-wrap; }
 This can be negative, and include any number of decimal places. The generated number will have as many digits after the decimal point as the most supplied between the minimum and maximum values.
 
 The answer will contain as many digits after the decimal place as the most used by the first and second numbers.</source>
-        <translation>El valor mínimo permitido para el primer número de la suma. Debe ser menor o igual al máximo proporcionado.
+        <translation>Der minimal zulässige Wert für die erste Zahl der Addition. Er muss kleiner oder gleich dem angegebenen Maximum sein.
 
-Puede ser negativo e incluir cualquier cantidad de decimales. El número generado tendrá tantos dígitos después del punto decimal como el mayor número de decimales suministrado entre los valores mínimo y máximo.
+Dies kann negativ sein und eine beliebige Anzahl von Dezimalstellen enthalten. Die generierte Zahl hat so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen zwischen Minimum und Maximum.
 
-La respuesta contendrá tantos dígitos después del punto decimal como el mayor número utilizado por el primer y segundo número.</translation>
+Das Ergebnis enthält so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen unter der ersten und zweiten Zahl.</translation>
     </message>
     <message>
         <location filename="additionconfigframe.ui" line="72"/>
         <location filename="additionconfigframe.ui" line="143"/>
         <source>Max Number</source>
-        <translation>Número máximo</translation>
+        <translation>Höchstzahl</translation>
     </message>
     <message>
         <location filename="additionconfigframe.ui" line="85"/>
@@ -48,11 +48,11 @@ La respuesta contendrá tantos dígitos después del punto decimal como el mayor
 This can be negative, and include any number of decimal places. The generated number will have as many digits after the decimal point as the most supplied between the minimum and maximum values.
 
 The answer will contain as many digits after the decimal place as the most used by the first and second numbers.</source>
-        <translation>El valor máximo permitido para el primer número de la suma. Debe ser mayor o igual al mínimo proporcionado.
+        <translation>Der maximal zulässige Wert für die erste Zahl der Addition. Er muss größer oder gleich dem angegebenen Minimum sein.
 
-Puede ser negativo e incluir cualquier cantidad de decimales. El número generado tendrá tantos dígitos después del punto decimal como el mayor número de decimales suministrado entre los valores mínimo y máximo.
+Dies kann negativ sein und eine beliebige Anzahl von Dezimalstellen enthalten. Die generierte Zahl hat so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen zwischen Minimum und Maximum.
 
-La respuesta contendrá tantos dígitos después del punto decimal como el mayor número utilizado por el primer y segundo número.</translation>
+Das Ergebnis enthält so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen unter der ersten und zweiten Zahl.</translation>
     </message>
     <message>
         <location filename="additionconfigframe.ui" line="102"/>
@@ -65,7 +65,7 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Segunda entrega&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Zweite Zahl&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="additionconfigframe.ui" line="126"/>
@@ -74,11 +74,11 @@ p, li { white-space: pre-wrap; }
 This can be negative, and include any number of decimal places. The generated number will have as many digits after the decimal point as the most supplied between the minimum and maximum values.
 
 The answer will contain as many digits after the decimal place as the most used by the first and second numbers.</source>
-        <translation>El valor mínimo permitido para el segundo número de la suma. Debe ser menor o igual al máximo proporcionado.
+        <translation>Der minimal zulässige Wert für die zweite Zahl der Addition. Er muss kleiner oder gleich dem angegebenen Maximum sein.
 
-Puede ser negativo e incluir cualquier cantidad de decimales. El número generado tendrá tantos dígitos después del punto decimal como el mayor número de decimales suministrado entre los valores mínimo y máximo.
+Dies kann negativ sein und eine beliebige Anzahl von Dezimalstellen enthalten. Die generierte Zahl hat so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen zwischen Minimum und Maximum.
 
-La respuesta contendrá tantos dígitos después del punto decimal como el mayor número utilizado por el primer y segundo número.</translation>
+Das Ergebnis enthält so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen unter der ersten und zweiten Zahl.</translation>
     </message>
     <message>
         <location filename="additionconfigframe.ui" line="156"/>
@@ -87,37 +87,37 @@ La respuesta contendrá tantos dígitos después del punto decimal como el mayor
 This can be negative, and include any number of decimal places. The generated number will have as many digits after the decimal point as the most supplied between the minimum and maximum values.
 
 The answer will contain as many digits after the decimal place as the most used by the first and second numbers.</source>
-        <translation>El valor máximo permitido para el segundo número de la suma. Debe ser mayor o igual al mínimo proporcionado.
+        <translation>Der maximal zulässige Wert für die zweite Zahl der Addition. Er muss größer oder gleich dem angegebenen Minimum sein.
 
-Puede ser negativo e incluir cualquier cantidad de decimales. El número generado tendrá tantos dígitos después del punto decimal como el mayor número de decimales suministrado entre los valores mínimo y máximo.
+Dies kann negativ sein und eine beliebige Anzahl von Dezimalstellen enthalten. Die generierte Zahl hat so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen zwischen Minimum und Maximum.
 
-La respuesta contendrá tantos dígitos después del punto decimal como el mayor número utilizado por el primer y segundo número.</translation>
+Das Ergebnis enthält so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen unter der ersten und zweiten Zahl.</translation>
     </message>
     <message>
         <location filename="additionconfigframe.ui" line="173"/>
         <source>Largest number first</source>
-        <translation>Mayor número primero</translation>
+        <translation>Größte Zahl zuerst</translation>
     </message>
     <message>
         <location filename="additionconfigframe.ui" line="180"/>
         <source>If checked, whatever numbers are generated will be presented with the largest number as the first number, and the smallest one as the second number. Otherwise, what ever is generated will be used without modification.</source>
-        <translation>Si está marcado, los números generados se presentarán con el número mayor como primero y el menor como segundo. De lo contrario, los números generados se usarán sin modificación.</translation>
+        <translation>Wenn aktiviert, werden die generierten Zahlen mit der größten Zahl als erster Zahl und der kleinsten als zweiter Zahl angezeigt. Andernfalls werden die generierten Zahlen unverändert verwendet.</translation>
     </message>
     <message>
         <location filename="additionconfigframe.cpp" line="92"/>
         <location filename="additionconfigframe.cpp" line="95"/>
         <source>Range Validation Error</source>
-        <translation>Error de rango de validación</translation>
+        <translation>Bereichsvalidierungsfehler</translation>
     </message>
     <message>
         <location filename="additionconfigframe.cpp" line="92"/>
         <source>Maximum of first number is smaller than the minimum.</source>
-        <translation>El máximo del primer número es mas pequeño que el mínimo.</translation>
+        <translation>Das Maximum der ersten Zahl ist kleiner als das Minimum.</translation>
     </message>
     <message>
         <location filename="additionconfigframe.cpp" line="95"/>
         <source>Maximum of last number is smaller than the minimum.</source>
-        <translation>El máximo del último número es más pequeño que el mínimo.</translation>
+        <translation>Das Maximum der letzten Zahl ist kleiner als das Minimum.</translation>
     </message>
 </context>
 <context>
@@ -133,37 +133,37 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Primer número&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Erste Zahl&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.ui" line="42"/>
         <location filename="divisionconfigframe.ui" line="109"/>
         <source>Min Number</source>
-        <translation>Número mínimo</translation>
+        <translation>Mindestzahl</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.ui" line="55"/>
         <source>The smallest allowed value for the first number in the division. It must be smaller than (or equal to) the maximum number provided.
 
 This can be negative, and include any number of decimal places. The generated number will have as many digits after the decimal point as the most supplied between the minimum and maximum values.</source>
-        <translation>El valor mínimo permitido para el primer número de la división. Debe ser menor o igual al máximo proporcionado.
+        <translation>Der minimal zulässige Wert für die erste Zahl der Division. Er muss kleiner oder gleich dem angegebenen Maximum sein.
 
-Puede ser negativo e incluir cualquier cantidad de decimales. El número generado tendrá tantos dígitos después del punto decimal como el mayor número de decimales suministrado entre los valores mínimo y máximo.</translation>
+Dies kann negativ sein und eine beliebige Anzahl von Dezimalstellen enthalten. Die generierte Zahl hat so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen zwischen Minimum und Maximum.</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.ui" line="70"/>
         <location filename="divisionconfigframe.ui" line="137"/>
         <source>Max Number</source>
-        <translation>Número máximo</translation>
+        <translation>Höchstzahl</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.ui" line="83"/>
         <source>The largest allowed value for the first number in the division. It must be larger than (or equal to) the minimum number provided.
 
 This can be negative, and include any number of decimal places. The generated number will have as many digits after the decimal point as the most supplied between the minimum and maximum values.</source>
-        <translation>El valor máximo permitido para el primer número de la división. Debe ser mayor o igual al mínimo proporcionado.
+        <translation>Der maximal zulässige Wert für die erste Zahl der Division. Er muss größer oder gleich dem angegebenen Minimum sein.
 
-Puede ser negativo e incluir cualquier cantidad de decimales. El número generado tendrá tantos dígitos después del punto decimal como el mayor número de decimales suministrado entre los valores mínimo y máximo.</translation>
+Dies kann negativ sein und eine beliebige Anzahl von Dezimalstellen enthalten. Die generierte Zahl hat so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen zwischen Minimum und Maximum.</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.ui" line="98"/>
@@ -176,25 +176,25 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Segundo Número&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Zweite Zahl&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.ui" line="122"/>
         <source>The smallest allowed value for the second number in the division. It must be smaller than (or equal to) the maximum number provided.
 
 This can be negative, and include any number of decimal places. The generated number will have as many digits after the decimal point as the most supplied between the minimum and maximum values.</source>
-        <translation>El valor mínimo permitido para el segundo número de la división. Debe ser menor o igual al máximo proporcionado.
+        <translation>Der minimal zulässige Wert für die zweite Zahl der Division. Er muss kleiner oder gleich dem angegebenen Maximum sein.
 
-Puede ser negativo e incluir cualquier cantidad de decimales. El número generado tendrá tantos dígitos después del punto decimal como el mayor número de decimales suministrado entre los valores mínimo y máximo.</translation>
+Dies kann negativ sein und eine beliebige Anzahl von Dezimalstellen enthalten. Die generierte Zahl hat so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen zwischen Minimum und Maximum.</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.ui" line="150"/>
         <source>The largest allowed value for the second number in the division. It must be larger than (or equal to) the minimum number provided.
 
 This can be negative, and include any number of decimal places. The generated number will have as many digits after the decimal point as the most supplied between the minimum and maximum values.</source>
-        <translation>El valor máximo permitido para el segundo número de la división. Debe ser mayor o igual al mínimo proporcionado.
+        <translation>Der maximal zulässige Wert für die zweite Zahl der Division. Er muss größer oder gleich dem angegebenen Minimum sein.
 
-Puede ser negativo e incluir cualquier cantidad de decimales. El número generado tendrá tantos dígitos después del punto decimal como el mayor número de decimales suministrado entre los valores mínimo y máximo.</translation>
+Dies kann negativ sein und eine beliebige Anzahl von Dezimalstellen enthalten. Die generierte Zahl hat so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen zwischen Minimum und Maximum.</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.ui" line="165"/>
@@ -213,36 +213,36 @@ p, li { white-space: pre-wrap; }
 &lt;table style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Resultado&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Ergebnis&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.ui" line="179"/>
         <source>Decimal Places</source>
-        <translation>Número de Decimales</translation>
+        <translation>Dezimalstellen</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.ui" line="186"/>
         <source>The desired number of digits after the decimal point in the result. If less than that produced by the division, the result will be rounded according to the currently set rounding mode.
 
 Should be 0 or more.</source>
-        <translation>El número deseado de dígitos después del punto decimal en el resultado. Si es menor que el producido por la división, el resultado se redondeará según el modo de redondeo establecido.
+        <translation>Die gewünschte Anzahl von Dezimalstellen im Ergebnis. Wenn kleiner als das durch die Division erzeugte Ergebnis, wird das Ergebnis gemäß dem aktuellen Rundungsmodus gerundet.
 
-Debe ser 0 o más.</translation>
+Muss 0 oder mehr sein.</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.ui" line="201"/>
         <source>Largest Number First</source>
-        <translation>Mayor número primero</translation>
+        <translation>Größte Zahl zuerst</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.ui" line="208"/>
         <source>If checked, whatever numbers are generated will be presented with the largest number as the first number, and the smallest one as the second number. Otherwise, what ever is generated will be used without modification.</source>
-        <translation>Si está marcado, los números generados se presentarán con el número mayor como primero y el menor como segundo. De lo contrario, los números generados se usarán sin modificación.</translation>
+        <translation>Wenn aktiviert, werden die generierten Zahlen mit der größten Zahl als erster Zahl und der kleinsten als zweiter Zahl angezeigt. Andernfalls werden die generierten Zahlen unverändert verwendet.</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.ui" line="215"/>
         <source>Integers Only</source>
-        <translation>Solo enteros</translation>
+        <translation>Nur ganze Zahlen</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.ui" line="222"/>
@@ -257,14 +257,14 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Los resultados deben ser solo enteros.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Die Ergebnisse müssen ausschließlich ganze Zahlen sein.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Para generar problemas con resultados enteros únicamente, los números deben ser factorizados. La factorización es un proceso intrínsecamente difícil. &lt;span style=&quot; font-weight:600;&quot;&gt;Para números grandes, esto puede volverse muy, muy lento.&lt;/span&gt; Para la mayoría de los números razonables para el cálculo mental, es muy rápido, pero ha sido advertido.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Um Aufgaben mit nur ganzzahligen Ergebnissen zu generieren, müssen die Zahlen faktorisiert werden. Die Faktorisierung ist ein inhärent schwieriger Prozess. &lt;span style=&quot; font-weight:600;&quot;&gt;Bei großen Zahlen kann dies sehr, sehr langsam werden.&lt;/span&gt; Für die meisten vernünftigen Zahlen für das Kopfrechnen ist es sehr schnell, aber Sie wurden gewarnt.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.ui" line="238"/>
         <source>Rounding Mode</source>
-        <translation>Modo de redondeo</translation>
+        <translation>Rundungsmodus</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.ui" line="245"/>
@@ -281,21 +281,21 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Método a usar para redondear el resultado a un cierto número de dígitos después del punto decimal.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Methode zum Runden des Ergebnisses auf eine bestimmte Anzahl von Dezimalstellen.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Truncar&lt;/span&gt;: Simplemente elimina los dígitos extra.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Abschneiden&lt;/span&gt;: Entfernt einfach überschüssige Dezimalstellen.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Redondear&lt;/span&gt;: Redondea el número de la manera estándar antes de truncar.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Runden&lt;/span&gt;: Rundet die Zahl auf die übliche Weise vor dem Abschneiden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.ui" line="257"/>
         <source>Truncate</source>
-        <translation>Truncar</translation>
+        <translation>Abschneiden</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.ui" line="262"/>
         <source>Round</source>
-        <translation>Redondear</translation>
+        <translation>Runden</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.cpp" line="197"/>
@@ -304,24 +304,24 @@ p, li { white-space: pre-wrap; }
         <location filename="divisionconfigframe.cpp" line="234"/>
         <location filename="divisionconfigframe.cpp" line="237"/>
         <source>Range Validation Error</source>
-        <translation>Error de rango de validación</translation>
+        <translation>Bereichsvalidierungsfehler</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.cpp" line="198"/>
         <location filename="divisionconfigframe.cpp" line="234"/>
         <source>Maximum of first number is smaller than the minimum.</source>
-        <translation>El máximo del primer número es mas pequeño que el mínimo.</translation>
+        <translation>Das Maximum der ersten Zahl ist kleiner als das Minimum.</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.cpp" line="204"/>
         <location filename="divisionconfigframe.cpp" line="237"/>
         <source>Maximum of last number is smaller than the minimum.</source>
-        <translation>El máximo del último número es más pequeño que el mínimo.</translation>
+        <translation>Das Maximum der letzten Zahl ist kleiner als das Minimum.</translation>
     </message>
     <message>
         <location filename="divisionconfigframe.cpp" line="210"/>
         <source>Range of first number has no divisors within range of last number.</source>
-        <translation>El rango del primer número no tiene divisores dentro del rango del último número.</translation>
+        <translation>Der Bereich der ersten Zahl hat keine Teiler im Bereich der letzten Zahl.</translation>
     </message>
 </context>
 <context>
@@ -329,14 +329,14 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="helpdialog.ui" line="14"/>
         <source>Dialog</source>
-        <translation>Cuadro de diálogo</translation>
+        <translation>Dialogfeld</translation>
     </message>
 </context>
 <context>
     <name>LicenseDialog</name>
     <message>
         <source>Dialog</source>
-        <translation type="vanished">Cuadro de diálogo</translation>
+        <translation type="vanished">Dialogfeld</translation>
     </message>
     <message>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -378,85 +378,41 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Do you accept this license agreement?</source>
-        <translation type="vanished">¿Acepta este acuerdo de licencia?</translation>
+        <translation type="vanished">Akzeptieren Sie diese Lizenzvereinbarung?</translation>
     </message>
     <message>
         <source>Yes, I agree</source>
-        <translation type="vanished">Sí, acepto</translation>
+        <translation type="vanished">Ja, ich stimme zu</translation>
     </message>
     <message>
         <source>No.</source>
-        <translation type="vanished">No.</translation>
+        <translation type="vanished">Nein.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="vanished">Cancelar</translation>
+        <translation type="vanished">Abbrechen</translation>
     </message>
     <message>
         <source>Continue</source>
-        <translation type="vanished">Continuar</translation>
+        <translation type="vanished">Weiter</translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <source>QMentat v1.0.0</source>
-        <oldsource>QMentat v0.9.0</oldsource>
-        <translation type="vanished">QMentat v1.0.0</translation>
+        <location filename="mainwindow.ui" line="14"/>
+        <source>QMentat</source>
+        <translation>QMentat</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="34"/>
         <source>Main</source>
-        <translation>Principal</translation>
+        <translation>Hauptfenster</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="50"/>
         <source>Enter your answer here.</source>
-        <translation>Ingrese su respuesta aquí.</translation>
-    </message>
-    <message>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Andale Mono&apos;; font-size:16pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
-&lt;tr&gt;
-&lt;td style=&quot;border: none;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Sans&apos;; font-size:10pt;&quot;&gt;Welcome!&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="vanished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Andale Mono&apos;; font-size:16pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
-&lt;tr&gt;
-&lt;td style=&quot;border: none;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Sans&apos;; font-size:10pt;&quot;&gt;Bienvenido!&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <location filename="mainwindow.ui" line="108"/>
-        <source>Settings</source>
-        <translation>Configuración</translation>
-    </message>
-    <message>
-        <source>File</source>
-        <translation type="obsolete">Archivo</translation>
-    </message>
-    <message>
-        <source>Modules</source>
-        <translation type="obsolete">Módulos</translation>
-    </message>
-    <message>
-        <source>Help</source>
-        <translation type="obsolete">Ayuda</translation>
-    </message>
-    <message>
-        <source>Exit</source>
-        <translation type="obsolete">Salir</translation>
-    </message>
-    <message>
-        <location filename="mainwindow.ui" line="14"/>
-        <source>QMentat</source>
-        <translation>QMentat</translation>
+        <translation>Geben Sie hier Ihre Antwort ein.</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="90"/>
@@ -481,37 +437,42 @@ li.checked::marker { content: &quot;±2&quot;; }
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Sans&apos;; font-size:10pt;&quot;&gt;¡Bienvenido!&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Sans&apos;; font-size:10pt;&quot;&gt;Willkommen!&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="108"/>
+        <source>Settings</source>
+        <translation>Einstellungen</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="129"/>
         <source>&amp;File</source>
-        <translation>&amp;Archivo</translation>
+        <translation>&amp;Datei</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="137"/>
         <source>&amp;Practice</source>
-        <translation>&amp;Práctica</translation>
+        <translation>&amp;Üben</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="151"/>
         <source>&amp;Help</source>
-        <translation>A&amp;yuda</translation>
+        <translation>&amp;Hilfe</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="160"/>
         <source>&amp;Edit</source>
-        <translation>&amp;Edición</translation>
+        <translation>&amp;Bearbeiten</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="194"/>
         <source>E&amp;xit</source>
-        <translation>S&amp;alir</translation>
+        <translation>B&amp;eenden</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="205"/>
         <source>Addition</source>
-        <translation>Adición</translation>
+        <translation>Addition</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="208"/>
@@ -521,7 +482,7 @@ li.checked::marker { content: &quot;±2&quot;; }
     <message>
         <location filename="mainwindow.ui" line="219"/>
         <source>Subtraction</source>
-        <translation>Sustracción</translation>
+        <translation>Subtraktion</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="222"/>
@@ -532,7 +493,7 @@ li.checked::marker { content: &quot;±2&quot;; }
         <location filename="mainwindow.ui" line="233"/>
         <location filename="mainwindow.ui" line="239"/>
         <source>Multiplication</source>
-        <translation>Multiplicación</translation>
+        <translation>Multiplikation</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="236"/>
@@ -542,7 +503,7 @@ li.checked::marker { content: &quot;±2&quot;; }
     <message>
         <location filename="mainwindow.ui" line="250"/>
         <source>Division</source>
-        <translation>División</translation>
+        <translation>Division</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="253"/>
@@ -552,18 +513,18 @@ li.checked::marker { content: &quot;±2&quot;; }
     <message>
         <location filename="mainwindow.ui" line="256"/>
         <source>DIvision</source>
-        <translation>División</translation>
+        <translation>Division</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="267"/>
         <location filename="mainwindow.cpp" line="387"/>
         <source>About QMentat</source>
-        <translation>Acerca de QMentat</translation>
+        <translation>Über QMentat</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="272"/>
         <source>Powers</source>
-        <translation>Potencias</translation>
+        <translation>Potenzen</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="275"/>
@@ -573,7 +534,7 @@ li.checked::marker { content: &quot;±2&quot;; }
     <message>
         <location filename="mainwindow.ui" line="286"/>
         <source>Roots</source>
-        <translation>Raíces</translation>
+        <translation>Wurzeln</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="289"/>
@@ -583,42 +544,38 @@ li.checked::marker { content: &quot;±2&quot;; }
     <message>
         <location filename="mainwindow.ui" line="300"/>
         <source>&amp;Statistics</source>
-        <translation>&amp;Estadísticas</translation>
+        <translation>&amp;Statistiken</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="305"/>
         <source>Contents</source>
-        <translation>Contenido</translation>
+        <translation>Inhalt</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="310"/>
         <source>&amp;Preferences</source>
-        <translation>&amp;Preferencias</translation>
+        <translation>&amp;Einstellungen</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="315"/>
         <location filename="mainwindow.cpp" line="429"/>
         <source>About Qt</source>
-        <translation>Acerca de Qt</translation>
-    </message>
-    <message>
-        <source>Statistics</source>
-        <translation type="obsolete">Estadísticas</translation>
+        <translation>Über Qt</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="292"/>
         <source>Correct!</source>
-        <translation>¡Correcto!</translation>
+        <translation>Richtig!</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="295"/>
         <source>Wrong! %1</source>
-        <translation>¡Incorrecto! %1</translation>
+        <translation>Falsch! %1</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="299"/>
         <source>Total: %1  Correct/Wrong: %2/%3  %4%5 success rate</source>
-        <translation>Total: %1  Correcto/Incorrecto: %2/%3  tasa de éxito del %4%5</translation>
+        <translation>Gesamt: %1  Richtig/Falsch: %2/%3  %4%5 Erfolgsrate</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="387"/>
@@ -628,53 +585,12 @@ Written by Mike Dusseault
 Copyright (c) 2026 Mike Dusseault.
 
 QMentat is released under the GPL version 3.</source>
-        <translation>QMentat versión %1
+        <translation>QMentat Version %1
 
-Escrito por Mike Dusseault
+Geschrieben von Mike Dusseault
 Copyright (c) 2026 Mike Dusseault.
 
-QMentat se distribuye bajo la licencia GPL versión 3.</translation>
-    </message>
-    <message>
-        <source>QMentat
-
-Written by Mike Dusseault
-Copyright 2026 Mike Dusseault.
-
-QMentat is released under the GPL version 3.</source>
-        <translation type="obsolete">QMentat
-
-Escrito por Mike Dusseault
-Copyright 2026 Dusseault Mike
-
-QMentat es liberado bajo la GPL versión 3.</translation>
-    </message>
-    <message>
-        <source>Total: %1  Correct/Wrong: %2/%3  %4% success rate</source>
-        <translation type="obsolete">Suma: %1  Correcta / incorrecta: %2/%3  Tasa de éxito del %4%</translation>
-    </message>
-    <message>
-        <source>QMentat
-
-Written by Mike Dusseault
-Copyright 2011 Mike Dusseault.
-All Rights Reserved.</source>
-        <translation type="obsolete">QMentat
-
-Escrito por Mike Dusseault
-Copyright 2011 Dusseault Mike.
-Todos los derechos reservados.</translation>
-    </message>
-    <message>
-        <source>QMentat
-Written by Mike Dusseault
-Copyright 2011 Mike Dusseault.
-All Rights Reserved.</source>
-        <translation type="obsolete">QMentat
-
-Escrito por Mike Dusseault
-Copyright 2011 Dusseault Mike.
-Todos los derechos reservados.</translation>
+QMentat wird unter der GPL Version 3 veröffentlicht.</translation>
     </message>
 </context>
 <context>
@@ -690,37 +606,37 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Premier Numéro&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Erste Zahl&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="multiplicationconfigframe.ui" line="42"/>
         <location filename="multiplicationconfigframe.ui" line="109"/>
         <source>Min Number</source>
-        <translation>Número mínimo</translation>
+        <translation>Mindestzahl</translation>
     </message>
     <message>
         <location filename="multiplicationconfigframe.ui" line="55"/>
         <source>The smallest allowed value for the first number in the multiplication. It must be smaller than (or equal to) the maximum number provided.
 
 This can be negative, and include any number of decimal places. The generated number will have as many digits after the decimal point as the most supplied between the minimum and maximum values.</source>
-        <translation>El valor mínimo permitido para el primer número de la multiplicación. Debe ser menor o igual al máximo proporcionado.
+        <translation>Der minimal zulässige Wert für die erste Zahl der Multiplikation. Er muss kleiner oder gleich dem angegebenen Maximum sein.
 
-Puede ser negativo e incluir cualquier cantidad de decimales. El número generado tendrá tantos dígitos después del punto decimal como el mayor número de decimales suministrado entre los valores mínimo y máximo.</translation>
+Dies kann negativ sein und eine beliebige Anzahl von Dezimalstellen enthalten. Die generierte Zahl hat so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen zwischen Minimum und Maximum.</translation>
     </message>
     <message>
         <location filename="multiplicationconfigframe.ui" line="70"/>
         <location filename="multiplicationconfigframe.ui" line="137"/>
         <source>Max Number</source>
-        <translation>Número máximo</translation>
+        <translation>Höchstzahl</translation>
     </message>
     <message>
         <location filename="multiplicationconfigframe.ui" line="83"/>
         <source>The largest allowed value for the first number in the multiplication. It must be larger than (or equal to) the minimum number provided.
 
 This can be negative, and include any number of decimal places. The generated number will have as many digits after the decimal point as the most supplied between the minimum and maximum values.</source>
-        <translation>El valor máximo permitido para el primer número de la multiplicación. Debe ser mayor o igual al mínimo proporcionado.
+        <translation>Der maximal zulässige Wert für die erste Zahl der Multiplikation. Er muss größer oder gleich dem angegebenen Minimum sein.
 
-Puede ser negativo e incluir cualquier cantidad de decimales. El número generado tendrá tantos dígitos después del punto decimal como el mayor número de decimales suministrado entre los valores mínimo y máximo.</translation>
+Dies kann negativ sein und eine beliebige Anzahl von Dezimalstellen enthalten. Die generierte Zahl hat so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen zwischen Minimum und Maximum.</translation>
     </message>
     <message>
         <location filename="multiplicationconfigframe.ui" line="98"/>
@@ -733,49 +649,49 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Segundo Número&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Zweite Zahl&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="multiplicationconfigframe.ui" line="122"/>
         <source>The smallest allowed value for the second number in the multiplication. It must be smaller than (or equal to) the maximum number provided.
 
 This can be negative, and include any number of decimal places. The generated number will have as many digits after the decimal point as the most supplied between the minimum and maximum values.</source>
-        <translation>El valor mínimo permitido para el segundo número de la multiplicación. Debe ser menor o igual al máximo proporcionado.
+        <translation>Der minimal zulässige Wert für die zweite Zahl der Multiplikation. Er muss kleiner oder gleich dem angegebenen Maximum sein.
 
-Puede ser negativo e incluir cualquier cantidad de decimales. El número generado tendrá tantos dígitos después del punto decimal como el mayor número de decimales suministrado entre los valores mínimo y máximo.</translation>
+Dies kann negativ sein und eine beliebige Anzahl von Dezimalstellen enthalten. Die generierte Zahl hat so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen zwischen Minimum und Maximum.</translation>
     </message>
     <message>
         <location filename="multiplicationconfigframe.ui" line="150"/>
         <source>The largest allowed value for the second number in the multiplication. It must be larger than (or equal to) the minimum number provided.
 
 This can be negative, and include any number of decimal places. The generated number will have as many digits after the decimal point as the most supplied between the minimum and maximum values.</source>
-        <translation>El valor máximo permitido para el segundo número de la multiplicación. Debe ser mayor o igual al mínimo proporcionado.
+        <translation>Der maximal zulässige Wert für die zweite Zahl der Multiplikation. Er muss größer oder gleich dem angegebenen Minimum sein.
 
-Puede ser negativo e incluir cualquier cantidad de decimales. El número generado tendrá tantos dígitos después del punto decimal como el mayor número de decimales suministrado entre los valores mínimo y máximo.</translation>
+Dies kann negativ sein und eine beliebige Anzahl von Dezimalstellen enthalten. Die generierte Zahl hat so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen zwischen Minimum und Maximum.</translation>
     </message>
     <message>
         <location filename="multiplicationconfigframe.ui" line="165"/>
         <source>Largest number first</source>
-        <translation>Mayor número primero</translation>
+        <translation>Größte Zahl zuerst</translation>
     </message>
     <message>
         <location filename="multiplicationconfigframe.ui" line="172"/>
         <source>If checked, whatever numbers are generated will be presented with the largest number as the first number, and the smallest one as the second number. Otherwise, what ever is generated will be used without modification.</source>
-        <translation>Si está marcado, los números generados se presentarán con el número mayor como primero y el menor como segundo. De lo contrario, los números generados se usarán sin modificación.</translation>
+        <translation>Wenn aktiviert, werden die generierten Zahlen mit der größten Zahl als erster Zahl und der kleinsten als zweiter Zahl angezeigt. Andernfalls werden die generierten Zahlen unverändert verwendet.</translation>
     </message>
     <message>
         <location filename="multiplicationconfigframe.ui" line="179"/>
         <source>Decimal Places</source>
-        <translation>Número de decimales</translation>
+        <translation>Dezimalstellen</translation>
     </message>
     <message>
         <location filename="multiplicationconfigframe.ui" line="186"/>
         <source>The desired number of digits after the decimal point in the result. If less than that produced by the multiplication, the result will be rounded according to the currently set rounding mode.
 
 Should be 0 or more. The number of digits after the decimal point of the result will be at most the sum of the number of digits after the decimal point of the first and second numbers.</source>
-        <translation>El número deseado de dígitos después del punto decimal en el resultado. Si es menor que el producido por la multiplicación, el resultado se redondeará según el modo de redondeo establecido.
+        <translation>Die gewünschte Anzahl von Dezimalstellen im Ergebnis. Wenn kleiner als das durch die Multiplikation erzeugte Ergebnis, wird das Ergebnis gemäß dem aktuellen Rundungsmodus gerundet.
 
-Debe ser 0 o más. El número de dígitos después del punto decimal del resultado será como máximo la suma de los dígitos decimales del primer y segundo número.</translation>
+Muss 0 oder mehr sein. Die Anzahl der Dezimalstellen des Ergebnisses beträgt höchstens die Summe der Dezimalstellen der ersten und zweiten Zahl.</translation>
     </message>
     <message>
         <location filename="multiplicationconfigframe.ui" line="201"/>
@@ -794,12 +710,12 @@ p, li { white-space: pre-wrap; }
 &lt;table style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Resultado&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Ergebnis&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="multiplicationconfigframe.ui" line="215"/>
         <source>Rounding Mode</source>
-        <translation>Modo de redondeo</translation>
+        <translation>Rundungsmodus</translation>
     </message>
     <message>
         <location filename="multiplicationconfigframe.ui" line="222"/>
@@ -816,37 +732,37 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Método a usar para redondear el resultado a un cierto número de dígitos después del punto decimal.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Methode zum Runden des Ergebnisses auf eine bestimmte Anzahl von Dezimalstellen.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Truncar&lt;/span&gt;: Simplemente elimina los dígitos extra.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Abschneiden&lt;/span&gt;: Entfernt einfach überschüssige Dezimalstellen.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Redondear&lt;/span&gt;: Redondea el número de la manera estándar antes de truncar.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Runden&lt;/span&gt;: Rundet die Zahl auf die übliche Weise vor dem Abschneiden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="multiplicationconfigframe.ui" line="234"/>
         <source>Truncate</source>
-        <translation>Truncar</translation>
+        <translation>Abschneiden</translation>
     </message>
     <message>
         <location filename="multiplicationconfigframe.ui" line="239"/>
         <source>Round</source>
-        <translation>Redondear</translation>
+        <translation>Runden</translation>
     </message>
     <message>
         <location filename="multiplicationconfigframe.cpp" line="111"/>
         <location filename="multiplicationconfigframe.cpp" line="114"/>
         <source>Range Validation Error</source>
-        <translation>Error de rango de validación</translation>
+        <translation>Bereichsvalidierungsfehler</translation>
     </message>
     <message>
         <location filename="multiplicationconfigframe.cpp" line="111"/>
         <source>Maximum of first number is smaller than the minimum.</source>
-        <translation>El máximo del primer número es mas pequeño que el mínimo.</translation>
+        <translation>Das Maximum der ersten Zahl ist kleiner als das Minimum.</translation>
     </message>
     <message>
         <location filename="multiplicationconfigframe.cpp" line="114"/>
         <source>Maximum of last number is smaller than the minimum.</source>
-        <translation>El máximo del último número es más pequeño que el mínimo.</translation>
+        <translation>Das Maximum der letzten Zahl ist kleiner als das Minimum.</translation>
     </message>
 </context>
 <context>
@@ -855,39 +771,52 @@ p, li { white-space: pre-wrap; }
         <location filename="pieview.cpp" line="389"/>
         <source>No statistics yet.
 Complete some practice to see results.</source>
-        <translation>Aún no hay estadísticas.
-Complete algunos ejercicios para ver resultados.</translation>
+        <translation>Noch keine Statistiken.
+Absolvieren Sie einige Übungen, um Ergebnisse zu sehen.</translation>
     </message>
 </context>
 <context>
     <name>PowersConfigFrame</name>
     <message>
+        <location filename="powersconfigframe.ui" line="31"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Base Number&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Basis&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
         <location filename="powersconfigframe.ui" line="42"/>
         <source>Min Number</source>
-        <translation>Número mínimo</translation>
+        <translation>Mindestzahl</translation>
     </message>
     <message>
         <location filename="powersconfigframe.ui" line="49"/>
         <source>The smallest allowed value for the base number which is raised to a power. It must be smaller than (or equal to) the maximum number provided.
 
 This can be negative, and include any number of decimal places. The generated number will have as many digits after the decimal point as the most supplied between the minimum and maximum values.</source>
-        <translation>El valor mínimo permitido para el número base elevado a una potencia. Debe ser menor o igual al máximo proporcionado.
+        <translation>Der minimal zulässige Wert für die Basis, die potenziert wird. Er muss kleiner oder gleich dem angegebenen Maximum sein.
 
-Puede ser negativo e incluir cualquier cantidad de decimales. El número generado tendrá tantos dígitos después del punto decimal como el mayor número de decimales suministrado entre los valores mínimo y máximo.</translation>
+Dies kann negativ sein und eine beliebige Anzahl von Dezimalstellen enthalten. Die generierte Zahl hat so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen zwischen Minimum und Maximum.</translation>
     </message>
     <message>
         <location filename="powersconfigframe.ui" line="61"/>
         <source>Max Number</source>
-        <translation>Número máximo</translation>
+        <translation>Höchstzahl</translation>
     </message>
     <message>
         <location filename="powersconfigframe.ui" line="68"/>
         <source>The largest allowed value for the base number which is raised to a power. It must be larger than (or equal to) the minimum number provided.
 
 This can be negative, and include any number of decimal places. The generated number will have as many digits after the decimal point as the most supplied between the minimum and maximum values.</source>
-        <translation>El valor máximo permitido para el número base elevado a una potencia. Debe ser mayor o igual al mínimo proporcionado.
+        <translation>Der maximal zulässige Wert für die Basis, die potenziert wird. Er muss größer oder gleich dem angegebenen Minimum sein.
 
-Puede ser negativo e incluir cualquier cantidad de decimales. El número generado tendrá tantos dígitos después del punto decimal como el mayor número de decimales suministrado entre los valores mínimo y máximo.</translation>
+Dies kann negativ sein und eine beliebige Anzahl von Dezimalstellen enthalten. Die generierte Zahl hat so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen zwischen Minimum und Maximum.</translation>
     </message>
     <message>
         <location filename="powersconfigframe.ui" line="80"/>
@@ -900,25 +829,35 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Potencia&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Potenz&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="powersconfigframe.ui" line="91"/>
+        <source>Min Power</source>
+        <translation>Minimalexponent</translation>
     </message>
     <message>
         <location filename="powersconfigframe.ui" line="98"/>
         <source>The smallest allowed value for the exponent. It must be smaller than (or equal to) the maximum number provided.
 
 This must be positive.</source>
-        <translation>El valor mínimo permitido para el exponente. Debe ser menor o igual al máximo proporcionado.
+        <translation>Der minimal zulässige Wert für den Exponenten. Er muss kleiner oder gleich dem angegebenen Maximum sein.
 
-Debe ser positivo.</translation>
+Dieser muss positiv sein.</translation>
+    </message>
+    <message>
+        <location filename="powersconfigframe.ui" line="113"/>
+        <source>Max Power</source>
+        <translation>Maximalexponent</translation>
     </message>
     <message>
         <location filename="powersconfigframe.ui" line="120"/>
         <source>The largest allowed value for the exponent. It must be larger than (or equal to) the minimum number provided.
 
 This must be positive.</source>
-        <translation>El valor máximo permitido para el exponente. Debe ser mayor o igual al mínimo proporcionado.
+        <translation>Der maximal zulässige Wert für den Exponenten. Er muss größer oder gleich dem angegebenen Minimum sein.
 
-Debe ser positivo.</translation>
+Dieser muss positiv sein.</translation>
     </message>
     <message>
         <location filename="powersconfigframe.ui" line="135"/>
@@ -937,26 +876,26 @@ p, li { white-space: pre-wrap; }
 &lt;table style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Resultado&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Ergebnis&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="powersconfigframe.ui" line="149"/>
         <source>Decimal Places</source>
-        <translation>Número de decimales</translation>
+        <translation>Dezimalstellen</translation>
     </message>
     <message>
         <location filename="powersconfigframe.ui" line="156"/>
         <source>The desired number of digits after the decimal point in the result. If less than that produced by the exponentiation, the result will be rounded according to the currently set rounding mode.
 
 Should be 0 or more.</source>
-        <translation>El número deseado de dígitos después del punto decimal en el resultado. Si es menor que el producido por la exponenciación, el resultado se redondeará según el modo de redondeo establecido.
+        <translation>Die gewünschte Anzahl von Dezimalstellen im Ergebnis. Wenn kleiner als das durch die Potenzierung erzeugte Ergebnis, wird das Ergebnis gemäß dem aktuellen Rundungsmodus gerundet.
 
-Debe ser 0 o más.</translation>
+Muss 0 oder mehr sein.</translation>
     </message>
     <message>
         <location filename="powersconfigframe.ui" line="171"/>
         <source>Rounding Mode</source>
-        <translation>Modo de redondeo</translation>
+        <translation>Rundungsmodus</translation>
     </message>
     <message>
         <location filename="powersconfigframe.ui" line="178"/>
@@ -973,60 +912,37 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Método a usar para redondear el resultado a un cierto número de dígitos después del punto decimal.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Methode zum Runden des Ergebnisses auf eine bestimmte Anzahl von Dezimalstellen.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Truncar&lt;/span&gt;: Simplemente elimina los dígitos extra.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Abschneiden&lt;/span&gt;: Entfernt einfach überschüssige Dezimalstellen.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Redondear&lt;/span&gt;: Redondea el número de la manera estándar antes de truncar.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Runden&lt;/span&gt;: Rundet die Zahl auf die übliche Weise vor dem Abschneiden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="powersconfigframe.ui" line="190"/>
         <source>Truncate</source>
-        <translation>Truncar</translation>
+        <translation>Abschneiden</translation>
     </message>
     <message>
         <location filename="powersconfigframe.ui" line="195"/>
         <source>Round</source>
-        <translation>Redondear</translation>
-    </message>
-    <message>
-        <location filename="powersconfigframe.ui" line="31"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Base Number&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Número Base&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <location filename="powersconfigframe.ui" line="91"/>
-        <source>Min Power</source>
-        <translation>Potencia mínima</translation>
-    </message>
-    <message>
-        <location filename="powersconfigframe.ui" line="113"/>
-        <source>Max Power</source>
-        <translation>Potencia máxima</translation>
+        <translation>Runden</translation>
     </message>
     <message>
         <location filename="powersconfigframe.cpp" line="104"/>
         <location filename="powersconfigframe.cpp" line="107"/>
         <source>Range Validation Error</source>
-        <translation>Error de rango de validación</translation>
+        <translation>Bereichsvalidierungsfehler</translation>
     </message>
     <message>
         <location filename="powersconfigframe.cpp" line="104"/>
         <source>Maximum of base number is smaller than the minimum.</source>
-        <translation>El máximo del número base es más pequeño que el mínimo.</translation>
+        <translation>Das Maximum der Basiszahl ist kleiner als das Minimum.</translation>
     </message>
     <message>
         <location filename="powersconfigframe.cpp" line="107"/>
         <source>Maximum power is smaller than the minimum.</source>
-        <translation>El máximo de la potencia es más pequeño que el mínimo.</translation>
+        <translation>Der maximale Exponent ist kleiner als das Minimum.</translation>
     </message>
 </context>
 <context>
@@ -1034,17 +950,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="preferencesdialog.ui" line="20"/>
         <source>Preferences</source>
-        <translation>Preferencias</translation>
+        <translation>Einstellungen</translation>
     </message>
     <message>
         <location filename="preferencesdialog.ui" line="35"/>
         <source>Fonts</source>
-        <translation>Fuentes</translation>
+        <translation>Schriftarten</translation>
     </message>
     <message>
         <location filename="preferencesdialog.ui" line="49"/>
         <source>Question</source>
-        <translation>Pregunta</translation>
+        <translation>Frage</translation>
     </message>
     <message>
         <location filename="preferencesdialog.ui" line="70"/>
@@ -1056,19 +972,12 @@ p, li { white-space: pre-wrap; }
         <location filename="preferencesdialog.ui" line="80"/>
         <location filename="preferencesdialog.ui" line="112"/>
         <source>Change</source>
-        <translation>Cambiar</translation>
+        <translation>Ändern</translation>
     </message>
     <message>
         <location filename="preferencesdialog.ui" line="87"/>
         <source>Answer</source>
-        <translation>Respuesta</translation>
-    </message>
-</context>
-<context>
-    <name>QObject</name>
-    <message>
-        <source>QMentat</source>
-        <translation type="vanished">QMentat</translation>
+        <translation>Antwort</translation>
     </message>
 </context>
 <context>
@@ -1084,30 +993,30 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="rootsconfigframe.ui" line="31"/>
         <source>Min Number</source>
-        <translation>Número mínimo</translation>
+        <translation>Mindestzahl</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.ui" line="38"/>
         <source>The smallest allowed value for the base number from which we take a root. It must be smaller than (or equal to) the maximum number provided.
 
 This must be greater than or equal to 0, and include any number of decimal places. The generated number will have as many digits after the decimal point as the most supplied between the minimum and maximum values.</source>
-        <translation>El valor mínimo permitido para el número base del que se extrae una raíz. Debe ser menor o igual al máximo proporcionado.
+        <translation>Der minimal zulässige Wert für die Basis, aus der eine Wurzel gezogen wird. Er muss kleiner oder gleich dem angegebenen Maximum sein.
 
-Debe ser mayor o igual a 0 e incluir cualquier cantidad de decimales. El número generado tendrá tantos dígitos después del punto decimal como el mayor número de decimales suministrado entre los valores mínimo y máximo.</translation>
+Dieser muss größer oder gleich 0 sein und kann eine beliebige Anzahl von Dezimalstellen enthalten. Die generierte Zahl hat so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen zwischen Minimum und Maximum.</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.ui" line="50"/>
         <source>Max Number</source>
-        <translation>Número máximo</translation>
+        <translation>Höchstzahl</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.ui" line="57"/>
         <source>The largest allowed value for the base number from which we take a root. It must be larger than (or equal to) the minimum number provided.
 
 This must be greater than or equal to 0, and include any number of decimal places. The generated number will have as many digits after the decimal point as the most supplied between the minimum and maximum values.</source>
-        <translation>El valor máximo permitido para el número base del que se extrae una raíz. Debe ser mayor o igual al mínimo proporcionado.
+        <translation>Der maximal zulässige Wert für die Basis, aus der eine Wurzel gezogen wird. Er muss größer oder gleich dem angegebenen Minimum sein.
 
-Debe ser mayor o igual a 0 e incluir cualquier cantidad de decimales. El número generado tendrá tantos dígitos después del punto decimal como el mayor número de decimales suministrado entre los valores mínimo y máximo.</translation>
+Dieser muss größer oder gleich 0 sein und kann eine beliebige Anzahl von Dezimalstellen enthalten. Die generierte Zahl hat so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen zwischen Minimum und Maximum.</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.ui" line="69"/>
@@ -1126,7 +1035,7 @@ p, li { white-space: pre-wrap; }
 &lt;table style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:600; text-decoration: underline;&quot;&gt;Raíz&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:600; text-decoration: underline;&quot;&gt;Wurzel&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.ui" line="83"/>
@@ -1139,35 +1048,35 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Número Base&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Basis&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.ui" line="94"/>
         <source>Min Root</source>
-        <translation>Raíz mínima</translation>
+        <translation>Minimalwurzel</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.ui" line="101"/>
         <source>The smallest allowed value for the root. It must be smaller than (or equal to) the maximum number provided.
 
 This must greater than 0.</source>
-        <translation>El valor mínimo permitido para la raíz. Debe ser menor o igual al máximo proporcionado.
+        <translation>Der minimal zulässige Wert für den Wurzelexponenten. Er muss kleiner oder gleich dem angegebenen Maximum sein.
 
-Debe ser mayor que 0.</translation>
+Dieser muss größer als 0 sein.</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.ui" line="116"/>
         <source>Max Root</source>
-        <translation>Raíz máxima</translation>
+        <translation>Maximalwurzel</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.ui" line="123"/>
         <source>The largest allowed value for the root. It must be larger than (or equal to) the minimum number provided.
 
 This must be greater than 0.</source>
-        <translation>El valor máximo permitido para la raíz. Debe ser mayor o igual al mínimo proporcionado.
+        <translation>Der maximal zulässige Wert für den Wurzelexponenten. Er muss größer oder gleich dem angegebenen Minimum sein.
 
-Debe ser mayor que 0.</translation>
+Dieser muss größer als 0 sein.</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.ui" line="138"/>
@@ -1186,36 +1095,36 @@ p, li { white-space: pre-wrap; }
 &lt;table style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Resultado&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Ergebnis&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.ui" line="152"/>
         <source>Decimal Places</source>
-        <translation>Número de decimales</translation>
+        <translation>Dezimalstellen</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.ui" line="159"/>
         <source>The desired number of digits after the decimal point in the result. If less than that produced by the root, the result will be rounded according to the currently set rounding mode.
 
 Should be 0 or more.</source>
-        <translation>El número deseado de dígitos después del punto decimal en el resultado. Si es menor que el producido por la raíz, el resultado se redondeará según el modo de redondeo establecido.
+        <translation>Die gewünschte Anzahl von Dezimalstellen im Ergebnis. Wenn kleiner als das durch das Wurzelziehen erzeugte Ergebnis, wird das Ergebnis gemäß dem aktuellen Rundungsmodus gerundet.
 
-Debe ser 0 o más.</translation>
+Muss 0 oder mehr sein.</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.ui" line="174"/>
         <source>Integers Only</source>
-        <translation>Solo enteros</translation>
+        <translation>Nur ganze Zahlen</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.ui" line="181"/>
         <source>Results must be integers only.</source>
-        <translation>Los resultados deben ser solo enteros.</translation>
+        <translation>Ergebnisse müssen ausschließlich ganze Zahlen sein.</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.ui" line="191"/>
         <source>Rounding Mode</source>
-        <translation>Modo de redondeo</translation>
+        <translation>Rundungsmodus</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.ui" line="198"/>
@@ -1232,21 +1141,21 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Método a usar para redondear el resultado a un cierto número de dígitos después del punto decimal.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Methode zum Runden des Ergebnisses auf eine bestimmte Anzahl von Dezimalstellen.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Truncar&lt;/span&gt;: Simplemente elimina los dígitos extra.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Abschneiden&lt;/span&gt;: Entfernt einfach überschüssige Dezimalstellen.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Redondear&lt;/span&gt;: Redondea el número de la manera estándar antes de truncar.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Runden&lt;/span&gt;: Rundet die Zahl auf die übliche Weise vor dem Abschneiden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.ui" line="210"/>
         <source>Truncate</source>
-        <translation>Truncar</translation>
+        <translation>Abschneiden</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.ui" line="215"/>
         <source>Round</source>
-        <translation>Redondear</translation>
+        <translation>Runden</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.cpp" line="119"/>
@@ -1255,32 +1164,32 @@ p, li { white-space: pre-wrap; }
         <location filename="rootsconfigframe.cpp" line="128"/>
         <location filename="rootsconfigframe.cpp" line="131"/>
         <source>Range Validation Error</source>
-        <translation>Error de rango de validación</translation>
+        <translation>Bereichsvalidierungsfehler</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.cpp" line="119"/>
         <source>There are no possible answers for the ranges you have entered.</source>
-        <translation>No hay respuestas posibles para los rangos ingresados.</translation>
+        <translation>Es gibt keine möglichen Antworten für die eingegebenen Bereiche.</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.cpp" line="122"/>
         <source>Minimum of root must be greater than zero.</source>
-        <translation>El mínimo de la raíz debe ser mayor que cero.</translation>
+        <translation>Das Minimum der Wurzel muss größer als null sein.</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.cpp" line="125"/>
         <source>Maximum of root must be greater than zero.</source>
-        <translation>El máximo de la raíz debe ser mayor que cero.</translation>
+        <translation>Das Maximum der Wurzel muss größer als null sein.</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.cpp" line="128"/>
         <source>Maximum of base number is smaller than the minimum.</source>
-        <translation>El máximo del número base es más pequeño que el mínimo.</translation>
+        <translation>Das Maximum der Basiszahl ist kleiner als das Minimum.</translation>
     </message>
     <message>
         <location filename="rootsconfigframe.cpp" line="131"/>
         <source>Maximum root is smaller than the minimum.</source>
-        <translation>El máximo de la raiz es más pequeño que el mínimo.</translation>
+        <translation>Die maximale Wurzel ist kleiner als das Minimum.</translation>
     </message>
 </context>
 <context>
@@ -1288,27 +1197,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="statisticsdialog.ui" line="14"/>
         <source>Statistics</source>
-        <translation>Estadísticas</translation>
+        <translation>Statistiken</translation>
     </message>
     <message>
         <location filename="statisticsdialog.cpp" line="51"/>
         <source>Label</source>
-        <translation>Etiqueta</translation>
+        <translation>Bezeichnung</translation>
     </message>
     <message>
         <location filename="statisticsdialog.cpp" line="52"/>
         <source>Quantity</source>
-        <translation>Cantidad</translation>
+        <translation>Anzahl</translation>
     </message>
     <message>
         <location filename="statisticsdialog.cpp" line="70"/>
         <source>Correct - %1</source>
-        <translation>Correcto - %1</translation>
+        <translation>Richtig - %1</translation>
     </message>
     <message>
         <location filename="statisticsdialog.cpp" line="78"/>
         <source>Wrong - %1</source>
-        <translation>Incorrecto - %1</translation>
+        <translation>Falsch - %1</translation>
     </message>
 </context>
 <context>
@@ -1324,13 +1233,13 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Primer Número&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Erste Zahl&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="subtractionconfigframe.ui" line="42"/>
         <location filename="subtractionconfigframe.ui" line="113"/>
         <source>Min Number</source>
-        <translation>Número mínimo</translation>
+        <translation>Mindestzahl</translation>
     </message>
     <message>
         <location filename="subtractionconfigframe.ui" line="55"/>
@@ -1339,17 +1248,17 @@ p, li { white-space: pre-wrap; }
 This can be negative, and include any number of decimal places. The generated number will have as many digits after the decimal point as the most supplied between the minimum and maximum values.
 
 The answer will contain as many digits after the decimal place as the most used by the first and second numbers.</source>
-        <translation>El valor mínimo permitido para el primer número de la resta. Debe ser menor o igual al máximo proporcionado.
+        <translation>Der minimal zulässige Wert für die erste Zahl der Subtraktion. Er muss kleiner oder gleich dem angegebenen Maximum sein.
 
-Puede ser negativo e incluir cualquier cantidad de decimales. El número generado tendrá tantos dígitos después del punto decimal como el mayor número de decimales suministrado entre los valores mínimo y máximo.
+Dies kann negativ sein und eine beliebige Anzahl von Dezimalstellen enthalten. Die generierte Zahl hat so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen zwischen Minimum und Maximum.
 
-La respuesta contendrá tantos dígitos después del punto decimal como el mayor número utilizado por el primer y segundo número.</translation>
+Das Ergebnis enthält so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen unter der ersten und zweiten Zahl.</translation>
     </message>
     <message>
         <location filename="subtractionconfigframe.ui" line="72"/>
         <location filename="subtractionconfigframe.ui" line="143"/>
         <source>Max Number</source>
-        <translation>Número máximo</translation>
+        <translation>Höchstzahl</translation>
     </message>
     <message>
         <location filename="subtractionconfigframe.ui" line="85"/>
@@ -1358,11 +1267,11 @@ La respuesta contendrá tantos dígitos después del punto decimal como el mayor
 This can be negative, and include any number of decimal places. The generated number will have as many digits after the decimal point as the most supplied between the minimum and maximum values.
 
 The answer will contain as many digits after the decimal place as the most used by the first and second numbers.</source>
-        <translation>El valor máximo permitido para el primer número de la resta. Debe ser mayor o igual al mínimo proporcionado.
+        <translation>Der maximal zulässige Wert für die erste Zahl der Subtraktion. Er muss größer oder gleich dem angegebenen Minimum sein.
 
-Puede ser negativo e incluir cualquier cantidad de decimales. El número generado tendrá tantos dígitos después del punto decimal como el mayor número de decimales suministrado entre los valores mínimo y máximo.
+Dies kann negativ sein und eine beliebige Anzahl von Dezimalstellen enthalten. Die generierte Zahl hat so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen zwischen Minimum und Maximum.
 
-La respuesta contendrá tantos dígitos después del punto decimal como el mayor número utilizado por el primer y segundo número.</translation>
+Das Ergebnis enthält so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen unter der ersten und zweiten Zahl.</translation>
     </message>
     <message>
         <location filename="subtractionconfigframe.ui" line="102"/>
@@ -1375,7 +1284,7 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Segundo Número&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Zweite Zahl&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="subtractionconfigframe.ui" line="126"/>
@@ -1384,11 +1293,11 @@ p, li { white-space: pre-wrap; }
 This can be negative, and include any number of decimal places. The generated number will have as many digits after the decimal point as the most supplied between the minimum and maximum values.
 
 The answer will contain as many digits after the decimal place as the most used by the first and second numbers.</source>
-        <translation>El valor mínimo permitido para el segundo número de la resta. Debe ser menor o igual al máximo proporcionado.
+        <translation>Der minimal zulässige Wert für die zweite Zahl der Subtraktion. Er muss kleiner oder gleich dem angegebenen Maximum sein.
 
-Puede ser negativo e incluir cualquier cantidad de decimales. El número generado tendrá tantos dígitos después del punto decimal como el mayor número de decimales suministrado entre los valores mínimo y máximo.
+Dies kann negativ sein und eine beliebige Anzahl von Dezimalstellen enthalten. Die generierte Zahl hat so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen zwischen Minimum und Maximum.
 
-La respuesta contendrá tantos dígitos después del punto decimal como el mayor número utilizado por el primer y segundo número.</translation>
+Das Ergebnis enthält so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen unter der ersten und zweiten Zahl.</translation>
     </message>
     <message>
         <location filename="subtractionconfigframe.ui" line="156"/>
@@ -1397,37 +1306,37 @@ La respuesta contendrá tantos dígitos después del punto decimal como el mayor
 This can be negative, and include any number of decimal places. The generated number will have as many digits after the decimal point as the most supplied between the minimum and maximum values.
 
 The answer will contain as many digits after the decimal place as the most used by the first and second numbers.</source>
-        <translation>El valor máximo permitido para el segundo número de la resta. Debe ser mayor o igual al mínimo proporcionado.
+        <translation>Der maximal zulässige Wert für die zweite Zahl der Subtraktion. Er muss größer oder gleich dem angegebenen Minimum sein.
 
-Puede ser negativo e incluir cualquier cantidad de decimales. El número generado tendrá tantos dígitos después del punto decimal como el mayor número de decimales suministrado entre los valores mínimo y máximo.
+Dies kann negativ sein und eine beliebige Anzahl von Dezimalstellen enthalten. Die generierte Zahl hat so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen zwischen Minimum und Maximum.
 
-La respuesta contendrá tantos dígitos después del punto decimal como el mayor número utilizado por el primer y segundo número.</translation>
+Das Ergebnis enthält so viele Dezimalstellen, wie die Zahl mit den meisten Dezimalstellen unter der ersten und zweiten Zahl.</translation>
     </message>
     <message>
         <location filename="subtractionconfigframe.ui" line="173"/>
         <source>Largest Number First</source>
-        <translation>Mayor número primero</translation>
+        <translation>Größte Zahl zuerst</translation>
     </message>
     <message>
         <location filename="subtractionconfigframe.ui" line="180"/>
         <source>If checked, whatever numbers are generated will be presented with the largest number as the first number, and the smallest one as the second number. Otherwise, what ever is generated will be used without modification.</source>
-        <translation>Si está marcado, los números generados se presentarán con el número mayor como primero y el menor como segundo. De lo contrario, los números generados se usarán sin modificación.</translation>
+        <translation>Wenn aktiviert, werden die generierten Zahlen mit der größten Zahl als erster Zahl und der kleinsten als zweiter Zahl angezeigt. Andernfalls werden die generierten Zahlen unverändert verwendet.</translation>
     </message>
     <message>
         <location filename="subtractionconfigframe.cpp" line="93"/>
         <location filename="subtractionconfigframe.cpp" line="96"/>
         <source>Range Validation Error</source>
-        <translation>Error de rango de validación</translation>
+        <translation>Bereichsvalidierungsfehler</translation>
     </message>
     <message>
         <location filename="subtractionconfigframe.cpp" line="93"/>
         <source>Maximum of first number is smaller than the minimum.</source>
-        <translation>El máximo del primer número es mas pequeño que el mínimo.</translation>
+        <translation>Das Maximum der ersten Zahl ist kleiner als das Minimum.</translation>
     </message>
     <message>
         <location filename="subtractionconfigframe.cpp" line="96"/>
         <source>Maximum of last number is smaller than the minimum.</source>
-        <translation>El máximo del último número es más pequeño que el mínimo.</translation>
+        <translation>Das Maximum der letzten Zahl ist kleiner als das Minimum.</translation>
     </message>
 </context>
 </TS>
