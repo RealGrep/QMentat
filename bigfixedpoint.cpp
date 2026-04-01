@@ -36,12 +36,6 @@ BigFixedPoint::BigFixedPoint()
     decimalPlaces = 0;
 }
 
-BigFixedPoint::BigFixedPoint(const BigFixedPoint& bfp)
-{
-    number = bfp.number;
-    decimalPlaces = bfp.decimalPlaces;
-}
-
 BigFixedPoint::BigFixedPoint(BigFixedPoint&& other) noexcept
     : number(std::move(other.number)), decimalPlaces(other.decimalPlaces)
 {
@@ -57,8 +51,7 @@ BigFixedPoint::BigFixedPoint(int num)
 BigFixedPoint::BigFixedPoint(qint64 num)
     : decimalPlaces(0)
 {
-    QString numStr = QString("%1").arg(num);
-    number = numStr.toStdString();
+    number = QString::number(num).toStdString();
 }
 
 BigFixedPoint::BigFixedPoint(std::string num, int decimals)
@@ -142,10 +135,6 @@ BigFixedPoint::BigFixedPoint(std::string num)
     number = num;
 }
 
-BigFixedPoint::~BigFixedPoint()
-{
-
-}
 
 bool BigFixedPoint::isValid(QString numStr)
 {
@@ -230,14 +219,14 @@ void BigFixedPoint::scale(int decimals)
         decimalPlaces = decimals;
     } else if (adjustment < 0) {
         mpz_class factor;
-        mpz_ui_pow_ui(factor.get_mpz_t(), 10, abs(adjustment));
+        mpz_ui_pow_ui(factor.get_mpz_t(), 10, std::abs(adjustment));
 
         if (roundingEnabled)
         {
             //qDebug() << "Rounding " << QString::fromStdString(number.get_str())
             //        << "from " << decimalPlaces << " to " << decimals;
             mpz_class adjNum;
-            mpz_ui_pow_ui(adjNum.get_mpz_t(), 10, abs(adjustment)-1);
+            mpz_ui_pow_ui(adjNum.get_mpz_t(), 10, std::abs(adjustment)-1);
             adjNum = 5*adjNum;
             //qDebug() << "Adjnum = " << QString::fromStdString(adjNum.get_str());
             number += adjNum;

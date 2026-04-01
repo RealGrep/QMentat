@@ -29,7 +29,7 @@
 
 class BigFixedPoint {
 public:
-    BigFixedPoint(const BigFixedPoint& bfp);
+    BigFixedPoint(const BigFixedPoint& bfp) = default;
     BigFixedPoint(BigFixedPoint&& other) noexcept;
     BigFixedPoint();
     BigFixedPoint(int num);
@@ -39,11 +39,11 @@ public:
     BigFixedPoint(std::string num, int decimals);
     BigFixedPoint(mpz_class num, int decimals);
 
-    virtual ~BigFixedPoint();
+    ~BigFixedPoint() = default;
 
-    static bool isValid(QString numStr);
+    [[nodiscard]] static bool isValid(QString numStr);
 
-    mpz_class getValue() const
+    [[nodiscard]] mpz_class getValue() const
     {
         return number;
     }
@@ -53,7 +53,7 @@ public:
         number = num;
     }
 
-    int getDecimalPlaces() const
+    [[nodiscard]] int getDecimalPlaces() const noexcept
     {
         return decimalPlaces;
     }
@@ -68,12 +68,12 @@ public:
         roundingEnabled = rnd;
     }
 
-    static bool isRounding()
+    [[nodiscard]] static bool isRounding() noexcept
     {
         return roundingEnabled;
     }
 
-    bool fitsInLongLong() const
+    [[nodiscard]] bool fitsInLongLong() const
     {
         if (decimalPlaces != 0)
         {
@@ -101,14 +101,14 @@ public:
     void scale(int decimals);
 
     static quint32 getSeed();
-    static BigFixedPoint random(const BigFixedPoint& min, const BigFixedPoint& max);
-    static BigFixedPoint random(const BigFixedPoint& n);
-    static BigFixedPoint max(const BigFixedPoint& lhs, const BigFixedPoint& rhs);
-    static BigFixedPoint min(const BigFixedPoint& lhs, const BigFixedPoint& rhs);
+    [[nodiscard]] static BigFixedPoint random(const BigFixedPoint& min, const BigFixedPoint& max);
+    [[nodiscard]] static BigFixedPoint random(const BigFixedPoint& n);
+    [[nodiscard]] static BigFixedPoint max(const BigFixedPoint& lhs, const BigFixedPoint& rhs);
+    [[nodiscard]] static BigFixedPoint min(const BigFixedPoint& lhs, const BigFixedPoint& rhs);
 
-    BigFixedPoint pow(int power) const;
-    BigFixedPoint root(int root) const;
-    BigFixedPoint sqrt() const;
+    [[nodiscard]] BigFixedPoint pow(int power) const;
+    [[nodiscard]] BigFixedPoint root(int root) const;
+    [[nodiscard]] BigFixedPoint sqrt() const;
 
     // Assignment operator
     BigFixedPoint& operator=(const BigFixedPoint &rhs);
@@ -116,19 +116,19 @@ public:
     BigFixedPoint& operator=(int num);
 
     // Comparison operators
-    bool operator==(const BigFixedPoint &rhs) const;
-    bool operator==(int rhs) const;
-    bool operator!=(const BigFixedPoint &rhs) const;
-    bool operator!=(int rhs) const;
-    bool operator>(const BigFixedPoint &rhs) const;
-    bool operator<=(const BigFixedPoint &rhs) const;
-    bool operator<(const BigFixedPoint &rhs) const;
-    bool operator>=(const BigFixedPoint &rhs) const;
+    [[nodiscard]] bool operator==(const BigFixedPoint &rhs) const;
+    [[nodiscard]] bool operator==(int rhs) const;
+    [[nodiscard]] bool operator!=(const BigFixedPoint &rhs) const;
+    [[nodiscard]] bool operator!=(int rhs) const;
+    [[nodiscard]] bool operator>(const BigFixedPoint &rhs) const;
+    [[nodiscard]] bool operator<=(const BigFixedPoint &rhs) const;
+    [[nodiscard]] bool operator<(const BigFixedPoint &rhs) const;
+    [[nodiscard]] bool operator>=(const BigFixedPoint &rhs) const;
 
-    bool operator>(qint64 rhs) const;
-    bool operator<=(qint64 rhs) const;
-    bool operator<(qint64 rhs) const;
-    bool operator>=(qint64 rhs) const;
+    [[nodiscard]] bool operator>(qint64 rhs) const;
+    [[nodiscard]] bool operator<=(qint64 rhs) const;
+    [[nodiscard]] bool operator<(qint64 rhs) const;
+    [[nodiscard]] bool operator>=(qint64 rhs) const;
 
     // Operators for the basic 4 operations
     BigFixedPoint& operator+=(const BigFixedPoint& rhs);
@@ -156,8 +156,8 @@ public:
                                          const BigFixedPoint& rhs);
     friend BigFixedPoint operator%(BigFixedPoint& lhs, int rhs);
 
-    QString toString() const;
-    qint64 toLongLong() const;
+    [[nodiscard]] QString toString() const;
+    [[nodiscard]] qint64 toLongLong() const;
 
     friend std::ostream&
             operator<< (std::ostream &os, const BigFixedPoint &x)
