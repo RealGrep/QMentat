@@ -20,6 +20,7 @@
 #include <gmpxx.h>
 #include <string>
 #include <limits>
+#include <utility>
 
 // For seeding gmp
 #include <QRandomGenerator>
@@ -39,6 +40,12 @@ BigFixedPoint::BigFixedPoint(const BigFixedPoint& bfp)
 {
     number = bfp.number;
     decimalPlaces = bfp.decimalPlaces;
+}
+
+BigFixedPoint::BigFixedPoint(BigFixedPoint&& other) noexcept
+    : number(std::move(other.number)), decimalPlaces(other.decimalPlaces)
+{
+    other.decimalPlaces = 0;
 }
 
 BigFixedPoint::BigFixedPoint(int num)
@@ -278,6 +285,17 @@ BigFixedPoint& BigFixedPoint::operator=(const BigFixedPoint &rhs)
     return *this;
 }
 
+BigFixedPoint& BigFixedPoint::operator=(BigFixedPoint&& rhs) noexcept
+{
+    if (this != &rhs)
+    {
+        number = std::move(rhs.number);
+        decimalPlaces = rhs.decimalPlaces;
+        rhs.decimalPlaces = 0;
+    }
+    return *this;
+}
+
 BigFixedPoint& BigFixedPoint::operator=(int num)
 {
     number = num;
@@ -414,7 +432,7 @@ BigFixedPoint& BigFixedPoint::operator+=(const BigFixedPoint& y) {
     return *this;
 }
 
-const BigFixedPoint operator+(const BigFixedPoint &lhs, const BigFixedPoint& rhs)
+BigFixedPoint operator+(const BigFixedPoint &lhs, const BigFixedPoint& rhs)
 {
     return BigFixedPoint(lhs) += rhs;
 }
@@ -426,12 +444,12 @@ BigFixedPoint& BigFixedPoint::operator+=(int rhs) {
     return *this;
 }
 
-const BigFixedPoint operator+(const BigFixedPoint &lhs, int rhs)
+BigFixedPoint operator+(const BigFixedPoint &lhs, int rhs)
 {
     return BigFixedPoint(lhs) += rhs;
 }
 
-const BigFixedPoint operator+(int lhs, const BigFixedPoint &rhs)
+BigFixedPoint operator+(int lhs, const BigFixedPoint &rhs)
 {
     return BigFixedPoint(rhs) += lhs;
 }
@@ -460,7 +478,7 @@ BigFixedPoint& BigFixedPoint::operator-=(const BigFixedPoint& rhs) {
     return *this;
 }
 
-const BigFixedPoint operator-(const BigFixedPoint& lhs, const BigFixedPoint& rhs)
+BigFixedPoint operator-(const BigFixedPoint& lhs, const BigFixedPoint& rhs)
 {
     return BigFixedPoint(lhs) -= rhs;
 }
@@ -472,12 +490,12 @@ BigFixedPoint& BigFixedPoint::operator-=(int rhs) {
     return *this;
 }
 
-const BigFixedPoint operator-(const BigFixedPoint& lhs, int rhs)
+BigFixedPoint operator-(const BigFixedPoint& lhs, int rhs)
 {
     return BigFixedPoint(lhs) -= rhs;
 }
 
-const BigFixedPoint operator-(int lhs, const BigFixedPoint& rhs)
+BigFixedPoint operator-(int lhs, const BigFixedPoint& rhs)
 {
     return BigFixedPoint(lhs) -= rhs;
 }
@@ -490,7 +508,7 @@ BigFixedPoint& BigFixedPoint::operator*=(const BigFixedPoint& rhs)
     return *this;
 }
 
-const BigFixedPoint operator*(const BigFixedPoint& lhs,
+BigFixedPoint operator*(const BigFixedPoint& lhs,
                               const BigFixedPoint& rhs)
 {
     return BigFixedPoint(lhs) *= rhs;
@@ -505,7 +523,7 @@ BigFixedPoint& BigFixedPoint::operator/=(const BigFixedPoint& rhs)
     return *this;
 }
 
-const BigFixedPoint operator/(const BigFixedPoint& lhs,
+BigFixedPoint operator/(const BigFixedPoint& lhs,
                               const BigFixedPoint& rhs)
 {
     return BigFixedPoint(lhs) /= rhs;
@@ -517,12 +535,12 @@ BigFixedPoint& BigFixedPoint::operator/=(int rhs)
     return *this;
 }
 
-const BigFixedPoint operator/(BigFixedPoint& lhs, int rhs)
+BigFixedPoint operator/(BigFixedPoint& lhs, int rhs)
 {
     return BigFixedPoint(lhs) /= rhs;
 }
 
-const BigFixedPoint operator%(const BigFixedPoint& lhs,
+BigFixedPoint operator%(const BigFixedPoint& lhs,
                               const BigFixedPoint& rhs)
 {
     BigFixedPoint ret;
@@ -534,7 +552,7 @@ const BigFixedPoint operator%(const BigFixedPoint& lhs,
     return ret;
 }
 
-const BigFixedPoint operator%(BigFixedPoint& lhs, int rhs)
+BigFixedPoint operator%(BigFixedPoint& lhs, int rhs)
 {
     BigFixedPoint ret;
 

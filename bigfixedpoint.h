@@ -30,6 +30,7 @@
 class BigFixedPoint {
 public:
     BigFixedPoint(const BigFixedPoint& bfp);
+    BigFixedPoint(BigFixedPoint&& other) noexcept;
     BigFixedPoint();
     BigFixedPoint(int num);
     BigFixedPoint(qint64 num);
@@ -111,6 +112,7 @@ public:
 
     // Assignment operator
     BigFixedPoint& operator=(const BigFixedPoint &rhs);
+    BigFixedPoint& operator=(BigFixedPoint&& rhs) noexcept;
     BigFixedPoint& operator=(int num);
 
     // Comparison operators
@@ -130,29 +132,29 @@ public:
 
     // Operators for the basic 4 operations
     BigFixedPoint& operator+=(const BigFixedPoint& rhs);
-    friend const BigFixedPoint operator+(const BigFixedPoint &lhs, const BigFixedPoint& rhs);
+    friend BigFixedPoint operator+(const BigFixedPoint &lhs, const BigFixedPoint& rhs);
     BigFixedPoint& operator+=(int rhs);
-    friend const BigFixedPoint operator+(const BigFixedPoint &lhs, int rhs);
-    friend const BigFixedPoint operator+(int lhs, const BigFixedPoint &rhs);
+    friend BigFixedPoint operator+(const BigFixedPoint &lhs, int rhs);
+    friend BigFixedPoint operator+(int lhs, const BigFixedPoint &rhs);
 
     BigFixedPoint & operator-=(const BigFixedPoint& rhs);
-    friend const BigFixedPoint operator-(const BigFixedPoint& lhs, const BigFixedPoint& rhs);
+    friend BigFixedPoint operator-(const BigFixedPoint& lhs, const BigFixedPoint& rhs);
     BigFixedPoint& operator-=(int rhs);
-    friend const BigFixedPoint operator-(const BigFixedPoint &lhs, int rhs);
-    friend const BigFixedPoint operator-(int lhs, const BigFixedPoint &rhs);
+    friend BigFixedPoint operator-(const BigFixedPoint &lhs, int rhs);
+    friend BigFixedPoint operator-(int lhs, const BigFixedPoint &rhs);
 
     BigFixedPoint& operator*=(const BigFixedPoint& rhs);
-    friend const BigFixedPoint operator*(const BigFixedPoint& lhs,
+    friend BigFixedPoint operator*(const BigFixedPoint& lhs,
                                          const BigFixedPoint& rhs);
 
     BigFixedPoint& operator/=(const BigFixedPoint& rhs);
-    friend const BigFixedPoint operator/(const BigFixedPoint& lhs,
+    friend BigFixedPoint operator/(const BigFixedPoint& lhs,
                                          const BigFixedPoint& rhs);
     BigFixedPoint& operator/=(int rhs);
-    friend const BigFixedPoint operator/(BigFixedPoint& lhs, int rhs);
-    friend const BigFixedPoint operator%(const BigFixedPoint& lhs,
+    friend BigFixedPoint operator/(BigFixedPoint& lhs, int rhs);
+    friend BigFixedPoint operator%(const BigFixedPoint& lhs,
                                          const BigFixedPoint& rhs);
-    friend const BigFixedPoint operator%(BigFixedPoint& lhs, int rhs);
+    friend BigFixedPoint operator%(BigFixedPoint& lhs, int rhs);
 
     QString toString() const;
     qint64 toLongLong() const;
