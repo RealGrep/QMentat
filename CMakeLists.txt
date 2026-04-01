@@ -132,13 +132,6 @@ else()
 endif()
 
 
-# CUSTOM COMMANDS
-# Update translation files
-#add_custom_target(update_translations
-#    COMMAND lupdate ${CMAKE_SOURCE_DIR} -ts ${CMAKE_SOURCE_DIR}/qmentat_fr.ts
-#                                           ${CMAKE_SOURCE_DIR}/qmentat_de.ts
-#                                           ${CMAKE_SOURCE_DIR}/qmentat_es.ts
-#                                           ${CMAKE_SOURCE_DIR}/qmentat_it.ts
-#    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-#    COMMENT "Updating translation files..."
-#)
+# Translation workflow (targets provided automatically by qt_add_translations above):
+#   cmake --build build --target update_translations   # runs lupdate, syncs .ts files
+#   cmake --build build                                # runs lrelease, recompiles .qm files
