@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(QMentat VERSION 1.0.0 LANGUAGES CXX)
+project(QMentat VERSION 1.0.2 LANGUAGES CXX)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -10,6 +10,12 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # This ensures generated UI headers can find your source headers
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+# Make a version.h with the version in it
+configure_file(
+    "${CMAKE_SOURCE_DIR}/version.h.in"
+    "${CMAKE_BINARY_DIR}/version.h"
+)
 
 # 1. Find Qt Components (LinguistTools handles the translations)
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Help LinguistTools)

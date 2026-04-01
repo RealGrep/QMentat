@@ -29,6 +29,7 @@
 #include "rootsmodule.h"
 #include "questiondisplayform.h"
 #include "statisticsdialog.h"
+#include "version.h.in"
 #ifdef SHOW_LICENSE
 #    include "licensedialog.h"
 #endif
@@ -381,7 +382,7 @@ void MainWindow::on_actionRoots_triggered()
  */
 void MainWindow::on_actionAbout_triggered()
 {
-    QMessageBox::about(this, tr("About QMentat"), tr("QMentat\n\nWritten by Mike Dusseault\nCopyright (c) 2026 Mike Dusseault.\n\nQMentat is released under the GPL version 3."));
+    QMessageBox::about(this, tr("About QMentat"), tr("QMentat version %1\n\nWritten by Mike Dusseault\nCopyright (c) 2026 Mike Dusseault.\n\nQMentat is released under the GPL version 3.").arg(QMENTAT_VERSION));
 }
 
 void MainWindow::on_actionStatistics_triggered()
