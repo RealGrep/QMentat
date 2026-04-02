@@ -44,7 +44,15 @@ HelpDialog::HelpDialog(QWidget *parent) :
         // Try installed location first
         docsFile = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "QMentat/documentation/QMentat.qhc");
 
-        // Fall back to development location
+        // Fall back to executable directory (works for Windows zip releases)
+        if (docsFile.isEmpty())
+        {
+            QString candidate = QCoreApplication::applicationDirPath() + "/documentation/QMentat.qhc";
+            if (QFile::exists(candidate))
+                docsFile = candidate;
+        }
+
+        // Fall back to development/source location
         if (docsFile.isEmpty())
         {
             docsFile = QString(QMENTAT_SOURCE_DIR) + "/documentation/QMentat.qhc";
