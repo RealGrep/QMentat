@@ -27,7 +27,9 @@ jobs:
         run: cmake --build build --config Release
         
       - name: Package
-        run: Compress-Archive build/Release/* QMentat-windows.zip
+        run: |
+          Copy-Item -Recurse documentation build/Release/documentation
+          Compress-Archive build/Release/* QMentat-windows.zip
 
       - name: Release
         if: startsWith(github.ref, 'refs/tags/')
