@@ -4,11 +4,32 @@
 
 QMentat is a program to help you practice mental arithmetic. It uses arbitrary length fixed point arithmetic and can handle any size numbers, only limited by the size of your screen (and in the case of division with an integer result, the speed at which the number can be factored, and the square root of the largest number). It is also quite configurable, allowing you to tailor the questions to your needs.
 
-For instructions on building and installing, please see the INSTALL file.
-
 I'll fancy this up with a few screenshots shortly, when I have time.
 
 The home page for QMentat is at: [QMentat Home Page](http://realgrep.github.io/QMentat/)
+**NOTE: That home page is sorely, severely out of date, but will be updated when I have time.**
+
+## Installation
+
+### Linux
+
+There's an Arch Linux PKGBUILD in the AUR, btw. With yay, for example:
+
+```yay -S qmentat```
+
+Packages for some other distros will come, probably .deb and .rpm, unless someone takes up doing it before I get around to it.
+
+### Windows
+
+ 1. Grab the latest Windows zip file from the [GitHub Releases page](https://github.com/realgrep/QMentat/releases).
+ 2. Create a directory wherever you want to put it.
+ 3. Unzip the files **into that directory**.
+ 4. With that directory as the working directory, just run QMentat.exe. It will find everything in there relative to your working directory.
+ 5. And yes, I may get a Windows installer going at some point.
+
+### Building and installing from source
+
+For instructions on building and installing from source, please see the INSTALL file.
 
 ## Contributing Translations
 
