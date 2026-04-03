@@ -43,7 +43,7 @@ The translation files are simple XML (`.ts` format) and no C++ knowledge is need
 2. To start a new language, copy an existing `.ts` file and rename it (e.g. `qmentat_pt.ts` for Portuguese)
 3. Open it in a text editor or [Qt Linguist](https://doc.qt.io/qt-6/linguist-translators.html) (free, purpose-built GUI for this)
 4. Each `<message>` block contains a `<source>` (English) and a `<translation>` — fill in the translation and remove the `type="unfinished"` attribute
-5. Submit a pull request, or simply [file an issue](../../issues) with the corrected strings if you prefer not to use git
+5. Submit a pull request, or simply [file an issue](https://github.com/realgrep/QMentat/issues) with the corrected strings if you prefer not to use git
 
 To generate a new `.qm` binary from your `.ts` file: `lrelease qmentat_XX.ts`
 
