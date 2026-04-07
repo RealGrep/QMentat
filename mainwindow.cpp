@@ -102,13 +102,18 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Set up TTS
     tts = new QTextToSpeech(this);
-    ttsAvailable = (tts->state() != QTextToSpeech::Error);
+    //ttsAvailable = (tts->state() != QTextToSpeech::Error);
+    ttsAvailable = (tts && tts->availableEngines().size() > 0);
     if (!ttsAvailable) {
         ui->speakButton->hide();
         ui->autoSpeakCheckBox->hide();
     } else {
         ui->autoSpeakCheckBox->setChecked(Preferences::getInstance().getTTSEnabled());
         tts->setRate(Preferences::getInstance().getTTSRate());
+
+        // Set the locale in the speech engine for less funny but more useful results.
+        QLocale currentLocale = QLocale::system();
+        tts->setLocale(currentLocale);
     }
 
     // Kick off first question
@@ -477,7 +482,14 @@ void MainWindow::on_actionRoots_triggered()
  */
 void MainWindow::on_actionAbout_triggered()
 {
-    QMessageBox::about(this, tr("About QMentat"), tr("QMentat version %1\n\nWritten by Mike Dusseault\nCopyright (c) 2026 Mike Dusseault.\n\nQMentat is released under the GPL version 3.").arg(QMENTAT_VERSION));
+    //QMessageBox::about(this, tr("About QMentat"), tr("QMentat version %1\n\nWritten by Mike Dusseault\nCopyright (c) 2026 Mike Dusseault.\n\nQMentat is released under the GPL version 3.\n\nYou may find the sources and releases on the QMentat Github.").arg(QMENTAT_VERSION));
+    QMessageBox::about(this, tr("About QMentat"), 
+    tr("QMentat version %1<br><br>"
+       "Written by Mike Dusseault<br>"
+       "Copyright (c) 2026 Mike Dusseault.<br><br>"
+       "QMentat is released under the GPL version 3.<br><br>"
+       "Official sources and releases on the <a href=\"https://github.com/RealGrep/QMentat\">QMentat GitHub</a>")
+    .arg(QMENTAT_VERSION));
 }
 
 void MainWindow::on_actionStatistics_triggered()
