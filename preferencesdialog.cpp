@@ -33,6 +33,13 @@ PreferencesDialog::PreferencesDialog(QWidget *parent) :
 
     ui->questionFontLineEdit->setFont(Preferences::getInstance().getQuestionFont());
     ui->answerFontLineEdit->setFont(Preferences::getInstance().getAnswerFont());
+
+    Preferences& prefs = Preferences::getInstance();
+    ui->autoSpeakCheckBox->setChecked(prefs.getTTSEnabled());
+    ui->hideVisualCheckBox->setChecked(prefs.getTTSHideVisual());
+    ui->ttsRateSlider->setValue(static_cast<int>(prefs.getTTSRate() * 10.0));
+
+    tts = new QTextToSpeech(this);
 }
 
 PreferencesDialog::~PreferencesDialog()
@@ -42,14 +49,24 @@ PreferencesDialog::~PreferencesDialog()
 
 void PreferencesDialog::apply()
 {
-    if (ui->questionFontLineEdit->font() != Preferences::getInstance().getQuestionFont())
-    {
-        Preferences::getInstance().setQuestionFont(ui->questionFontLineEdit->font());
-    }
+    Preferences& prefs = Preferences::getInstance();
 
-    if (ui->answerFontLineEdit->font() != Preferences::getInstance().getAnswerFont())
-    {
-        Preferences::getInstance().setAnswerFont(ui->answerFontLineEdit->font());
+    if (ui->questionFontLineEdit->font() != prefs.getQuestionFont())
+        prefs.setQuestionFont(ui->questionFontLineEdit->font());
+
+    if (ui->answerFontLineEdit->font() != prefs.getAnswerFont())
+        prefs.setAnswerFont(ui->answerFontLineEdit->font());
+
+    prefs.setTTSEnabled(ui->autoSpeakCheckBox->isChecked());
+    prefs.setTTSHideVisual(ui->hideVisualCheckBox->isChecked());
+    prefs.setTTSRate(ui->ttsRateSlider->value() / 10.0);
+}
+
+void PreferencesDialog::on_testSpeechButton_clicked()
+{
+    if (tts) {
+        tts->setRate(ui->ttsRateSlider->value() / 10.0);
+        tts->say(tr("What is 7 times 8?"));
     }
 }
 

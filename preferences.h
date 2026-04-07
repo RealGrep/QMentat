@@ -40,6 +40,13 @@ public:
     void setAnswerFont(const QFont& font);
     QFont getAnswerFont() const;
 
+    bool getTTSEnabled() const;
+    void setTTSEnabled(bool enabled);
+    bool getTTSHideVisual() const;
+    void setTTSHideVisual(bool hide);
+    double getTTSRate() const;
+    void setTTSRate(double rate);
+
     void save();
     void restore();
 
@@ -47,6 +54,10 @@ private:
     Preferences();
     QFont questionFont;
     QFont answerFont;
+
+    bool ttsEnabled = false;
+    bool ttsHideVisual = false;
+    double ttsRate = 0.0;
 
     std::vector<PreferencesListener*> listeners;
 

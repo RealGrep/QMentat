@@ -22,6 +22,7 @@
 #include "multiplicationmodule.h"
 #include <QMainWindow>
 #include <QMessageBox>
+#include <QTextToSpeech>
 #include "practicemodule.h"
 #include "preferenceslistener.h"
 
@@ -69,6 +70,10 @@ private:
 
     void preferencesChanged();
 
+    QString questionToSpeech(const QString& q);
+    void speakQuestion();
+    void updateTTSControls();
+
 private slots:
     void on_tabWidget_currentChanged(int index);
     void on_actionStatistics_triggered();
@@ -84,6 +89,13 @@ private slots:
     void on_actionContents_triggered();
     void on_actionPreferences_triggered();
     void on_actionAbout_Qt_triggered();
+    void on_speakButton_clicked();
+    void on_autoSpeakCheckBox_toggled(bool checked);
+
+private:
+    QTextToSpeech *tts = nullptr;
+    QString currentQuestion;
+    bool ttsAvailable = false;
 };
 
 #endif // MAINWINDOW_H

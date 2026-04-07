@@ -100,6 +100,17 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 #endif
 
+    // Set up TTS
+    tts = new QTextToSpeech(this);
+    ttsAvailable = (tts->state() != QTextToSpeech::Error);
+    if (!ttsAvailable) {
+        ui->speakButton->hide();
+        ui->autoSpeakCheckBox->hide();
+    } else {
+        ui->autoSpeakCheckBox->setChecked(Preferences::getInstance().getTTSEnabled());
+        tts->setRate(Preferences::getInstance().getTTSRate());
+    }
+
     // Kick off first question
     newQuestion();
     Preferences::getInstance().addListener(this);
@@ -238,10 +249,65 @@ void MainWindow::writeSettings() {
 void MainWindow::newQuestion()
 {
     assert(module != 0);
-    QString q = module->question();
+    currentQuestion = module->question();
 
-    module->getDisplayFrame()->setText(q);
+    module->getDisplayFrame()->setText(currentQuestion);
+    updateTTSControls();
     ui->lineEdit->clear();
+}
+
+void MainWindow::speakQuestion()
+{
+    if (tts && !currentQuestion.isEmpty())
+        tts->say(questionToSpeech(currentQuestion));
+}
+
+void MainWindow::on_speakButton_clicked()
+{
+    speakQuestion();
+}
+
+void MainWindow::on_autoSpeakCheckBox_toggled(bool checked)
+{
+    Preferences::getInstance().setTTSEnabled(checked);
+    updateTTSControls();
+}
+
+void MainWindow::updateTTSControls()
+{
+    if (!ttsAvailable || !module)
+        return;
+    bool hide = Preferences::getInstance().getTTSEnabled()
+             && Preferences::getInstance().getTTSHideVisual();
+    module->getDisplayFrame()->setVisible(!hide);
+}
+
+QString MainWindow::questionToSpeech(const QString& q)
+{
+    QStringList parts = q.split('\n');
+    if (parts.size() < 2)
+        return q;
+
+    QString a = parts[0].trimmed().remove(',');
+    QString b = parts[1].trimmed();
+    if (b.isEmpty())
+        return q;
+
+    QChar op = b[0];
+    QString operand = b.mid(1).trimmed().remove(',');
+
+    switch (op.toLatin1()) {
+        case '+': return QString("%1 plus %2").arg(a, operand);
+        case '-': return QString("%1 minus %2").arg(a, operand);
+        case 'x': return QString("%1 times %2").arg(a, operand);
+        case '/': return QString("%1 divided by %2").arg(a, operand);
+        case '^': return QString("%1 to the power of %2").arg(a, operand);
+        case '|':
+            if (operand == "2")
+                return QString("the square root of %1").arg(a);
+            return QString("the %1 root of %2").arg(operand, a);
+        default:  return q;
+    }
 }
 
 bool MainWindow::answerValid(const QString& answerGiven)
@@ -287,12 +353,19 @@ void MainWindow::on_lineEdit_returnPressed()
     }
 
     // Handle correct or not
-    if (answerValid(answerGiven) && module->isCorrect(answerGiven))
+    bool correct = answerValid(answerGiven) && module->isCorrect(answerGiven);
+    QString feedbackSpeech;
+    if (correct)
     {
         ui->textEdit->setText(tr("Correct!"));
+        feedbackSpeech = tr("Correct");
         this->totalCorrect++;
     } else {
         ui->textEdit->setText(tr("Wrong! %1").arg(module->getAnswerString()));
+        // getAnswerString() returns e.g. "47 + 83 = 130" — extract just the answer after " = "
+        QString answerStr = module->getAnswerString();
+        QString spokenAnswer = answerStr.section(" = ", -1).remove(',');
+        feedbackSpeech = tr("Wrong. The answer is %1").arg(spokenAnswer);
         this->totalWrong++;
     }
     this->totalQuestions++;
@@ -304,6 +377,8 @@ void MainWindow::on_lineEdit_returnPressed()
                              .arg(QLocale::system().percent()));
 
     newQuestion();
+    if (ttsAvailable && Preferences::getInstance().getTTSEnabled())
+        tts->say(feedbackSpeech + ". " + questionToSpeech(currentQuestion));
     ui->lineEdit->setFocus();
 }
 
@@ -335,6 +410,7 @@ void MainWindow::moduleChange(PracticeModule *mod) {
     assert(module != 0);
 
     newQuestion();
+    speakQuestion();
 }
 
 /*! Swap to addition practice.
@@ -431,8 +507,14 @@ void MainWindow::on_actionAbout_Qt_triggered()
 
 void MainWindow::preferencesChanged()
 {
-    if (Preferences::getInstance().getAnswerFont() != ui->lineEdit->font())
-    {
-        ui->lineEdit->setFont(Preferences::getInstance().getAnswerFont());
+    Preferences& prefs = Preferences::getInstance();
+
+    if (prefs.getAnswerFont() != ui->lineEdit->font())
+        ui->lineEdit->setFont(prefs.getAnswerFont());
+
+    if (ttsAvailable) {
+        tts->setRate(prefs.getTTSRate());
+        ui->autoSpeakCheckBox->setChecked(prefs.getTTSEnabled());
+        updateTTSControls();
     }
 }

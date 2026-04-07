@@ -18,7 +18,7 @@ configure_file(
 )
 
 # 1. Find Qt Components (LinguistTools handles the translations)
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Help LinguistTools)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Help TextToSpeech LinguistTools)
 
 # 2. Handle Dependencies (GMP/MPIR)
 if(WIN32)
@@ -95,11 +95,12 @@ target_compile_definitions(QMentat PRIVATE
 )
 
 # 5. Link everything
-target_link_libraries(QMentat PRIVATE 
-    Qt6::Core 
-    Qt6::Gui 
-    Qt6::Widgets 
+target_link_libraries(QMentat PRIVATE
+    Qt6::Core
+    Qt6::Gui
+    Qt6::Widgets
     Qt6::Help
+    Qt6::TextToSpeech
     ${EXTRA_LIBS}
 )
 

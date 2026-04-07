@@ -20,6 +20,7 @@
 
 #include <QDialog>
 #include <QFontDialog>
+#include <QTextToSpeech>
 
 namespace Ui {
     class PreferencesDialog;
@@ -37,11 +38,12 @@ private slots:
     void apply();
     void on_questionFontButton_clicked();
     void on_answerFontButton_clicked();
-
+    void on_testSpeechButton_clicked();
     void on_preferencesButtonBox_accepted();
 
 private:
     Ui::PreferencesDialog *ui;
+    QTextToSpeech *tts = nullptr;
 };
 
 #endif // PREFERENCESDIALOG_H

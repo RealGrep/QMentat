@@ -33,6 +33,9 @@ void Preferences::save()
     QSettings settings;
     settings.setValue("main/questionfont", questionFont.toString());
     settings.setValue("main/answerfont", answerFont.toString());
+    settings.setValue("audio/tts_enabled", ttsEnabled);
+    settings.setValue("audio/tts_hide_visual", ttsHideVisual);
+    settings.setValue("audio/tts_rate", ttsRate);
 }
 
 void Preferences::restore()
@@ -40,6 +43,9 @@ void Preferences::restore()
     QSettings settings;
     questionFont.fromString(settings.value("main/questionfont", QFont("Arial", 30).toString()).toString());
     answerFont.fromString(settings.value("main/answerfont", QFont("Arial", 30).toString()).toString());
+    ttsEnabled = settings.value("audio/tts_enabled", false).toBool();
+    ttsHideVisual = settings.value("audio/tts_hide_visual", false).toBool();
+    ttsRate = settings.value("audio/tts_rate", 0.0).toDouble();
     notifyListeners();
 }
 
@@ -88,3 +94,10 @@ QFont Preferences::getAnswerFont() const
 {
     return answerFont;
 }
+
+bool Preferences::getTTSEnabled() const { return ttsEnabled; }
+void Preferences::setTTSEnabled(bool enabled) { ttsEnabled = enabled; notifyListeners(); }
+bool Preferences::getTTSHideVisual() const { return ttsHideVisual; }
+void Preferences::setTTSHideVisual(bool hide) { ttsHideVisual = hide; notifyListeners(); }
+double Preferences::getTTSRate() const { return ttsRate; }
+void Preferences::setTTSRate(double rate) { ttsRate = rate; notifyListeners(); }
