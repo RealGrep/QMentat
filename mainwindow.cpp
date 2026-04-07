@@ -113,6 +113,22 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Kick off first question
     newQuestion();
+
+    // Speak first question if auto-speak is on.
+    // QTextToSpeech may not be Ready yet at construction time (async backend
+    // init on e.g. speech-dispatcher), so handle both cases.
+    if (ttsAvailable && Preferences::getInstance().getTTSEnabled()) {
+        if (tts->state() == QTextToSpeech::Ready) {
+            speakQuestion();
+        } else {
+            connect(tts, &QTextToSpeech::stateChanged, this,
+                [this](QTextToSpeech::State state) {
+                    if (state == QTextToSpeech::Ready)
+                        speakQuestion();
+                }, Qt::SingleShotConnection);
+        }
+    }
+
     Preferences::getInstance().addListener(this);
     ui->lineEdit->setFont(Preferences::getInstance().getAnswerFont());
     ui->lineEdit->setFocus();
@@ -258,7 +274,7 @@ void MainWindow::newQuestion()
 
 void MainWindow::speakQuestion()
 {
-    if (tts && !currentQuestion.isEmpty())
+    if (ttsAvailable && !currentQuestion.isEmpty())
         tts->say(questionToSpeech(currentQuestion));
 }
 
@@ -362,7 +378,7 @@ void MainWindow::on_lineEdit_returnPressed()
         this->totalCorrect++;
     } else {
         ui->textEdit->setText(tr("Wrong! %1").arg(module->getAnswerString()));
-        // getAnswerString() returns e.g. "47 + 83 = 130" — extract just the answer after " = "
+        // Extract only the final answer value for speech — full expression is redundant after hearing the question
         QString answerStr = module->getAnswerString();
         QString spokenAnswer = answerStr.section(" = ", -1).remove(',');
         feedbackSpeech = tr("Wrong. The answer is %1").arg(spokenAnswer);
@@ -410,7 +426,8 @@ void MainWindow::moduleChange(PracticeModule *mod) {
     assert(module != nullptr);
 
     newQuestion();
-    speakQuestion();
+    if (ttsAvailable && Preferences::getInstance().getTTSEnabled())
+        speakQuestion();
 }
 
 /*! Swap to addition practice.
@@ -514,7 +531,10 @@ void MainWindow::preferencesChanged()
 
     if (ttsAvailable) {
         tts->setRate(prefs.getTTSRate());
-        ui->autoSpeakCheckBox->setChecked(prefs.getTTSEnabled());
+        {
+            QSignalBlocker blocker(ui->autoSpeakCheckBox);
+            ui->autoSpeakCheckBox->setChecked(prefs.getTTSEnabled());
+        }
         updateTTSControls();
     }
 }
