@@ -35,7 +35,7 @@ PowersModule::PowersModule(MainWindow *mw)
 
     // Init sane defaults
     power = 0;
-    genPower = 0;
+    genPower = nullptr;
 
     // Read config
     QSettings settings;
@@ -60,26 +60,23 @@ PowersModule::PowersModule(MainWindow *mw)
     configFrame->setRoundingMode((roundingMode == true) ? 1 : 0);
 
     // Make display frame
-    displayFrame = (QuestionDisplay*)(new QuestionDisplayForm());
+    displayFrame = static_cast<QuestionDisplay*>(new QuestionDisplayForm());
 
     powerRangeUpdated();
 }
 
 PowersModule::~PowersModule()
 {
-    assert(configFrame != 0);
-    assert(displayFrame != 0);
-
-    delete genPower;
-    genPower = 0;
+    assert(configFrame != nullptr);
+    assert(displayFrame != nullptr);
 
     this->mainWindow->layout()->removeWidget(configFrame);
     configFrame->close();
     delete configFrame;
-    configFrame = 0;
+    configFrame = nullptr;
 
     delete displayFrame;
-    displayFrame = 0;
+    displayFrame = nullptr;
 }
 
 QFrame* PowersModule::getConfigFrame()
@@ -94,7 +91,7 @@ QuestionDisplay* PowersModule::getDisplayFrame()
 
 QString PowersModule::question()
 {
-    assert(genPower != 0);
+    assert(genPower != nullptr);
 
     firstNumber = BigFixedPoint::random(min, max);
     power = (*genPower)();
@@ -134,15 +131,7 @@ QString PowersModule::getAnswerString()
  */
 void PowersModule::powerRangeUpdated()
 {
-    // Get rid of previous generator
-    delete genPower;
-    genPower = 0;
-
-    // Make new generator
-    int minGen = powerMin;
-    int maxGen = powerMax;
-
-    genPower = new RandomInt<int>(minGen, maxGen);
+    genPower = std::make_unique<RandomInt<int>>(powerMin, powerMax);
 }
 
 void PowersModule::setSettings(const BigFixedPoint& newFirstMin,

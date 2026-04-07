@@ -40,7 +40,7 @@ MultiplicationConfigFrame::MultiplicationConfigFrame(QWidget *parent) :
     QIntValidator *intValidator = new QIntValidator(0, 100, this);
     ui->decimalPlacesLineEdit->setValidator(intValidator);
 
-    this->module = 0;
+    this->module = nullptr;
 }
 
 MultiplicationConfigFrame::~MultiplicationConfigFrame()

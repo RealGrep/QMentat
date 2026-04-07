@@ -58,21 +58,21 @@ AdditionModule::AdditionModule(MainWindow *mw)
     configFrame->setLargestNumberFirst(largestNumberFirst);
 
     // Make display frame
-    displayFrame = (QuestionDisplay*)(new QuestionDisplayForm());
+    displayFrame = static_cast<QuestionDisplay*>(new QuestionDisplayForm());
 }
 
 AdditionModule::~AdditionModule()
 {
-    assert(configFrame != 0);
-    assert(displayFrame != 0);
+    assert(configFrame != nullptr);
+    assert(displayFrame != nullptr);
 
     this->mainWindow->layout()->removeWidget(configFrame);
     configFrame->close();
     delete configFrame;
-    configFrame = 0;
+    configFrame = nullptr;
 
     delete displayFrame;
-    displayFrame = 0;
+    displayFrame = nullptr;
 }
 
 /*! \returns Pointer to QFrame containing configuration form for this module.

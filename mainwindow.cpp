@@ -72,7 +72,7 @@ MainWindow::MainWindow(QWidget *parent) :
     srand(getSeed() % 1000000);
 
     // Load up the default module
-    module = 0;
+    module = nullptr;
     moduleChange(new AdditionModule(this));
 
     ui->settingsTab->layout()->addWidget(module->getConfigFrame());
@@ -248,7 +248,7 @@ void MainWindow::writeSettings() {
  */
 void MainWindow::newQuestion()
 {
-    assert(module != 0);
+    assert(module != nullptr);
     currentQuestion = module->question();
 
     module->getDisplayFrame()->setText(currentQuestion);
@@ -343,7 +343,7 @@ bool MainWindow::answerValid(const QString& answerGiven)
  */
 void MainWindow::on_lineEdit_returnPressed()
 {
-    assert(module != 0);
+    assert(module != nullptr);
 
     // Answer as integer
     QString answerGiven = ui->lineEdit->text().trimmed();
@@ -373,7 +373,7 @@ void MainWindow::on_lineEdit_returnPressed()
                              .arg(totalQuestions )
                              .arg(totalCorrect)
                              .arg(totalWrong)
-                             .arg(((double)totalCorrect / (double)totalQuestions) * 100.0F, 0, 'f', 2)
+                             .arg((static_cast<double>(totalCorrect) / static_cast<double>(totalQuestions)) * 100.0, 0, 'f', 2)
                              .arg(QLocale::system().percent()));
 
     newQuestion();
@@ -388,10 +388,10 @@ void MainWindow::on_lineEdit_returnPressed()
  *    the old one.
  */
 void MainWindow::moduleChange(PracticeModule *mod) {
-    assert(mod != 0);
+    assert(mod != nullptr);
 
     // Load the config and display frames
-    if (module != 0) {
+    if (module != nullptr) {
         ui->settingsTab->layout()->removeWidget(mod->getConfigFrame());
         module->getConfigFrame()->close();
 
@@ -399,7 +399,7 @@ void MainWindow::moduleChange(PracticeModule *mod) {
         module->getDisplayFrame()->close();
 
         delete module;
-        module = 0;
+        module = nullptr;
     }
 
     // Grab new module and get new config and display frames
@@ -407,7 +407,7 @@ void MainWindow::moduleChange(PracticeModule *mod) {
     ui->settingsTab->layout()->addWidget(module->getConfigFrame());
     ui->displayPane->layout()->addWidget(module->getDisplayFrame());
 
-    assert(module != 0);
+    assert(module != nullptr);
 
     newQuestion();
     speakQuestion();

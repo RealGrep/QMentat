@@ -37,7 +37,7 @@ class DivisionConfigFrame : public QFrame
     Q_OBJECT
 
 public:
-    explicit DivisionConfigFrame(QWidget *parent = 0);
+    explicit DivisionConfigFrame(QWidget *parent = nullptr);
     ~DivisionConfigFrame();
 
     enum RoundingMode {ROUNDING_TRUNCATE = 0, ROUNDING_ROUND = 1};

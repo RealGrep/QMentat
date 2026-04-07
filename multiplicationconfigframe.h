@@ -35,7 +35,7 @@ class MultiplicationConfigFrame : public QFrame
     Q_OBJECT
 
 public:
-    explicit MultiplicationConfigFrame(QWidget *parent = 0);
+    explicit MultiplicationConfigFrame(QWidget *parent = nullptr);
     ~MultiplicationConfigFrame();
 
     void setModule(MultiplicationModule *mod);

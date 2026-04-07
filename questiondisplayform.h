@@ -36,7 +36,7 @@ class QuestionDisplayForm : public QuestionDisplay, public PreferencesListener
     Q_OBJECT
 
 public:
-    explicit QuestionDisplayForm(QWidget *parent = 0);
+    explicit QuestionDisplayForm(QWidget *parent = nullptr);
     ~QuestionDisplayForm();
     void paintEvent(QPaintEvent *);
 

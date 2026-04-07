@@ -35,7 +35,7 @@ RootsModule::RootsModule(MainWindow *mw)
 
     // Init sane defaults
     root = 0;
-    genRoot = 0;
+    genRoot = nullptr;
 
     // Read config
     QSettings settings;
@@ -62,26 +62,23 @@ RootsModule::RootsModule(MainWindow *mw)
     configFrame->setRoundingMode((roundingMode == true) ? 1 : 0);
 
     // Make display frame
-    displayFrame = (QuestionDisplay*)(new QuestionDisplayForm());
+    displayFrame = static_cast<QuestionDisplay*>(new QuestionDisplayForm());
 
     rootRangeUpdated();
 }
 
 RootsModule::~RootsModule()
 {
-    assert(configFrame != 0);
-    assert(displayFrame != 0);
-
-    delete genRoot;
-    genRoot = 0;
+    assert(configFrame != nullptr);
+    assert(displayFrame != nullptr);
 
     this->mainWindow->layout()->removeWidget(configFrame);
     configFrame->close();
     delete configFrame;
-    configFrame = 0;
+    configFrame = nullptr;
 
     delete displayFrame;
-    displayFrame = 0;
+    displayFrame = nullptr;
 }
 
 QFrame* RootsModule::getConfigFrame()
@@ -115,7 +112,7 @@ bool RootsModule::isRangeOk(const BigFixedPoint& newMin, const BigFixedPoint& ne
 
 QString RootsModule::question()
 {
-    assert(genRoot != 0);
+    assert(genRoot != nullptr);
 
     if (integersOnly) {
         BigFixedPoint maxNum;
@@ -179,11 +176,7 @@ void RootsModule::rootRangeUpdated()
     assert(rootMin > 0);
     assert(rootMax > 0);
 
-    // Get rid of previous generator
-    delete genRoot;
-    genRoot = 0;
-
-    genRoot = new RandomInt<int>(rootMin, rootMax);
+    genRoot = std::make_unique<RandomInt<int>>(rootMin, rootMax);
 }
 
 void RootsModule::setSettings(const BigFixedPoint& newFirstMin,

@@ -42,7 +42,7 @@ RootsConfigFrame::RootsConfigFrame(QWidget *parent) :
     ui->minRootLineEdit->setValidator(rootValidator);
     ui->maxRootLineEdit->setValidator(rootValidator);
 
-    this->module = 0;
+    this->module = nullptr;
 }
 
 RootsConfigFrame::~RootsConfigFrame()

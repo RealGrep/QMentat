@@ -26,7 +26,7 @@ class HelpBrowser : public QTextBrowser
 {
     Q_OBJECT
 public:
-    explicit HelpBrowser(QWidget *parent = 0);
+    explicit HelpBrowser(QWidget *parent = nullptr);
 
     void setHelpEngine(QHelpEngine *engine);
 

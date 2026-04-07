@@ -21,6 +21,8 @@
 #include "practicemodule.h"
 
 #include "bigfixedpoint.h"
+#include "random.h"
+#include <memory>
 
 // Forward declarations
 template <class inttype> class RandomInt;
@@ -66,7 +68,7 @@ private:
     int decimalPlaces;
     bool roundingMode;
 
-    RandomInt<int> *genPower;
+    std::unique_ptr<RandomInt<int>> genPower;
 
     void powerRangeUpdated();
 };

@@ -39,8 +39,6 @@ DivisionModule::DivisionModule(MainWindow *mw)
     // Keep a copy for callbacks
     mainWindow = mw;
 
-    genFirst = 0;
-
     // Read config
     QSettings settings;
     settings.beginGroup("divisionmodule");
@@ -91,7 +89,7 @@ DivisionModule::DivisionModule(MainWindow *mw)
     configFrame->setIntegersOnly(integersOnly);
 
     // Make display frame
-    displayFrame = (QuestionDisplay*)(new QuestionDisplayForm());
+    displayFrame = static_cast<QuestionDisplay*>(new QuestionDisplayForm());
 
     if (integersOnly)
     {
@@ -101,19 +99,16 @@ DivisionModule::DivisionModule(MainWindow *mw)
 
 DivisionModule::~DivisionModule()
 {
-    assert(configFrame != 0);
-    assert(displayFrame != 0);
-
-    delete genFirst;
-    genFirst = 0;
+    assert(configFrame != nullptr);
+    assert(displayFrame != nullptr);
 
     this->mainWindow->layout()->removeWidget(configFrame);
     configFrame->close();
     delete configFrame;
-    configFrame = 0;
+    configFrame = nullptr;
 
     delete displayFrame;
-    displayFrame = 0;
+    displayFrame = nullptr;
 }
 
 /*! Return config frame.
@@ -168,11 +163,11 @@ bool DivisionModule::isRangeOk(qint64 firstMin, qint64 firstMax,
  * \param max Maximum divisor to consider.
  * \returns Vector of divisors between min and max of num.
  */
-std::vector<qint64> *DivisionModule::getDivisors(qint64 num,
-                                                 qint64 min,
-                                                 qint64 max) const
+std::unique_ptr<std::vector<qint64>> DivisionModule::getDivisors(qint64 num,
+                                                                 qint64 min,
+                                                                 qint64 max) const
 {
-    std::vector<qint64> *divisors = new std::vector<qint64>();
+    auto divisors = std::make_unique<std::vector<qint64>>();
     // No use going past sqrt(num)
     qint64 last = std::min(static_cast<qint64>(qSqrt(num)), max) + 1;
 
@@ -183,7 +178,7 @@ std::vector<qint64> *DivisionModule::getDivisors(qint64 num,
     int prog = 0;
     for (qint64 i = min; i <= last; ++i)
     {
-        int newProg = (int)qRound(((double)(i - min) / (double)last) * (double)partitions);
+        int newProg = static_cast<int>(qRound((static_cast<double>(i - min) / static_cast<double>(last)) * static_cast<double>(partitions)));
 
         if (newProg > prog)
         {
@@ -225,7 +220,7 @@ QString DivisionModule::question()
 {
     if (integersOnly)
     {
-        assert(genFirst != 0);
+        assert(genFirst != nullptr);
 
         QApplication::setOverrideCursor(Qt::WaitCursor);
 
@@ -234,9 +229,8 @@ QString DivisionModule::question()
             // Generate the numbers
             firstNumberIR = (*genFirst)();
 
-            std::vector<qint64> *divisors = getDivisors(firstNumberIR,
-                                                        lastMinIR, lastMaxIR);
-            assert(divisors != 0);
+            auto divisors = getDivisors(firstNumberIR, lastMinIR, lastMaxIR);
+            assert(divisors != nullptr);
             /*
             std::cout << "Divisors for " << firstNumberIR << ": ";
             for (auto it = divisors->begin(); it != divisors->end(); ++it)
@@ -248,12 +242,10 @@ QString DivisionModule::question()
             if (divisors->empty()) {
                 // No divisors, try again
                 lastNumberIR = 0;
-                delete divisors;
                 continue;
             } else {
                 int random = rand() % divisors->size();
-                lastNumberIR = (qint64)(*divisors)[random];
-                delete divisors;
+                lastNumberIR = static_cast<qint64>((*divisors)[random]);
             }
 
             answerIR = static_cast<quint64>(firstNumberIR)
@@ -520,15 +512,9 @@ void DivisionModule::setSettings(qint64 newFirstMin, qint64 newFirstMax,
 
 void DivisionModule::firstRangeUpdated()
 {
-    // Get rid of previous generator
-    delete genFirst;
-    genFirst = 0;
-
-    // Make new generator
     qint64 minGen = std::min(firstMinIR, firstMaxIR);
     qint64 maxGen = std::max(firstMaxIR, firstMinIR);
-
-    genFirst = new RandomInt<qint64>(minGen, maxGen);
+    genFirst = std::make_unique<RandomInt<qint64>>(minGen, maxGen);
 }
 
 bool DivisionModule::applyConfig()

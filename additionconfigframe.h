@@ -35,7 +35,7 @@ class AdditionConfigFrame : public QFrame
     Q_OBJECT
 
 public:
-    AdditionConfigFrame(QWidget *parent = 0);
+    AdditionConfigFrame(QWidget *parent = nullptr);
     ~AdditionConfigFrame();
 
     void setModule(AdditionModule *mod);

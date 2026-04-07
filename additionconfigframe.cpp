@@ -26,7 +26,7 @@ AdditionConfigFrame::AdditionConfigFrame(QWidget *parent) :
         ui(new Ui::AdditionConfigFrame)
 {
     ui->setupUi(this);
-    this->module = 0;
+    this->module = nullptr;
 
     QBigFixedValidator *numValidator = new QBigFixedValidator(this);
 

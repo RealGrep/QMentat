@@ -32,7 +32,7 @@ class StatisticsDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit StatisticsDialog(QWidget *parent = 0);
+    explicit StatisticsDialog(QWidget *parent = nullptr);
     ~StatisticsDialog();
 
     void set(int totalCorrect, int totalWrong);

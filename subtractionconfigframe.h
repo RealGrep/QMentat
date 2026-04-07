@@ -33,7 +33,7 @@ class SubtractionConfigFrame : public QFrame
     Q_OBJECT
 
 public:
-    explicit SubtractionConfigFrame(QWidget *parent = 0);
+    explicit SubtractionConfigFrame(QWidget *parent = nullptr);
     ~SubtractionConfigFrame();
 
     void setModule(SubtractionModule *mod);

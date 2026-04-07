@@ -20,8 +20,10 @@
 
 #include "practicemodule.h"
 #include "bigfixedpoint.h"
+#include "random.h"
 #include <QApplication>
 #include <QProgressDialog>
+#include <memory>
 #include <vector>
 
 // Forward declarations
@@ -94,15 +96,11 @@ private:
     qint64 lastNumberIR;
     qint64 answerIR;
 
-    RandomInt<qint64> *genFirst;
+    std::unique_ptr<RandomInt<qint64>> genFirst;
 
     void firstRangeUpdated();
 
-    //std::vector<BigFixedPoint> *getDivisors(BigFixedPoint& num,
-    //                                        BigFixedPoint& min,
-    //                                        BigFixedPoint& max);
-
-    std::vector<qint64> *getDivisors(qint64 num, qint64 min, qint64 max) const;
+    std::unique_ptr<std::vector<qint64>> getDivisors(qint64 num, qint64 min, qint64 max) const;
 };
 
 #endif // DIVISIONMODULE_H

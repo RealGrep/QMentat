@@ -34,7 +34,7 @@ SubtractionConfigFrame::SubtractionConfigFrame(QWidget *parent) :
     ui->secondMinLineEdit->setValidator(numValidator);
     ui->secondMaxLineEdit->setValidator(numValidator);
 
-    this->module = 0;
+    this->module = nullptr;
 }
 
 SubtractionConfigFrame::~SubtractionConfigFrame()

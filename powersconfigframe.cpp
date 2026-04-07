@@ -39,7 +39,7 @@ PowersConfigFrame::PowersConfigFrame(QWidget *parent) :
     QIntValidator *decimalsValidator = new QIntValidator(0, 100, this);
     ui->decimalPlacesLineEdit->setValidator(decimalsValidator);
 
-    this->module = 0;
+    this->module = nullptr;
 }
 
 PowersConfigFrame::~PowersConfigFrame()

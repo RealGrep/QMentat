@@ -34,7 +34,7 @@ class PowersConfigFrame : public QFrame
     Q_OBJECT
 
 public:
-    explicit PowersConfigFrame(QWidget *parent = 0);
+    explicit PowersConfigFrame(QWidget *parent = nullptr);
     ~PowersConfigFrame();
 
     void setModule(PowersModule *mod);

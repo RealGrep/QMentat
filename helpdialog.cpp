@@ -75,7 +75,7 @@ HelpDialog::HelpDialog(QWidget *parent) :
     contentPanel->setItemsExpandable(true);
     contentPanel->expandAll();
 
-    ui->splitter->insertWidget(0, (QWidget*)contentPanel);
+    ui->splitter->insertWidget(0, static_cast<QWidget*>(contentPanel));
     ui->splitter->setStretchFactor(0, 1);
 
     connect(helpEngine->contentWidget(),

@@ -33,7 +33,7 @@ class RootsConfigFrame : public QFrame
     Q_OBJECT
 
 public:
-    explicit RootsConfigFrame(QWidget *parent = 0);
+    explicit RootsConfigFrame(QWidget *parent = nullptr);
     ~RootsConfigFrame();
 
     void setModule(RootsModule *mod);

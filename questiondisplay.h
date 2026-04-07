@@ -26,7 +26,7 @@ class QuestionDisplay : public QWidget
 {
     Q_OBJECT
 public:
-    QuestionDisplay(QWidget *parent = 0);
+    QuestionDisplay(QWidget *parent = nullptr);
     virtual ~QuestionDisplay() = 0;
     virtual void setText(QString text) = 0;
 
