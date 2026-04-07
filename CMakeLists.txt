@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 project(QMentat VERSION 1.0.2 LANGUAGES CXX)
+# Do not move the above lines from the top, or put things in front.
+# CPack pulls versioning from there.
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -119,10 +121,10 @@ endif()
 
 # 6. Installation Logic
 if(WIN32)
-    install(TARGETS QMentat DESTINATION .)  # same dir as exe
-    install(FILES QMentat.png DESTINATION .)
-    install(DIRECTORY documentation/ DESTINATION documentation)
-    install(FILES LICENSE README.md DESTINATION .)
+    install(TARGETS QMentat RUNTIME DESTINATION . COMPONENT Application)
+    install(FILES QMentat.png DESTINATION . COMPONENT Application)
+    install(DIRECTORY documentation/ DESTINATION documentation COMPONENT Application)
+    install(FILES LICENSE README.md DESTINATION . COMPONENT Application)
 else()
     install(TARGETS QMentat DESTINATION bin)
     install(FILES QMentat.png DESTINATION share/icons)
@@ -132,6 +134,39 @@ else()
     install(FILES LICENSE README.md DESTINATION share/QMentat)
 endif()
 
+# --- CPack Packaging Configuration ---
+set(CPACK_PACKAGE_NAME "QMentat")
+set(CPACK_PACKAGE_VENDOR "Mike Dusseault")
+set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Mental Arithmetic Training Software")
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
+
+if(WIN32)
+    set(CPACK_GENERATOR "NSIS;ZIP")
+    set(CPACK_NSIS_EXECUTABLES "QMentat" "QMentat") 
+    set(CPACK_NSIS_MENU_LINKS "documentation/index.html" "Documentation")
+    set(CPACK_NSIS_MODIFY_PATH ON)
+    set(CPACK_NSIS_DISPLAY_NAME "QMentat Mental Math")
+    set(CPACK_NSIS_HELP_LINK "https://github.com/RealGrep/QMentat")
+
+    # Correct way to bundle DLLs: Use install() so CPack sees them
+    install(FILES "${GMP_LIB_DIR}/libgmp-10.dll" 
+            DESTINATION "." 
+            COMPONENT Application)
+    install(FILES "${GMP_LIB_DIR}/libgmpxx-4.dll" 
+            DESTINATION "." 
+            COMPONENT Application)
+elseif(UNIX AND NOT APPLE)
+    set(CPACK_GENERATOR "DEB;RPM;TGZ")
+    set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Mike Dusseault")
+    set(CPACK_DEBIAN_PACKAGE_SECTION "education")
+    set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt6widgets6, libqt6help6, libqt6texttospeech6, libgmp10")
+endif()
+# CHECK: Looking at the above, I wonder if we can't also make the .zip file here, move stuff from the cmake-multi-platform.yml
+
+include(CPack)
 
 # Translation workflow (targets provided automatically by qt_add_translations above):
 #   cmake --build build --target update_translations   # runs lupdate, syncs .ts files

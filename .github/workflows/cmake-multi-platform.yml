@@ -11,35 +11,85 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
         with:
           version: '6.6.*'
           modules: 'qtspeech'
-          
+
       - name: Install GMP via vcpkg
         run: vcpkg install gmp:x64-windows
 
       - name: Configure CMake
         run: cmake -B build -DCMAKE_TOOLCHAIN_FILE="C:/vcpkg/scripts/buildsystems/vcpkg.cmake" -DCMAKE_BUILD_TYPE=Release
-        
+
       - name: Build
         run: cmake --build build --config Release
-        
-      - name: Package
+
+      # Produces a working ZIP: grabs the full build/Release/ dir which includes
+      # Qt DLLs deployed by windeployqt. CPack's ZIP/NSIS won't include those DLLs
+      # (they're not in install() rules), so we keep the manual zip for now.
+      # Output goes to build/ so the glob below picks it up alongside any CPack output.
+      - name: Package ZIP
         run: |
           Copy-Item -Recurse documentation build/Release/documentation
-          Compress-Archive build/Release/* QMentat-windows.zip
+          Compress-Archive build/Release/* build/QMentat-${{ github.ref_name }}-windows.zip
+
+      # NSIS installer — note: Qt DLLs are currently missing from the NSIS package
+      # (same windeployqt issue). The zip above is the fully functional Windows release.
+      - name: Run CPack (NSIS installer)
+        working-directory: build
+        run: cpack -C Release -G NSIS
+
+      - name: Upload Windows artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-packages
+          path: build/QMentat-*.*
 
       - name: Release
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v1
         with:
-          files: QMentat-windows.zip
+          files: build/QMentat-*.*
 
-      - name: Upload artifact
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgmp-dev libspeechd-dev rpm
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: '6.6.*'
+          modules: 'qtspeech'
+
+      - name: Configure CMake
+        run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build
+
+      # Produces .deb, .rpm, and .tar.gz — all from install() rules which is correct
+      # for Linux (shared Qt libs are system dependencies, not bundled).
+      - name: Run CPack
+        working-directory: build
+        run: cpack
+
+      - name: Upload Linux artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: QMentat-windows
-          path: build/Release/
+          name: linux-packages
+          path: build/QMentat-*.*
+
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: build/QMentat-*.*
