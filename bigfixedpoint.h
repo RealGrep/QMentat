@@ -151,10 +151,10 @@ public:
     friend BigFixedPoint operator/(const BigFixedPoint& lhs,
                                          const BigFixedPoint& rhs);
     BigFixedPoint& operator/=(int rhs);
-    friend BigFixedPoint operator/(BigFixedPoint& lhs, int rhs);
+    friend BigFixedPoint operator/(const BigFixedPoint& lhs, int rhs);
     friend BigFixedPoint operator%(const BigFixedPoint& lhs,
                                          const BigFixedPoint& rhs);
-    friend BigFixedPoint operator%(BigFixedPoint& lhs, int rhs);
+    friend BigFixedPoint operator%(const BigFixedPoint& lhs, int rhs);
 
     [[nodiscard]] QString toString() const;
     [[nodiscard]] qint64 toLongLong() const;

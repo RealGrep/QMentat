@@ -19,6 +19,7 @@
 
 #include <QtGui>
 #include <vector>
+#include <algorithm>
 
 #include "preferenceslistener.h"
 
@@ -56,13 +57,8 @@ void Preferences::addListener(PreferencesListener *listener)
 
 void Preferences::removeListener(PreferencesListener *listener)
 {
-    for (size_t i = 0; i < listeners.size(); i++)
-    {
-        if (listeners[i] == listener)
-        {
-            listeners.erase(listeners.begin()+i);
-        }
-    }
+    listeners.erase(std::remove(listeners.begin(), listeners.end(), listener),
+                    listeners.end());
 }
 
 void Preferences::notifyListeners()

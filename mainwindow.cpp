@@ -153,11 +153,9 @@ MainWindow::~MainWindow()
 
 /*! Gets a seed from an appropriate entropy source.
  */
-quint64 MainWindow::getSeed()
+quint32 MainWindow::getSeed()
 {
-    quint32 seed = QRandomGenerator::securelySeeded().generate();
-
-    return seed;
+    return QRandomGenerator::securelySeeded().generate();
 }
 
 /*
@@ -413,10 +411,10 @@ void MainWindow::moduleChange(PracticeModule *mod) {
 
     // Load the config and display frames
     if (module != nullptr) {
-        ui->settingsTab->layout()->removeWidget(mod->getConfigFrame());
+        ui->settingsTab->layout()->removeWidget(module->getConfigFrame());
         module->getConfigFrame()->close();
 
-        ui->displayPane->layout()->removeWidget(mod->getDisplayFrame());
+        ui->displayPane->layout()->removeWidget(module->getDisplayFrame());
         module->getDisplayFrame()->close();
 
         delete module;

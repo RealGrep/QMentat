@@ -100,12 +100,12 @@ BigFixedPoint::BigFixedPoint(QString num)
         num.remove(i, 1);
     }
 
-    // The number string is clean
+    // The number string is clean; explicit base 10 to prevent GMP treating leading zeros as octal
     if (num.size() == 0)
     {
         number = 0;
     } else {
-        number = num.toStdString();
+        number = mpz_class(num.toStdString(), 10);
     }
 }
 
@@ -113,11 +113,13 @@ BigFixedPoint::BigFixedPoint(QString num)
 BigFixedPoint::BigFixedPoint(std::string num)
 {
     // Strip separators out
-    for (size_t i = 0; i < num.size(); ++i)
+    for (size_t i = 0; i < num.size(); )
     {
         if (num[i] == QLocale::system().groupSeparator())
         {
             num.erase(i, 1);
+        } else {
+            ++i;
         }
     }
 
@@ -131,8 +133,8 @@ BigFixedPoint::BigFixedPoint(std::string num)
         num.erase(decimalLoc, 1);
     }
 
-    // The number string is clean
-    number = num;
+    // Explicit base 10 to prevent GMP from treating leading zeros as octal
+    number = mpz_class(num, 10);
 }
 
 
@@ -243,23 +245,27 @@ void BigFixedPoint::scale(int decimals)
 
 BigFixedPoint BigFixedPoint::pow(int power) const
 {
+    assert(power >= 0);
     mpz_class res;
-    mpz_pow_ui(res.get_mpz_t(), number.get_mpz_t(), power);
-    return BigFixedPoint(res, decimalPlaces*power);
+    mpz_pow_ui(res.get_mpz_t(), number.get_mpz_t(), static_cast<unsigned long>(power));
+    return BigFixedPoint(res, decimalPlaces * power);
 }
 
 BigFixedPoint BigFixedPoint::root(int root) const
 {
+    assert(root > 0);
+    assert(decimalPlaces % root == 0); // truncation: ensure decimal places divide evenly
     mpz_class res;
-    mpz_root(res.get_mpz_t(), number.get_mpz_t(), root);
-    return BigFixedPoint(res, decimalPlaces/root);
+    mpz_root(res.get_mpz_t(), number.get_mpz_t(), static_cast<unsigned long>(root));
+    return BigFixedPoint(res, decimalPlaces / root);
 }
 
 BigFixedPoint BigFixedPoint::sqrt() const
 {
+    assert(decimalPlaces % 2 == 0); // truncation: ensure decimal places are even
     mpz_class res;
     mpz_sqrt(res.get_mpz_t(), number.get_mpz_t());
-    return BigFixedPoint(res, decimalPlaces/2);
+    return BigFixedPoint(res, decimalPlaces / 2);
 }
 
 BigFixedPoint& BigFixedPoint::operator=(const BigFixedPoint &rhs)
@@ -505,7 +511,10 @@ BigFixedPoint operator*(const BigFixedPoint& lhs,
 
 BigFixedPoint& BigFixedPoint::operator/=(const BigFixedPoint& rhs)
 {
+    assert(rhs.getValue() != 0);
     assert(rhs.getDecimalPlaces() <= decimalPlaces);
+    if (rhs.getValue() == 0 || rhs.getDecimalPlaces() > decimalPlaces)
+        return *this; // guard against UB in release builds
     int decimals = decimalPlaces - rhs.getDecimalPlaces();
     number = number / rhs.getValue();
     decimalPlaces = decimals;
@@ -520,11 +529,13 @@ BigFixedPoint operator/(const BigFixedPoint& lhs,
 
 BigFixedPoint& BigFixedPoint::operator/=(int rhs)
 {
+    assert(rhs != 0);
+    if (rhs == 0) return *this;
     number = number / rhs;
     return *this;
 }
 
-BigFixedPoint operator/(BigFixedPoint& lhs, int rhs)
+BigFixedPoint operator/(const BigFixedPoint& lhs, int rhs)
 {
     return BigFixedPoint(lhs) /= rhs;
 }
@@ -534,17 +545,22 @@ BigFixedPoint operator%(const BigFixedPoint& lhs,
 {
     BigFixedPoint ret;
 
+    assert(rhs.getValue() != 0);
     assert(rhs.getDecimalPlaces() <= lhs.decimalPlaces);
+    if (rhs.getValue() == 0 || rhs.getDecimalPlaces() > lhs.decimalPlaces)
+        return ret; // guard against UB in release builds
     int decimals = lhs.decimalPlaces - rhs.getDecimalPlaces();
     ret.number = lhs.number % rhs.getValue();
     ret.decimalPlaces = decimals;
     return ret;
 }
 
-BigFixedPoint operator%(BigFixedPoint& lhs, int rhs)
+BigFixedPoint operator%(const BigFixedPoint& lhs, int rhs)
 {
     BigFixedPoint ret;
 
+    assert(rhs != 0);
+    if (rhs == 0) return ret;
     ret.number = lhs.number % rhs;
     ret.decimalPlaces = lhs.decimalPlaces;
     return ret;

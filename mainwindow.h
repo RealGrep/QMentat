@@ -43,7 +43,7 @@ public:
     ~MainWindow();
     void newQuestion();
     //void testSQL();
-    static quint64 getSeed();
+    static quint32 getSeed();
 
 protected:
     int answerGiven;
