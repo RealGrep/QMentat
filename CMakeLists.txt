@@ -161,12 +161,11 @@ if(WIN32)
     set(CPACK_NSIS_DISPLAY_NAME "QMentat Mental Math")
     set(CPACK_NSIS_HELP_LINK "https://github.com/RealGrep/QMentat")
 
-    # find_library() resolves to the .lib in vcpkg's lib/ dir; DLLs are in bin/.
-    # GMP_ROOT_DIR is the vcpkg triplet root (e.g. x64-windows/) with no .. needed.
-    install(FILES "${GMP_ROOT_DIR}/bin/libgmp-10.dll"
-            DESTINATION "."
-            COMPONENT Application)
-    install(FILES "${GMP_ROOT_DIR}/bin/libgmpxx-4.dll"
+    # Glob for GMP DLLs — vcpkg naming varies (gmp.dll vs libgmp-10.dll etc.)
+    # depending on build toolchain. Catches whatever vcpkg actually produces.
+    file(GLOB GMP_RUNTIME_DLLS "${GMP_ROOT_DIR}/bin/gmp*.dll"
+                                "${GMP_ROOT_DIR}/bin/libgmp*.dll")
+    install(FILES ${GMP_RUNTIME_DLLS}
             DESTINATION "."
             COMPONENT Application)
 elseif(UNIX AND NOT APPLE)
