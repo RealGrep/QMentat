@@ -37,20 +37,12 @@ jobs:
       - name: Build
         run: cmake --build build --config Release
 
-      # Produces a working ZIP: grabs the full build/Release/ dir which includes
-      # Qt DLLs deployed by windeployqt. CPack's ZIP/NSIS won't include those DLLs
-      # (they're not in install() rules), so we keep the manual zip for now.
-      # Output goes to build/ so the glob below picks it up alongside any CPack output.
-      - name: Package ZIP
-        run: |
-          Copy-Item -Recurse documentation build/Release/documentation
-          Compress-Archive build/Release/* build/QMentat-${{ github.ref_name }}-windows.zip
-
-      # NSIS installer — note: Qt DLLs are currently missing from the NSIS package
-      # (same windeployqt issue). The zip above is the fully functional Windows release.
-      - name: Run CPack (NSIS installer)
+      # CPack produces both NSIS installer and ZIP.
+      # qt_generate_deploy_app_script() in CMakeLists.txt runs windeployqt at install
+      # time, so CPack sees all Qt DLLs and plugins — both packages are fully functional.
+      - name: Run CPack
         working-directory: build
-        run: cpack -C Release -G NSIS
+        run: cpack -C Release
 
       - name: Upload Windows artifacts
         uses: actions/upload-artifact@v4

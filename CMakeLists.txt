@@ -125,6 +125,15 @@ if(WIN32)
     install(FILES QMentat.png DESTINATION . COMPONENT Application)
     install(DIRECTORY documentation/ DESTINATION documentation COMPONENT Application)
     install(FILES LICENSE README.md DESTINATION . COMPONENT Application)
+
+    # Deploy Qt runtime DLLs and plugins at install time so CPack (NSIS + ZIP) includes them.
+    # The POST_BUILD windeployqt above still runs for local builds (run from build/Release/).
+    qt_generate_deploy_app_script(
+        TARGET QMentat
+        OUTPUT_SCRIPT deploy_script
+        NO_UNSUPPORTED_PLATFORM_ERROR
+    )
+    install(SCRIPT ${deploy_script} COMPONENT Application)
 else()
     install(TARGETS QMentat DESTINATION bin)
     install(FILES QMentat.png DESTINATION share/icons)
@@ -151,12 +160,13 @@ if(WIN32)
     set(CPACK_NSIS_DISPLAY_NAME "QMentat Mental Math")
     set(CPACK_NSIS_HELP_LINK "https://github.com/RealGrep/QMentat")
 
-    # Correct way to bundle DLLs: Use install() so CPack sees them
-    install(FILES "${GMP_LIB_DIR}/libgmp-10.dll" 
-            DESTINATION "." 
+    # find_library() resolves to the .lib import library in vcpkg's lib/ dir.
+    # The actual runtime DLLs are in bin/ — one level up then into bin/.
+    install(FILES "${GMP_LIB_DIR}/../bin/libgmp-10.dll"
+            DESTINATION "."
             COMPONENT Application)
-    install(FILES "${GMP_LIB_DIR}/libgmpxx-4.dll" 
-            DESTINATION "." 
+    install(FILES "${GMP_LIB_DIR}/../bin/libgmpxx-4.dll"
+            DESTINATION "."
             COMPONENT Application)
 elseif(UNIX AND NOT APPLE)
     set(CPACK_GENERATOR "DEB;RPM;TGZ")
