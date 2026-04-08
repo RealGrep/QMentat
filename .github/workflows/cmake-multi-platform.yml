@@ -18,6 +18,9 @@ jobs:
           version: '6.6.*'
           modules: 'qtmultimedia qtspeech'
 
+      - name: Install NSIS
+        run: choco install nsis --no-progress -y
+
       - name: Install GMP via vcpkg
         run: vcpkg install gmp:x64-windows
 
