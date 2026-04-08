@@ -129,6 +129,9 @@ if(WIN32)
 
     # Deploy Qt runtime DLLs and plugins at install time so CPack (NSIS + ZIP) includes them.
     # The POST_BUILD windeployqt above still runs for local builds (run from build/Release/).
+    # QT_DEPLOY_BIN_DIR defaults to "bin" — override to "." so DLLs land next to QMentat.exe
+    # at the install root rather than in a bin/ subdirectory Windows can't search automatically.
+    set(QT_DEPLOY_BIN_DIR ".")
     qt_generate_deploy_app_script(
         TARGET QMentat
         OUTPUT_SCRIPT deploy_script
