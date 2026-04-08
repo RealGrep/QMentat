@@ -44,6 +44,12 @@ jobs:
       # CPack produces both NSIS installer and ZIP.
       # qt_generate_deploy_app_script() in CMakeLists.txt runs windeployqt at install
       # time, so CPack sees all Qt DLLs and plugins — both packages are fully functional.
+      - name: Dry-run install to see staging layout
+        working-directory: build
+        run: |
+          cmake --install . --config Release --prefix _install_preview
+          Get-ChildItem -Recurse _install_preview | Select-Object FullName
+
       - name: Run CPack
         working-directory: build
         run: cpack -C Release
