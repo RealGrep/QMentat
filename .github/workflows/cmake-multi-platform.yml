@@ -16,7 +16,7 @@ jobs:
         uses: jurplel/install-qt-action@v3
         with:
           version: '6.6.*'
-          modules: 'qtspeech'
+          modules: 'qtmultimedia qtspeech'
 
       - name: Install GMP via vcpkg
         run: vcpkg install gmp:x64-windows
@@ -68,7 +68,7 @@ jobs:
         uses: jurplel/install-qt-action@v3
         with:
           version: '6.6.*'
-          modules: 'qtspeech'
+          modules: 'qtmultimedia qtspeech'
 
       - name: Configure CMake
         run: cmake -B build -DCMAKE_BUILD_TYPE=Release
