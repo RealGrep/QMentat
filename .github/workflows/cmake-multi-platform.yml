@@ -48,6 +48,10 @@ jobs:
         working-directory: build
         run: cpack -C Release
 
+      - name: Show NSIS log on failure
+        if: failure()
+        run: Get-Content build/_CPack_Packages/win64/NSIS/NSISOutput.log -ErrorAction SilentlyContinue
+
       - name: Upload Windows artifacts
         uses: actions/upload-artifact@v4
         with:
