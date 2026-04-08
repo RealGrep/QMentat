@@ -122,16 +122,15 @@ endif()
 
 # 6. Installation Logic
 if(WIN32)
-    install(TARGETS QMentat RUNTIME DESTINATION . COMPONENT Application)
-    install(FILES QMentat.png DESTINATION . COMPONENT Application)
+    # Qt's deploy script puts DLLs and qt.conf in bin/ — put the exe there too
+    # so Windows DLL search finds everything in the same directory.
+    install(TARGETS QMentat RUNTIME DESTINATION bin COMPONENT Application)
+    install(FILES QMentat.png DESTINATION bin COMPONENT Application)
     install(DIRECTORY documentation/ DESTINATION documentation COMPONENT Application)
     install(FILES LICENSE README.md DESTINATION . COMPONENT Application)
 
     # Deploy Qt runtime DLLs and plugins at install time so CPack (NSIS + ZIP) includes them.
     # The POST_BUILD windeployqt above still runs for local builds (run from build/Release/).
-    # QT_DEPLOY_BIN_DIR defaults to "bin" — override to "." so DLLs land next to QMentat.exe
-    # at the install root rather than in a bin/ subdirectory Windows can't search automatically.
-    set(QT_DEPLOY_BIN_DIR ".")
     qt_generate_deploy_app_script(
         TARGET QMentat
         OUTPUT_SCRIPT deploy_script
@@ -158,7 +157,7 @@ set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
 
 if(WIN32)
     set(CPACK_GENERATOR "NSIS;ZIP")
-    set(CPACK_NSIS_EXECUTABLES "QMentat" "QMentat") 
+    set(CPACK_NSIS_EXECUTABLES "bin\\\\QMentat" "QMentat")
     set(CPACK_NSIS_MENU_LINKS "documentation/index.html" "Documentation")
     set(CPACK_NSIS_MODIFY_PATH ON)
     set(CPACK_NSIS_DISPLAY_NAME "QMentat Mental Math")
@@ -169,7 +168,7 @@ if(WIN32)
     file(GLOB GMP_RUNTIME_DLLS "${GMP_ROOT_DIR}/bin/gmp*.dll"
                                 "${GMP_ROOT_DIR}/bin/libgmp*.dll")
     install(FILES ${GMP_RUNTIME_DLLS}
-            DESTINATION "."
+            DESTINATION bin
             COMPONENT Application)
 elseif(UNIX AND NOT APPLE)
     set(CPACK_GENERATOR "DEB;RPM;TGZ")
