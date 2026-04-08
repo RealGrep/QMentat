@@ -176,7 +176,6 @@ elseif(UNIX AND NOT APPLE)
     set(CPACK_DEBIAN_PACKAGE_SECTION "education")
     set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt6widgets6, libqt6help6, libqt6texttospeech6, libgmp10")
 endif()
-# CHECK: Looking at the above, I wonder if we can't also make the .zip file here, move stuff from the cmake-multi-platform.yml
 
 include(CPack)
 

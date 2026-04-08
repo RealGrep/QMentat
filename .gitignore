@@ -39,3 +39,5 @@ Qt47supp.txt
 .settings/org.eclipse.ocl.modelregistry
 qmentat_es.ts.jardi
 .cproject
+translate_ts.py
+translate_ts2.py

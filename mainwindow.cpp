@@ -35,7 +35,6 @@
 #endif
 #include "preferencesdialog.h"
 #include "preferences.h"
-//#include <QtSql/QtSql>
 #include <QDebug>
 
 #include "helpdialog.h"
@@ -157,83 +156,6 @@ quint32 MainWindow::getSeed()
 {
     return QRandomGenerator::securelySeeded().generate();
 }
-
-/*
-void MainWindow::testSQL()
-{
-      QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-      db.setHostName("localhost");
-      db.setDatabaseName("qmentat_data.sqlite");
-      db.setUserName("default");
-      //db.setPassword("1uTbSbAs");
-      bool ok = db.open();
-      if (ok) {
-         std::cerr << "Database opened" << std::endl;
-      }
-
-      QSqlQuery query;
-      bool ret = false;
-      if (ok)
-      {
-
-         ret = query.exec("create table settings "
-                          "(id integer primary key, "
-                          "property varchar(20), "
-                          "text varchar(30), "
-                          "number integer)");
-      }
-      if (ret == false) {
-         std::cerr << "Table probably already there." << std::endl;
-      }
-
-      query.exec("SELECT number FROM settings WHERE property = 'addition_firstmax'");
-      if (query.next()) {
-         int number = query.value(0).toInt();
-         std::cerr << "Number: " << number << std::endl;
-      } else {
-         ret = false;
-         if (ok)
-         {
-            QSqlDatabase::database().transaction();
-            ret = query.exec("INSERT INTO settings (id, property, number) "
-                             "VALUES (NULL, 'addition_firstmax', 42)");
-         }
-         if (ret == false) {
-            std::cerr << "Urk, couldn't insert into table!" << std::endl;
-         } else {
-            QSqlDatabase::database().commit();
-         }
-      }
-
-      //QSqlDatabase::database().transaction();
-      //query.finish();
-      //query.clear();
-      QSqlQuery query2;
-
-      if (query2.exec("SELECT property, number FROM settings") == false) {
-         std::cerr << "Can't query DB for listing of rows!" << std::endl;
-         QSqlError error = query2.lastError();
-         std::cerr << "ERROR: " << error.text().toStdString() << std::endl;
-      }
-      //if (query.first()) {
-      //   int val = query.value(1).toInt();
-         //QString text = query.value(2).toString();
-      //   std::cerr << "FIRST VAL: " << val << std::endl;
-      //}
-      while (query2.next()) {
-         //QString property = query.value(0).toString();
-         int val = query2.value(1).toInt();
-         //QString text = query.value(2).toString();
-         std::cerr << "VAL: " << val << std::endl;
-               //<< "]" << std::endl;
-      }
-
-      //QSqlQuery query;
-      //query.exec("CREATE TABLE ");
-      //bool result = query.exec("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;");
-      //std::cerr << "Result: " << result << std::endl;
-}
-*/
 
 /*! Reads the saved Qt settings and restores to saved state.
  */
