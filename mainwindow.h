@@ -96,6 +96,8 @@ private:
     QTextToSpeech *tts = nullptr;
     QString currentQuestion;
     bool ttsAvailable = false;
+    QMetaObject::Connection pendingSpeakConn;
+    QTimer *pendingSpeakFallback = nullptr;
 };
 
 #endif // MAINWINDOW_H

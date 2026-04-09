@@ -103,69 +103,50 @@ MainWindow::MainWindow(QWidget *parent) :
     // Set up TTS
     tts = new QTextToSpeech(this);
     ttsAvailable = (tts && tts->availableEngines().size() > 0);
-    /*
-    connect(tts, &QTextToSpeech::stateChanged,
-                    [&](QTextToSpeech::State newState)
+
+    // Log TTS state transitions unconditionally so Error events are always visible.
+    connect(tts, &QTextToSpeech::stateChanged, this,
+            [this](QTextToSpeech::State newState)
     {
         switch (newState)
         {
             case QTextToSpeech::Speaking:
-                qDebug() << "Speech is currently in progress...";
+                qDebug() << "TTS: Speaking";
                 break;
             case QTextToSpeech::Paused:
-                qDebug() << "Speech has been paused.";
+                qDebug() << "TTS: Paused";
                 break;
             case QTextToSpeech::Ready:
-                qDebug() << "Speech has finished or is ready.";
+                qDebug() << "TTS: Ready";
                 break;
             case QTextToSpeech::Synthesizing:
-                qDebug() << "Speech is synthesizing.";
+                qDebug() << "TTS: Synthesizing";
                 break;
             case QTextToSpeech::Error:
-                qCritical() << "Speech synthesis error:" << tts->errorString();
+                qCritical() << "TTS error:" << tts->errorString();
                 break;
         }
     });
-    */
+
     if (!ttsAvailable) {
         ui->speakButton->hide();
         ui->autoSpeakCheckBox->hide();
     } else {
         ui->autoSpeakCheckBox->setChecked(Preferences::getInstance().getTTSEnabled());
         tts->setRate(Preferences::getInstance().getTTSRate());
-
-        // Set the locale if the engine supports it; avoids an error state
-        // from speech-dispatcher when the system locale has no matching voice.
-        QLocale currentLocale = QLocale::system();
-        if (tts->availableLocales().contains(currentLocale))
-            tts->setLocale(currentLocale);
+        // Don't call setLocale()/setVoice() here. With speech-dispatcher,
+        // either can leave the backend stuck in Initializing when the system
+        // locale has no matching voice. Let it init with its own defaults;
+        // it will pick whatever voice is available.
     }
 
     // Kick off first question
     newQuestion();
 
-    // Speak first question if auto-speak is on.
-    // QTextToSpeech may not be Ready yet at construction time (async backend
-    // init on e.g. speech-dispatcher), so handle both cases.
-    if (ttsAvailable && Preferences::getInstance().getTTSEnabled()) {
-        if (tts->state() == QTextToSpeech::Ready) {
-            // Defer out of the constructor so the event loop is running
-            // and we're not calling say() before D-Bus is processing.
-            QTimer::singleShot(300, this, &MainWindow::speakQuestion);
-        } else {
-            // Don't use Qt::SingleShotConnection — it fires on the first
-            // stateChanged (e.g. Initializing) and misses the later Ready.
-            // Defer out of the signal handler to avoid re-entering the TTS
-            // state machine while it's mid-transition.
-            connect(tts, &QTextToSpeech::stateChanged, this,
-                [this, spoken = false](QTextToSpeech::State state) mutable {
-                    if (!spoken && state == QTextToSpeech::Ready) {
-                        spoken = true;
-                        QTimer::singleShot(300, this, &MainWindow::speakQuestion);
-                    }
-                });
-        }
-    }
+    // Speak first question if auto-speak is on. speakQuestion() handles
+    // the case where TTS isn't Ready yet (async backend init).
+    if (ttsAvailable && Preferences::getInstance().getTTSEnabled())
+        speakQuestion();
 
     Preferences::getInstance().addListener(this);
     ui->lineEdit->setFont(Preferences::getInstance().getAnswerFont());
@@ -233,8 +214,62 @@ void MainWindow::newQuestion()
 
 void MainWindow::speakQuestion()
 {
-    if (ttsAvailable && !currentQuestion.isEmpty())
+    if (!ttsAvailable || currentQuestion.isEmpty())
+        return;
+
+    // Cancel any prior pending speak (signal listener + fallback timer)
+    // so we never queue more than one utterance.
+    disconnect(pendingSpeakConn);
+    if (pendingSpeakFallback) {
+        pendingSpeakFallback->stop();
+        pendingSpeakFallback->deleteLater();
+        pendingSpeakFallback = nullptr;
+    }
+
+    if (tts->state() == QTextToSpeech::Ready) {
         tts->say(questionToSpeech(currentQuestion));
+        return;
+    }
+
+    // TTS not ready yet (initializing, or stuck due to locale mismatch on
+    // speech-dispatcher). Two-pronged approach:
+    //
+    // 1. Listen for Ready — if the backend does reach Ready, speak then.
+    // 2. Timeout fallback — if still not Ready after 1.5s, just call say()
+    //    directly. On speech-dispatcher, say() while "Initializing" actually
+    //    works and kicks the backend out of its stuck state (proven by the
+    //    Preferences Test button working in this exact scenario).
+    //
+    // Whichever fires first cancels the other.
+
+    pendingSpeakFallback = new QTimer(this);
+    pendingSpeakFallback->setSingleShot(true);
+
+    pendingSpeakConn = connect(tts, &QTextToSpeech::stateChanged, this,
+        [this](QTextToSpeech::State state) {
+            if (state == QTextToSpeech::Ready) {
+                disconnect(pendingSpeakConn);
+                if (pendingSpeakFallback) {
+                    pendingSpeakFallback->stop();
+                    pendingSpeakFallback->deleteLater();
+                    pendingSpeakFallback = nullptr;
+                }
+                // Defer out of stateChanged handler to avoid TTS re-entrancy.
+                QTimer::singleShot(50, this, [this]() {
+                    tts->say(questionToSpeech(currentQuestion));
+                });
+            }
+        });
+
+    connect(pendingSpeakFallback, &QTimer::timeout, this, [this]() {
+        disconnect(pendingSpeakConn);
+        pendingSpeakFallback->deleteLater();
+        pendingSpeakFallback = nullptr;
+        qDebug() << "TTS: Ready timeout, forcing say() (state:" << tts->state() << ")";
+        tts->say(questionToSpeech(currentQuestion));
+    });
+
+    pendingSpeakFallback->start(1500);
 }
 
 void MainWindow::on_speakButton_clicked()
