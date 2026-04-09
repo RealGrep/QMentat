@@ -20,6 +20,7 @@
 #include <cassert>
 #include <QtGui>
 #include <QChar>
+#include <qtexttospeech.h>
 #include "practicemodule.h"
 #include "additionmodule.h"
 #include "subtractionmodule.h"
@@ -101,8 +102,31 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Set up TTS
     tts = new QTextToSpeech(this);
-    //ttsAvailable = (tts->state() != QTextToSpeech::Error);
     ttsAvailable = (tts && tts->availableEngines().size() > 0);
+    /*
+    connect(tts, &QTextToSpeech::stateChanged,
+                    [&](QTextToSpeech::State newState)
+    {
+        switch (newState)
+        {
+            case QTextToSpeech::Speaking:
+                qDebug() << "Speech is currently in progress...";
+                break;
+            case QTextToSpeech::Paused:
+                qDebug() << "Speech has been paused.";
+                break;
+            case QTextToSpeech::Ready:
+                qDebug() << "Speech has finished or is ready.";
+                break;
+            case QTextToSpeech::Synthesizing:
+                qDebug() << "Speech is synthesizing.";
+                break;
+            case QTextToSpeech::Error:
+                qCritical() << "Speech synthesis error:" << tts->errorString();
+                break;
+        }
+    });
+    */
     if (!ttsAvailable) {
         ui->speakButton->hide();
         ui->autoSpeakCheckBox->hide();
@@ -110,9 +134,11 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->autoSpeakCheckBox->setChecked(Preferences::getInstance().getTTSEnabled());
         tts->setRate(Preferences::getInstance().getTTSRate());
 
-        // Set the locale in the speech engine for less funny but more useful results.
+        // Set the locale if the engine supports it; avoids an error state
+        // from speech-dispatcher when the system locale has no matching voice.
         QLocale currentLocale = QLocale::system();
-        tts->setLocale(currentLocale);
+        if (tts->availableLocales().contains(currentLocale))
+            tts->setLocale(currentLocale);
     }
 
     // Kick off first question
@@ -123,13 +149,21 @@ MainWindow::MainWindow(QWidget *parent) :
     // init on e.g. speech-dispatcher), so handle both cases.
     if (ttsAvailable && Preferences::getInstance().getTTSEnabled()) {
         if (tts->state() == QTextToSpeech::Ready) {
-            speakQuestion();
+            // Defer out of the constructor so the event loop is running
+            // and we're not calling say() before D-Bus is processing.
+            QTimer::singleShot(300, this, &MainWindow::speakQuestion);
         } else {
+            // Don't use Qt::SingleShotConnection — it fires on the first
+            // stateChanged (e.g. Initializing) and misses the later Ready.
+            // Defer out of the signal handler to avoid re-entering the TTS
+            // state machine while it's mid-transition.
             connect(tts, &QTextToSpeech::stateChanged, this,
-                [this](QTextToSpeech::State state) {
-                    if (state == QTextToSpeech::Ready)
-                        speakQuestion();
-                }, Qt::SingleShotConnection);
+                [this, spoken = false](QTextToSpeech::State state) mutable {
+                    if (!spoken && state == QTextToSpeech::Ready) {
+                        spoken = true;
+                        QTimer::singleShot(300, this, &MainWindow::speakQuestion);
+                    }
+                });
         }
     }
 
