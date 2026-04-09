@@ -1,16 +1,16 @@
 # Maintainer: Michel Dusseault <mike dot dusseault at gmail dot com>
-pkgname=qmentat
-pkgver=1.1.0  # or whatever version
+pkgname=qmentat-git
+pkgver=v1.0.2.r26.g4649fb0
 pkgrel=1
 pkgdesc="Mental arithmetic practice application"
 arch=('x86_64')
 url="https://github.com/RealGrep/QMentat"
 #url="http://rincewind.tower:3001/michel/QMentat"
 license=('GPL3')
-depends=('qt6-base' 'gmp')
+depends=('qt6-base' 'gmp' 'git')
 makedepends=('qt6-tools')
-source=('git+https://github.com/RealGrep/QMentat.git#tag=v1.1.0')
-#source=("git+ssh://forgejo@rincewind.tower/michel/QMentat.git#tag=v1.0.0")
+source=('git+https://github.com/RealGrep/QMentat.git')
+#source=("git+ssh://forgejo@rincewind.tower/michel/QMentat.git")
 sha256sums=('SKIP')
 
 build() {
@@ -20,6 +20,14 @@ build() {
     cmake --build build
 }
 
+
 package() {
     DESTDIR="$pkgdir" cmake --install build
 }
+
+pkgver() {
+  cd QMentat
+  git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+
