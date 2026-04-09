@@ -1,6 +1,6 @@
 # Maintainer: Michel Dusseault <mike dot dusseault at gmail dot com>
 pkgname=qmentat
-pkgver=1.0.2  # or whatever version
+pkgver=1.1.0  # or whatever version
 pkgrel=1
 pkgdesc="Mental arithmetic practice application"
 arch=('x86_64')
