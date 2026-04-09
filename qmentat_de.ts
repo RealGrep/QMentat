@@ -410,12 +410,32 @@ p, li { white-space: pre-wrap; }
         <translation>Hauptfenster</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="50"/>
+        <location filename="mainwindow.ui" line="45"/>
+        <source>Speak the question aloud</source>
+        <translation>Frage laut vorlesen</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="48"/>
+        <source>🔊</source>
+        <translation>🔊</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="68"/>
+        <source>Auto-speak</source>
+        <translation>Automatisch vorlesen</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="71"/>
+        <source>Speak each new question automatically</source>
+        <translation>Jede neue Frage automatisch vorlesen</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="87"/>
         <source>Enter your answer here.</source>
         <translation>Geben Sie hier Ihre Antwort ein.</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="90"/>
+        <location filename="mainwindow.ui" line="127"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -440,152 +460,166 @@ li.checked::marker { content: &quot;±2&quot;; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Sans&apos;; font-size:10pt;&quot;&gt;Willkommen!&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="108"/>
+        <location filename="mainwindow.ui" line="145"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="129"/>
+        <location filename="mainwindow.ui" line="166"/>
         <source>&amp;File</source>
         <translation>&amp;Datei</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="137"/>
+        <location filename="mainwindow.ui" line="174"/>
         <source>&amp;Practice</source>
         <translation>&amp;Üben</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="151"/>
+        <location filename="mainwindow.ui" line="188"/>
         <source>&amp;Help</source>
         <translation>&amp;Hilfe</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="160"/>
+        <location filename="mainwindow.ui" line="197"/>
         <source>&amp;Edit</source>
         <translation>&amp;Bearbeiten</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="194"/>
+        <location filename="mainwindow.ui" line="231"/>
         <source>E&amp;xit</source>
         <translation>B&amp;eenden</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="205"/>
+        <location filename="mainwindow.ui" line="242"/>
         <source>Addition</source>
         <translation>Addition</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="208"/>
+        <location filename="mainwindow.ui" line="245"/>
         <source>+</source>
         <translation>+</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="219"/>
+        <location filename="mainwindow.ui" line="256"/>
         <source>Subtraction</source>
         <translation>Subtraktion</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="222"/>
+        <location filename="mainwindow.ui" line="259"/>
         <source>-</source>
         <translation>-</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="233"/>
-        <location filename="mainwindow.ui" line="239"/>
+        <location filename="mainwindow.ui" line="270"/>
+        <location filename="mainwindow.ui" line="276"/>
         <source>Multiplication</source>
         <translation>Multiplikation</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="236"/>
+        <location filename="mainwindow.ui" line="273"/>
         <source>×</source>
         <translation>×</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="250"/>
+        <location filename="mainwindow.ui" line="287"/>
         <source>Division</source>
         <translation>Division</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="253"/>
+        <location filename="mainwindow.ui" line="290"/>
         <source>÷</source>
         <translation>÷</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="256"/>
+        <location filename="mainwindow.ui" line="293"/>
         <source>DIvision</source>
         <translation>Division</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="267"/>
-        <location filename="mainwindow.cpp" line="387"/>
+        <location filename="mainwindow.ui" line="304"/>
+        <location filename="mainwindow.cpp" line="440"/>
         <source>About QMentat</source>
         <translation>Über QMentat</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="272"/>
+        <location filename="mainwindow.ui" line="309"/>
         <source>Powers</source>
         <translation>Potenzen</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="275"/>
+        <location filename="mainwindow.ui" line="312"/>
         <source>xⁿ</source>
         <translation>xⁿ</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="286"/>
+        <location filename="mainwindow.ui" line="323"/>
         <source>Roots</source>
         <translation>Wurzeln</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="289"/>
+        <location filename="mainwindow.ui" line="326"/>
         <source>ⁿ√x</source>
         <translation>ⁿ√x</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="300"/>
+        <location filename="mainwindow.ui" line="337"/>
         <source>&amp;Statistics</source>
         <translation>&amp;Statistiken</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="305"/>
+        <location filename="mainwindow.ui" line="342"/>
         <source>Contents</source>
         <translation>Inhalt</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="310"/>
+        <location filename="mainwindow.ui" line="347"/>
         <source>&amp;Preferences</source>
         <translation>&amp;Einstellungen</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="315"/>
-        <location filename="mainwindow.cpp" line="429"/>
+        <location filename="mainwindow.ui" line="352"/>
+        <location filename="mainwindow.cpp" line="488"/>
         <source>About Qt</source>
         <translation>Über Qt</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="292"/>
+        <location filename="mainwindow.cpp" line="335"/>
         <source>Correct!</source>
         <translation>Richtig!</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="295"/>
+        <location filename="mainwindow.cpp" line="336"/>
+        <source>Correct</source>
+        <translation>Richtig</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="339"/>
         <source>Wrong! %1</source>
         <translation>Falsch! %1</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="299"/>
+        <location filename="mainwindow.cpp" line="343"/>
+        <source>Wrong. The answer is %1</source>
+        <translation>Falsch. Die Antwort ist %1</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="347"/>
         <source>Total: %1  Correct/Wrong: %2/%3  %4%5 success rate</source>
         <translation>Gesamt: %1  Richtig/Falsch: %2/%3  %4%5 Erfolgsrate</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="387"/>
+        <location filename="mainwindow.cpp" line="441"/>
+        <source>QMentat version %1&lt;br&gt;&lt;br&gt;Written by Mike Dusseault&lt;br&gt;Copyright (c) 2026 Mike Dusseault.&lt;br&gt;&lt;br&gt;QMentat is released under the GPL version 3.&lt;br&gt;&lt;br&gt;Official sources and releases on the &lt;a href=&quot;https://github.com/RealGrep/QMentat&quot;&gt;QMentat GitHub&lt;/a&gt;</source>
+        <translation>QMentat Version %1&lt;br&gt;&lt;br&gt;Geschrieben von Mike Dusseault&lt;br&gt;Copyright (c) 2026 Mike Dusseault.&lt;br&gt;&lt;br&gt;QMentat wird unter der GPL Version 3 veröffentlicht.&lt;br&gt;&lt;br&gt;Offizielle Quellen und Versionen auf dem &lt;a href=&quot;https://github.com/RealGrep/QMentat&quot;&gt;QMentat GitHub&lt;/a&gt;</translation>
+    </message>
+    <message>
         <source>QMentat version %1
 
 Written by Mike Dusseault
 Copyright (c) 2026 Mike Dusseault.
 
 QMentat is released under the GPL version 3.</source>
-        <translation>QMentat Version %1
+        <translation type="vanished">QMentat Version %1
 
 Geschrieben von Mike Dusseault
 Copyright (c) 2026 Mike Dusseault.
@@ -978,6 +1012,41 @@ p, li { white-space: pre-wrap; }
         <location filename="preferencesdialog.ui" line="87"/>
         <source>Answer</source>
         <translation>Antwort</translation>
+    </message>
+    <message>
+        <location filename="preferencesdialog.ui" line="124"/>
+        <source>Voice</source>
+        <translation>Sprache</translation>
+    </message>
+    <message>
+        <location filename="preferencesdialog.ui" line="130"/>
+        <source>Speak questions automatically</source>
+        <translation>Fragen automatisch vorlesen</translation>
+    </message>
+    <message>
+        <location filename="preferencesdialog.ui" line="137"/>
+        <source>Hide visual question display (audio only)</source>
+        <translation>Visuelle Anzeige ausblenden (nur Audio)</translation>
+    </message>
+    <message>
+        <location filename="preferencesdialog.ui" line="140"/>
+        <source>Hides the question on screen so you must rely on memory after hearing it spoken.</source>
+        <translation>Blendet die Frage aus — Sie müssen sich nach dem Hören daran erinnern.</translation>
+    </message>
+    <message>
+        <location filename="preferencesdialog.ui" line="149"/>
+        <source>Speech rate</source>
+        <translation>Sprechgeschwindigkeit</translation>
+    </message>
+    <message>
+        <location filename="preferencesdialog.ui" line="178"/>
+        <source>Test</source>
+        <translation>Test</translation>
+    </message>
+    <message>
+        <location filename="preferencesdialog.cpp" line="69"/>
+        <source>What is 7 times 8?</source>
+        <translation>Was ist 7 mal 8?</translation>
     </message>
 </context>
 <context>

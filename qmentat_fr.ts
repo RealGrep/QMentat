@@ -410,7 +410,7 @@ p, li { white-space: pre-wrap; }
         <translation>Principal</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="50"/>
+        <location filename="mainwindow.ui" line="87"/>
         <source>Enter your answer here.</source>
         <translation>Entrez votre réponse ici.</translation>
     </message>
@@ -433,7 +433,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Sans&apos;; font-size:10pt;&quot;&gt;Bienvenu!&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="108"/>
+        <location filename="mainwindow.ui" line="145"/>
         <source>Settings</source>
         <translation>Paramètres</translation>
     </message>
@@ -459,7 +459,27 @@ p, li { white-space: pre-wrap; }
         <translation>QMentat</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="90"/>
+        <location filename="mainwindow.ui" line="45"/>
+        <source>Speak the question aloud</source>
+        <translation>Lire la question à voix haute</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="48"/>
+        <source>🔊</source>
+        <translation>🔊</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="68"/>
+        <source>Auto-speak</source>
+        <translation>Lecture automatique</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="71"/>
+        <source>Speak each new question automatically</source>
+        <translation>Lire chaque nouvelle question automatiquement</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="127"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -484,148 +504,162 @@ li.checked::marker { content: &quot;±2&quot;; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Sans&apos;; font-size:10pt;&quot;&gt;Bienvenue !&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="129"/>
+        <location filename="mainwindow.ui" line="166"/>
         <source>&amp;File</source>
         <translation>&amp;Fichier</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="137"/>
+        <location filename="mainwindow.ui" line="174"/>
         <source>&amp;Practice</source>
         <translation>&amp;Pratique</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="151"/>
+        <location filename="mainwindow.ui" line="188"/>
         <source>&amp;Help</source>
         <translation>&amp;Aide</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="160"/>
+        <location filename="mainwindow.ui" line="197"/>
         <source>&amp;Edit</source>
         <translation>&amp;Édition</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="194"/>
+        <location filename="mainwindow.ui" line="231"/>
         <source>E&amp;xit</source>
         <translation>Q&amp;uitter</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="205"/>
+        <location filename="mainwindow.ui" line="242"/>
         <source>Addition</source>
         <translation>Addition</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="208"/>
+        <location filename="mainwindow.ui" line="245"/>
         <source>+</source>
         <translation>+</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="219"/>
+        <location filename="mainwindow.ui" line="256"/>
         <source>Subtraction</source>
         <translation>Subtraction</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="222"/>
+        <location filename="mainwindow.ui" line="259"/>
         <source>-</source>
         <translation>-</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="233"/>
-        <location filename="mainwindow.ui" line="239"/>
+        <location filename="mainwindow.ui" line="270"/>
+        <location filename="mainwindow.ui" line="276"/>
         <source>Multiplication</source>
         <translation>Multiplication</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="236"/>
+        <location filename="mainwindow.ui" line="273"/>
         <source>×</source>
         <translation>×</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="250"/>
+        <location filename="mainwindow.ui" line="287"/>
         <source>Division</source>
         <translation>Division</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="253"/>
+        <location filename="mainwindow.ui" line="290"/>
         <source>÷</source>
         <translation>÷</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="256"/>
+        <location filename="mainwindow.ui" line="293"/>
         <source>DIvision</source>
         <translation>Division</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="267"/>
-        <location filename="mainwindow.cpp" line="387"/>
+        <location filename="mainwindow.ui" line="304"/>
+        <location filename="mainwindow.cpp" line="440"/>
         <source>About QMentat</source>
         <oldsource>About QMentor</oldsource>
         <translation>Plus sur QMentat</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="272"/>
+        <location filename="mainwindow.ui" line="309"/>
         <source>Powers</source>
         <translation>Pouvoirs</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="275"/>
+        <location filename="mainwindow.ui" line="312"/>
         <source>xⁿ</source>
         <translation>xⁿ</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="286"/>
+        <location filename="mainwindow.ui" line="323"/>
         <source>Roots</source>
         <translation>Raçines</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="289"/>
+        <location filename="mainwindow.ui" line="326"/>
         <source>ⁿ√x</source>
         <translation>ⁿ√x</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="300"/>
+        <location filename="mainwindow.ui" line="337"/>
         <source>&amp;Statistics</source>
         <translation>&amp;Statistiques</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="305"/>
+        <location filename="mainwindow.ui" line="342"/>
         <source>Contents</source>
         <translation>Contenu</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="310"/>
+        <location filename="mainwindow.ui" line="347"/>
         <source>&amp;Preferences</source>
         <translation>&amp;Préférences</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="315"/>
-        <location filename="mainwindow.cpp" line="429"/>
+        <location filename="mainwindow.ui" line="352"/>
+        <location filename="mainwindow.cpp" line="488"/>
         <source>About Qt</source>
         <translation>À propos de Qt</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="292"/>
+        <location filename="mainwindow.cpp" line="335"/>
         <source>Correct!</source>
         <translation>Correcte!</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="295"/>
+        <location filename="mainwindow.cpp" line="336"/>
+        <source>Correct</source>
+        <translation>Correct</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="339"/>
         <source>Wrong! %1</source>
         <translation>Incorrecte! %1</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="299"/>
+        <location filename="mainwindow.cpp" line="343"/>
+        <source>Wrong. The answer is %1</source>
+        <translation>Faux. La réponse est %1</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="347"/>
         <source>Total: %1  Correct/Wrong: %2/%3  %4%5 success rate</source>
         <translation>Total : %1  Correct/Faux : %2/%3  %4%5 taux de réussite</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="387"/>
+        <location filename="mainwindow.cpp" line="441"/>
+        <source>QMentat version %1&lt;br&gt;&lt;br&gt;Written by Mike Dusseault&lt;br&gt;Copyright (c) 2026 Mike Dusseault.&lt;br&gt;&lt;br&gt;QMentat is released under the GPL version 3.&lt;br&gt;&lt;br&gt;Official sources and releases on the &lt;a href=&quot;https://github.com/RealGrep/QMentat&quot;&gt;QMentat GitHub&lt;/a&gt;</source>
+        <translation>QMentat version %1&lt;br&gt;&lt;br&gt;Écrit par Mike Dusseault&lt;br&gt;Copyright (c) 2026 Mike Dusseault.&lt;br&gt;&lt;br&gt;QMentat est distribué sous la GPL version 3.&lt;br&gt;&lt;br&gt;Sources et versions officielles sur le &lt;a href=&quot;https://github.com/RealGrep/QMentat&quot;&gt;GitHub QMentat&lt;/a&gt;</translation>
+    </message>
+    <message>
         <source>QMentat version %1
 
 Written by Mike Dusseault
 Copyright (c) 2026 Mike Dusseault.
 
 QMentat is released under the GPL version 3.</source>
-        <translation>QMentat version %1
+        <translation type="vanished">QMentat version %1
 
 Écrit par Mike Dusseault
 Copyright (c) 2026 Mike Dusseault.
@@ -1052,6 +1086,41 @@ p, li { white-space: pre-wrap; }
         <location filename="preferencesdialog.ui" line="87"/>
         <source>Answer</source>
         <translation>Réponse</translation>
+    </message>
+    <message>
+        <location filename="preferencesdialog.ui" line="124"/>
+        <source>Voice</source>
+        <translation>Voix</translation>
+    </message>
+    <message>
+        <location filename="preferencesdialog.ui" line="130"/>
+        <source>Speak questions automatically</source>
+        <translation>Lire les questions automatiquement</translation>
+    </message>
+    <message>
+        <location filename="preferencesdialog.ui" line="137"/>
+        <source>Hide visual question display (audio only)</source>
+        <translation>Masquer l&apos;affichage visuel (audio seulement)</translation>
+    </message>
+    <message>
+        <location filename="preferencesdialog.ui" line="140"/>
+        <source>Hides the question on screen so you must rely on memory after hearing it spoken.</source>
+        <translation>Masque la question à l&apos;écran — vous devez vous souvenir de ce que vous avez entendu.</translation>
+    </message>
+    <message>
+        <location filename="preferencesdialog.ui" line="149"/>
+        <source>Speech rate</source>
+        <translation>Vitesse de lecture</translation>
+    </message>
+    <message>
+        <location filename="preferencesdialog.ui" line="178"/>
+        <source>Test</source>
+        <translation>Tester</translation>
+    </message>
+    <message>
+        <location filename="preferencesdialog.cpp" line="69"/>
+        <source>What is 7 times 8?</source>
+        <translation>Combien font 7 fois 8 ?</translation>
     </message>
 </context>
 <context>
