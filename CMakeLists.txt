@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(QMentat VERSION 1.0.2 LANGUAGES CXX)
+project(QMentat VERSION 1.1.0 LANGUAGES CXX)
 # Do not move the above lines from the top, or put things in front.
 # CPack pulls versioning from there.
 
